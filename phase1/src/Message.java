@@ -3,6 +3,12 @@ public class Message { // storing all messages
     public String from;
     public String to;
 
+    /**
+     * Constructs a new Message object
+     * @param content: content of the message (String)
+     * @param from: name of the sender of the message (String)
+     * @param to: name of the receiver of the message (String)
+     */
     public Message(String content, String from, String to){
         this.content = content;
         this.from = from;

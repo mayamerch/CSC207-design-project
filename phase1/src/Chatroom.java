@@ -3,7 +3,8 @@ public class Chatroom implements Conversation {
     // Organizers should be able to send a message to one specific speaker or one specific Attendee
     // Attendees should be able to message other Attendees or Speakers.
 
-    public Chatroom(){
-        
+    public void sendMessage(Message m){
+
     }
+
 }
