@@ -1,3 +1,5 @@
+package MessagePackage;
+
 import java.util.ArrayList;
 
 public class Broadcast implements Conversation {
@@ -7,7 +9,6 @@ public class Broadcast implements Conversation {
     public ArrayList<String> receipients; // all users receiving the broadcast
 
     public Broadcast(Message m){
-        m.setTo(receipients);
     }
 
     public void sendMessage(Message m){
