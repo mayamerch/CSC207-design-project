@@ -13,11 +13,11 @@ public class Event{
 
     /**
      * Constructs a new EventPackage.Event object
-     * @param eventDate: A Date object
-     * @param eventLocation: Number of Room the event is in.
-     * @param eventName: Name of event, is a String
-     * @param eventSpeaker: The ID of a speaker at an event
-     * @param eventAttendees: A list of IDs of Attendees of the event
+     * @param eventDate A Date object
+     * @param eventLocation Number of Room the event is in.
+     * @param eventName Name of event, is a String
+     * @param eventSpeaker The ID of a speaker at an event
+     * @param eventAttendees A list of IDs of Attendees of the event
      */
     public Event(String eventName, Integer eventSpeaker, Date eventDate, Integer eventLocation,
                  List<Integer> eventAttendees, Integer eventId) {
@@ -86,7 +86,7 @@ public class Event{
 
     /**
      * Set the date the event is going to occur at
-     * @param eventDate: The new date the event is occurring at
+     * @param eventDate The new date the event is occurring at
      */
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
@@ -94,7 +94,7 @@ public class Event{
 
     /**
      * Set the room number where the event is happening
-     * @param eventLocation: The room number
+     * @param eventLocation The room number
      */
     public void setEventLocation(Integer eventLocation) {
         this.eventLocation = eventLocation;
@@ -103,7 +103,7 @@ public class Event{
 
     /**
      * Set the ID of the new speaker for the event
-     * @param eventSpeaker: The ID of the speaker for this event
+     * @param eventSpeaker The ID of the speaker for this event
      */
     public void setEventSpeaker(Integer eventSpeaker) {
         this.eventSpeaker = eventSpeaker;
@@ -111,12 +111,23 @@ public class Event{
 
 
     /**
-     * Adds an Attendee to an event by adding its ID to the list Attendees attending the event
-     * @param AttendeeID: List of IDs of Attendees we need to add.
+     * Adds an Attendee to an event if he isn't already attending
+     * @param AttendeeID ID of Attendee we need to add.
      */
-    public void AddAttendee(Integer AttendeeID) {
-        eventAttendees.add(AttendeeID);
+    public void addAttendee(Integer AttendeeID) {
+        if (eventAttendees.contains(AttendeeID))
+            eventAttendees.add(AttendeeID);
     }
 
+    /**
+     * Remove an Attendee with ID AttendeeID from list of Attendees attending the event if hes attending.
+     * @param AttendeeID The ID of the Attendee we need to remove
+     */
+    public void removeAttendee(Integer AttendeeID) {
+        int index = eventAttendees.indexOf(AttendeeID);
+        if (index != -1) {
+            eventAttendees.remove(index);
+        }
+    }
 
 }
