@@ -2,6 +2,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Event{
+    private static int idCounter;
     private int eventId;
     private Integer[] eventAttendees;
     private String eventName;
@@ -24,7 +25,8 @@ public class Event{
         this.eventDate = eventDate;
         this.eventLocation = eventLocation;
         this.eventAttendees = eventAttendees;
-        this.generateID();
+        this.eventId = idCounter;
+        idCounter += 1;
     }
 
     /**
