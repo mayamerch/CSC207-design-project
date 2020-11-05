@@ -1,18 +1,20 @@
+import java.util.ArrayList;
+
 public class Message { // storing all messages
     public String content;
     public String from;
-    public String to;
+    public ArrayList<String> recipients; // for a single message, length 1
 
     /**
      * Constructs a new Message object
      * @param content: content of the message (String)
      * @param from: name of the sender of the message (String)
-     * @param to: name of the receiver of the message (String)
+     * @param recipients: name of the receiver of the message (ArrayList)
      */
-    public Message(String content, String from, String to){
+    public Message(String content, String from, ArrayList<String> recipients){
         this.content = content;
         this.from = from;
-        this.to = to;
+        this.recipients = recipients;
     }
 
     public void setContent(String c){
@@ -21,8 +23,8 @@ public class Message { // storing all messages
     public void setFrom(String f){
         this.from = f;
     }
-    public void setTo(String t){
-        this.to = t;
+    public void setTo(ArrayList<String> r){
+        this.recipients = r;
     }
 
     public String getContent(){
@@ -31,8 +33,8 @@ public class Message { // storing all messages
     public String getFrom() {
         return from;
     }
-    public String getTo() {
-        return to;
+    public ArrayList<String> getTo() {
+        return recipients;
     }
 
 }

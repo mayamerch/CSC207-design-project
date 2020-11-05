@@ -6,10 +6,11 @@ public class Broadcast implements Conversation {
 
     public ArrayList<String> receipients; // all users receiving the broadcast
 
-    public void sendMessage(Message m){
-        for(String user: receipients){
-            m.setTo(user);
-        }
+    public Broadcast(Message m){
+        m.setTo(receipients);
     }
+
+    public void sendMessage(Message m){
+        }
 
 }
