@@ -4,8 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Event{
-    private static int idCounter;
-    private int eventId;
+    private Integer eventId;
     private String eventName;
     private Date eventDate;
     private Integer eventLocation;
@@ -21,14 +20,13 @@ public class Event{
      * @param eventAttendees: A list of IDs of Attendees of the event
      */
     public Event(String eventName, Integer eventSpeaker, Date eventDate, Integer eventLocation,
-                 List<Integer> eventAttendees) {
+                 List<Integer> eventAttendees, Integer eventId) {
         this.eventName = eventName;
         this.eventSpeaker = eventSpeaker;
         this.eventDate = eventDate;
         this.eventLocation = eventLocation;
         this.eventAttendees = eventAttendees;
-        this.eventId = idCounter;
-        idCounter += 1;
+        this.eventId = eventId;
     }
 
 
@@ -36,7 +34,7 @@ public class Event{
      * Returns the ID of the current event
      * @return      The ID of this Event
      */
-    public int getEventId() {
+    public Integer getEventId() {
         return eventId;
     }
 
@@ -83,6 +81,32 @@ public class Event{
      */
     public Integer getEventSpeaker() {
         return eventSpeaker;
+    }
+
+
+    /**
+     * Set the date the event is going to occur at
+     * @param eventDate: The new date the event is occurring at
+     */
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    /**
+     * Set the room number where the event is happening
+     * @param eventLocation: The room number
+     */
+    public void setEventLocation(Integer eventLocation) {
+        this.eventLocation = eventLocation;
+    }
+
+
+    /**
+     * Set the ID of the new speaker for the event
+     * @param eventSpeaker: The ID of the speaker for this event
+     */
+    public void setEventSpeaker(Integer eventSpeaker) {
+        this.eventSpeaker = eventSpeaker;
     }
 
 
