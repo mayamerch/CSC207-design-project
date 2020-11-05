@@ -1,9 +1,11 @@
 import java.util.Date;
+import java.util.List;
+
 public class Event{
     private int eventId;
-    private String[] eventAttendees;
+    private Integer[] eventAttendees;
     private String eventName;
-    private String eventSpeaker;
+    private Integer eventSpeaker;
     private Date eventDate;
     private String eventLocation;
 
@@ -12,13 +14,16 @@ public class Event{
      * @param eventDate: A Date object
      * @param eventLocation: Name of a location, is a String
      * @param eventName: Name of event, is a String
-     * @param eventSpeaker: a List of Speakers
+     * @param eventSpeaker: The ID of a speaker at an event
+     * @param eventAttendees: A list of IDs of Attendees of the event
      */
-    public Event(String eventName, String eventSpeaker, Date eventDate, String eventLocation) {
+    public Event(String eventName, Integer eventSpeaker, Date eventDate, String eventLocation,
+                 Integer[] eventAttendees) {
         this.eventName = eventName;
         this.eventSpeaker = eventSpeaker;
         this.eventDate = eventDate;
         this.eventLocation = eventLocation;
+        this.eventAttendees = eventAttendees;
         this.generateID();
     }
 
