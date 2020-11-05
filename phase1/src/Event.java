@@ -29,12 +29,5 @@ public class Event{
         idCounter += 1;
     }
 
-    /**
-     * Generates an ID for event.
-     * TODO: 11/4/2020: Decide ID generation
-     */
-    public void generateID() {
-
-    }
 
 }
