@@ -1,3 +1,5 @@
+package EventPackage;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class Event{
     private String eventLocation;
 
     /**
-     * Constructs a new Event object
+     * Constructs a new EventPackage.Event object
      * @param eventDate: A Date object
      * @param eventLocation: Name of a location, is a String
      * @param eventName: Name of event, is a String
