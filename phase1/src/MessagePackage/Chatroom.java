@@ -1,3 +1,5 @@
+package MessagePackage;
+
 public class Chatroom implements Conversation {
     // Speakers should be able to respond to a specific Attendee.
     // Organizers should be able to send a message to one specific speaker or one specific Attendee
