@@ -4,7 +4,7 @@ import java.util.List;
 public class Event{
     private static int idCounter;
     private int eventId;
-    private Integer[] eventAttendees;
+    private List<Integer> eventAttendees;
     private String eventName;
     private Integer eventSpeaker;
     private Date eventDate;
@@ -19,7 +19,7 @@ public class Event{
      * @param eventAttendees: A list of IDs of Attendees of the event
      */
     public Event(String eventName, Integer eventSpeaker, Date eventDate, String eventLocation,
-                 Integer[] eventAttendees) {
+                 List<Integer> eventAttendees) {
         this.eventName = eventName;
         this.eventSpeaker = eventSpeaker;
         this.eventDate = eventDate;
@@ -29,5 +29,14 @@ public class Event{
         idCounter += 1;
     }
 
+
+    /**
+     * Takes in a List of IDs of Attendees that are going to attend the event and adds them to the
+     * List of IDs of Attendees already attending the event.
+     * @param AttendeeList: List of IDs of Attendees we need to add.
+     */
+    public void AddAttendees(List<Integer> AttendeeList) {
+        eventAttendees.addAll(AttendeeList);
+    }
 
 }
