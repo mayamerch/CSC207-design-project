@@ -1,8 +1,9 @@
 import java.util.Date;
 public class Event{
     private int eventId;
+    private String[] eventAttendees;
     private String eventName;
-    private Speaker[] eventSpeaker;
+    private String eventSpeaker;
     private Date eventDate;
     private String eventLocation;
 
@@ -13,7 +14,7 @@ public class Event{
      * @param eventName: Name of event, is a String
      * @param eventSpeaker: a List of Speakers
      */
-    public Event(String eventName, Speaker[] eventSpeaker, Date eventDate, String eventLocation) {
+    public Event(String eventName, String eventSpeaker, Date eventDate, String eventLocation) {
         this.eventName = eventName;
         this.eventSpeaker = eventSpeaker;
         this.eventDate = eventDate;
