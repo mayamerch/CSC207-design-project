@@ -115,7 +115,7 @@ public class Event{
      * @param AttendeeID ID of Attendee we need to add.
      */
     public void addAttendee(Integer AttendeeID) {
-        if (eventAttendees.contains(AttendeeID))
+        if (!eventAttendees.contains(AttendeeID))
             eventAttendees.add(AttendeeID);
     }
 
@@ -129,5 +129,4 @@ public class Event{
             eventAttendees.remove(index);
         }
     }
-
 }
