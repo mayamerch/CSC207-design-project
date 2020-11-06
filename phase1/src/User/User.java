@@ -7,7 +7,6 @@ public abstract class User {
 
     /**
      * Constructs a new User object
-     * @param userID: A number unique to each user, is an integer
      * @param username: a name unique to this instance of user, is a String
      * @param password: a password used to log in, is a String
      */
@@ -17,22 +16,51 @@ public abstract class User {
     }
     // user_ID needs to be unique so it needs to be assigned to user by something above like a use case
     // which can access all the usernames. Since use cases can edit entity info they can assign
-    // attribute
+    // attributes to entities
+    /**
+     * Sets the username of this User.
+     * @param new_username: a new username String
+     * TODO: remove this method and place it in Controller/Usermanager if unique usernames
+     */
+    public void set_username(String new_username) {
+        this.username = new_username;}
+
+    /**
+     * Sets the password of this User.
+     * @param new_password: a new password String
+     */
+    public void set_password(String new_password) {
+        this.password = new_password;
+    }
     /**
      * Returns the username of this User.
      * @return username
      */
     public String get_username(){
-        return this.username;
+        return username;
     }
     /**
      * Returns the password of this User.
-     * @return username
+     * @return password
      */
     public String get_password() {
-        return this.password;
+        return password;
     }
 
+    /**
+     * Returns the userID of this User.
+     * @return userID, an integer
+     */
+    public int get_userID() {
+        return userID;
+    }
+    /**
+     * Sets the UserID of this User.
+     * @param new_userID: a new password String
+     */
+    public void set_userId(int new_userID) {
+        this.userID = new_userID;
+    }
 
 }
 
