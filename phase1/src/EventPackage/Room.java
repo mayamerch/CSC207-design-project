@@ -15,5 +15,28 @@ public class Room {
         this.roomCapacity = roomCapacity;
     }
 
+    /**
+     * Getter for roomNumber
+     * @return Returns the unique room number of this room
+     */
+    public int getRoomNumber() {
+        return roomNumber;
+    }
 
+    /**
+     * Getter for roomCapacity
+     * @return Returns the capacity of this room
+     */
+    public int getRoomCapacity() {
+        return roomCapacity;
+    }
+
+    /**
+     * Getter for event currently hosted in this room.
+     * If no event is currently hosted returns -1
+     * @return Returns ID of hosted event or -1
+     */
+    public int getCurrEvent() {
+        return currEvent;
+    }
 }
