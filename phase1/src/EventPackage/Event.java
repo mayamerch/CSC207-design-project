@@ -1,5 +1,6 @@
 package EventPackage;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -7,25 +8,25 @@ public class Event{
     private Integer eventId;
     private String eventName;
     private Date eventDate;
-    private Integer eventLocation;
+    private Integer eventRoom;
     private Integer eventSpeaker;
     private List<Integer> eventAttendees;
 
     /**
      * Constructs a new EventPackage.Event object
-     * @param eventDate A Date object
-     * @param eventLocation Number of Room the event is in.
      * @param eventName Name of event, is a String
+     * @param eventRoom Number of Room the event is in
+     * @param eventDate A Date object
      * @param eventSpeaker The ID of a speaker at an event
-     * @param eventAttendees A list of IDs of Attendees of the event
+     * @param eventId The unique ID of an event
      */
-    public Event(String eventName, Integer eventSpeaker, Date eventDate, Integer eventLocation,
-                 List<Integer> eventAttendees, Integer eventId) {
+    public Event(String eventName, Integer eventRoom, Date eventDate, Integer eventSpeaker,
+                 Integer eventId) {
         this.eventName = eventName;
         this.eventSpeaker = eventSpeaker;
         this.eventDate = eventDate;
-        this.eventLocation = eventLocation;
-        this.eventAttendees = eventAttendees;
+        this.eventRoom = eventRoom;
+        this.eventAttendees = Collections.emptyList();
         this.eventId = eventId;
     }
 
@@ -61,8 +62,8 @@ public class Event{
      * Returns the number of the room the current event is held
      * @return      The number of the room the event is held in
      */
-    public Integer getEventLocation() {
-        return eventLocation;
+    public Integer getEventRoom() {
+        return eventRoom;
     }
 
 
@@ -94,10 +95,10 @@ public class Event{
 
     /**
      * Set the room number where the event is happening
-     * @param eventLocation The room number
+     * @param eventRoom The room number
      */
-    public void setEventLocation(Integer eventLocation) {
-        this.eventLocation = eventLocation;
+    public void setEventRoom(Integer eventRoom) {
+        this.eventRoom = eventRoom;
     }
 
 
