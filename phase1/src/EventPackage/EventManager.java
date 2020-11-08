@@ -9,7 +9,6 @@ public class EventManager {
 
     private List<Event> eventList;
     private Integer eventCounter;
-    private Integer userID;
 
     private static Integer eventIdGenerator = 0;
 
@@ -20,7 +19,6 @@ public class EventManager {
     public EventManager(List<Event> eventList, Integer UID) {
         this.eventList = eventList;
         this.eventCounter = eventList.size();
-        this.userID = UID;
     }
 
     /**
@@ -29,7 +27,6 @@ public class EventManager {
     public EventManager(Integer UID) {
         this.eventList = Collections.emptyList();
         this.eventCounter = 0;
-        this.userID = UID;
     }
 
     /**
@@ -86,11 +83,12 @@ public class EventManager {
     /**
      * Enrolls current user to event with eventID and returns an integer
      * @param eventID: ID of an event
+     * @param userID ID of a user
      * @return 1, if enrollement was successful <p></p>
      *         0, if UID is already enrolled or event is full <p></p>
      *         -1, if event does not exist <p></p>
      */
-    public int enroll(int eventID) {
+    public int enroll(int eventID, int userID) {
         for (Event event: this.eventList) {
             if (event.getEventId() == eventID) {
                 if(!event.enrolled(userID)) {
@@ -108,11 +106,12 @@ public class EventManager {
     /**
      * Removes registration of current user to event with eventID and returns an integer
      * @param eventID: ID of an event
+     * @param userID ID of a user
      * @return 1, if unenrollement was successful <p></p>
      *         0, if UID is not enrolled <p></p>
      *         -1, if event does not exist <p></p>
      */
-    public int unenroll(int eventID) {
+    public int unenroll(int eventID, int userID) {
         for (Event event: this.eventList) {
             if (event.getEventId() == eventID) {
                 if(event.enrolled(userID)) {
@@ -129,9 +128,10 @@ public class EventManager {
 
     /**
      * Returns a list of events that the user can sign up for
+     * @param userID ID of a user
      * @return Returns ArrayList of Events user can sign up for.
      */
-    public List<Event> availEvents() {
+    public List<Event> availEvents(int userID) {
         ArrayList<Event> availEventList = new ArrayList<Event>();
         for (Event event: this.eventList) {
             if (!event.enrolled(userID)){
@@ -143,9 +143,10 @@ public class EventManager {
 
     /**
      * Returns list of events that user has signed up for
+     * @param userID ID of a user
      * @return Returns ArrayList of Events that user has signed up for.
      */
-    public List<Event> myEvents() {
+    public List<Event> myEvents(int userID) {
         ArrayList<Event> enrolledEvents = new ArrayList<Event>();
         for (Event event: this.eventList) {
             if (event.enrolled(userID)){
