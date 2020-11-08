@@ -38,7 +38,7 @@ public class EventManager {
      * @param eventSpeaker The Speaker at this event
      * @return             -1 if event wasn't created and the ID of the event if it was created
      */
-    public int createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
+    public Event createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
                                int eventDuration) {
         for (Event event: eventList) {
             if ((event.getEventRoom() == (eventRoom)) || (event.getEventSpeaker() == eventSpeaker))
@@ -49,7 +49,7 @@ public class EventManager {
         Event newEvent = new Event(nextID, eventName, eventSpeaker, eventDate, eventRoom, eventDuration);
         eventList.add(newEvent);
         nextID += 1;
-        return nextID - 1;
+        return newEvent;
     }
 
 
