@@ -38,7 +38,7 @@ public class EventManager {
      * @param eventSpeaker The Speaker at this event
      * @return             -1 if event wasn't created and the ID of the event if it was created
      */
-    public Event createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
+    public int createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
                                int eventDuration) {
         for (Event event: eventList) {
             if ((event.getEventRoom() == (eventRoom)) || (event.getEventSpeaker() == eventSpeaker))
@@ -49,7 +49,7 @@ public class EventManager {
         Event newEvent = new Event(nextID, eventName, eventSpeaker, eventDate, eventRoom, eventDuration);
         eventList.add(newEvent);
         nextID += 1;
-        return newEvent;
+        return nextID - 1;
     }
 
 
@@ -162,6 +162,21 @@ public class EventManager {
         }
         return enrolledEvents;
     }
+
+
+    /**
+     * Returns an event corresponding to a specific eventID
+     * @param eventID The ID of an event to be returned
+     * @return        The event corresponding to the eventID. Throws an exception if the event doesn't exist.
+     */
+    public Event getEvent(int eventID){
+        for (Event event: eventList) {
+            if (event.getEventId() == eventID)
+                return event;
+        }
+        throw new ArrayIndexOutOfBoundsException("This Event doesn't exist yet.");
+    }
+
 
 
     /**
