@@ -11,6 +11,8 @@ public class EventManager {
     private Integer eventCounter;
     private Integer userID;
 
+    private static Integer eventIdGenerator = 0;
+
     /**
      * Creates an instance eventManager that contains all the events in eventList
      * @param eventList The list of events this instance of eventManager should store
@@ -46,7 +48,7 @@ public class EventManager {
                     return false;
             }
         }
-        Event newEvent = new Event(eventName, eventRoom, eventDate, eventSpeaker, eventCounter + 1);
+        Event newEvent = new Event(EventManager.eventIdGenerator++, eventName, eventSpeaker, eventDate, eventCounter+1);
         eventList.add(newEvent);
         eventCounter += 1;
         return true;
@@ -88,7 +90,7 @@ public class EventManager {
      *         0, if UID is already enrolled or event is full <p></p>
      *         -1, if event does not exist <p></p>
      */
-    public int enroll(int eventID) {
+    /*public int enroll(int eventID) {
         for (Event event: this.eventList) {
             if (event.getEventId() == eventID) {
                 if(!event.enrolled(userID)) {
@@ -101,7 +103,7 @@ public class EventManager {
             }
         }
         return -1;
-    }
+    }*/
 
     /**
      * Removes registration of current user to event with eventID and returns an integer
@@ -110,7 +112,7 @@ public class EventManager {
      *         0, if UID is not enrolled <p></p>
      *         -1, if event does not exist <p></p>
      */
-    public int unenroll(int eventID) {
+    /*public int unenroll(int eventID) {
         for (Event event: this.eventList) {
             if (event.getEventId() == eventID) {
                 if(event.enrolled(userID)) {
@@ -123,13 +125,13 @@ public class EventManager {
             }
         }
         return -1;
-    }
+    }*/
 
     /**
      * Returns a list of events that the user can sign up for
      * @return Returns ArrayList of Events user can sign up for.
      */
-    public List<Event> availEvents() {
+    /*public List<Event> availEvents() {
         ArrayList<Event> availEventList = new ArrayList<Event>();
         for (Event event: this.eventList) {
             if (!event.enrolled(userID)){
@@ -137,13 +139,13 @@ public class EventManager {
             }
         }
         return availEventList;
-    }
+    }*/
 
     /**
      * Returns list of events that user has signed up for
      * @return Returns ArrayList of Events that user has signed up for.
      */
-    public List<Event> myEvents() {
+    /*public List<Event> myEvents() {
         ArrayList<Event> enrolledEvents = new ArrayList<Event>();
         for (Event event: this.eventList) {
             if (event.enrolled(userID)){
@@ -151,6 +153,6 @@ public class EventManager {
             }
         }
         return enrolledEvents;
-    }
+    }*/
 
 }
