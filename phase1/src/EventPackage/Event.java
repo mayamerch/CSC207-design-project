@@ -8,11 +8,12 @@ import java.util.Date;
 import java.util.List;
 
 public class Event{
-    private Integer eventId;
+    private int eventId;
     private String eventName;
     private Date eventDate;
-    private Integer eventRoom;
-    private Integer eventSpeaker;
+    private int eventRoom;
+    private int eventSpeaker;
+    private final int eventDuration = 1;
     private ArrayList<Integer> eventAttendees;
     private ArrayList<Conversation> conversations;
 
@@ -24,7 +25,7 @@ public class Event{
      * @param eventName Name of event, is a String
      * @param eventSpeaker The ID of a speaker at an event
      */
-    public Event(Integer eventId, String eventName, Integer eventSpeaker, Date eventDate, Integer eventRoom) {
+    public Event(int eventId, String eventName, int eventSpeaker, Date eventDate, int eventRoom, int eventDuration) {
             this.eventName = eventName;
             this.eventSpeaker = eventSpeaker;
             this.eventDate = eventDate;
@@ -39,7 +40,7 @@ public class Event{
          * Returns the ID of the current event
          * @return      The ID of this Event
          */
-        public Integer getEventId() {
+        public int getEventId() {
             return eventId;
         }
 
@@ -66,16 +67,23 @@ public class Event{
          * Returns the number of the room the current event is held
          * @return      The number of the room the event is held in
          */
-        public Integer getEventRoom() {
+        public int getEventRoom() {
             return eventRoom;
         }
+
+
+        /**
+         * Returns the duration of this event
+         * @return      The duration of this event
+         */
+        public int getEventDuration() {return eventDuration;}
 
 
         /**
          * Returns the List of the IDs of the Attendees attending the event
          * @return      List of IDs of Attendees attending
          */
-        public List<Integer> getEventAttendees() {
+        public ArrayList<Integer> getEventAttendees() {
             return eventAttendees;
         }
 
@@ -84,7 +92,7 @@ public class Event{
          * Returns the ID of the Speaker at this event
          * @return      The ID of the Speaker at this event
          */
-        public Integer getEventSpeaker() {
+        public int getEventSpeaker() {
             return eventSpeaker;
         }
 

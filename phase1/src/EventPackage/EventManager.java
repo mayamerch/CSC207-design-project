@@ -7,16 +7,15 @@ import java.util.List;
 
 public class EventManager {
 
-    private List<Event> eventList;
-    private Integer eventCounter;
+    private ArrayList<Event> eventList;
+    private int eventCounter;
 
-    private static Integer eventIdGenerator = 0;
 
     /**
      * Creates an instance eventManager that contains all the events in eventList
      * @param eventList The list of events this instance of eventManager should store
      */
-    public EventManager(List<Event> eventList, Integer UID) {
+    public EventManager(ArrayList<Event> eventList) {
         this.eventList = eventList;
         this.eventCounter = eventList.size();
     }
@@ -24,8 +23,8 @@ public class EventManager {
     /**
      * Creates an instance of eventManager with no events
      */
-    public EventManager(Integer UID) {
-        this.eventList = Collections.emptyList();
+    public EventManager() {
+        this.eventList = new ArrayList<>();
         this.eventCounter = 0;
     }
 
@@ -38,14 +37,15 @@ public class EventManager {
      * @param eventSpeaker The Speaker at this event
      * @return             true if event was created successfully false otherwise
      */
-    public boolean createEvent(String eventName, Integer eventRoom, Date eventDate, Integer eventSpeaker) {
+    public boolean createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
+                               int eventDuration) {
         for (Event event: eventList) {
-            if (event.getEventRoom().equals(eventRoom))
-                if (!dateCompare(eventDate, event.getEventDate())) {
+            if ((event.getEventRoom() == (eventRoom)) || (event.getEventSpeaker() == eventSpeaker))
+                if (!dateCompare(eventDate, event.getEventDate(), event.getEventDuration(), eventDuration)) {
                     return false;
             }
         }
-        Event newEvent = new Event(EventManager.eventIdGenerator++, eventName, eventSpeaker, eventDate, eventCounter+1);
+        Event newEvent = new Event(eventCounter, eventName, eventSpeaker, eventDate, eventRoom, eventDuration);
         eventList.add(newEvent);
         eventCounter += 1;
         return true;
@@ -57,13 +57,16 @@ public class EventManager {
      * @param date2 The other date to be compared
      * @return      true if they don't occur within 1 hour of each other, false otherwise
      */
-    private boolean dateCompare(Date date1, Date date2) {
+    private boolean dateCompare(Date date1, Date date2, int duration1, int duration2) {
         if (date1.getYear() != date2.getYear())
             return true;
         else if (date1.getMonth() != date2.getMonth())
             return true;
         else if (date1.getDate() != date2.getDate())
             return true;
+
+
+
 
         if (Math.abs(date1.getHours() - date2.getHours()) > 1)
             return true;
