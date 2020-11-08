@@ -29,7 +29,7 @@ public class Event{
             this.eventSpeaker = eventSpeaker;
             this.eventDate = eventDate;
             this.eventRoom = eventRoom;
-            this.eventAttendees = new ArrayList<Integer>();
+            this.eventAttendees = new ArrayList<>();
             this.eventId = eventId;
             this.conversations = new ArrayList<Conversation>();
         }
@@ -134,17 +134,18 @@ public class Event{
                 eventAttendees.remove(index);
             }
         }
-    /**
-     * Returns true if userID is enrolled in Event, otherwise false
-     * @param userID id of a user
-     * @return True if usuer is enrolled, false otherwise.
-     */
-    public boolean enrolled(int userID) {
-        return eventAttendees.contains(userID);
-    }
+        /**
+         * Returns true if userID is enrolled in Event, otherwise false
+         * @param userID id of a user
+         * @return True if usuer is enrolled, false otherwise.
+         */
+        public boolean enrolled(int userID) {
+            return eventAttendees.contains(userID);
+        }
 
+        //Are Conversation methods supposed to be here?
         public void startConversation(ArrayList<User> users){
-            Conversation conversation = new Conversation(users);
+                Conversation conversation = new Conversation(users);
         }
 
         public ArrayList<Conversation> getConversations(User user){
@@ -156,7 +157,4 @@ public class Event{
             }
             return myConversations;
         }
-
-
-
-    }
+}
