@@ -24,6 +24,8 @@ public class Event{
      * @param eventRoom Number of Room the event is in.
      * @param eventName Name of event, is a String
      * @param eventSpeaker The ID of a speaker at an event
+     * @param eventId The unique ID of an event
+     * @param eventDuration The duration in hours of the event
      */
     public Event(int eventId, String eventName, int eventSpeaker, Date eventDate, int eventRoom, int eventDuration) {
             this.eventName = eventName;

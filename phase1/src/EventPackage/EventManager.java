@@ -41,7 +41,7 @@ public class EventManager {
                                int eventDuration) {
         for (Event event: eventList) {
             if ((event.getEventRoom() == (eventRoom)) || (event.getEventSpeaker() == eventSpeaker))
-                if (!dateCompare(eventDate, event.getEventDate(), event.getEventDuration(), eventDuration)) {
+                if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
                     return false;
             }
         }
@@ -51,12 +51,8 @@ public class EventManager {
         return true;
     }
 
-    /**
-     * Helper Method that checks if two dates don't occur with 1 hour of each other
-     * @param date1 One of dates to be compared
-     * @param date2 The other date to be compared
-     * @return      true if they don't occur within 1 hour of each other, false otherwise
-     */
+
+
     private boolean dateCompare(Date date1, Date date2, int duration1, int duration2) {
         if (date1.getYear() != date2.getYear())
             return true;
@@ -66,18 +62,25 @@ public class EventManager {
             return true;
 
 
+        if (date1.getHours() > date2.getHours()) {
+            if (date2.getHours() + duration2 > date1.getHours())
+                return false;
 
-
-        if (Math.abs(date1.getHours() - date2.getHours()) > 1)
-            return true;
-
-        if (Math.abs(date1.getHours() - date2.getHours()) == 1) {
-            if (date1.getHours() > date2.getHours()) {
+            if (date2.getHours() + duration2 == date1.getHours())
                 return date1.getMinutes() >= date2.getMinutes();
-            }
-            else if (date1.getHours() < date2.getHours()) {
+
+            return true;
+        }
+
+
+        if (date1.getHours() < date2.getHours()) {
+            if (date1.getHours() + duration1 > date2.getHours())
+                return false;
+
+            if (date1.getHours() + duration1 == date2.getHours())
                 return date1.getMinutes() <= date2.getMinutes();
-            }
+
+            return true;
         }
 
         return false;
