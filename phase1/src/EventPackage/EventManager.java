@@ -1,5 +1,6 @@
 package EventPackage;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -8,26 +9,26 @@ public class EventManager {
 
     private List<Event> eventList;
     private Integer eventCounter;
-
+    private Integer userID;
 
     /**
      * Creates an instance eventManager that contains all the events in eventList
      * @param eventList The list of events this instance of eventManager should store
      */
-    public EventManager(List<Event> eventList) {
+    public EventManager(List<Event> eventList, Integer UID) {
         this.eventList = eventList;
         this.eventCounter = eventList.size();
+        this.userID = UID;
     }
-
 
     /**
      * Creates an instance of eventManager with no events
      */
-    public EventManager() {
+    public EventManager(Integer UID) {
         this.eventList = Collections.emptyList();
         this.eventCounter = 0;
+        this.userID = UID;
     }
-
 
     /**
      * Creates a new event and stores it in eventManager and increments eventCounter if the event is happening in an
@@ -50,7 +51,6 @@ public class EventManager {
         eventCounter += 1;
         return true;
     }
-
 
     /**
      * Helper Method that checks if two dates don't occur with 1 hour of each other
@@ -80,4 +80,77 @@ public class EventManager {
 
         return false;
     }
+
+    /**
+     * Enrolls current user to event with eventID and returns an integer
+     * @param eventID: ID of an event
+     * @return 1, if enrollement was successful <p></p>
+     *         0, if UID is already enrolled or event is full <p></p>
+     *         -1, if event does not exist <p></p>
+     */
+    public int enroll(int eventID) {
+        for (Event event: this.eventList) {
+            if (event.getEventId() == eventID) {
+                if(!event.enrolled(userID)) {
+                    event.addAttendee(userID);
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Removes registration of current user to event with eventID and returns an integer
+     * @param eventID: ID of an event
+     * @return 1, if unenrollement was successful <p></p>
+     *         0, if UID is not enrolled <p></p>
+     *         -1, if event does not exist <p></p>
+     */
+    public int unenroll(int eventID) {
+        for (Event event: this.eventList) {
+            if (event.getEventId() == eventID) {
+                if(event.enrolled(userID)) {
+                    event.removeAttendee(userID);
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Returns a list of events that the user can sign up for
+     * @return Returns ArrayList of Events user can sign up for.
+     */
+    public List<Event> availEvents() {
+        ArrayList<Event> availEventList = new ArrayList<Event>();
+        for (Event event: this.eventList) {
+            if (!event.enrolled(userID)){
+                availEventList.add(event);
+            }
+        }
+        return availEventList;
+    }
+
+    /**
+     * Returns list of events that user has signed up for
+     * @return Returns ArrayList of Events that user has signed up for.
+     */
+    public List<Event> myEvents() {
+        ArrayList<Event> enrolledEvents = new ArrayList<Event>();
+        for (Event event: this.eventList) {
+            if (event.enrolled(userID)){
+                enrolledEvents.add(event);
+            }
+        }
+        return enrolledEvents;
+    }
+
 }

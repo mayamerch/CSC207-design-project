@@ -116,7 +116,7 @@ public class Event{
      * @param AttendeeID ID of Attendee we need to add.
      */
     public void addAttendee(Integer AttendeeID) {
-        if (!eventAttendees.contains(AttendeeID))
+        if (!this.enrolled(AttendeeID))
             eventAttendees.add(AttendeeID);
     }
 
@@ -129,5 +129,14 @@ public class Event{
         if (index != -1) {
             eventAttendees.remove(index);
         }
+    }
+
+    /**
+     * Returns true if userID is enrolled in Event, otherwise false
+     * @param userID Unique ID of a User
+     * @return True if usuer is enrolled, false otherwise.
+     */
+    public boolean enrolled(int userID) {
+        return eventAttendees.contains(userID);
     }
 }
