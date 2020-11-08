@@ -166,7 +166,7 @@ public class EventManager {
 
     /**
      * Checks if an event is included in the list of events and removes it if it does. Returns true if it was removed
-     * and false if not ffound.
+     * and false if not found.
      * @param eventID The ID of the event to be deleted
      * @return        True if event was deleted, false if not found
      */
