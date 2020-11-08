@@ -137,7 +137,7 @@ public class EventManager {
      * @param userID ID of a user
      * @return Returns ArrayList of Events user can sign up for.
      */
-    public List<Event> availEvents(int userID) {
+    public ArrayList<Event> availEvents(int userID) {
         ArrayList<Event> availEventList = new ArrayList<Event>();
         for (Event event: this.eventList) {
             if (!event.enrolled(userID)){
@@ -152,7 +152,7 @@ public class EventManager {
      * @param userID ID of a user
      * @return Returns ArrayList of Events that user has signed up for.
      */
-    public List<Event> myEvents(int userID) {
+    public ArrayList<Event> myEvents(int userID) {
         ArrayList<Event> enrolledEvents = new ArrayList<Event>();
         for (Event event: this.eventList) {
             if (event.enrolled(userID)){
@@ -160,6 +160,23 @@ public class EventManager {
             }
         }
         return enrolledEvents;
+    }
+
+
+    /**
+     * Checks if an event is included in the list of events and removes it if it does. Returns true if it was removed
+     * and false if not ffound.
+     * @param eventID The ID of the event to be deleted
+     * @return        True if event was deleted, false if not found
+     */
+    public boolean cancelEvent(int eventID) {
+        for (int i = 0; i < eventList.size(); i++) {
+            if (eventList.get(i).getEventId() == eventID) {
+                eventList.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
 }
