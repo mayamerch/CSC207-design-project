@@ -8,16 +8,16 @@ import java.util.List;
 public class EventManager {
 
     private ArrayList<Event> eventList;
-    private int eventCounter;
+    private int nextID;
 
 
     /**
      * Creates an instance eventManager that contains all the events in eventList
      * @param eventList The list of events this instance of eventManager should store
      */
-    public EventManager(ArrayList<Event> eventList) {
+    public EventManager(ArrayList<Event> eventList, int nextID) {
         this.eventList = eventList;
-        this.eventCounter = eventList.size();
+        this.nextID = eventList.get(eventList.size() - 1).getEventId() + 1;
     }
 
     /**
@@ -25,30 +25,31 @@ public class EventManager {
      */
     public EventManager() {
         this.eventList = new ArrayList<>();
-        this.eventCounter = 0;
+        this.nextID = 1;
     }
 
     /**
      * Creates a new event and stores it in eventManager and increments eventCounter if the event is happening in an
-     * available room and at an available time.
+     * available room and at an available time. Returns -1 if it wasn't created and returns the ID of the event created
+     * if its successful
      * @param eventName Name of new event
      * @param eventRoom Number of room event is occurring at
      * @param eventDate The date and time the event is occurring at
      * @param eventSpeaker The Speaker at this event
-     * @return             true if event was created successfully false otherwise
+     * @return             -1 if event wasn't created and the ID of the event if it was created
      */
-    public boolean createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
+    public int createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
                                int eventDuration) {
         for (Event event: eventList) {
             if ((event.getEventRoom() == (eventRoom)) || (event.getEventSpeaker() == eventSpeaker))
                 if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
-                    return false;
+                    return -1;
             }
         }
-        Event newEvent = new Event(eventCounter, eventName, eventSpeaker, eventDate, eventRoom, eventDuration);
+        Event newEvent = new Event(nextID, eventName, eventSpeaker, eventDate, eventRoom, eventDuration);
         eventList.add(newEvent);
-        eventCounter += 1;
-        return true;
+        nextID += 1;
+        return nextID - 1;
     }
 
 
