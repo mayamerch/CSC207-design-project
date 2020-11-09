@@ -34,9 +34,5 @@ public class Boot {
         for(Message m : user1.getConversations().get(0).readMessages()){
             System.out.println("Sender: " + m.from + " Message: " + m.content);
         }
-
-
-
-
     }
 }
