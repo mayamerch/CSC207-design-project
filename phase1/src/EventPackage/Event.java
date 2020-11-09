@@ -126,7 +126,7 @@ public class Event{
     }
 
 
-    /*
+   /*
     to be used in phase 2
     public void setEventDuration(int eventDuration) {
         this.eventDuration = eventDuration;
