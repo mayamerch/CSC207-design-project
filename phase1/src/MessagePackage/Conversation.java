@@ -1,6 +1,6 @@
 package MessagePackage;
 
-import User.User;
+import UserPackage.User;
 
 import java.util.ArrayList;
 

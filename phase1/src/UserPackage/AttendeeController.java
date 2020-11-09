@@ -1,11 +1,9 @@
-package User;
+package UserPackage;
 
 import EventPackage.Event;
 import EventPackage.EventManager;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class AttendeeController extends EventSignUpSystem{
     private EventManager event_manager;
@@ -35,9 +33,8 @@ public class AttendeeController extends EventSignUpSystem{
     public boolean event_sign_up(){
      // needs to call on Attendance manager and user manager to find user then
      // put in the user through Attendance manager
-        Scanner event_scanner = new Scanner(System.in);
         System.out.println("Enter ID of Event");
-        int eventID = event_scanner.nextInt();
+        int eventID = scanner.nextInt();
         if (event_manager.enroll(eventID, this.using_userID) == 1){
             return true;
         }
@@ -55,9 +52,8 @@ public class AttendeeController extends EventSignUpSystem{
      */
 
     public boolean event_unenroll(){
-        Scanner event_scanner = new Scanner(System.in);
         System.out.println("Enter ID of Event");
-        int eventID = event_scanner.nextInt();
+        int eventID = scanner.nextInt();
         if (event_manager.unenroll(eventID, this.using_userID) == 1){
             return true;
         }

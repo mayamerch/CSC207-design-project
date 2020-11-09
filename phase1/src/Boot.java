@@ -2,10 +2,10 @@ import EventPackage.Event;
 import EventPackage.EventRegistry;
 import MessagePackage.Conversation;
 import MessagePackage.Message;
-import User.Attendee;
-import User.User;
-import User.Organiser;
-import User.Speaker;
+import UserPackage.Attendee;
+import UserPackage.User;
+import UserPackage.Organiser;
+import UserPackage.Speaker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
