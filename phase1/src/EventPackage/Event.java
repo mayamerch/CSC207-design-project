@@ -121,9 +121,17 @@ public class Event{
      * Set the ID of the new speaker for the event
      * @param eventSpeaker The ID of the speaker for this event
      */
-    public void setEventSpeaker(Integer eventSpeaker) {
+    public void setEventSpeaker(int eventSpeaker) {
         this.eventSpeaker = eventSpeaker;
     }
+
+
+    /*
+    to be used in phase 2
+    public void setEventDuration(int eventDuration) {
+        this.eventDuration = eventDuration;
+    }
+    */
 
 
     /**
@@ -154,6 +162,11 @@ public class Event{
         return eventAttendees.contains(userID);
     }
 
+
+    /**
+     * Prints Event in string format
+     * @return      event in string format
+     */
     @Override
     public String toString() {
         return (this.getEventId() + "," +
