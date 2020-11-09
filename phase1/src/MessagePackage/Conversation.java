@@ -16,12 +16,16 @@ public class Conversation {
         this.messageQueue = new MessageQueue();
     }
 
-    public Boolean sendMessage(Message message, User sender){
+    /*public Boolean sendMessage(Message message, User sender){
         if(this.myStatus == status.ACCEPTED){
             this.messageQueue.pushMessage(message);
             return true;
         }
         return false;
+    }*/
+
+    public void sendMessage(Message message, User sender){
+        this.messageQueue.pushMessage(message);
     }
 
     public void acceptConversation(){

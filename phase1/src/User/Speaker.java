@@ -1,6 +1,7 @@
 package User;
 
 import EventPackage.Event;
+import EventPackage.EventManager;
 import MessagePackage.Conversation;
 
 import java.lang.reflect.Array;
@@ -16,6 +17,7 @@ public class Speaker extends User{
      */
     ArrayList<Integer> talks_list;
     ArrayList<Conversation> conversations;
+    EventManager eventManager = new EventManager();
 
     public Speaker(String username, String password) {
         super(username, password);
@@ -56,26 +58,26 @@ public class Speaker extends User{
         receiver.conversations.add(c);
     }
 
-    //Need getEventById and getUserById for these to work
+    //TODO: Need getUserById for these to work
 
     public void startConversationInEvent(Integer eventId){
-        /*Event e = getEventById(eventId);
+        Event e = eventManager.getEvent(eventId);
         ArrayList<Integer> attendeeIdList = e.getEventAttendees();
         ArrayList<User> attendeeList = new ArrayList<User>();
         for(Integer id : attendeeIdList){
-            User receiver = getUserById(id);
-            attendeeList.add(receiver);
+            /*User receiver = getUserById(id);
+            attendeeList.add(receiver);*/
         }
         for(User attendee : attendeeList){
             startConversation(attendee);
-        }*/
+        }
 
     }
 
     public void startConversationInAll(){
-        /*ArrayList<Event> events = new ArrayList<Event>();
+        ArrayList<Event> events = new ArrayList<Event>();
         for(Integer i : this.talks_list){
             startConversationInEvent(i);
-        }*/
+        }
     }
 }

@@ -1,3 +1,4 @@
+/*
 package User;
 
 import EventPackage.Event;
@@ -50,9 +51,11 @@ public class AttendeeController extends EventSignUpSystem{
         }
      }
 
-    /**
+    */
+/**
      TODO: Duplicate code?
-     */
+     *//*
+
 
     public boolean event_unenroll(){
         Scanner event_scanner = new Scanner(System.in);
@@ -76,3 +79,4 @@ public class AttendeeController extends EventSignUpSystem{
 
 
 }
+*/
