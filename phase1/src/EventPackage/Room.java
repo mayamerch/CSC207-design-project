@@ -3,7 +3,6 @@ package EventPackage;
 public class Room {
     private int roomNumber;
     private int roomCapacity;
-    private int currEvent = -1;
 
     /**
      * Creates a new room with a number and a capacity
@@ -31,12 +30,4 @@ public class Room {
         return roomCapacity;
     }
 
-    /**
-     * Getter for event currently hosted in this room.
-     * If no event is currently hosted returns -1
-     * @return Returns ID of hosted event or -1
-     */
-    public int getCurrEvent() {
-        return currEvent;
-    }
 }

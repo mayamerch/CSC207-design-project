@@ -13,7 +13,8 @@ public class Event{
     private Date eventDate;
     private int eventRoom;
     private int eventSpeaker;
-    private final int eventDuration = 1;
+    private final int eventDuration = 1; // This is final for phase 1 but in phase two it will be changed to a variable.
+                                         //It is going to be included in some methods as preparation for phase 2
     private ArrayList<Integer> eventAttendees;
     private ArrayList<Conversation> conversations;
 

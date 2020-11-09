@@ -18,7 +18,6 @@ public class RoomManager {
         this.nextNumber = roomList.get(roomList.size() - 1).getRoomNumber() + 1;
     }
 
-
     /**
      * Creates an instance of RoomManager with no rooms
      */
