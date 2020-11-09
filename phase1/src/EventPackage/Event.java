@@ -1,7 +1,6 @@
 package EventPackage;
 
 import MessagePackage.Conversation;
-import User.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,10 +12,9 @@ public class Event{
     private Date eventDate;
     private int eventRoom;
     private int eventSpeaker;
-    private final int eventDuration = 1; // This is final for phase 1 but in phase two it will be changed to a variable.
+    private final int eventDuration = 1; // This is final for phase 1 but in phase two it will be changed to variable.
                                          //It is going to be included in some methods as preparation for phase 2
     private ArrayList<Integer> eventAttendees;
-    private ArrayList<Conversation> conversations;
 
 
     /**
@@ -28,14 +26,14 @@ public class Event{
      * @param eventId The unique ID of an event
      * @param eventDuration The duration in hours of the event
      */
-    public Event(int eventId, String eventName, int eventSpeaker, Date eventDate, int eventRoom, int eventDuration) {
+    public Event(int eventId, String eventName, int eventSpeaker, Date eventDate, int eventRoom, int eventDuration) // event duration is for phase 2
+        {
             this.eventName = eventName;
             this.eventSpeaker = eventSpeaker;
             this.eventDate = eventDate;
             this.eventRoom = eventRoom;
             this.eventAttendees = new ArrayList<>();
             this.eventId = eventId;
-            this.conversations = new ArrayList<Conversation>();
         }
 
     /**
@@ -120,9 +118,17 @@ public class Event{
      * Set the ID of the new speaker for the event
      * @param eventSpeaker The ID of the speaker for this event
      */
-    public void setEventSpeaker(Integer eventSpeaker) {
+    public void setEventSpeaker(int eventSpeaker) {
         this.eventSpeaker = eventSpeaker;
     }
+
+
+   /*
+    to be used in phase 2
+    public void setEventDuration(int eventDuration) {
+        this.eventDuration = eventDuration;
+    }
+    */
 
 
     /**
@@ -153,6 +159,11 @@ public class Event{
         return eventAttendees.contains(userID);
     }
 
+
+    /**
+     * Prints Event in string format
+     * @return      event in string format
+     */
     @Override
     public String toString() {
         return (this.getEventId() + "," +
@@ -160,21 +171,8 @@ public class Event{
                 this.getEventSpeaker() + "," +
                 this.getEventDate()+ "," +
                 this.getEventRoom() + "," +
-                this.getEventDuration());
+                this.getEventDuration()) + "," +
+                this.getEventAttendees();
     }
 
-    //Are Conversation methods supposed to be here?
-    public void startConversation(ArrayList<User> users){
-        Conversation conversation = new Conversation(users);
-    }
-
-    public ArrayList<Conversation> getConversations(User user){
-        ArrayList<Conversation> myConversations = new ArrayList<Conversation>();
-        for(Conversation conversation : this.conversations){
-            if(conversation.isUserParticipating(user)){
-                myConversations.add(conversation);
-            }
-        }
-        return myConversations;
-    }
 }

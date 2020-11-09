@@ -6,8 +6,12 @@ public class MessageQueue {
 
     ArrayList<Message> messageQueue;
 
+    public MessageQueue(){
+        this.messageQueue = new ArrayList<Message>();
+    }
+
     public void pushMessage(Message message){
-        messageQueue.add(message);
+        this.messageQueue.add(message);
     }
 
     public ArrayList<Message> getMessages(){

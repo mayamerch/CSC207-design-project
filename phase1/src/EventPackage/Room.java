@@ -2,16 +2,17 @@ package EventPackage;
 
 public class Room {
     private int roomNumber;
-    private int roomCapacity;
+    private final int roomCapacity = 2; // This is final for phase 1 but in phase two it will be changed to variable.
+                                        //It is going to be included in some methods as preparation for phase 2
 
     /**
      * Creates a new room with a number and a capacity
      * @param roomNumber: A unique number representing a room
      * @param roomCapacity: The capacity of said room
      */
-    public Room(int roomNumber, int roomCapacity) {
+    public Room(int roomNumber, int roomCapacity) //This variable is here for phase 2
+    {
         this.roomNumber = roomNumber;
-        this.roomCapacity = roomCapacity;
     }
 
     /**

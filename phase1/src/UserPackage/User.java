@@ -1,9 +1,14 @@
 package UserPackage;
 
+import MessagePackage.Conversation;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public abstract class User {
     private int userID;
     private String username;
     private String password;
+    public ArrayList<Conversation> conversations;
 
     /**
      * Constructs a new User object
@@ -13,6 +18,7 @@ public abstract class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.conversations = new ArrayList<Conversation>();
     }
     // user_ID needs to be unique so it needs to be assigned to user by something above like a use case
     // which can access all the usernames. Since use cases can edit entity info they can assign
