@@ -43,7 +43,7 @@ public class EventManager {
      * @return             -1 if event wasn't created and the ID of the event if it was created
      */
     public int createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
-                               int eventDuration) {
+                           int eventDuration) {
         if (eventCompare(eventRoom, eventDate, eventSpeaker, eventDuration))
             return -1;
         Event newEvent = new Event(nextID, eventName, eventSpeaker, eventDate, eventRoom, eventDuration);
