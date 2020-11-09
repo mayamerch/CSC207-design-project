@@ -13,7 +13,7 @@ public class Event{
     private Date eventDate;
     private int eventRoom;
     private int eventSpeaker;
-    private final int eventDuration = 1; // This is final for phase 1 but in phase two it will be changed to a variable.
+    private final int eventDuration = 1; // This is final for phase 1 but in phase two it will be changed to variable.
                                          //It is going to be included in some methods as preparation for phase 2
     private ArrayList<Integer> eventAttendees;
     private ArrayList<Conversation> conversations;
@@ -28,7 +28,8 @@ public class Event{
      * @param eventId The unique ID of an event
      * @param eventDuration The duration in hours of the event
      */
-    public Event(int eventId, String eventName, int eventSpeaker, Date eventDate, int eventRoom, int eventDuration) {
+    public Event(int eventId, String eventName, int eventSpeaker, Date eventDate, int eventRoom, int eventDuration) // event duration is for phase 2
+        {
             this.eventName = eventName;
             this.eventSpeaker = eventSpeaker;
             this.eventDate = eventDate;
