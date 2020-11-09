@@ -50,34 +50,4 @@ public class Speaker extends User{
         this.talks_list.remove(eventID);
     }
 
-    @Override
-    public void startConversation(User receiver) {
-        Conversation c = new Conversation(new ArrayList<User>(Arrays.asList(this, receiver)));
-        c.acceptConversation();
-        this.conversations.add(c);
-        receiver.conversations.add(c);
-    }
-
-    //TODO: Need getUserById for these to work
-
-    public void startConversationInEvent(Integer eventId){
-        Event e = eventManager.getEvent(eventId);
-        ArrayList<Integer> attendeeIdList = e.getEventAttendees();
-        ArrayList<User> attendeeList = new ArrayList<User>();
-        for(Integer id : attendeeIdList){
-            /*User receiver = getUserById(id);
-            attendeeList.add(receiver);*/
-        }
-        for(User attendee : attendeeList){
-            startConversation(attendee);
-        }
-
-    }
-
-    public void startConversationInAll(){
-        ArrayList<Event> events = new ArrayList<Event>();
-        for(Integer i : this.talks_list){
-            startConversationInEvent(i);
-        }
-    }
 }

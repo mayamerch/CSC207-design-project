@@ -1,6 +1,7 @@
 package EventPackage;
 
 import MessagePackage.Conversation;
+import User.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +16,7 @@ public class Event{
     private final int eventDuration = 1; // This is final for phase 1 but in phase two it will be changed to variable.
                                          //It is going to be included in some methods as preparation for phase 2
     private ArrayList<Integer> eventAttendees;
-    // private ArrayList<Conversation> conversations;
+    private ArrayList<Conversation> conversations;
 
 
     /**
@@ -35,7 +36,7 @@ public class Event{
             this.eventRoom = eventRoom;
             this.eventAttendees = new ArrayList<>();
             this.eventId = eventId;
-           // this.conversations = new ArrayList<Conversation>();
+            this.conversations = new ArrayList<Conversation>();
         }
 
     /**
@@ -152,8 +153,6 @@ public class Event{
             eventAttendees.remove(index);
         }
     }
-
-
     /**
      * Returns true if userID is enrolled in Event, otherwise false
      * @param userID id of a user
@@ -179,23 +178,4 @@ public class Event{
                 this.getEventAttendees();
     }
 
-
-    /*
-    //Are Conversation methods supposed to be here?
-    public void startConversation(ArrayList<User> users){
-        Conversation conversation = new Conversation(users);
-    }
-
-    public ArrayList<Conversation> getConversations(User user){
-        ArrayList<Conversation> myConversations = new ArrayList<Conversation>();
-        for(Conversation conversation : this.conversations){
-            if(conversation.isUserParticipating(user)){
-                myConversations.add(conversation);
-            }
-        }
-        return myConversations;
-    }
-
-     */
 }
-
