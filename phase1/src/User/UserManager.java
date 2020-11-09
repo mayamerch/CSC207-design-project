@@ -6,7 +6,7 @@ import java.util.List;
 public class UserManager {
 
     private UserFactory factory;
-    private List<User> user_list;
+    private ArrayList<User> user_list;
 
     /**
      * Creates a UserManager with an empty list of Users and a user factory
@@ -31,7 +31,7 @@ public class UserManager {
             user_list.add(new_user);
             int new_userID = user_list.size();
             new_user.set_userId(new_userID);
-        }
+            }
     }
     /**
      * Takes an instance of User provided by the controller and a possible
@@ -43,5 +43,16 @@ public class UserManager {
      */
     public boolean validate_login(User user, String username, String password){
         return ((user.get_username().equalsIgnoreCase(username)) && (user.get_password().equals(password)));
+    }
+    // should optimize this
+    public boolean validate_id(int user_id){
+        for (User user : user_list) {
+            if (user.get_userID() == user_id) {
+                return true;}
+        }
+        return false;}
+
+    public  ArrayList<User> get_user_list(){
+        return user_list;
     }
 }
