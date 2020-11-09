@@ -15,7 +15,7 @@ public class EventManager {
      * Creates an instance eventManager that contains all the events in eventList
      * @param eventList The list of events this instance of eventManager should store
      */
-    public EventManager(ArrayList<Event> eventList, int nextID) {
+    public EventManager(ArrayList<Event> eventList) {
         this.eventList = eventList;
         if (eventList.size() == 0) {
             this.nextID = 1;

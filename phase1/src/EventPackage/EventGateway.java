@@ -15,7 +15,7 @@ public class EventGateway {
      */
     public EventGateway() {
         try {
-            this.fileData = new File("eventData.txt");
+            this.fileData = new File("phase1/src/EventPackage/eventData.txt");
             if (this.fileData.createNewFile()) {
                 this.eventData = new ArrayList<>();
             } else {
