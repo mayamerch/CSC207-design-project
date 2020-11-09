@@ -174,7 +174,8 @@ public class Event{
                 this.getEventSpeaker() + "," +
                 this.getEventDate()+ "," +
                 this.getEventRoom() + "," +
-                this.getEventDuration());
+                this.getEventDuration()) + "," +
+                this.getEventAttendees();
     }
 
 }
