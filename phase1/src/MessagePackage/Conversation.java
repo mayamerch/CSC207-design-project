@@ -8,21 +8,32 @@ public class Conversation {
 
     ArrayList<User> userList;
     MessageQueue messageQueue;
+    enum status {ACCEPTED, PENDING, REJECTED}
+    status myStatus;
 
-    public Conversation(ArrayList<User> users) {
-    }
-
-    public void Conversation(ArrayList<User> userList){
+    public Conversation(ArrayList<User> userList){
         this.userList = userList;
         this.messageQueue = new MessageQueue();
     }
 
-    public void sendMessage(Message message, User sender){
-        messageQueue.pushMessage(message);
+    public Boolean sendMessage(Message message, User sender){
+        if(this.myStatus == status.ACCEPTED){
+            this.messageQueue.pushMessage(message);
+            return true;
+        }
+        return false;
+    }
+
+    public void acceptConversation(){
+        this.myStatus = status.ACCEPTED;
+    }
+
+    public void rejectConversation(){
+        this.myStatus = status.REJECTED;
     }
 
     public ArrayList<Message> readMessages(){
-        return messageQueue.getMessages();
+        return this.messageQueue.getMessages();
     }
 
     public Boolean isUserParticipating(User user){

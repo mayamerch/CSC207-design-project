@@ -56,8 +56,6 @@ public class EventManager {
         return nextID - 1;
     }
 
-
-
     private boolean dateCompare(Date date1, Date date2, int duration1, int duration2) {
         if (date1.getYear() != date2.getYear())
             return true;
@@ -166,7 +164,6 @@ public class EventManager {
         }
         return enrolledEvents;
     }
-
 
     /**
      * Returns an event corresponding to a specific eventID

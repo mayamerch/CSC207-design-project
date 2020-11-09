@@ -11,9 +11,11 @@ public class Attendee extends User{
      */
     private ArrayList<String> friends_list;
 
+
     public Attendee(String username, String password) {
         super(username, password);
         this.friends_list = new ArrayList<>();
+
     }
     /**
      * Gets and returns the Attendee's friends list
@@ -22,6 +24,7 @@ public class Attendee extends User{
     public ArrayList<String> getFriends_list() {
         return friends_list;
     }
+
     /**
      * Adds a User's username to this Attendee's list of friends
      * @param friend_username: the username of the new friend
@@ -29,6 +32,7 @@ public class Attendee extends User{
     public void add_friend(String friend_username){
         this.friends_list.add(friend_username);
     }
+
     /**
      * Remove's a User's username from this Attendee's list of friends
      * @param friend_username: the username of the friend
@@ -40,5 +44,10 @@ public class Attendee extends User{
         // Duplicate usernames. Hypothetical user may want friends list of names not IDs
         // Can we store a list of ID's and represent them onscreen as usernames?
         // If using IDs, we can remove(object) safely.
+    }
+
+    @Override
+    public void startConversation(User receiver) {
+        super.startConversation(receiver);
     }
 }

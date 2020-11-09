@@ -11,4 +11,5 @@ public class Organiser extends Attendee{
     }
     // Do we need an IsOrganiser attribute when we can check types?
 
+
 }

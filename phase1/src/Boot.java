@@ -20,10 +20,5 @@ public class Boot {
         Event e = EventRegistry.createEvent("talk1", new Date(), 45, user3.get_userID());
         Message message = new Message("this is a new message", user1.get_username());
 
-        e.startConversation(new ArrayList<User>(Arrays.asList(user1,user2)));
-        ArrayList<Conversation> a = e.getConversations(user1);
-        System.out.println(a);
-        //e.getConversations(user1).get(0).sendMessage(message, user1);
-        //e.getConversations(user1).get(0).readMessages();
     }
 }
