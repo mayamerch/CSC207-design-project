@@ -44,17 +44,25 @@ public class EventManager {
      */
     public int createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
                                int eventDuration) {
-        for (Event event: eventList) {
-            if ((event.getEventRoom() == (eventRoom)) || (event.getEventSpeaker() == eventSpeaker))
-                if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
-                    return -1;
-            }
-        }
+        if (eventCompare(eventRoom, eventDate, eventSpeaker, eventDuration))
+            return -1;
         Event newEvent = new Event(nextID, eventName, eventSpeaker, eventDate, eventRoom, eventDuration);
         eventList.add(newEvent);
         nextID += 1;
         return nextID - 1;
     }
+
+
+    private boolean eventCompare(int eventRoom, Date eventDate, int eventSpeaker, int eventDuration) {
+        for (Event event : eventList) {
+            if ((event.getEventRoom() == (eventRoom)) || (event.getEventSpeaker() == eventSpeaker))
+                if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
+                    return true;
+                }
+        }
+        return false;
+    }
+
 
     private boolean dateCompare(Date date1, Date date2, int duration1, int duration2) {
         if (date1.getYear() != date2.getYear())
@@ -193,6 +201,39 @@ public class EventManager {
             }
         }
         return false;
+    }
+
+
+    /**
+     * Reschedules an event by changing its Date, Room, Speaker, and Duration (not included in phase 1) as long as its
+     * possible.
+     * @param eventId The id of the vent to be rescheduled
+     * @param eventDate The new date of event
+     * @param eventRoom The new room of event
+     * @param eventSpeaker The new speaker at event
+     * @param eventDuration The new duration of th event
+     * @return              True if event was rescheduled, false if it was unable  to
+     */
+    public boolean reschedule(int eventId, Date eventDate, int eventRoom, int eventSpeaker, int eventDuration) {
+        int index = -1;
+        int status = -1;
+        for (int i = 0; i < eventList.size(); i++) {
+            if (eventList.get(i).getEventId() == eventId)
+                index = i;
+        }
+
+        if (index == -1)
+            return false;
+
+        if (eventCompare(eventRoom, eventDate, eventSpeaker, eventDuration))
+            return false;
+
+        eventList.get(index).setEventDate(eventDate);
+        eventList.get(index).setEventRoom(eventRoom);
+        eventList.get(index).setEventSpeaker(eventSpeaker);
+        // eventList.get(index).setEventDuration(eventDuration);
+
+        return true;
     }
 
 }

@@ -153,6 +153,8 @@ public class Event{
             eventAttendees.remove(index);
         }
     }
+
+
     /**
      * Returns true if userID is enrolled in Event, otherwise false
      * @param userID id of a user
