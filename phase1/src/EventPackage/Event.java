@@ -1,7 +1,6 @@
 package EventPackage;
 
 import MessagePackage.Conversation;
-import User.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +15,6 @@ public class Event{
     private final int eventDuration = 1; // This is final for phase 1 but in phase two it will be changed to variable.
                                          //It is going to be included in some methods as preparation for phase 2
     private ArrayList<Integer> eventAttendees;
-    private ArrayList<Conversation> conversations;
 
 
     /**
@@ -36,7 +34,6 @@ public class Event{
             this.eventRoom = eventRoom;
             this.eventAttendees = new ArrayList<>();
             this.eventId = eventId;
-            this.conversations = new ArrayList<Conversation>();
         }
 
     /**
