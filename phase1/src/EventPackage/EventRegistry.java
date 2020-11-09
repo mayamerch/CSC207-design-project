@@ -11,7 +11,7 @@ public abstract class EventRegistry {
     private static Integer eventIdGenerator = 0;
 
     public static Event createEvent(String eventName, Date eventDate, Integer eventRoom, Integer eventSpeaker){
-        Event e = new Event(EventRegistry.eventIdGenerator++, eventName, eventSpeaker, eventDate, eventRoom);
+        Event e = new Event(EventRegistry.eventIdGenerator++, eventName, eventSpeaker, eventDate, eventRoom, 1);
         eventList.add(e);
         return e;
     }

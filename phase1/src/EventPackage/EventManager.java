@@ -17,7 +17,11 @@ public class EventManager {
      */
     public EventManager(ArrayList<Event> eventList, int nextID) {
         this.eventList = eventList;
-        this.nextID = eventList.get(eventList.size() - 1).getEventId() + 1;
+        if (eventList.size() == 0) {
+            this.nextID = 1;
+        } else {
+            this.nextID = eventList.get(eventList.size() - 1).getEventId() + 1;
+        }
     }
 
     /**
@@ -176,7 +180,6 @@ public class EventManager {
         }
         throw new ArrayIndexOutOfBoundsException("This Event doesn't exist yet.");
     }
-
 
 
     /**
