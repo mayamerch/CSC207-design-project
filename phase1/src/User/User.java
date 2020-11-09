@@ -68,24 +68,6 @@ public abstract class User {
         this.userID = new_userID;
     }
 
-
-    public void startConversation(User receiver){
-       Conversation c = new Conversation(new ArrayList<User>(Arrays.asList(this,receiver)));
-       this.conversations.add(c);
-       receiver.conversations.add(c);
-    }
-
-    public Boolean requestConversation(Conversation conversation){
-        //ask user for approval when messaging for first time
-        //Still left to implement
-        return false;
-    }
-
-    public ArrayList<Conversation> getConversations(){
-        return this.conversations;
-    }
-
-
 }
 
 

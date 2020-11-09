@@ -177,18 +177,4 @@ public class Event{
                 this.getEventDuration());
     }
 
-    //Are Conversation methods supposed to be here?
-    public void startConversation(ArrayList<User> users){
-        Conversation conversation = new Conversation(users);
-    }
-
-    public ArrayList<Conversation> getConversations(User user){
-        ArrayList<Conversation> myConversations = new ArrayList<Conversation>();
-        for(Conversation conversation : this.conversations){
-            if(conversation.isUserParticipating(user)){
-                myConversations.add(conversation);
-            }
-        }
-        return myConversations;
-    }
 }

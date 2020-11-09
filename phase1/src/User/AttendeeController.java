@@ -51,10 +51,9 @@ public class AttendeeController extends EventSignUpSystem{
         }
      }
 
-    */
-/**
+*
      TODO: Duplicate code?
-     *//*
+
 
 
     public boolean event_unenroll(){

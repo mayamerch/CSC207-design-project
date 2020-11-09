@@ -25,7 +25,7 @@ public class Boot {
         Integer eventId = eventManager.createEvent("talk", 1, new Date(), user3.get_userID(), 1);
         Event e = eventManager.getEvent(eventId);
 
-        Message message1 = new Message("this is a new message", user1.get_username());
+        /*Message message1 = new Message("this is a new message", user1.get_username());
         Message message2 = new Message("this is another message", user4.get_username());
 
         user1.startConversation(user4);
@@ -33,7 +33,7 @@ public class Boot {
         user4.getConversations().get(0).sendMessage(message2, user4);
         for(Message m : user1.getConversations().get(0).readMessages()){
             System.out.println("Sender: " + m.from + " Message: " + m.content);
-        }
+        }*/
 
 
 
