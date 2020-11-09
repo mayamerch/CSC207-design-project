@@ -1,31 +1,38 @@
 package MessagePackage;
 
-import User.User;
-
 import java.util.ArrayList;
 
-public class Chatroom {
+public class Chatroom implements Conversation{
 
-    ArrayList<User> userList;
+    ArrayList<Integer> userList;
     MessageQueue messageQueue;
     enum status {ACCEPTED, PENDING, REJECTED}
     status myStatus;
 
-    public Chatroom(ArrayList<User> userList){
+    public Chatroom(ArrayList<Integer> userList){
         this.userList = userList;
         this.messageQueue = new MessageQueue();
     }
 
-    /*public Boolean sendMessage(Message message, User sender){
-        if(this.myStatus == status.ACCEPTED){
-            this.messageQueue.pushMessage(message);
-            return true;
-        }
-        return false;
-    }*/
+    @Override
+    public void sendMessage(String messageStr, int senderUserID){
+        Message newMessage = new Message(messageStr, senderUserID);
+        this.messageQueue.pushMessage(newMessage);
+    }
 
-    public void sendMessage(Message message, User sender){
-        this.messageQueue.pushMessage(message);
+    @Override
+    public ArrayList<Message> readMessages(){
+        return this.messageQueue.getMessages();
+    }
+
+    @Override
+    public ArrayList<Integer> getAllReaderIDs(){
+        return this.userList;
+    }
+
+    @Override
+    public ArrayList<Integer> getAllSenderIDs(){
+        return this.userList;
     }
 
     public void acceptChatroom(){
@@ -35,10 +42,5 @@ public class Chatroom {
     public void rejectChatroom(){
         this.myStatus = status.REJECTED;
     }
-
-    public ArrayList<Message> readMessages(){
-        return this.messageQueue.getMessages();
-    }
-
 
 }

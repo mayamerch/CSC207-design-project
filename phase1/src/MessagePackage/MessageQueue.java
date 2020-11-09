@@ -17,4 +17,5 @@ public class MessageQueue {
     public ArrayList<Message> getMessages(){
         return this.messageQueue;
     }
+
 }
