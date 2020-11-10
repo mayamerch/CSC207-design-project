@@ -34,7 +34,7 @@ public class AttendeeController extends EventSignUpSystem{
      // needs to call on Attendance manager and user manager to find user then
      // put in the user through Attendance manager
         System.out.println("Enter ID of Event");
-        int eventID = scanner.nextInt();
+        int eventID = validateEventInput();
         if (event_manager.enroll(eventID, this.using_userID) == 1){
             return true;
         }
@@ -47,14 +47,10 @@ public class AttendeeController extends EventSignUpSystem{
         }
      }
 
-*
-     TODO: Duplicate code?
-
-
 
     public boolean event_unenroll(){
         System.out.println("Enter ID of Event");
-        int eventID = scanner.nextInt();
+        int eventID = validateEventInput();
         if (event_manager.unenroll(eventID, this.using_userID) == 1){
             return true;
         }
@@ -71,4 +67,14 @@ public class AttendeeController extends EventSignUpSystem{
         return event_manager.myEvents(using_userID);
     }
 
+    // Remove the return false if attendee list is added
+    public boolean addFriend(){
+        System.out.println("Enter ID of friend");
+        int friendID = validateUserIDInput();
+        if (friendID == this.using_userID){
+            System.out.println("Cannot input your ID here");
+            return false;
+        }
+        return user_manager.AddFriend(this.using_userID, friendID);
+    }
 }

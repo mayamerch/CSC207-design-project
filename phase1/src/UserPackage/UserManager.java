@@ -11,7 +11,7 @@ public class UserManager {
      * Creates a UserManager with an empty list of Users and a user factory
      */
     public UserManager() {
-        user_list = new ArrayList<User>();
+        user_list = new ArrayList<>();
         factory = new UserFactory();
     }
 
@@ -44,9 +44,9 @@ public class UserManager {
         return ((user.get_username().equalsIgnoreCase(username)) && (user.get_password().equals(password)));
     }
     // should optimize this
-    public boolean validate_id(int user_id){
+    public boolean validate_id(int userId){
         for (User user : user_list) {
-            if (user.get_userID() == user_id) {
+            if (user.get_userID() == userId) {
                 return true;}
         }
         return false;}
@@ -54,4 +54,36 @@ public class UserManager {
     public  ArrayList<User> get_user_list(){
         return user_list;
     }
+
+    /**
+     * TODO: Change this to linked list implementation
+     */
+    public User getUserByID(int userID) {
+        for (User user : user_list) {
+            if (userID == user.get_userID()) {
+                return user;
+            }
+        }
+        throw new ArrayIndexOutOfBoundsException("Invalid User ID");
+    }
+
+        /**
+         * TODO: MAy need to create separate lists for Attendee, Organiser and Speaker
+         * AttendeeManager and OrganiserManager? Not very expandable
+         */
+        public boolean AddFriend(int attendeeId, int friendId){
+            User user;
+            user = getUserByID(attendeeId);
+            User friend;
+            friend = getUserByID(friendId);
+            if (user instanceof Attendee && friend instanceof Attendee){
+                ((Attendee) user).add_friend(friend.get_username());
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        }
+
 }
