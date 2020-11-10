@@ -10,15 +10,19 @@ public class EventController {
     /**
      * Interacts with user and asks for input then performs actions related to events based on that input.
      * @param UserId The id of the user its interacting with
-     */
-    public void run(int UserId) {
+     * @param UserPerm -1 If User is a Speaker
+     *                 0 If User is an Organizer
+     *                 1 If User is an Attendee
+    **/
+    public void run(int UserId, int UserPerm) {
 
-        EventGateway eg = new EventGateway();
-        em = new EventManager(eg.parse());
+        EventRoomGateway EvRoGate = new EventRoomGateway();
+        em = new EventManager(EvRoGate.parseEvent());
+        rm = new RoomManager(EvRoGate.parseRoom());
 
         //some code
 
-        eg.write(em.getEventList());
+        EvRoGate.write(em.getEventList(), rm.getRoomList());
 
     }
 }
