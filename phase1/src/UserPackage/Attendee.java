@@ -46,8 +46,4 @@ public class Attendee extends User{
         // If using IDs, we can remove(object) safely.
     }
 
-    @Override
-    public void startConversation(User receiver) {
-        super.startConversation(receiver);
-    }
 }

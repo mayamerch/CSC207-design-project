@@ -1,10 +1,14 @@
 package MessagePackage;
 
+import UserPackage.UserFactory;
+import UserPackage.UserManager;
+
 import java.util.ArrayList;
 
 public class MessageQueue {
 
     ArrayList<Message> messageQueue;
+    UserManager userManager;
 
     /**
      * Constructs a new MessageQueue object
@@ -28,8 +32,13 @@ public class MessageQueue {
         return this.messageQueue;
     }
 
-    public String toString(){
-        return null;
-    }
-
+    //TODO: uncomment once getUserByID exists
+    /*@Override
+    public String toString() {
+        String s = new String();
+        for(Message m : messageQueue){
+            s += userManager.getUserById(m.userId).get_username + " : " + m.content;
+        }
+        return s;
+    }*/
 }

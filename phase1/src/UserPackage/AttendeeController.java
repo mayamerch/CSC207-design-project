@@ -47,9 +47,10 @@ public class AttendeeController extends EventSignUpSystem{
         }
      }
 
-    /**
+*
      TODO: Duplicate code?
-     */
+
+
 
     public boolean event_unenroll(){
         System.out.println("Enter ID of Event");
@@ -69,6 +70,5 @@ public class AttendeeController extends EventSignUpSystem{
     public ArrayList<Event> see_my_events(){
         return event_manager.myEvents(using_userID);
     }
-
 
 }

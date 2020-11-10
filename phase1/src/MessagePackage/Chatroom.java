@@ -20,8 +20,10 @@ public class Chatroom implements Conversation{
 
     @Override
     public void sendMessage(String messageStr, int senderUserID){
-        Message newMessage = new Message(messageStr, senderUserID);
-        this.messageQueue.pushMessage(newMessage);
+        if(this.myStatus == status.ACCEPTED){
+            Message newMessage = new Message(messageStr, senderUserID);
+            this.messageQueue.pushMessage(newMessage);
+        }
     }
 
     @Override
@@ -33,7 +35,6 @@ public class Chatroom implements Conversation{
     public ArrayList<Integer> getAllReaderIDs(){
         return this.userList;
     }
-
 
     @Override
     public ArrayList<Integer> getAllSenderIDs(){

@@ -30,6 +30,7 @@ public class Broadcast implements Conversation{
     public void sendMessage(String messageStr, int senderUserID) {
         Message newMessage = new Message(messageStr, senderUserID);
         if(broadcasters.contains(senderUserID)){
+            //I don't think there needs to be a for loop here
             for(Integer userID: eventManager.getEvent(eventID).getEventAttendees()){
                 this.messageQueue.pushMessage(newMessage);
             }
