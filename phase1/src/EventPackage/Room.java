@@ -31,4 +31,8 @@ public class Room {
         return roomCapacity;
     }
 
+    public String toString() {
+        return this.roomNumber + ',' + this.roomCapacity ;
+    }
+
 }
