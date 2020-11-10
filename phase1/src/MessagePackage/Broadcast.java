@@ -29,7 +29,7 @@ public class Broadcast implements Conversation{
     public void sendMessage(String messageStr, int senderUserID) {
         Message newMessage = new Message(messageStr, senderUserID);
         if(broadcasters.contains(senderUserID)){
-            //for (String userID: getEvent(int eventID).getEventAttendees()){
+            //for(String userID: getEvent(eventID).getEventAttendees()){
                 this.messageQueue.pushMessage(newMessage);
           //  }
         }

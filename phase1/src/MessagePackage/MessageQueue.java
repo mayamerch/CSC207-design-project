@@ -28,4 +28,8 @@ public class MessageQueue {
         return this.messageQueue;
     }
 
+    public String toString(){
+        return null;
+    }
+
 }
