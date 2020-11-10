@@ -9,6 +9,10 @@ public class Chatroom implements Conversation{
     enum status {ACCEPTED, PENDING, REJECTED}
     status myStatus;
 
+    /**
+     * Creates a chatroom between two or more users in userList
+     * @param userList a list of all users one can message
+     */
     public Chatroom(ArrayList<Integer> userList){
         this.userList = userList;
         this.messageQueue = new MessageQueue();
@@ -30,17 +34,33 @@ public class Chatroom implements Conversation{
         return this.userList;
     }
 
+
     @Override
     public ArrayList<Integer> getAllSenderIDs(){
         return this.userList;
     }
 
+    /**
+     * Message request is accepted by receipient; users can freely message
+     */
     public void acceptChatroom(){
         this.myStatus = status.ACCEPTED;
     }
 
+    /**
+     * Message request is rejected by receipient; no further messages can be sent
+     */
     public void rejectChatroom(){
         this.myStatus = status.REJECTED;
+    }
+
+    /**
+     * Message request is pending confirmation by receipient
+     */
+    public void pendingChatroom(){
+        if(this.myStatus != status.ACCEPTED && this.myStatus != status.REJECTED){
+            this.myStatus = status.PENDING;
+        }
     }
 
 }

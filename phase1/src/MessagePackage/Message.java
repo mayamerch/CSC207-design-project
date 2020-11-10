@@ -6,14 +6,6 @@ public class Message { // storing all messages
     public String content;
     public Integer userId;
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     /**
      * Constructs a new Message object
      * @param content: content of the message (String)
@@ -24,14 +16,33 @@ public class Message { // storing all messages
         this.userId = userId;
     }
 
-    //public isUser
+    /**
+     * @return the content of this message
+     */
+    public String getContent(){
+        return content;
+    }
 
+    /**
+     * Sets the message content to another String
+     */
     public void setContent(String c){
         this.content = c;
     }
 
-    public String getContent(){
-        return content;
+    /**
+     * @return the userID of the sender of the message
+     */
+    public Integer getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets the sender's userID to another userID
+    * TODO: is this necessary since the userId doesn't change (at least not here)?
+     */
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
 }
