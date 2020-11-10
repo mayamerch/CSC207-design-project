@@ -8,7 +8,7 @@ public class ConversationController {
     public Iterator iterator;
 
     /**
-     * Creates an instance of ConversationSystem that contains all the recorded conversations (empty at first)
+     * Creates an instance of ConversationController that contains all the recorded conversations (empty at first)
      */
     public ConversationController(ArrayList<Conversation> conversations){
         this.conversations = conversations;

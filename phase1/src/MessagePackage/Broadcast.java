@@ -12,6 +12,7 @@ public class Broadcast implements Conversation{
     public ArrayList<Integer> broadcasters;
     public MessageQueue messageQueue;
     public int eventID;
+    public EventManager eventManager;
 
     /**
      * Message broadcasted by someone in ArrayList broadcasters, identified by userID
@@ -29,9 +30,9 @@ public class Broadcast implements Conversation{
     public void sendMessage(String messageStr, int senderUserID) {
         Message newMessage = new Message(messageStr, senderUserID);
         if(broadcasters.contains(senderUserID)){
-            //for(String userID: getEvent(eventID).getEventAttendees()){
+            for(Integer userID: eventManager.getEvent(eventID).getEventAttendees()){
                 this.messageQueue.pushMessage(newMessage);
-          //  }
+            }
         }
     }
 
