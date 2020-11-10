@@ -236,4 +236,11 @@ public class EventManager {
         return true;
     }
 
+    /**
+     * Returns the list of events in this EventManger
+     * @return      List of events
+     */
+    public ArrayList<Event> getEventList() {
+        return eventList;
+    }
 }
