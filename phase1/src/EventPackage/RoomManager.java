@@ -39,4 +39,13 @@ public class RoomManager {
         roomList.add(newRoom);
         return nextNumber - 1;
     }
+
+
+    /**
+     * Returns list of rooms in RoomManager
+     * @return      List of Rooms
+     */
+    public ArrayList<Room> getRoomList() {
+        return roomList;
+    }
 }

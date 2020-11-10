@@ -100,4 +100,32 @@ public class EventGateway {
         }
         return objectData;
     }
+
+    /**
+     * temporary
+     * @return
+     */
+    public ArrayList<Event> parse() {
+        ArrayList <Event> objectData = new ArrayList<>();
+        for (StringBuilder stringEvent : this.eventData) {
+            String[] fieldArr = stringEvent.toString().split(",", 7);
+            try {
+                Date newDate = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(fieldArr[3]);
+                Event newEvent = new Event(Integer.parseInt(fieldArr[0]),
+                        fieldArr[1],
+                        Integer.parseInt(fieldArr[2]),
+                        newDate,
+                        Integer.parseInt(fieldArr[4]),
+                        Integer.parseInt(fieldArr[5]));
+                String[] attendeesID = fieldArr[6].substring(1, fieldArr[6].length() - 1).split(", ");
+                for (int i = 0; i < attendeesID.length; i++) {
+                    newEvent.addAttendee(Integer.parseInt(attendeesID[i]));
+                }
+                objectData.add(newEvent);
+            } catch (ParseException e) {
+                continue;
+            }
+        }
+        return objectData;
+    }
 }
