@@ -31,8 +31,15 @@ public class Room {
         return roomCapacity;
     }
 
+
+
+    /**
+     * Returns String representation of Room
+     * @return      String representing room
+     */
+    @Override
     public String toString() {
-        return (this.roomNumber + ',' + this.roomCapacity);
+        return String.valueOf(this.roomNumber) + ',' + String.valueOf(this.roomCapacity);
     }
 
 }
