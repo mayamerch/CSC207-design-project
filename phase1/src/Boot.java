@@ -1,15 +1,10 @@
 import EventPackage.Event;
 import EventPackage.EventManager;
-import EventPackage.EventRegistry;
-import MessagePackage.Conversation;
-import MessagePackage.Message;
 import UserPackage.Attendee;
 import UserPackage.User;
 import UserPackage.Organiser;
 import UserPackage.Speaker;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 public class Boot {
