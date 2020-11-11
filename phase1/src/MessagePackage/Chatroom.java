@@ -42,21 +42,21 @@ public class Chatroom implements Conversation{
     }
 
     /**
-     * Message request is accepted by receipient; users can freely message
+     * Message request is accepted by recipient; users can freely message
      */
     public void acceptChatroom(){
         this.myStatus = status.ACCEPTED;
     }
 
     /**
-     * Message request is rejected by receipient; no further messages can be sent
+     * Message request is rejected by recipient; no further messages can be sent
      */
     public void rejectChatroom(){
         this.myStatus = status.REJECTED;
     }
 
     /**
-     * Message request is pending confirmation by receipient
+     * Message request is pending confirmation by recipient
      */
     public void pendingChatroom(){
         if(this.myStatus != status.ACCEPTED && this.myStatus != status.REJECTED){
