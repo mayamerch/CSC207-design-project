@@ -2,8 +2,7 @@ package MessagePackage;
 
 import java.util.ArrayList;
 
-import EventPackage.EventManager;
-import EventPackage.EventManager.*;
+import EventPackage.*;
 
 public class Broadcast implements Conversation{
     // Speakers should be able to send a message that automatically goes to all Attendees of their talk/multiple talks they gave
