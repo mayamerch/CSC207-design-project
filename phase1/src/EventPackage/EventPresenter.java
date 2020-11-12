@@ -102,6 +102,6 @@ public class EventPresenter {
         }
 
         for (String[] row : table)
-            System.out.format("%s%10s%10s%10s%10s%10s%10s\n", row);
+            System.out.format("%s%15s%15s%15s%15s%15s%15s\n", row);
     }
 }
