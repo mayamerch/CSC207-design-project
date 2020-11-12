@@ -91,8 +91,34 @@ public class ConversationGateway {
         return data;
     }
 
-    public ArrayList<StringBuilder> chatroomToStrings(){
+    private ArrayList<StringBuilder> chatroomToStrings(ArrayList<Conversation>){
 
     }
 
+    private StringBuilder chatroomToString(Chatroom chatroom) {
+        StringBuilder str = new StringBuilder();
+        chatroom.
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

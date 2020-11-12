@@ -8,10 +8,10 @@ public class Broadcast implements Conversation{
     // Speakers should be able to send a message that automatically goes to all Attendees of their talk/multiple talks they gave
     // Organizers should be able to send a message to all speakers or all Attendees
 
-    public ArrayList<Integer> broadcasters;
-    public MessageQueue messageQueue;
-    public int eventID;
-    public EventManager eventManager;
+    private ArrayList<Integer> broadcasters;
+    private MessageQueue messageQueue;
+    private int eventID;
+    private EventManager eventManager;
 
     /**
      * Message broadcasted by someone in ArrayList broadcasters, identified by userID
@@ -24,6 +24,9 @@ public class Broadcast implements Conversation{
         this.messageQueue = messageQueue;
         this.eventID = eventID;
     }
+
+    public MessageQueue getMessageQueue(){return messageQueue;}
+    public int getEventID(){return eventID;}
 
     @Override
     public void sendMessage(String messageStr, int senderUserID) {
