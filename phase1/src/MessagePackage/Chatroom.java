@@ -16,6 +16,7 @@ public class Chatroom implements Conversation{
     public Chatroom(ArrayList<Integer> userList){
         this.userList = userList;
         this.messageQueue = new MessageQueue();
+        this.myStatus = status.PENDING;
     }
 
     public MessageQueue getMessageQueue(){return messageQueue;}
