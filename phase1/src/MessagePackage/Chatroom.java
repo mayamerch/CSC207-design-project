@@ -42,12 +42,12 @@ public class Chatroom implements Conversation{
     }
 
     @Override
-    public Boolean canRead(Integer userID){
+    public boolean canRead(Integer userID){
         return this.getAllReaderIDs().contains(userID);
     }
 
     @Override
-    public Boolean canSend(Integer userID){
+    public boolean canSend(Integer userID){
         return this.getAllSenderIDs().contains(userID);
     }
 

@@ -32,13 +32,13 @@ public interface Conversation {
      * @param userID User requesting access to this Conversation
      * @return true iff User is a participant in this Conversation and can read the information
      */
-    Boolean canRead(Integer userID);
+    boolean canRead(Integer userID);
 
     /**
      *
      * @param userID User requesting access to this Conversation
      * @return truee iff User can send a message in this Conversation
      */
-    Boolean canSend(Integer userID);
+    boolean canSend(Integer userID);
 
 }
