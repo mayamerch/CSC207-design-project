@@ -243,4 +243,20 @@ public class EventManager {
     public ArrayList<Event> getEventList() {
         return eventList;
     }
+
+
+    /**
+     * Returns the list of events a specific speaker is speaking at
+     * @param SpeakerId The Id of the speaker
+     * @return          The Events the speaker is speaking at
+     */
+    public ArrayList<Event> speakingAt(int SpeakerId) {
+        ArrayList<Event> speaking = new ArrayList<Event>();
+        for (Event event: this.eventList) {
+            if (event.getEventSpeaker() == SpeakerId){
+                speaking.add(event);
+            }
+        }
+        return speaking;
+    }
 }

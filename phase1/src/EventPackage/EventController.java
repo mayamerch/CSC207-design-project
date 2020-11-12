@@ -1,6 +1,8 @@
 package EventPackage;
 
 
+import java.util.ArrayList;
+
 public class EventController {
 
     private EventManager em;
@@ -39,8 +41,9 @@ public class EventController {
      * @param UserPerm -1 If User is a Speaker
      *                 0 If User is an Organizer
      *                 1 If User is an Attendee
+     * @param speakerIds A list of the ids of speakers at this conference
     **/
-    public void run(int UserId, int UserPerm) {
+    public void run(int UserId, int UserPerm, ArrayList<Integer> speakerIds) {
 
         //some code
 
