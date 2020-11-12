@@ -27,4 +27,18 @@ public interface Conversation {
      */
     ArrayList<Integer> getAllSenderIDs();
 
+    /**
+     *
+     * @param userID User requesting access to this Conversation
+     * @return true iff User is a participant in this Conversation and can read the information
+     */
+    boolean canRead(Integer userID);
+
+    /**
+     *
+     * @param userID User requesting access to this Conversation
+     * @return truee iff User can send a message in this Conversation
+     */
+    boolean canSend(Integer userID);
+
 }

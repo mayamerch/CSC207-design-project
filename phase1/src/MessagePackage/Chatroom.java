@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Chatroom implements Conversation{
 
-    ArrayList<Integer> userList;
-    MessageQueue messageQueue;
+    private ArrayList<Integer> userList;
+    private MessageQueue messageQueue;
     enum status {ACCEPTED, PENDING, REJECTED}
-    status myStatus;
+    private status myStatus;
 
     /**
      * Creates a chatroom between two or more users in userList
@@ -16,7 +16,11 @@ public class Chatroom implements Conversation{
     public Chatroom(ArrayList<Integer> userList){
         this.userList = userList;
         this.messageQueue = new MessageQueue();
+        this.myStatus = status.PENDING;
     }
+
+    public MessageQueue getMessageQueue(){return messageQueue;}
+
 
     @Override
     public void sendMessage(String messageStr, int senderUserID){
@@ -41,6 +45,24 @@ public class Chatroom implements Conversation{
         return this.userList;
     }
 
+    @Override
+    public boolean canRead(Integer userID){
+        return this.getAllReaderIDs().contains(userID);
+    }
+
+    @Override
+    public boolean canSend(Integer userID){
+        return this.getAllSenderIDs().contains(userID);
+    }
+
+
+    /**
+     *
+     * @return myStatus whether or not the chatroom is ACCEPTED, PENDING or REJECTED
+     */
+    public status getMyStatus() {
+        return myStatus;
+    }
     /**
      * Message request is accepted by recipient; users can freely message
      */
@@ -63,5 +85,7 @@ public class Chatroom implements Conversation{
             this.myStatus = status.PENDING;
         }
     }
+
+
 
 }

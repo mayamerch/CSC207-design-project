@@ -8,10 +8,10 @@ public class Broadcast implements Conversation{
     // Speakers should be able to send a message that automatically goes to all Attendees of their talk/multiple talks they gave
     // Organizers should be able to send a message to all speakers or all Attendees
 
-    public ArrayList<Integer> broadcasters;
-    public MessageQueue messageQueue;
-    public int eventID;
-    public EventManager eventManager;
+    private ArrayList<Integer> broadcasters;
+    private MessageQueue messageQueue;
+    private int eventID;
+    private EventManager eventManager;
 
     /**
      * Message broadcasted by someone in ArrayList broadcasters, identified by userID
@@ -25,26 +25,25 @@ public class Broadcast implements Conversation{
         this.eventID = eventID;
     }
 
+    public MessageQueue getMessageQueue(){return messageQueue;}
+    public int getEventID(){return eventID;}
+
     @Override
     public void sendMessage(String messageStr, int senderUserID) {
         Message newMessage = new Message(messageStr, senderUserID);
         if(broadcasters.contains(senderUserID)){
-            //I don't think there needs to be a for loop here
-            for(Integer userID: eventManager.getEvent(eventID).getEventAttendees()){
-                this.messageQueue.pushMessage(newMessage);
-            }
+            this.messageQueue.pushMessage(newMessage);
         }
     }
 
     @Override
     public ArrayList<Message> readMessages() {
-        return null;
+        return this.messageQueue.getMessages();
     }
 
     @Override
     public ArrayList<Integer> getAllReaderIDs() {
-        // return attendees of an event with eventID
-        return null;
+        return eventManager.getEvent(this.eventID).getEventAttendees();
     }
 
     @Override
@@ -52,5 +51,14 @@ public class Broadcast implements Conversation{
         return broadcasters;
     }
 
+    @Override
+    public boolean canRead(Integer userID){
+        return this.getAllReaderIDs().contains(userID);
+    }
+
+    @Override
+    public boolean canSend(Integer userID){
+        return this.getAllSenderIDs().contains(userID);
+    }
 
 }

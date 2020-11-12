@@ -21,7 +21,7 @@ public class ConversationGateway {
             if (this.chatroomDataFile.createNewFile()) {
                 this.chatroomData = new ArrayList<>();
             } else {
-                this.chatroomData = conversationsReader(chatroomDataFile);
+                this.chatroomData = reader(chatroomDataFile);
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -33,7 +33,7 @@ public class ConversationGateway {
             if (this.broadcastDataFile.createNewFile()) {
                 this.broadcastData= new ArrayList<>();
             } else {
-                this.broadcastData = conversationsReader(broadcastDataFile);
+                this.broadcastData = reader(broadcastDataFile);
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -45,13 +45,10 @@ public class ConversationGateway {
     /**
      * Write the data for conversations currently in ConversationController to chatroomDataFile and broadcastDataFile
      */
-    private void conversationsWriter(){
+    private void writer(){
         try {
             FileWriter eventWriter = new FileWriter(this.chatroomDataFile, true);
-            for (Event e : eventList) {
-                eventWriter.write(e.toString() + System.lineSeparator());
-                eventWriter.close();
-            }
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -60,13 +57,22 @@ public class ConversationGateway {
 
     }
 
+
+
     /**
      * Takes data from chatroomData.txt and broadcastData.txt and tries to write into chatroomData and broadcastData
      * Prints error message to console if attempt failed.
      */
-    private ArrayList<StringBuilder> conversationsReader(File file){
+    private ArrayList<StringBuilder> reader(File file){
+        try {
 
-        return null;
+
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -85,4 +91,35 @@ public class ConversationGateway {
         return data;
     }
 
+    private ArrayList<StringBuilder> chatroomToStrings(ArrayList<Conversation>){
+
+    }
+
+    private StringBuilder chatroomToString(Chatroom chatroom) {
+        StringBuilder str = new StringBuilder();
+        chatroom.
+
+    }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
