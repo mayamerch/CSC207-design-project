@@ -166,13 +166,13 @@ public class Event{
      */
     @Override
     public String toString() {
-        return (this.getEventId() + "," +
-                this.getEventName() + "," +
-                this.getEventSpeaker() + "," +
-                this.getEventDate()+ "," +
-                this.getEventRoom() + "," +
-                this.getEventDuration()) + "," +
-                this.getEventAttendees();
+        return (eventId + "," +
+                eventName + "," +
+                eventSpeaker + "," +
+                eventDate + "," +
+                eventRoom + "," +
+                eventDuration) + "," +
+                eventAttendees;
     }
 
 }

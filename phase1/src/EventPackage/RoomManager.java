@@ -48,4 +48,19 @@ public class RoomManager {
     public ArrayList<Room> getRoomList() {
         return roomList;
     }
+
+
+    /**
+     * Returns a Room corresponding to a room number
+     * @param RoomNumber The number of the Room
+     * @return          The Room with the correct Room Number.
+     */
+    public Room findRoom(int RoomNumber) {
+        for (Room room: roomList) {
+            if (room.getRoomNumber() == RoomNumber)
+                return room;
+        }
+
+        throw new ArrayIndexOutOfBoundsException("Room not found.");
+    }
 }
