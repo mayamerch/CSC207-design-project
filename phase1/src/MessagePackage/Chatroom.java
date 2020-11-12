@@ -41,6 +41,16 @@ public class Chatroom implements Conversation{
         return this.userList;
     }
 
+    @Override
+    public Boolean canRead(Integer userID){
+        return this.getAllReaderIDs().contains(userID);
+    }
+
+    @Override
+    public Boolean canSend(Integer userID){
+        return this.getAllSenderIDs().contains(userID);
+    }
+
     /**
      * Message request is accepted by recipient; users can freely message
      */
@@ -63,5 +73,7 @@ public class Chatroom implements Conversation{
             this.myStatus = status.PENDING;
         }
     }
+
+
 
 }

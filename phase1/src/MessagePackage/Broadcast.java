@@ -48,14 +48,14 @@ public class Broadcast implements Conversation{
         return broadcasters;
     }
 
+    @Override
+    public Boolean canRead(Integer userID){
+        return this.getAllReaderIDs().contains(userID);
+    }
 
-    public Boolean canRead(Integer userId){
-        for(Integer id : this.getAllReaderIDs()){
-            if(id.equals(userId)){
-                return true;
-            }
-        }
-        return false;
+    @Override
+    public Boolean canSend(Integer userID){
+        return this.getAllSenderIDs().contains(userID);
     }
 
 
