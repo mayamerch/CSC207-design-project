@@ -7,6 +7,32 @@ public class EventController {
     private RoomManager rm;
 
 
+    public EventController() {
+        EventRoomGateway EvRoGate = new EventRoomGateway();
+        em = new EventManager(EvRoGate.parseEvent());
+        rm = new RoomManager(EvRoGate.parseRoom());
+    }
+
+
+    /**
+     * Returns the EventManager in this controller with all the information
+     * @return      The EventManager in this controller
+     */
+    public EventManager getEventManager() {
+        return em;
+    }
+
+
+    /**
+     * Returns the RoomManager in this controller with all the information
+     * @return      The RoomManager in this controller
+     */
+    public RoomManager getRoomManager() {
+        return rm;
+    }
+
+
+
     /**
      * Interacts with user and asks for input then performs actions related to events based on that input.
      * @param UserId The id of the user its interacting with
@@ -16,12 +42,9 @@ public class EventController {
     **/
     public void run(int UserId, int UserPerm) {
 
-        EventRoomGateway EvRoGate = new EventRoomGateway();
-        em = new EventManager(EvRoGate.parseEvent());
-        rm = new RoomManager(EvRoGate.parseRoom());
-
         //some code
 
+        EventRoomGateway EvRoGate = new EventRoomGateway();
         EvRoGate.write(em.getEventList(), rm.getRoomList());
 
     }
