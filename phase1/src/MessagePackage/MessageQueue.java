@@ -32,13 +32,12 @@ public class MessageQueue {
         return this.messageQueue;
     }
 
-    //TODO: uncomment once getUserByID exists
-    /*@Override
+    @Override
     public String toString() {
         String s = new String();
         for(Message m : messageQueue){
-            s += userManager.getUserById(m.userId).get_username + " : " + m.content;
+            s += userManager.getUserByID(m.userId).get_username() + " : " + m.content;
         }
         return s;
-    }*/
+    }
 }

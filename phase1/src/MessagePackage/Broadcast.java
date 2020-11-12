@@ -61,5 +61,4 @@ public class Broadcast implements Conversation{
         return this.getAllSenderIDs().contains(userID);
     }
 
-
 }
