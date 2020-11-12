@@ -29,27 +29,33 @@ public class Broadcast implements Conversation{
     public void sendMessage(String messageStr, int senderUserID) {
         Message newMessage = new Message(messageStr, senderUserID);
         if(broadcasters.contains(senderUserID)){
-            //I don't think there needs to be a for loop here
-            for(Integer userID: eventManager.getEvent(eventID).getEventAttendees()){
-                this.messageQueue.pushMessage(newMessage);
-            }
+            this.messageQueue.pushMessage(newMessage);
         }
     }
 
     @Override
     public ArrayList<Message> readMessages() {
-        return null;
+        return this.messageQueue.getMessages();
     }
 
     @Override
     public ArrayList<Integer> getAllReaderIDs() {
-        // return attendees of an event with eventID
-        return null;
+        return eventManager.getEvent(this.eventID).getEventAttendees();
     }
 
     @Override
     public ArrayList<Integer> getAllSenderIDs() {
         return broadcasters;
+    }
+
+
+    public Boolean canRead(Integer userId){
+        for(Integer id : this.getAllReaderIDs()){
+            if(id.equals(userId)){
+                return true;
+            }
+        }
+        return false;
     }
 
 
