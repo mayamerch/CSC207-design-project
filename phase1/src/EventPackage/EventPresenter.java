@@ -158,10 +158,10 @@ public class EventPresenter {
 
         }
 
-        System.out.format("%s%15s%15s%15s%15s%15s%15s\n", table[0]);
+        System.out.format("%s%15s%15s%20s%15s%15s%15s\n", table[0]);
 
         for (int i = 1; i < table.length; i++)
-            System.out.format("%s%15s%30s%15s%15s%15s%15s\n", table[i]);
+            System.out.format("%4s%13s%24s%10s%16s%16s%16s\n", table[i]);
 
         System.out.print("\n");
     }
