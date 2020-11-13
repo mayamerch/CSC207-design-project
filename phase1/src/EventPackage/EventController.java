@@ -9,10 +9,11 @@ public class EventController {
     private EventManager em;
     private RoomManager rm;
     private EventPresenter ep;
+    private EventRoomGateway EvRoGate;
 
 
     public EventController() {
-        EventRoomGateway EvRoGate = new EventRoomGateway();
+        this.EvRoGate = new EventRoomGateway();
         em = new EventManager(EvRoGate.parseEvent());
         rm = new RoomManager(EvRoGate.parseRoom());
         ep = new EventPresenter();
@@ -122,7 +123,6 @@ public class EventController {
 
         ep.goBack();
 
-        EventRoomGateway EvRoGate = new EventRoomGateway();
         EvRoGate.write(em.getEventList(), rm.getRoomList());
 
     }
