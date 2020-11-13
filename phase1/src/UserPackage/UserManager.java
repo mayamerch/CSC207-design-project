@@ -43,13 +43,6 @@ public class UserManager {
     public boolean validate_login(User user, String username, String password){
         return ((user.get_username().equalsIgnoreCase(username)) && (user.get_password().equals(password)));
     }
-    // should optimize this
-    public boolean validate_id(int userId){
-        for (User user : user_list) {
-            if (user.get_userID() == userId) {
-                return true;}
-        }
-        return false;}
 
     public  ArrayList<User> get_user_list(){
         return user_list;
@@ -64,7 +57,7 @@ public class UserManager {
                 return user;
             }
         }
-        throw new ArrayIndexOutOfBoundsException("Invalid User ID");
+        return null;
     }
 
         /**
@@ -76,7 +69,7 @@ public class UserManager {
             user = getUserByID(attendeeId);
             User friend;
             friend = getUserByID(friendId);
-            if (user instanceof Attendee && friend instanceof Attendee){
+            if (!(user instanceof Organiser || friend instanceof Organiser)){
                 ((Attendee) user).add_friend(friend.get_username());
                 return true;
             }

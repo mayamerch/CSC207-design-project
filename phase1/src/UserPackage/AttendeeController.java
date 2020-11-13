@@ -23,7 +23,7 @@ public class AttendeeController extends EventSignUpSystem{
     // if it were done through an Attendance manager it could be an attribute here
 
     public boolean set_user_using(int userID){
-        if (user_manager.validate_id(userID)){
+        if (user_manager.getUserByID(userID) != null){
             this.using_userID = userID;
             return true;
         }
