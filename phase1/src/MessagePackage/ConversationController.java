@@ -28,7 +28,7 @@ public class ConversationController {
      * @param userlist a list of all users within the chat
      * @param senderUserID the userID of the person creating the Chatroom
      */
-    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID) {
+    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID){
         Chatroom c = new Chatroom(userlist);
         if (conversations.contains(c)) {
             return false;
