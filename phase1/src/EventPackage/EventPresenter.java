@@ -43,11 +43,11 @@ public class EventPresenter {
      */
     public void denyUser(int UserPerm) {
         if (UserPerm == -1)
-            System.out.println("Sorry this option doesn't exist for a speaker. Please try again.");
+            System.out.println("Sorry this option doesn't exist for a speaker. Please try again.\n");
         else if (UserPerm == 1)
-            System.out.println("Sorry this option doesn't exist for an attendee. Please try again");
+            System.out.println("Sorry this option doesn't exist for an attendee. Please try again\n");
         else
-            System.out.println("Sorry this option doesn't exist. Please try again");
+            System.out.println("Sorry this option doesn't exist. Please try again\n");
     }
 
 
@@ -58,6 +58,7 @@ public class EventPresenter {
      */
     public void seeEvents(EventManager em, RoomManager rm) {
         System.out.println("All Events");
+        System.out.println("---------------------------------");
         ArrayList<Event> eventList = em.getEventList();
         eventFormat(eventList, rm);
     }
@@ -73,6 +74,7 @@ public class EventPresenter {
      */
     public void seeMyEvents(EventManager em, RoomManager rm, int UserId, int UserPerm) {
         System.out.println("My Events");
+        System.out.println("---------------------------------");
         ArrayList<Event> eventList;
         if (UserPerm != -1)
             eventList = em.myEvents(UserId);
@@ -90,12 +92,13 @@ public class EventPresenter {
      */
     public void seeAvailEvents(EventManager em, RoomManager rm, int UserId) {
         System.out.println("Available Events");
+        System.out.println("---------------------------------");
         ArrayList<Event> eventList = em.availEvents(UserId);
         eventFormat(eventList, rm);
         StringBuilder temp = new StringBuilder();
         temp.append("Please choose an option.\n\n");
         temp.append("1. Attend a new Event\n");
-        temp.append("0. Go back\n\n");
+        temp.append("0. Go back\n");
         System.out.print(temp);
     }
 
@@ -106,7 +109,7 @@ public class EventPresenter {
         StringBuilder temp = new StringBuilder();
         temp.append("Please choose an option.\n\n");
         temp.append("1. Cancel Attending an Event\n");
-        temp.append("0. Go back\n\n");
+        temp.append("0. Go back\n");
         System.out.print(temp);
     }
 
@@ -132,6 +135,8 @@ public class EventPresenter {
 
         for (String[] row : table)
             System.out.format("%s%15s%15s%15s%15s%15s%15s\n", row);
+
+        System.out.print("\n");
     }
 
     /**
@@ -158,7 +163,7 @@ public class EventPresenter {
      * Tells User that program is going back to previous menu
      */
     public void goBack() {
-        System.out.println("Going back to previous menu.");
+        System.out.println("Going back to previous menu.\n");
     }
 
 }

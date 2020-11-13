@@ -15,7 +15,10 @@ public class RoomManager {
      */
     public RoomManager(ArrayList<Room> roomList) {
         this.roomList = roomList;
-        this.nextNumber = roomList.get(roomList.size() - 1).getRoomNumber() + 1;
+        if (roomList.size() == 0)
+            this.nextNumber = 1;
+        else
+            this.nextNumber = roomList.get(roomList.size() - 1).getRoomNumber() + 1;
     }
 
     /**
