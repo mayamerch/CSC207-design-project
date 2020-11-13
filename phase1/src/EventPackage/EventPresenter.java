@@ -253,9 +253,17 @@ public class EventPresenter {
     }
 
     /**
-     * Asks User to type another integer
+     * Asks User to type another integer and gives the option to exit.
      */
     public void tryAgain() {
-        System.out.println("Sorry There was a problem. Please try inputting an integer again.\n");
+        System.out.println("Sorry There was a problem. Please try again. To exit type -1.\n");
     }
+
+    /**
+     * Tells user there was a problem.
+     */
+    public void tryAgainNext() {
+        System.out.println("Sorry There was a problem. Please try again next time.");
+    }
+
 }

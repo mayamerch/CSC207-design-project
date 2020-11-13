@@ -49,7 +49,7 @@ public class EventController {
      *                 0 If User is an Organizer
      *                 1 If User is an Attendee
      * @param speakerIds A list of the ids of speakers at this conference
-    **/
+     **/
     public void run(int UserId, int UserPerm, ArrayList<Integer> speakerIds) {
 
         Scanner reader = new Scanner(System.in);
@@ -76,12 +76,12 @@ public class EventController {
                     ep.denyUser(UserPerm);
                 else {
                     ep.seeAvailEvents(em, rm, UserId);
-                    int UserInput2 = reader.nextInt();
-                    while (UserInput2 != 0) {
+                    String UserInput2 = reader.nextLine();
+                    while (!UserInput2.equals("0")) {
                         this.signUp(UserId);
 
                         ep.seeAvailEvents(em, rm, UserId);
-                        UserInput2 = reader.nextInt();
+                        UserInput2 = reader.nextLine();
                     }
 
                     ep.goBack();
@@ -95,12 +95,16 @@ public class EventController {
                     ep.seeMyEvents(em, rm, UserId, UserPerm);
                     ep.cancelOptions();
                     String UserInput2 = reader.nextLine();
-                    while (!UserInput2.equals("0")) {
+                    while (UserInput2.equals("1")) {
                         this.cancelAttend(UserId);
 
                         ep.seeMyEvents(em, rm, UserId, UserPerm);
                         ep.cancelOptions();
                         UserInput2 = reader.nextLine();
+                    }
+
+                    if (!UserInput2.equals("0")) {
+                        ep.tryAgainNext();
                     }
 
                     ep.goBack();
@@ -128,11 +132,7 @@ public class EventController {
                     ep.denyUser(UserPerm);
                 else {
                     ep.createRoom();
-                    String inputString = "";
-                    do {
-                        inputString = reader.nextLine();
-                    } while (!tryParseInt(inputString));
-                    int input = Integer.parseInt(inputString);
+                    int input = reader.nextInt();
                     if (input != -1)
                         this.createRoom(input);
                     ep.goBack();
@@ -152,26 +152,34 @@ public class EventController {
     }
 
 
-    private boolean tryParseInt(String value) {
+    private int checkInput(String UserInput) {
+        int UserInputInt = 0;
+        String UserInput2;
+        Scanner reader = new Scanner(System.in);
+
         try {
-            Integer.parseInt(value);
-            return true;
-        } catch (NumberFormatException e) {
-            System.out.println("Incorrect format. Please enter a number only.");
-            return false;
+            UserInputInt = Integer.parseInt(UserInput);
+        } catch (Exception e) {
+            ep.tryAgain();
+            UserInput2 = reader.next();
+            this.checkInput(UserInput2);
         }
+
+        return UserInputInt;
     }
+
 
     private void signUp(int UserId) {
         Scanner reader = new Scanner(System.in);
 
         ep.chooseEvent();
-        int UserInput = reader.nextInt();
+        String UserInput = reader.nextLine();
+        int UserInputInt = checkInput(UserInput);
 
         int status = -1;
         for (Event event: em.availEvents(UserId)) {
-            if (event.getEventId() == UserInput) {
-                em.enroll(UserInput, UserId);
+            if (event.getEventId() == UserInputInt) {
+                em.enroll(UserInputInt, UserId);
                 status = 0;
             }
         }
@@ -185,12 +193,13 @@ public class EventController {
         Scanner reader = new Scanner(System.in);
 
         ep.chooseEvent();
-        int UserInput = reader.nextInt();
+        String UserInput = reader.nextLine();
+        int UserInputInt = checkInput(UserInput);
 
         int status = -1;
         for (Event event: em.myEvents(UserId)) {
-            if (event.getEventId() == UserInput) {
-                em.unenroll(UserInput, UserId);
+            if (event.getEventId() == UserInputInt) {
+                em.unenroll(UserInputInt, UserId);
                 status = 0;
             }
         }
