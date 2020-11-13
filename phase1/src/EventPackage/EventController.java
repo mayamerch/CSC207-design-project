@@ -67,7 +67,16 @@ public class EventController {
                 if (UserPerm == -1)
                     ep.denyUser(UserPerm);
                 else {
-                    // show available events
+                    ep.seeAvailEvents(em, rm, UserId);
+                    int UserInput2 = reader.nextInt();
+                    while (UserInput2 != 0) {
+                        this.signUp(UserId);
+
+                        ep.seeAvailEvents(em, rm, UserId);
+                        UserInput2 = reader.nextInt();
+                    }
+
+                    ep.goBack();
                 }
             }
 
@@ -75,15 +84,26 @@ public class EventController {
                 if (UserPerm == -1)
                     ep.denyUser(UserPerm);
                 else {
-                    // Attend new event
+                    ep.seeMyEvents(em, rm, UserId, UserPerm);
+                    ep.cancelOptions();
+                    int UserInput2 = reader.nextInt();
+                    while (UserInput2 != 0) {
+                        this.cancelAttend(UserId);
+
+                        ep.seeMyEvents(em, rm, UserId, UserPerm);
+                        ep.cancelOptions();
+                        UserInput2 = reader.nextInt();
+                    }
+
+                    ep.goBack();
                 }
             }
 
             else if (UserInput == 5) {
-                if (UserPerm == -1)
+                if (UserPerm == -1 || UserPerm == 1)
                     ep.denyUser(UserPerm);
                 else {
-                    // Cancel attending
+                    // Create event
                 }
             }
 
@@ -95,21 +115,60 @@ public class EventController {
                 }
             }
 
-            else if (UserInput == 7) {
-                if (UserPerm == -1 || UserPerm == 1)
-                    ep.denyUser(UserPerm);
-                else {
-                    // Create room
-                }
-            }
 
-
+            ep.printMenu(UserPerm);
             UserInput = reader.nextInt();
         }
+
+        ep.goBack();
 
         EventRoomGateway EvRoGate = new EventRoomGateway();
         EvRoGate.write(em.getEventList(), rm.getRoomList());
 
     }
 
+
+    /**
+     * Handles the process of a user signing up for an event
+     * @param UserId The Id of the user signing up
+     */
+    public void signUp(int UserId) {
+        Scanner reader = new Scanner(System.in);
+
+        ep.chooseEvent();
+        int UserInput = reader.nextInt();
+
+        int status = -1;
+        for (Event event: em.availEvents(UserId)) {
+            if (event.getEventId() == UserInput) {
+                em.enroll(UserInput, UserId);
+                status = 0;
+            }
+        }
+
+        ep.printStatus(status);
+        ep.goBack();
+    }
+
+    /**
+     * Handles the process of a user cancel attending an event
+     * @param UserId The Id of the user cancelling
+     */
+    public void cancelAttend(int UserId) {
+        Scanner reader = new Scanner(System.in);
+
+        ep.chooseEvent();
+        int UserInput = reader.nextInt();
+
+        int status = -1;
+        for (Event event: em.myEvents(UserId)) {
+            if (event.getEventId() == UserInput) {
+                em.unenroll(UserInput, UserId);
+                status = 0;
+            }
+        }
+
+        ep.printStatus(status);
+        ep.goBack();
+    }
 }

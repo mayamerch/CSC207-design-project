@@ -15,18 +15,17 @@ public class EventPresenter {
         StringBuilder temp = new StringBuilder();
 
         temp.append("Event and Room Main Menu \n");
-        temp.append("-----------------------------\n");
+        temp.append("---------------------------------\n");
 
         temp.append("1. See all Events\n");
         temp.append("2. See my Events (Events attending or speaking at)\n");
 
         if (UserPerm != -1) {
-            temp.append("3. See Events I can sign up for\n");
-            temp.append("4. Attend a new Event\n");
-            temp.append("5. Cancel attending an Event\n");
+            temp.append("3. Attend a new Event\n");
+            temp.append("4. Cancel Attending an Event");
             if (UserPerm == 0) {
-                temp.append("6. Create a new Event\n");
-                temp.append("7. Create a new Room\n");
+                temp.append("5. Create a new Event\n");
+                temp.append("6. Create a new Room\n");
             }
         }
 
@@ -44,11 +43,11 @@ public class EventPresenter {
      */
     public void denyUser(int UserPerm) {
         if (UserPerm == -1)
-            System.out.println("Sorry this option doesn't exist for a speaker.");
+            System.out.println("Sorry this option doesn't exist for a speaker. Please try again.\n");
         else if (UserPerm == 1)
-            System.out.println("Sorry this option doesn't exist for an attendee.");
+            System.out.println("Sorry this option doesn't exist for an attendee. Please try again\n");
         else
-            System.out.println("Sorry this option doesn't exist.");
+            System.out.println("Sorry this option doesn't exist. Please try again\n");
     }
 
 
@@ -58,6 +57,8 @@ public class EventPresenter {
      * @param rm The RoomManager with all the rooms
      */
     public void seeEvents(EventManager em, RoomManager rm) {
+        System.out.println("All Events");
+        System.out.println("---------------------------------");
         ArrayList<Event> eventList = em.getEventList();
         eventFormat(eventList, rm);
     }
@@ -72,6 +73,8 @@ public class EventPresenter {
      * @param UserPerm The Type of this User
      */
     public void seeMyEvents(EventManager em, RoomManager rm, int UserId, int UserPerm) {
+        System.out.println("My Events");
+        System.out.println("---------------------------------");
         ArrayList<Event> eventList;
         if (UserPerm != -1)
             eventList = em.myEvents(UserId);
@@ -80,6 +83,35 @@ public class EventPresenter {
         eventFormat(eventList, rm);
     }
 
+
+    /**
+     * Prints the list of events the user can sign up for and give them the option to sign up.
+     * @param em The EventManager with the list of Events
+     * @param rm The RoomManager with the list of Rooms
+     * @param UserId The id of the User
+     */
+    public void seeAvailEvents(EventManager em, RoomManager rm, int UserId) {
+        System.out.println("Available Events");
+        System.out.println("---------------------------------");
+        ArrayList<Event> eventList = em.availEvents(UserId);
+        eventFormat(eventList, rm);
+        StringBuilder temp = new StringBuilder();
+        temp.append("Please choose an option.\n\n");
+        temp.append("1. Attend a new Event\n");
+        temp.append("0. Go back\n");
+        System.out.print(temp);
+    }
+
+    /**
+     * Prints a list of options a User has when cancelling attending
+     */
+    public void cancelOptions() {
+        StringBuilder temp = new StringBuilder();
+        temp.append("Please choose an option.\n\n");
+        temp.append("1. Cancel Attending an Event\n");
+        temp.append("0. Go back\n");
+        System.out.print(temp);
+    }
 
 
     private void eventFormat(ArrayList<Event> eventList, RoomManager rm) {
@@ -103,5 +135,35 @@ public class EventPresenter {
 
         for (String[] row : table)
             System.out.format("%s%15s%15s%15s%15s%15s%15s\n", row);
+
+        System.out.print("\n");
     }
+
+    /**
+     * Asks User to choose an event.
+     */
+    public void chooseEvent() {
+        System.out.println("Choose the number of an Event.");
+    }
+
+
+    /**
+     * Prints the result of a process
+     * @param status -1 If process is not completed
+     *               0 If process is completed
+     */
+    public void printStatus(int status) {
+        if (status == -1)
+            System.out.println("Sorry this process could not be completed. Please try again.");
+        else
+            System.out.println("Process completed successfully.");
+    }
+
+    /**
+     * Tells User that program is going back to previous menu
+     */
+    public void goBack() {
+        System.out.println("Going back to previous menu.\n");
+    }
+
 }
