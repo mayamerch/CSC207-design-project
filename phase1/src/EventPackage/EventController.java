@@ -55,24 +55,23 @@ public class EventController {
         Scanner reader = new Scanner(System.in);
 
         ep.printMenu(UserPerm);
-        String tempInput = reader.next();
-        int UserInput = checkInput(tempInput);
+        String UserInput = reader.nextLine();
 
-        while (UserInput != 0) {
+        while (!UserInput.equals("0")) {
 
-            if (UserInput == 1) {
+            if (UserInput.equals("1")) {
                 ep.seeEvents(em, rm);
             }
 
-            else if (UserInput == 2) {
+            else if (UserInput.equals("2")) {
                 ep.seeMyEvents(em, rm, UserId, UserPerm);
             }
 
-            else if (UserInput == 3) {
+            else if (UserInput.equals("3")) {
                 ep.seeRooms(rm);
             }
 
-            else if (UserInput == 4) {
+            else if (UserInput.equals("4")) {
                 if (UserPerm == -1)
                     ep.denyUser(UserPerm);
                 else {
@@ -89,7 +88,7 @@ public class EventController {
                 }
             }
 
-            else if (UserInput == 5) {
+            else if (UserInput.equals("5")) {
                 if (UserPerm == -1)
                     ep.denyUser(UserPerm);
                 else {
@@ -108,7 +107,7 @@ public class EventController {
                 }
             }
 
-            else if (UserInput == 6) {
+            else if (UserInput.equals("6")) {
                 if (UserPerm == -1 || UserPerm == 1)
                     ep.denyUser(UserPerm);
                 else {
@@ -124,7 +123,7 @@ public class EventController {
                 }
             }
 
-            else if (UserInput == 7) {
+            else if (UserInput.equals("7")) {
                 if (UserPerm == -1 || UserPerm == 1)
                     ep.denyUser(UserPerm);
                 else {
@@ -136,10 +135,8 @@ public class EventController {
                 }
             }
 
-
             ep.printMenu(UserPerm);
-            tempInput = reader.next();
-            UserInput = checkInput(tempInput);
+            UserInput = reader.nextLine();
         }
 
         ep.goBack();
@@ -148,23 +145,23 @@ public class EventController {
 
     }
 
-
-    private int checkInput(String UserInput) {
-        int UserInputInt = 0;
-        String UserInput2;
-        Scanner reader = new Scanner(System.in);
-
-        try {
-            UserInputInt = Integer.parseInt(UserInput);
-        }
-        catch (Exception e) {
-            ep.tryAgain();
-            UserInput2 = reader.next();
-            this.checkInput(UserInput2);
-        }
-
-        return UserInputInt;
-    }
+//
+//    private int checkInput(String UserInput) {
+//        int UserInputInt = 0;
+//        String UserInput2;
+//        Scanner reader = new Scanner(System.in);
+//
+//        try {
+//            UserInputInt = Integer.parseInt(UserInput);
+//        }
+//        catch (Exception e) {
+//            ep.tryAgain();
+//            UserInput2 = reader.next();
+//            this.checkInput(UserInput2);
+//        }
+//
+//        return UserInputInt;
+//    }
 
 
     private void signUp(int UserId) {
