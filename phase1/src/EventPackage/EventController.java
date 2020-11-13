@@ -114,12 +114,8 @@ public class EventController {
                     ep.createEvent();
                     String OrganizerInput = reader.next();
                     int status = this.createEvent(OrganizerInput, speakerIds);
-                    if (status == -3)
-                        ep.printError(-3);
-                    else if (status == -2)
-                        ep.printError(-2);
-                    else if (status == -1)
-                        ep.printError(-1);
+                    if (status != 0)
+                        ep.printError(status);
                     else
                         ep.printStatus(0);
 
@@ -208,11 +204,11 @@ public class EventController {
             eventDate = sdf.parse(splitInput[2]);
             eventSpeaker = Integer.parseInt(splitInput[3]);
         }
-        catch (ParseException e) {
+        catch (Exception e) {
             return -3;
         }
 
-        if (!speakerIds.contains(eventSpeaker) || !rm.roomExists(eventRoom)) {
+        if (!(speakerIds.contains(eventSpeaker)) || !(rm.roomExists(eventRoom))) {
             return -4;
         }
         status = em.createEvent(eventName, eventRoom, eventDate, eventSpeaker, eventDuration);
