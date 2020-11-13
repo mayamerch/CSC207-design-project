@@ -166,4 +166,8 @@ public class EventPresenter {
         System.out.println("Going back to previous menu.\n");
     }
 
+    public void adamorganizer() {
+
+    }
+
 }
