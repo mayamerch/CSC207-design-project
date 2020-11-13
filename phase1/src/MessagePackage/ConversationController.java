@@ -38,7 +38,7 @@ public class ConversationController {
                 return false;
             }
         }
-        return true;
+        return false;
     }
 
     /**
