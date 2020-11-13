@@ -132,16 +132,13 @@ public class EventController {
                     ep.denyUser(UserPerm);
                 else {
                     ep.createRoom();
-                    String input = reader.nextLine();
-                    try {
-                        int inputInt = Integer.parseInt(input);
-
-                        if (inputInt > 0)
-                            createRoom(inputInt);
+                    String inputString = reader.nextLine();
+                    while (!checkInput(inputString)) {
+                        inputString = reader.nextLine();
                     }
-                    catch (Exception e) {
-                        continue;
-                    }
+                    int input =  Integer.parseInt(inputString);
+                    if (input != -1)
+                        this.createRoom(input);
                     ep.goBack();
                 }
             }
@@ -159,20 +156,17 @@ public class EventController {
     }
 
 
-    private int checkInput(String UserInput) {
+    private boolean checkInput(String UserInput) {
         int UserInputInt = 0;
         String UserInput2;
         Scanner reader = new Scanner(System.in);
-
         try {
             UserInputInt = Integer.parseInt(UserInput);
         } catch (Exception e) {
             ep.tryAgain();
-            UserInput2 = reader.next();
-            this.checkInput(UserInput2);
+            return false;
         }
-
-        return UserInputInt;
+        return true;
     }
 
 
@@ -181,7 +175,10 @@ public class EventController {
 
         ep.chooseEvent();
         String UserInput = reader.nextLine();
-        int UserInputInt = checkInput(UserInput);
+        while (!checkInput(UserInput)) {
+            UserInput = reader.nextLine();
+        }
+        int UserInputInt = Integer.parseInt(UserInput);
 
         int status = -1;
         for (Event event: em.availEvents(UserId)) {
@@ -201,7 +198,10 @@ public class EventController {
 
         ep.chooseEvent();
         String UserInput = reader.nextLine();
-        int UserInputInt = checkInput(UserInput);
+        while (!checkInput(UserInput)) {
+            UserInput = reader.nextLine();
+        }
+        int UserInputInt = Integer.parseInt(UserInput);
 
         int status = -1;
         for (Event event: em.myEvents(UserId)) {
