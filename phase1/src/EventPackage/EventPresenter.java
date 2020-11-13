@@ -1,5 +1,6 @@
 package EventPackage;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -169,5 +170,14 @@ public class EventPresenter {
     public void adamorganizer() {
 
     }
+    public void createRoom(RoomManager rm) {
+        StringBuilder temp = new StringBuilder();
+        temp.append("Please enter a capacity for the room" + System.lineSeparator());
+        System.out.print(temp);
+    }
 
+    public void displayRoom(int id) {
+        System.out.println("Your assigned room number is "+id+System.lineSeparator());
+        System.out.println("Please don't forget this number.");
+    }
 }
