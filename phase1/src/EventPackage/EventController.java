@@ -137,13 +137,32 @@ public class EventController {
 
 
             ep.printMenu(UserPerm);
-            UserInput = reader.nextInt();
+            String tempInput = reader.next();
+            UserInput = checkInput(tempInput);
         }
 
         ep.goBack();
 
         EvRoGate.write(em.getEventList(), rm.getRoomList());
 
+    }
+
+
+    private int checkInput(String UserInput) {
+        int UserInputInt = 0;
+        String UserInput2;
+        Scanner reader = new Scanner(System.in);
+
+        try {
+            UserInputInt = Integer.parseInt(UserInput);
+        }
+        catch (Exception e) {
+            ep.tryAgain();
+            UserInput2 = reader.next();
+            this.checkInput(UserInput2);
+        }
+
+        return UserInputInt;
     }
 
 

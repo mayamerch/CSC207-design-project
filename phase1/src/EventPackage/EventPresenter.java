@@ -251,4 +251,11 @@ public class EventPresenter {
         System.out.println("Your assigned room number is "+id+System.lineSeparator());
         System.out.println("Please don't forget this number."+System.lineSeparator());
     }
+
+    /**
+     * Asks User to type another integer
+     */
+    public void tryAgain() {
+        System.out.println("Sorry There was a problem. Please try inputting an integer again.\n");
+    }
 }
