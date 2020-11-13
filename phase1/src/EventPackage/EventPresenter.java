@@ -1,6 +1,5 @@
 package EventPackage;
 
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -20,13 +19,14 @@ public class EventPresenter {
 
         temp.append("1. See all Events\n");
         temp.append("2. See my Events (Events attending or speaking at)\n");
+        temp.append("3. See Rooms\n");
 
         if (UserPerm != -1) {
-            temp.append("3. Attend a new Event\n");
-            temp.append("4. Cancel Attending an Event\n");
+            temp.append("4. Attend a new Event\n");
+            temp.append("5. Cancel Attending an Event\n");
             if (UserPerm == 0) {
-                temp.append("5. Create a new Event\n");
-                temp.append("6. Create a new Room\n");
+                temp.append("6. Create a new Event\n");
+                temp.append("7. Create a new Room\n");
             }
         }
 
@@ -112,6 +112,28 @@ public class EventPresenter {
         temp.append("1. Cancel Attending an Event\n");
         temp.append("0. Go back\n");
         System.out.print(temp);
+    }
+
+
+
+    /**
+     * Print the list of rooms with their information
+     * @param rm RoomManger with all the rooms
+     */
+    public void seeRooms(RoomManager rm) {
+        ArrayList<Room> roomList = rm.getRoomList();
+        String[][] table = new String[roomList.size() + 1][2];
+        table[0] = new String[] {"Room Number", "Room Capacity"};
+        for (int i = 0; i < roomList.size(); i++) {
+            Room currRoom = roomList.get(i);
+
+            table[i + 1] = new String[]{String.valueOf(currRoom.getRoomNumber()),
+                    String.valueOf(currRoom.getRoomCapacity())};
+        }
+        for (String[] row : table)
+            System.out.format("%s%15s%15s%15s%15s%15s%15s\n", row);
+
+        System.out.print("\n");
     }
 
 

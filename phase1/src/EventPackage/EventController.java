@@ -68,6 +68,10 @@ public class EventController {
             }
 
             else if (UserInput == 3) {
+                ep.seeRooms(rm);
+            }
+
+            else if (UserInput == 4) {
                 if (UserPerm == -1)
                     ep.denyUser(UserPerm);
                 else {
@@ -84,7 +88,7 @@ public class EventController {
                 }
             }
 
-            else if (UserInput == 4) {
+            else if (UserInput == 5) {
                 if (UserPerm == -1)
                     ep.denyUser(UserPerm);
                 else {
@@ -103,7 +107,7 @@ public class EventController {
                 }
             }
 
-            else if (UserInput == 5) {
+            else if (UserInput == 6) {
                 if (UserPerm == -1 || UserPerm == 1)
                     ep.denyUser(UserPerm);
                 else {
@@ -123,7 +127,7 @@ public class EventController {
                 }
             }
 
-            else if (UserInput == 6) {
+            else if (UserInput == 7) {
                 if (UserPerm == -1 || UserPerm == 1)
                     ep.denyUser(UserPerm);
                 else {
