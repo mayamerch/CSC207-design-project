@@ -128,7 +128,11 @@ public class EventController {
                     ep.denyUser(UserPerm);
                 else {
                     ep.createRoom();
-                    int input = reader.nextInt();
+                    String inputString = "";
+                    do {
+                        inputString = reader.nextLine();
+                    } while (!tryParseInt(inputString));
+                    int input = Integer.parseInt(inputString);
                     if (input != -1)
                         this.createRoom(input);
                     ep.goBack();
@@ -147,6 +151,16 @@ public class EventController {
 
     }
 
+
+    private boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("Incorrect format. Please enter a number only.");
+            return false;
+        }
+    }
 
     private void signUp(int UserId) {
         Scanner reader = new Scanner(System.in);
