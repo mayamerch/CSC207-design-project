@@ -58,7 +58,7 @@ public class EventController {
         String UserInput = reader.nextLine();
 
         while (!UserInput.equals("0")) {
-
+        //should we be using a switch statement here instead of a long series of if else?
             if (UserInput.equals("1")) {
                 ep.seeEvents(em, rm);
             }

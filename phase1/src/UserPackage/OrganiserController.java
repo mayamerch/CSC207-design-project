@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class OrganiserController extends EventSignUpSystem{
+public class OrganiserController extends UserController {
     private EventRoomGateway gateway;
     // add an attribute for the organiser currently logged in here
     // for when we implement chat functionality
@@ -26,7 +26,7 @@ public class OrganiserController extends EventSignUpSystem{
         System.out.println("Enter ID of Event to be cancelled");
 
         int eventID = validateEventInput();
-        if (event_manager.cancelEvent(eventID)){
+        if (eventManager.cancelEvent(eventID)){
             System.out.println("The event is cancelled");
         }
         else{
@@ -37,28 +37,36 @@ public class OrganiserController extends EventSignUpSystem{
         // index than its ID and the cancel event method returns false since
         // it cant find it
     }
-    public boolean reschedule_event() throws ParseException {
+    public boolean rescheduleEvent() throws ParseException {
         // Could also have the user input all the data at once and have the
         // method split the string
+
         System.out.println("Enter ID of Event to be rescheduled");
 
         int eventID = validateEventInput();
         System.out.println("Enter the new time of the event: \"dd-MMM-yyyy HH:mm:ss\"");
         SimpleDateFormat formatter6=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
         // add a regular expression here?
-        String eventtime = scanner.nextLine();
-        Date date6=formatter6.parse(eventtime);
+        String eventTime = scanner.nextLine();
+        Date date6=formatter6.parse(eventTime);
         //check if there is a room conflict
         System.out.println("Enter Room Number for the rescheduled event");
         // Validate this?
         int RoomNumber = scanner.nextInt();
-        System.out.println("Enter ID of speaker for the event");
-        // add special input -1 for same speaker? may introduce bugs in other functions
-        int SpeakerID = validateUserIDInput();
+        int speakerID = -1;
+        boolean isSpeaker = false;
+        do {
+            System.out.println("Enter ID of speaker for the event");
+            // add special input -1 for same speaker? may introduce bugs in other functions
+            speakerID = validateUserIDInput();
+            isSpeaker = userManager.getUserByID(speakerID) instanceof Speaker;
+            if (!isSpeaker)
+                System.out.println("Invalid speaker ID, please enter again.");
+        } while (!isSpeaker);
         System.out.println("Enter new duration for the event");
         int duration = scanner.nextInt();
-        return event_manager.reschedule(eventID, date6, RoomNumber, SpeakerID, duration);
-        }
+        return eventManager.reschedule(eventID, date6, RoomNumber, speakerID, duration);
+    }
 
     public void create_speaker(){
         System.out.println("Enter Username of speaker");
@@ -66,7 +74,7 @@ public class OrganiserController extends EventSignUpSystem{
         String username = scanner.nextLine();
         System.out.println("Enter Password for speaker");
         String password = scanner.nextLine();
-        user_manager.create_account(username, password, "Speaker");
+        userManager.createAccount(username, password, "Speaker");
     }
 
     /** TODO: implement this when scanner implemented

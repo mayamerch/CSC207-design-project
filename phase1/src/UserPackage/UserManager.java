@@ -5,32 +5,41 @@ import java.util.ArrayList;
 public class UserManager {
 
     private UserFactory factory;
-    private ArrayList<User> user_list;
+    private ArrayList<User> userList;
 
     /**
      * Creates a UserManager with an empty list of Users and a user factory
      */
     public UserManager() {
-        user_list = new ArrayList<>();
+        userList = new ArrayList<>();
         factory = new UserFactory();
     }
 
     /**
      * Creates a New user based on the type of User specified then adds it to a list of
      * Users and assigns the new user an ID
-     * @param new_username: The username of the new account, String
-     * @param new_password : The password of the new account, String
+     * @param newUsername: The username of the new account, String
+     * @param newPassword : The password of the new account, String
      * @param usertype: a character specifying the type of user to be created
      */
-    public void create_account(String new_username, String new_password, String usertype){
+    public boolean createAccount(String newUsername, String newPassword, String usertype){
         User new_user;
-        new_user = this.factory.getuser(new_username, new_password, usertype);
+        new_user = this.factory.getuser(newUsername, newPassword, usertype);
         // Casting as User?
-        if (new_user != null) {
-            user_list.add(new_user);
-            int new_userID = user_list.size();
+        if (new_user != null &&checkUnusedUsername(newUsername)) {
+            userList.add(new_user);
+            int new_userID = userList.size();
             new_user.set_userId(new_userID);
-            }
+            return true;
+        }
+        return false;
+    }
+    private boolean checkUnusedUsername(String username){
+        for (User x: userList){
+            if (x.get_username()==username)
+                return false;
+        }
+        return true;
     }
     /**
      * Takes an instance of User provided by the controller and a possible
@@ -40,19 +49,26 @@ public class UserManager {
      * @param password : The String entered as the password of the account,
      * @param user: an instance of User the person is trying to log into
      */
-    public boolean validate_login(User user, String username, String password){
+    public boolean validateLogin(User user, String username, String password){
         return ((user.get_username().equalsIgnoreCase(username)) && (user.get_password().equals(password)));
+    }
+    public int validateLogin(String username, String password){
+        for (User x : userList){
+            if (validateLogin(x, username, password))
+                return x.get_userID();
+        }
+        return -1;
     }
 
     public  ArrayList<User> get_user_list(){
-        return user_list;
+        return userList;
     }
 
     /**
      * TODO: Change this to linked list implementation. Can replace validate ID with this function
      */
     public User getUserByID(int userID) {
-        for (User user : user_list) {
+        for (User user : userList) {
             if (userID == user.get_userID()) {
                 return user;
             }
