@@ -124,6 +124,8 @@ public class EventRoomGateway {
                         newEvent.addAttendee(Integer.parseInt(s));
                         objectData.add(newEvent);
                     }
+                } else {
+                    objectData.add(newEvent);
                 }
             } catch (ParseException e) {
                 continue;
