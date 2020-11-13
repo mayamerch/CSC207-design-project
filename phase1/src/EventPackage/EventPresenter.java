@@ -122,7 +122,7 @@ public class EventPresenter {
         for (int i = 0; i < eventList.size(); i++) {
             Event currEvent = eventList.get(i);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String eventDate = sdf.format(currEvent.getEventDate());
 
             String capacity = String.valueOf(rm.findRoom(currEvent.getEventRoom()).getRoomCapacity()
@@ -167,8 +167,41 @@ public class EventPresenter {
         System.out.println("Going back to previous menu.\n");
     }
 
-    public void adamorganizer() {
 
+    /**
+     * Prints information user needs to know in order to create an event.
+     */
+    public void createEvent() {
+        System.out.println("Please enter information about the new event in this format exactly" +
+                ".\nThe format:   Event Name;Event Room;Event Date;Event Speaker\n" +
+                "Please don't use semi-colons in the Event Name and for Event Room and Event Speaker enter the Ids " +
+                "corresponding to them. For Event Date enter it in the format: yyyy-MM-dd HH:mm");
+    }
+
+
+    /**
+     * Print different error messages according to type of error.
+     * @param error type of error
+     */
+    public void printError(int error) {
+        if (error == -3) {
+            System.out.println("The format of the input was wrong, please try again next time.\n");
+        }
+
+        else if (error == -2) {
+            System.out.println("The format of the input was wrong and an accidental \":\"" +
+                    " might have been used.Please try again next time.\n");
+        }
+
+        else if (error == -1) {
+            System.out.println("The speaker is already booked at that time or an event is booked" +
+                    " in the same room on that time.Please check and try again next time.\n");
+        }
+
+        else if (error == -4) {
+            System.out.println("The Speaker or Room chosen don't exist." +
+                    "Please try again next time.\n");
+        }
     }
     public void createRoom(RoomManager rm) {
         StringBuilder temp = new StringBuilder();
