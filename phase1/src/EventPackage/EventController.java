@@ -1,7 +1,10 @@
 package EventPackage;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class EventController {
@@ -104,7 +107,19 @@ public class EventController {
                 if (UserPerm == -1 || UserPerm == 1)
                     ep.denyUser(UserPerm);
                 else {
-                    // Create event
+                    ep.createEvent();
+                    String OrganizerInput = reader.next();
+                    int status = this.createEvent(OrganizerInput, speakerIds);
+                    if (status == -3)
+                        ep.printError(-3);
+                    else if (status == -2)
+                        ep.printError(-2);
+                    else if (status == -1)
+                        ep.printError(-1);
+                    else
+                        ep.printStatus(0);
+
+                    ep.goBack();
                 }
             }
 
@@ -163,5 +178,38 @@ public class EventController {
 
         ep.printStatus(status);
         ep.goBack();
+    }
+
+
+    private int createEvent(String UserInput, ArrayList<Integer> speakerIds) {
+        String eventName;
+        int eventRoom;
+        Date eventDate;
+        int eventSpeaker;
+        int eventDuration = 1;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        int status;
+
+        String[] splitInput = UserInput.split(";");
+        if (splitInput.length != 4)
+            return -2;
+
+        eventName = splitInput[0];
+        try {
+            eventRoom = Integer.parseInt(splitInput[1]);
+            eventDate = sdf.parse(splitInput[2]);
+            eventSpeaker = Integer.parseInt(splitInput[3]);
+        }
+        catch (ParseException e) {
+            return -3;
+        }
+
+        if (!speakerIds.contains(eventSpeaker) || !rm.roomExists(eventRoom)) {
+            return -4;
+        }
+        status = em.createEvent(eventName, eventRoom, eventDate, eventSpeaker, eventDuration);
+
+
+        return status;
     }
 }

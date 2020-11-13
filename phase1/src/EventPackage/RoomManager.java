@@ -66,4 +66,19 @@ public class RoomManager {
 
         throw new ArrayIndexOutOfBoundsException("Room not found.");
     }
+
+
+    /**
+     * Finds whether a room exists or not
+     * @param roomNumber id of the room
+     * @return           true i room exists false if not
+     */
+    public boolean roomExists(int roomNumber) {
+        for (Room room: roomList) {
+            if (room.getRoomNumber() == roomNumber)
+                return true;
+        }
+
+        return false;
+    }
 }
