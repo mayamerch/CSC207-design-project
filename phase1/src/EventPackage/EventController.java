@@ -127,7 +127,7 @@ public class EventController {
                 if (UserPerm == -1 || UserPerm == 1)
                     ep.denyUser(UserPerm);
                 else {
-                    // Create event
+                    createRoom();
                 }
             }
 
