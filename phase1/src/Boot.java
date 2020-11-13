@@ -23,8 +23,7 @@ public class Boot {
         }
         else{
             System.out.println("try again");
-            int i = scanner.nextInt();
-            return firstMenu(i);
+            return -1;
         }
 
     }
@@ -47,10 +46,13 @@ public class Boot {
                 "3. Check Messages\n" +
                 "4. Check Broadcasts\n" +
                 "Please input a number: ");
-        int input = scanner.nextInt();
-        Integer i = boot.firstMenu(input);
+        int i;
+        do {
+            int input = scanner.nextInt();
+            i = boot.firstMenu(input);
+        }
+        while (i != -1);
         System.out.println("the menu chosen is "+ i);
         // take it to appropriate controller from here
-
     }
 }

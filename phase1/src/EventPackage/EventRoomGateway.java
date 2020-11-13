@@ -50,6 +50,7 @@ public class EventRoomGateway {
     /**
      * Tries to read and return data from a text file.
      * Prints to console on exception
+     * @param fileData Data of file to be read
      * @return Returns a the data in String form
      */
     public ArrayList<StringBuilder> read(File fileData) {
@@ -137,14 +138,12 @@ public class EventRoomGateway {
      */
     public ArrayList<Room> parseRoom() {
         ArrayList <Room> objectData = new ArrayList<>();
-
         for (StringBuilder stringEvent : this.roomData) {
             String[] fieldArr = stringEvent.toString().split(",");
             Room newRoom = new Room(Integer.parseInt(fieldArr[0]),
                     Integer.parseInt(fieldArr[1]));
             objectData.add(newRoom);
         }
-
         return objectData;
     }
 
