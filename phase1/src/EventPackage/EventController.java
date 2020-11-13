@@ -127,7 +127,12 @@ public class EventController {
                 if (UserPerm == -1 || UserPerm == 1)
                     ep.denyUser(UserPerm);
                 else {
-                    createRoom();
+                    ep.createRoom();
+                    int input = reader.nextInt();
+                    if (input != -1)
+                        this.createRoom(input);
+
+                    ep.goBack();
                 }
             }
 
@@ -213,18 +218,9 @@ public class EventController {
         return status;
     }
 
-    private void createRoom() {
-        int newRoomNumber;
-        int newRoomCapacity;
-        ep.createRoom(rm);
-        Scanner reader = new Scanner(System.in);
-        int input = reader.nextInt();
-        if (input == -1) {
-            ep.goBack();
-        } else {
-            int id = rm.createRoom(input);
-            ep.printStatus(0);
-            ep.displayRoom(id);
-        }
+    private void createRoom(int input) {
+        int id = rm.createRoom(input);
+        ep.printStatus(0);
+        ep.displayRoom(id);
     }
 }

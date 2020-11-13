@@ -203,14 +203,24 @@ public class EventPresenter {
                     "Please try again next time.\n");
         }
     }
-    public void createRoom(RoomManager rm) {
+
+
+    /**
+     * Prints information that a user needs to create a room.
+     */
+    public void createRoom() {
         StringBuilder temp = new StringBuilder();
-        temp.append("Please enter a capacity for the room" + System.lineSeparator());
+        temp.append("Please enter a capacity for the room or -1 to go back." + System.lineSeparator());
         System.out.print(temp);
     }
 
+
+    /**
+     * Displays information about a created room
+     * @param id Id of the room created
+     */
     public void displayRoom(int id) {
         System.out.println("Your assigned room number is "+id+System.lineSeparator());
-        System.out.println("Please don't forget this number.");
+        System.out.println("Please don't forget this number."+System.lineSeparator());
     }
 }
