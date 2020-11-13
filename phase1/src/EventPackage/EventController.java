@@ -77,7 +77,7 @@ public class EventController {
                 else {
                     ep.seeAvailEvents(em, rm, UserId);
                     String UserInput2 = reader.nextLine();
-                    while (!UserInput2.equals("0")) {
+                    while (UserInput2.equals("1")) {
                         this.signUp(UserId);
 
                         ep.seeAvailEvents(em, rm, UserId);
@@ -101,10 +101,6 @@ public class EventController {
                         ep.seeMyEvents(em, rm, UserId, UserPerm);
                         ep.cancelOptions();
                         UserInput2 = reader.nextLine();
-                    }
-
-                    if (!UserInput2.equals("0")) {
-                        ep.tryAgainNext();
                     }
 
                     ep.goBack();

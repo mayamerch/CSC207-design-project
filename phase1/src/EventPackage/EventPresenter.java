@@ -97,7 +97,7 @@ public class EventPresenter {
         ArrayList<Event> eventList = em.availEvents(UserId);
         eventFormat(eventList, rm);
         StringBuilder temp = new StringBuilder();
-        temp.append("Please choose an option.\n\n");
+        temp.append("Please choose an option. Anything other than a 1 will make you go back.\n\n");
         temp.append("1. Attend a new Event\n");
         temp.append("0. Go back\n");
         System.out.print(temp);
@@ -108,7 +108,7 @@ public class EventPresenter {
      */
     public void cancelOptions() {
         StringBuilder temp = new StringBuilder();
-        temp.append("Please choose an option.\n\n");
+        temp.append("Please choose an option. Anything other than a 1 will make you go back\n\n");
         temp.append("1. Cancel Attending an Event\n");
         temp.append("0. Go back\n");
         System.out.print(temp);
@@ -259,11 +259,5 @@ public class EventPresenter {
         System.out.println("Sorry There was a problem. Please try again. To exit type -1.\n");
     }
 
-    /**
-     * Tells user there was a problem.
-     */
-    public void tryAgainNext() {
-        System.out.println("Sorry There was a problem. Please try again next time.");
-    }
 
 }
