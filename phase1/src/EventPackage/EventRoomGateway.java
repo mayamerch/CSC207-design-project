@@ -78,22 +78,22 @@ public class EventRoomGateway {
      */
     public void write(ArrayList<Event> eventList, ArrayList<Room> roomList) {
         try {
-            FileWriter eventWriter = new FileWriter(this.fileDataEvent, true);
+            FileWriter eventWriter = new FileWriter(this.fileDataEvent);
             for (Event e : eventList) {
                 eventWriter.write(e.toString() + System.lineSeparator());
-                eventWriter.close();
             }
+            eventWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
 
         try {
-            FileWriter roomWriter = new FileWriter(this.fileDataRoom, true);
+            FileWriter roomWriter = new FileWriter(this.fileDataRoom);
             for (Room r : roomList) {
                 roomWriter.write(r.toString() + System.lineSeparator());
-                roomWriter.close();
             }
+            roomWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
