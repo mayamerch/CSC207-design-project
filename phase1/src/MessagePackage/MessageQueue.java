@@ -34,10 +34,10 @@ public class MessageQueue {
 
     @Override
     public String toString() {
-        String s = new String();
+        StringBuilder s = new StringBuilder("");
         for(Message m : messageQueue){
-            s += userManager.getUserByID(m.userId).get_username() + " : " + m.content;
+            s.append(userManager.getUserByID(m.userId).get_username()).append(" : ").append(m.content);
         }
-        return s;
+        return s.toString();
     }
 }
