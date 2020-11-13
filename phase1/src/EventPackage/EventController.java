@@ -135,6 +135,8 @@ public class EventController {
                 }
             }
 
+            else
+                ep.tryAgain();
             ep.printMenu(UserPerm);
             UserInput = reader.nextLine();
         }
