@@ -56,7 +56,7 @@ public class UserManager {
     }
 
     /**
-     * TODO: Change this to linked list implementation
+     * TODO: Change this to linked list implementation. Can replace validate ID with this function
      */
     public User getUserByID(int userID) {
         for (User user : user_list) {
