@@ -118,11 +118,13 @@ public class EventRoomGateway {
                         newDate,
                         Integer.parseInt(fieldArr[4]),
                         Integer.parseInt(fieldArr[5]));
-                String[] attendeesID = fieldArr[6].substring(1, fieldArr[6].length() - 1).split(", ");
-                for (String s : attendeesID) {
-                    newEvent.addAttendee(Integer.parseInt(s));
+                if (!fieldArr[6].equals("[]")) {
+                    String[] attendeesID = fieldArr[6].substring(1, fieldArr[6].length() - 1).split(", ");
+                    for (String s : attendeesID) {
+                        newEvent.addAttendee(Integer.parseInt(s));
+                        objectData.add(newEvent);
+                    }
                 }
-                objectData.add(newEvent);
             } catch (ParseException e) {
                 continue;
             }
