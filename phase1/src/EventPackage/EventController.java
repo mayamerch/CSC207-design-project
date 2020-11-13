@@ -212,4 +212,19 @@ public class EventController {
 
         return status;
     }
+
+    private void createRoom() {
+        int newRoomNumber;
+        int newRoomCapacity;
+        ep.createRoom(rm);
+        Scanner reader = new Scanner(System.in);
+        int input = reader.nextInt();
+        if (input == -1) {
+            ep.goBack();
+        } else {
+            int id = rm.createRoom(input);
+            ep.printStatus(0);
+            ep.displayRoom(id);
+        }
+    }
 }
