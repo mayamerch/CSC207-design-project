@@ -94,13 +94,13 @@ public class EventController {
                 else {
                     ep.seeMyEvents(em, rm, UserId, UserPerm);
                     ep.cancelOptions();
-                    int UserInput2 = reader.nextInt();
-                    while (UserInput2 != 0) {
+                    String UserInput2 = reader.nextLine();
+                    while (!UserInput2.equals("0")) {
                         this.cancelAttend(UserId);
 
                         ep.seeMyEvents(em, rm, UserId, UserPerm);
                         ep.cancelOptions();
-                        UserInput2 = reader.nextInt();
+                        UserInput2 = reader.nextLine();
                     }
 
                     ep.goBack();
@@ -144,24 +144,6 @@ public class EventController {
         EvRoGate.write(em.getEventList(), rm.getRoomList());
 
     }
-
-//
-//    private int checkInput(String UserInput) {
-//        int UserInputInt = 0;
-//        String UserInput2;
-//        Scanner reader = new Scanner(System.in);
-//
-//        try {
-//            UserInputInt = Integer.parseInt(UserInput);
-//        }
-//        catch (Exception e) {
-//            ep.tryAgain();
-//            UserInput2 = reader.next();
-//            this.checkInput(UserInput2);
-//        }
-//
-//        return UserInputInt;
-//    }
 
 
     private void signUp(int UserId) {
