@@ -119,6 +119,8 @@ public class EventRoomGateway {
                         Integer.parseInt(fieldArr[4]),
                         Integer.parseInt(fieldArr[5]));
                 String[] attendeesID = fieldArr[6].substring(1, fieldArr[6].length() - 1).split(", ");
+                if (fieldArr[6].length() == 2)
+                    attendeesID = new String[0];
                 for (String s : attendeesID) {
                     newEvent.addAttendee(Integer.parseInt(s));
                 }
