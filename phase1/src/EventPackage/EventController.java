@@ -128,11 +128,7 @@ public class EventController {
     }
 
 
-    /**
-     * Handles the process of a user signing up for an event
-     * @param UserId The Id of the user signing up
-     */
-    public void signUp(int UserId) {
+    private void signUp(int UserId) {
         Scanner reader = new Scanner(System.in);
 
         ep.chooseEvent();
@@ -150,11 +146,8 @@ public class EventController {
         ep.goBack();
     }
 
-    /**
-     * Handles the process of a user cancel attending an event
-     * @param UserId The Id of the user cancelling
-     */
-    public void cancelAttend(int UserId) {
+
+    private void cancelAttend(int UserId) {
         Scanner reader = new Scanner(System.in);
 
         ep.chooseEvent();
