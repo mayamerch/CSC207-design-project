@@ -159,7 +159,7 @@ public class EventPresenter {
         }
 
         for (String[] row : table)
-            System.out.format("%s%15s%15s%15s%15s%15s%15s\n", row);
+            System.out.format("%s%15s%20s%15s%15s%15s%15s\n", row);
 
         System.out.print("\n");
     }
@@ -197,10 +197,10 @@ public class EventPresenter {
      */
     public void createEvent() {
         System.out.println("Please enter information about the new event in this format exactly" +
-                ".\nThe format: Event Name;Event Room;Event Date;Event Speaker;\n\n" +
+                ".\nThe format: Event Name;Event Room;Event Date;Event Speaker\n\n" +
                 "Please don't use semi-colons in the Event Name and for Event Room and Event Speaker enter the Ids " +
                 "corresponding to them.\n" +
-                "For Event Date enter it in the format: yyyy-MM-dd HH:mm\nIf you want " +
+                "For Event Date enter it in the format: yyyy-MM-dd-HH:mm\nIf you want " +
                 "to cancel this process then type -1 and ignore error.");
     }
 

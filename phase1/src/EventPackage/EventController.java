@@ -195,7 +195,7 @@ public class EventController {
         Date eventDate;
         int eventSpeaker;
         int eventDuration = 1;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         int status;
 
         String[] splitInput = UserInput.split(";");
