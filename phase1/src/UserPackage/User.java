@@ -8,7 +8,6 @@ public abstract class User {
     private int userID;
     private String username;
     private String password;
-    public ArrayList<Conversation> conversations;
 
     /**
      * Constructs a new User object
