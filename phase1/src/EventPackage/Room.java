@@ -39,7 +39,7 @@ public class Room {
      */
     @Override
     public String toString() {
-        return String.valueOf((roomNumber + ',' + roomCapacity));
+        return String.valueOf(roomNumber) + ',' + roomCapacity;
     }
 
 }

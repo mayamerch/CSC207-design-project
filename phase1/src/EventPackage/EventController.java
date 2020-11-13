@@ -131,7 +131,6 @@ public class EventController {
                     int input = reader.nextInt();
                     if (input != -1)
                         this.createRoom(input);
-
                     ep.goBack();
                 }
             }
