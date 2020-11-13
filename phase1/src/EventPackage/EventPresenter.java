@@ -197,7 +197,7 @@ public class EventPresenter {
      */
     public void createEvent() {
         System.out.println("Please enter information about the new event in this format exactly" +
-                ".\nThe format: Event Name;Event Room;Event Date;Event Speaker\n" +
+                ".\nThe format: Event Name;Event Room;Event Date;Event Speaker;\n\n" +
                 "Please don't use semi-colons in the Event Name and for Event Room and Event Speaker enter the Ids " +
                 "corresponding to them.\n" +
                 "For Event Date enter it in the format: yyyy-MM-dd HH:mm\nIf you want " +
