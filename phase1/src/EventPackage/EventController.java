@@ -55,7 +55,8 @@ public class EventController {
         Scanner reader = new Scanner(System.in);
 
         ep.printMenu(UserPerm);
-        int UserInput = reader.nextInt();
+        String tempInput = reader.next();
+        int UserInput = checkInput(tempInput);
 
         while (UserInput != 0) {
 
@@ -137,7 +138,7 @@ public class EventController {
 
 
             ep.printMenu(UserPerm);
-            String tempInput = reader.next();
+            tempInput = reader.next();
             UserInput = checkInput(tempInput);
         }
 
