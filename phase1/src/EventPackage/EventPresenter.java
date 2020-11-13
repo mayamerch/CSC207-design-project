@@ -23,7 +23,7 @@ public class EventPresenter {
 
         if (UserPerm != -1) {
             temp.append("3. Attend a new Event\n");
-            temp.append("4. Cancel Attending an Event");
+            temp.append("4. Cancel Attending an Event\n");
             if (UserPerm == 0) {
                 temp.append("5. Create a new Event\n");
                 temp.append("6. Create a new Room\n");
@@ -175,7 +175,8 @@ public class EventPresenter {
         System.out.println("Please enter information about the new event in this format exactly" +
                 ".\nThe format:   Event Name;Event Room;Event Date;Event Speaker\n" +
                 "Please don't use semi-colons in the Event Name and for Event Room and Event Speaker enter the Ids " +
-                "corresponding to them. For Event Date enter it in the format: yyyy-MM-dd HH:mm");
+                "corresponding to them. For Event Date enter it in the format: yyyy-MM-dd HH:mm.\nIf you want " +
+                "to cancel this process then type -1 and ignore error.");
     }
 
 
