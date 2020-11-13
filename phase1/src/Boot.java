@@ -51,7 +51,7 @@ public class Boot {
             int input = scanner.nextInt();
             i = boot.firstMenu(input);
         }
-        while (i != -1);
+        while (i == -1);
         System.out.println("the menu chosen is "+ i);
         // take it to appropriate controller from here
     }
