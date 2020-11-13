@@ -121,6 +121,8 @@ public class EventPresenter {
      * @param rm RoomManger with all the rooms
      */
     public void seeRooms(RoomManager rm) {
+        System.out.println("Rooms");
+        System.out.println("---------------------------------");
         ArrayList<Room> roomList = rm.getRoomList();
         String[][] table = new String[roomList.size() + 1][2];
         table[0] = new String[] {"Room Number", "Room Capacity"};
@@ -131,7 +133,7 @@ public class EventPresenter {
                     String.valueOf(currRoom.getRoomCapacity())};
         }
         for (String[] row : table)
-            System.out.format("%s%15s%15s%15s%15s%15s%15s\n", row);
+            System.out.format("%s%15s\n", row);
 
         System.out.print("\n");
     }
@@ -195,9 +197,10 @@ public class EventPresenter {
      */
     public void createEvent() {
         System.out.println("Please enter information about the new event in this format exactly" +
-                ".\nThe format:   Event Name;Event Room;Event Date;Event Speaker\n" +
+                ".\nThe format: Event Name;Event Room;Event Date;Event Speaker\n" +
                 "Please don't use semi-colons in the Event Name and for Event Room and Event Speaker enter the Ids " +
-                "corresponding to them. For Event Date enter it in the format: yyyy-MM-dd HH:mm.\nIf you want " +
+                "corresponding to them.\n" +
+                "For Event Date enter it in the format: yyyy-MM-dd HH:mm\nIf you want " +
                 "to cancel this process then type -1 and ignore error.");
     }
 
@@ -212,7 +215,7 @@ public class EventPresenter {
         }
 
         else if (error == -2) {
-            System.out.println("The format of the input was wrong and an accidental \":\"" +
+            System.out.println("The format of the input was wrong and an accidental \";\"" +
                     " might have been used.Please try again next time.\n");
         }
 
