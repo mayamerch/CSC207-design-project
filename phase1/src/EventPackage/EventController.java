@@ -132,9 +132,16 @@ public class EventController {
                     ep.denyUser(UserPerm);
                 else {
                     ep.createRoom();
-                    int input = reader.nextInt();
-                    if (input != -1)
-                        this.createRoom(input);
+                    String input = reader.nextLine();
+                    try {
+                        int inputInt = Integer.parseInt(input);
+
+                        if (inputInt > 0)
+                            createRoom(inputInt);
+                    }
+                    catch (Exception e) {
+                        continue;
+                    }
                     ep.goBack();
                 }
             }
