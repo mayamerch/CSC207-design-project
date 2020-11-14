@@ -58,89 +58,94 @@ public class EventController {
         String UserInput = reader.nextLine();
 
         while (!UserInput.equals("0")) {
-        //should we be using a switch statement here instead of a long series of if else?
-            if (UserInput.equals("1")) {
-                ep.seeEvents(em, rm);
-            }
 
-            else if (UserInput.equals("2")) {
-                ep.seeMyEvents(em, rm, UserId, UserPerm);
-            }
+            switch (UserInput) {
 
-            else if (UserInput.equals("3")) {
-                ep.seeRooms(rm);
-            }
+                case "1":
+                    ep.seeEvents(em, rm);
+                    break;
 
-            else if (UserInput.equals("4")) {
-                if (UserPerm == -1)
-                    ep.denyUser(UserPerm);
-                else {
-                    ep.seeAvailEvents(em, rm, UserId);
-                    String UserInput2 = reader.nextLine();
-                    while (UserInput2.equals("1")) {
-                        this.signUp(UserId);
-
-                        ep.seeAvailEvents(em, rm, UserId);
-                        UserInput2 = reader.nextLine();
-                    }
-
-                    ep.goBack();
-                }
-            }
-
-            else if (UserInput.equals("5")) {
-                if (UserPerm == -1)
-                    ep.denyUser(UserPerm);
-                else {
+                case "2":
                     ep.seeMyEvents(em, rm, UserId, UserPerm);
-                    ep.cancelOptions();
-                    String UserInput2 = reader.nextLine();
-                    while (UserInput2.equals("1")) {
-                        this.cancelAttend(UserId);
+                    break;
 
+                case "3":
+                    ep.seeRooms(rm);
+                    break;
+
+                case "4":
+                    if (UserPerm == -1)
+                        ep.denyUser(UserPerm);
+                    else {
+                        ep.seeAvailEvents(em, rm, UserId);
+                        String UserInput2 = reader.nextLine();
+                        while (UserInput2.equals("1")) {
+                            this.signUp(UserId);
+
+                            ep.seeAvailEvents(em, rm, UserId);
+                            UserInput2 = reader.nextLine();
+                        }
+
+                        ep.goBack();
+                    }
+                    break;
+
+                case "5":
+                    if (UserPerm == -1)
+                        ep.denyUser(UserPerm);
+                    else {
                         ep.seeMyEvents(em, rm, UserId, UserPerm);
                         ep.cancelOptions();
-                        UserInput2 = reader.nextLine();
+                        String UserInput2 = reader.nextLine();
+                        while (UserInput2.equals("1")) {
+                            this.cancelAttend(UserId);
+
+                            ep.seeMyEvents(em, rm, UserId, UserPerm);
+                            ep.cancelOptions();
+                            UserInput2 = reader.nextLine();
+                        }
+
+                        ep.goBack();
                     }
+                    break;
 
-                    ep.goBack();
-                }
-            }
+                case "6":
+                    if (UserPerm == -1 || UserPerm == 1)
+                        ep.denyUser(UserPerm);
+                    else {
+                        ep.createEvent();
+                        String OrganizerInput = reader.next();
+                        int status = this.createEvent(OrganizerInput, speakerIds);
+                        if (status != 0)
+                            ep.printError(status);
+                        else
+                            ep.printStatus(0);
 
-            else if (UserInput.equals("6")) {
-                if (UserPerm == -1 || UserPerm == 1)
-                    ep.denyUser(UserPerm);
-                else {
-                    ep.createEvent();
-                    String OrganizerInput = reader.next();
-                    int status = this.createEvent(OrganizerInput, speakerIds);
-                    if (status != 0)
-                        ep.printError(status);
-                    else
-                        ep.printStatus(0);
-
-                    ep.goBack();
-                }
-            }
-
-            else if (UserInput.equals("7")) {
-                if (UserPerm == -1 || UserPerm == 1)
-                    ep.denyUser(UserPerm);
-                else {
-                    ep.createRoom();
-                    String inputString = reader.nextLine();
-                    while (!checkInput(inputString)) {
-                        inputString = reader.nextLine();
+                        ep.goBack();
                     }
-                    int input =  Integer.parseInt(inputString);
-                    if (input != -1)
-                        this.createRoom(input);
-                    ep.goBack();
-                }
+                    break;
+
+                case "7":
+                    if (UserPerm == -1 || UserPerm == 1)
+                        ep.denyUser(UserPerm);
+                    else {
+                        ep.createRoom();
+                        String inputString = reader.nextLine();
+                        while (!checkInput(inputString)) {
+                            inputString = reader.nextLine();
+                        }
+                        int input =  Integer.parseInt(inputString);
+                        if (input != -1)
+                            this.createRoom(input);
+                        ep.goBack();
+                    }
+                    break;
+
+                default:
+                    ep.tryAgain();
+                    break;
             }
 
-            else
-                ep.tryAgain();
             ep.printMenu(UserPerm);
             UserInput = reader.nextLine();
         }

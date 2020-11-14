@@ -6,18 +6,14 @@ public class Boot {
 
     public Integer firstMenu(int input){
         if(input == 1){
-            System.out.println("all events");
+            System.out.println("manage events");
             return 1;
         }
         else if (input == 2){
-            System.out.println("registered events");
-            return 2;
-        }
-        else if (input == 3){
             System.out.println("messages");
             return 3;
         }
-        else if (input == 4){
+        else if (input == 3){
             System.out.println("broadcasts");
             return 4;
         }
@@ -41,10 +37,9 @@ public class Boot {
 
         //Assuming password is correct
         System.out.println("What would you like to do?\n" +
-                "1. View All Events\n" +
-                "2. View Registered Events\n" +
-                "3. Check Messages\n" +
-                "4. Check Broadcasts\n" +
+                "1. Manage Events\n" +
+                "2. Check Messages\n" +
+                "3. Check Broadcasts\n" +
                 "Please input a number: ");
         int i;
         do {
