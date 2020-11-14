@@ -2,18 +2,24 @@ package UserPackage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class UserManager implements Serializable {
 
     private UserFactory factory;
-    private ArrayList<User> userList;
+    private LinkedList<User> userList;
+    private int usersCreated;
+    private LinkedList<User> speakerList;
+    private LinkedList<User> attendeeList;
+
 
     /**
-     * Creates a UserManager with an empty list of Users and a user factory
+     * Creates a UserManager with an empty list of Users and a user factory, and a usersCreated of 0
      */
     public UserManager() {
-        userList = new ArrayList<>();
+        userList = new LinkedList<User>();
         factory = new UserFactory();
+        usersCreated = 0;
     }
 
     /**
@@ -29,19 +35,26 @@ public class UserManager implements Serializable {
         // Casting as User?
         if (new_user != null &&checkUnusedUsername(newUsername)) {
             userList.add(new_user);
-            int new_userID = userList.size();
+            int new_userID = usersCreated + 1;
             new_user.set_userId(new_userID);
+            if (new_user instanceof Speaker){
+                speakerList.add(new_user);
+            }
+            else if (new_user instanceof Attendee){
+                attendeeList.add(new_user);
+            }
             return true;
         }
         return false;
     }
     private boolean checkUnusedUsername(String username){
         for (User x: userList){
-            if (x.get_username()==username)
+            if (x.get_username().equals(username))
                 return false;
         }
         return true;
     }
+
     /**
      * Takes an instance of User provided by the controller and a possible
      * username and password combination and check to see if they match
@@ -61,12 +74,12 @@ public class UserManager implements Serializable {
         return -1;
     }
 
-    public  ArrayList<User> get_user_list(){
+    public  LinkedList<User> getUserList(){
         return userList;
     }
 
     /**
-     * TODO: Change this to linked list implementation. Can replace validate ID with this function
+     * TODO: Change this to linked list implementation. Can replace validate ID with this function`
      */
     public User getUserByID(int userID) {
         for (User user : userList) {

@@ -53,7 +53,7 @@ public class OrganiserController extends UserController {
         System.out.println("Enter Room Number for the rescheduled event");
         // Validate this?
         int RoomNumber = scanner.nextInt();
-        int speakerID = -1;
+        int speakerID;
         boolean isSpeaker = false;
         do {
             System.out.println("Enter ID of speaker for the event");
