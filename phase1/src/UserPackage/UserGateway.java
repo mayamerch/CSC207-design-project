@@ -58,4 +58,33 @@ public class UserGateway {
         }
     }
 
+    public void saveUserManager(UserManager userManager){
+        File userManagerFile = new File("UserManager.txt");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(userManagerFile);
+            OutputStream buffer = new BufferedOutputStream(fos);
+            ObjectOutputStream oos = new ObjectOutputStream(buffer);
+            oos.writeObject(userManager);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public UserManager readUserManager(String path){
+        try {
+            FileInputStream file = new FileInputStream(path);
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(buffer);
+
+            UserManager userManager = (UserManager) ois.readObject();
+            ois.close();
+            return userManager;
+        } catch(IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
 }

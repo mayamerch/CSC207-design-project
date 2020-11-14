@@ -1,8 +1,9 @@
 package UserPackage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserManager {
+public class UserManager implements Serializable {
 
     private UserFactory factory;
     private ArrayList<User> userList;
