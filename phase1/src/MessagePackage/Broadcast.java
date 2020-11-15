@@ -15,13 +15,13 @@ public class Broadcast implements Conversation{
 
     /**
      * Message broadcasted by someone in ArrayList broadcasters, identified by userID
-     * @param messageQueue the Message being broadcasted
+      //@param messageQueue the Message being broadcasted
      * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast
      * @param eventID the ID of the event of which the attendees are being broadcasted to
      */
-    public Broadcast(MessageQueue messageQueue, ArrayList<Integer> broadcasters, int eventID){
+    public Broadcast(ArrayList<Integer> broadcasters, int eventID){ // took out mq as a param
         this.broadcasters = broadcasters;
-        this.messageQueue = messageQueue;
+        this.messageQueue = new MessageQueue();
         this.eventID = eventID;
     }
 

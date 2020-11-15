@@ -84,15 +84,15 @@ public class ConversationController {
 
     /**
      * Returns true if a Broadcast does not already exist and can be created
-     * @param mq the message to be sent in the broadcast
+     // @param mq the message to be sent in the broadcast
      * @param user the user who will be sending the broadcast
      * @param event the event whose attendees the broadcast will be sent to
      */
-    public boolean canCreateNewBroadCast(MessageQueue mq, User user, Event event) {
+    public boolean canCreateNewBroadCast(User user, Event event) {
         // TODO: is there a better way to do this so it's not repeated:
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(user.get_userID());
-        Broadcast b = new Broadcast(mq, broadcasters, event.getEventId());
+        Broadcast b = new Broadcast(broadcasters, event.getEventId());
         if (conversations.contains(b)) {
             return false;
         }
@@ -106,15 +106,15 @@ public class ConversationController {
 
     /**
      * Creates and returns a new Broadcast, if possible. Raises an Error if not.
-     * @param mq the message to be sent in the broadcast
+     // @param mq the message to be sent in the broadcast
      * @param user the user who will be sending the broadcast
      * @param event the event whose attendees the broadcast will be sent to
      */
-    public Broadcast createNewBroadcast(MessageQueue mq, User user, Event event) {
+    public Broadcast createNewBroadcast(User user, Event event) {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(user.get_userID());
-        if(canCreateNewBroadCast(mq, user, event)){
-            Broadcast b = new Broadcast(mq, broadcasters, event.getEventId());
+        if(canCreateNewBroadCast(user, event)){
+            Broadcast b = new Broadcast(broadcasters, event.getEventId());
             conversations.add(b);
             return b;
         }
@@ -130,7 +130,7 @@ public class ConversationController {
      */
     public void sendNewBroadcast(MessageQueue mq, User user, Event event){
         ArrayList<Integer> broadcasters = new ArrayList<>();
-        Broadcast b = createNewBroadcast(mq, user, event);
+        Broadcast b = createNewBroadcast(user, event);
         b.sendMessage(message.getContent(), user.get_userID());
     }
 
@@ -142,7 +142,7 @@ public class ConversationController {
     public void sendExistingBroadcast(MessageQueue mq, User user, Event event){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(user.get_userID());
-        Broadcast broadcast = new Broadcast(mq, broadcasters, event.getEventId());
+        Broadcast broadcast = new Broadcast(broadcasters, event.getEventId());
         for(Conversation c: conversations){
             if(c.equals(broadcast)); // if chatroom already exists
             c.sendMessage(message.getContent(), user.get_userID());
@@ -152,11 +152,11 @@ public class ConversationController {
     /**
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
-     * @param messageQueue messages being sent in the broadcast
+     // @param messageQueue messages being sent in the broadcast
      */
-    public void createBroadcastInAllSpeakerEvents(Speaker speaker, MessageQueue messageQueue){
+    public void createBroadcastInAllSpeakerEvents(Speaker speaker){ // mq removed
         for(int eventID: speaker.getTalksList()){
-            createNewBroadcast(messageQueue, speaker, eventManager.getEvent(eventID));
+            createNewBroadcast(speaker, eventManager.getEvent(eventID));
         }
     }
 
