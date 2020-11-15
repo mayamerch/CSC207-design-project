@@ -63,6 +63,26 @@ public class EventController {
 
                 case "1":
                     ep.seeEvents(em, rm);
+                    ep.seeAttendees();
+                    String choice = reader.nextLine();
+
+                    while (!choice.equals("0")) {
+                        if (!checkInput(choice))
+                            ep.printStatus(-1);
+                        else {
+                            int eventId = Integer.parseInt(choice);
+                            try {
+                                ep.printAttendees(em.getEvent(eventId).getEventAttendees());
+                            }
+                            catch (Exception e) {
+                                ep.printStatus(-1);
+                            }
+                        }
+                        ep.seeEvents(em, rm);
+                        ep.seeAttendees();
+                        choice = reader.nextLine();
+                    }
+
                     break;
 
                 case "2":
@@ -142,7 +162,7 @@ public class EventController {
                     break;
 
                 default:
-                    ep.tryAgain();
+                    ep.denyUser(UserPerm);
                     break;
             }
 
@@ -158,11 +178,8 @@ public class EventController {
 
 
     private boolean checkInput(String UserInput) {
-        int UserInputInt = 0;
-        String UserInput2;
-        Scanner reader = new Scanner(System.in);
         try {
-            UserInputInt = Integer.parseInt(UserInput);
+            Integer.parseInt(UserInput);
         } catch (Exception e) {
             ep.tryAgain();
             return false;

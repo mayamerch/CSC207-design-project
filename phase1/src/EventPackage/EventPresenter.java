@@ -139,6 +139,24 @@ public class EventPresenter {
     }
 
 
+    /**
+     * Tells user he has the option of seeing attendees of an event.
+     */
+    public void seeAttendees() {
+        System.out.println("To see the attendees of a specific event please type the Id of the event. " +
+                "To exit type 0.");
+    }
+
+
+    /**
+     * prints list of integers representing attendees
+     * @param attendees The ids of the attendees
+     */
+    public void printAttendees(ArrayList<Integer> attendees) {
+        System.out.println("The list of attendees (by their id) is,\n" + attendees);
+    }
+
+
     private void eventFormat(ArrayList<Event> eventList, RoomManager rm) {
         String[][] table = new String[eventList.size() + 1][7];
         table[0] = new String[] {"Event ID", "Event Name", "Event Date", "Event Duration", "Room Number",
@@ -181,9 +199,9 @@ public class EventPresenter {
      */
     public void printStatus(int status) {
         if (status == -1)
-            System.out.println("Sorry this process could not be completed. Please try again.");
+            System.out.println("Sorry this process could not be completed. Please try again.\n");
         else
-            System.out.println("Process completed successfully.");
+            System.out.println("Process completed successfully.\n");
     }
 
     /**
