@@ -34,6 +34,7 @@ public class AttendeeController extends UserController {
             return false; }
         else{
             System.out.println("Event ID invalid");
+            // This should never happen if eventInput function works properly
             return false;
         }
      }
@@ -45,7 +46,7 @@ public class AttendeeController extends UserController {
         if (event_manager.unenroll(eventID, currentUserId) == 1){
             return true;
         }
-        else if (event_manager.enroll(eventID, currentUserId) == 0)
+        else if (event_manager.unenroll(eventID, currentUserId) == 0)
         {System.out.println("You are already un enrolled");
             return false; }
         else{
