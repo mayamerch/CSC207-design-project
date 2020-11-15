@@ -14,25 +14,25 @@ public class EventPresenter {
 
         StringBuilder temp = new StringBuilder();
 
-        temp.append("Event and Room Main Menu \n");
-        temp.append("---------------------------------\n");
+        temp.append("Event and Room Main Menu" + System.lineSeparator());
+        temp.append("---------------------------------" + System.lineSeparator());
 
-        temp.append("1. See all Events\n");
-        temp.append("2. See my Events (Events attending or speaking at)\n");
-        temp.append("3. See Rooms\n");
+        temp.append("1. See all Events" + System.lineSeparator());
+        temp.append("2. See my Events (Events attending or speaking at)" + System.lineSeparator());
+        temp.append("3. See Rooms" + System.lineSeparator());
 
         if (UserPerm != -1) {
-            temp.append("4. Attend a new Event\n");
-            temp.append("5. Cancel Attending an Event\n");
+            temp.append("4. Attend a new Event" + System.lineSeparator());
+            temp.append("5. Cancel Attending an Event" + System.lineSeparator());
             if (UserPerm == 0) {
-                temp.append("6. Create a new Event\n");
-                temp.append("7. Create a new Room\n");
+                temp.append("6. Create a new Event" + System.lineSeparator());
+                temp.append("7. Create a new Room" + System.lineSeparator());
             }
         }
 
-        temp.append("0. Exit this menu.\n \n");
+        temp.append("0. Exit this menu." + System.lineSeparator() + System.lineSeparator());
 
-        temp.append("Please choose an option number.\n");
+        temp.append("Please choose an option number." + System.lineSeparator());
         System.out.print(temp);
 
     }
@@ -44,11 +44,13 @@ public class EventPresenter {
      */
     public void denyUser(int UserPerm) {
         if (UserPerm == -1)
-            System.out.println("Sorry this option doesn't exist for a speaker. Please try again.\n");
+            System.out.println("Sorry this option doesn't exist for a speaker. Please try again."
+                    + System.lineSeparator());
         else if (UserPerm == 1)
-            System.out.println("Sorry this option doesn't exist for an attendee. Please try again\n");
+            System.out.println("Sorry this option doesn't exist for an attendee. Please try again."
+                    + System.lineSeparator());
         else
-            System.out.println("Sorry this option doesn't exist. Please try again\n");
+            System.out.println("Sorry this option doesn't exist. Please try again." + System.lineSeparator());
     }
 
 
@@ -97,9 +99,10 @@ public class EventPresenter {
         ArrayList<Event> eventList = em.availEvents(UserId);
         eventFormat(eventList, rm);
         StringBuilder temp = new StringBuilder();
-        temp.append("Please choose an option. Anything other than a 1 will make you go back.\n\n");
-        temp.append("1. Attend a new Event\n");
-        temp.append("0. Go back\n");
+        temp.append("Please choose an option. Anything other than a 1 will make you go back." +
+                System.lineSeparator() + System.lineSeparator());
+        temp.append("1. Attend a new Event" + System.lineSeparator());
+        temp.append("0. Go back" + System.lineSeparator());
         System.out.print(temp);
     }
 
@@ -108,9 +111,10 @@ public class EventPresenter {
      */
     public void cancelOptions() {
         StringBuilder temp = new StringBuilder();
-        temp.append("Please choose an option. Anything other than a 1 will make you go back\n\n");
-        temp.append("1. Cancel Attending an Event\n");
-        temp.append("0. Go back\n");
+        temp.append("Please choose an option. Anything other than a 1 will make you go back"
+                + System.lineSeparator() + System.lineSeparator());
+        temp.append("1. Cancel Attending an Event" + System.lineSeparator());
+        temp.append("0. Go back" + System.lineSeparator());
         System.out.print(temp);
     }
 
@@ -133,9 +137,9 @@ public class EventPresenter {
                     String.valueOf(currRoom.getRoomCapacity())};
         }
         for (String[] row : table)
-            System.out.format("%s%15s\n", row);
+            System.out.format("%s%15s" + System.lineSeparator(), row);
 
-        System.out.print("\n");
+        System.out.print(System.lineSeparator());
     }
 
 
@@ -153,7 +157,8 @@ public class EventPresenter {
      * @param attendees The ids of the attendees
      */
     public void printAttendees(ArrayList<Integer> attendees) {
-        System.out.println("The list of attendees (by their id) is,\n" + attendees);
+        System.out.println("The list of attendees (by their id) is," + System.lineSeparator() + attendees +
+                System.lineSeparator());
     }
 
 
@@ -176,12 +181,12 @@ public class EventPresenter {
 
         }
 
-        System.out.format("%s%15s%15s%20s%15s%15s%15s\n", table[0]);
+        System.out.format("%s%15s%15s%20s%15s%15s%15s" + System.lineSeparator(), table[0]);
 
         for (int i = 1; i < table.length; i++)
-            System.out.format("%4s%13s%24s%10s%16s%16s%16s\n", table[i]);
+            System.out.format("%4s%13s%24s%10s%16s%16s%16s" + System.lineSeparator(), table[i]);
 
-        System.out.print("\n");
+        System.out.print(System.lineSeparator());
     }
 
     /**
@@ -199,16 +204,16 @@ public class EventPresenter {
      */
     public void printStatus(int status) {
         if (status == -1)
-            System.out.println("Sorry this process could not be completed. Please try again.\n");
+            System.out.println("Sorry this process could not be completed. Please try again." + System.lineSeparator());
         else
-            System.out.println("Process completed successfully.\n");
+            System.out.println("Process completed successfully." + System.lineSeparator());
     }
 
     /**
      * Tells User that program is going back to previous menu
      */
     public void goBack() {
-        System.out.println("Going back to previous menu.\n");
+        System.out.println("Going back to previous menu." + System.lineSeparator());
     }
 
 
@@ -216,12 +221,13 @@ public class EventPresenter {
      * Prints information user needs to know in order to create an event.
      */
     public void createEvent() {
-        System.out.println("Please enter information about the new event in this format exactly" +
-                ".\nThe format: Event Name;Event Room;Event Date;Event Speaker\n\n" +
-                "Please don't use semi-colons in the Event Name and for Event Room and Event Speaker enter the Ids " +
-                "corresponding to them.\n" +
-                "For Event Date enter it in the format: yyyy-MM-dd-HH:mm\nIf you want " +
-                "to cancel this process then type -1 and ignore error.");
+        System.out.println("Please enter information about the new event in this format exactly." +
+                System.lineSeparator() + "The format: Event Name;Event Room;Event Date;Event Speaker" +
+                System.lineSeparator() + System.lineSeparator() + "Please don't use semi-colons in the Event Name " +
+                "and for Event Room and Event Speaker enter the Ids " +
+                "corresponding to them." + System.lineSeparator() +
+                "For Event Date enter it in the format: yyyy-MM-dd-HH:mm" + System.lineSeparator() +
+                "If you want to cancel this process then type -1 and ignore error.");
     }
 
 
@@ -231,22 +237,23 @@ public class EventPresenter {
      */
     public void printError(int error) {
         if (error == -3) {
-            System.out.println("The format of the input was wrong, please try again next time.\n");
+            System.out.println("The format of the input was wrong, please try again next time."
+                    + System.lineSeparator());
         }
 
         else if (error == -2) {
             System.out.println("The format of the input was wrong and an accidental \";\"" +
-                    " might have been used.Please try again next time.\n");
+                    " might have been used.Please try again next time." + System.lineSeparator());
         }
 
         else if (error == -1) {
             System.out.println("The speaker is already booked at that time or an event is booked" +
-                    " in the same room on that time.Please check and try again next time.\n");
+                    " in the same room on that time.Please check and try again next time." + System.lineSeparator());
         }
 
         else if (error == -4) {
             System.out.println("The Speaker or Room chosen don't exist." +
-                    "Please try again next time.\n");
+                    "Please try again next time." + System.lineSeparator());
         }
     }
 
@@ -274,7 +281,7 @@ public class EventPresenter {
      * Asks User to type another integer and gives the option to exit.
      */
     public void tryAgain() {
-        System.out.println("Sorry There was a problem. Please try again. To exit type -1.\n");
+        System.out.println("Sorry There was a problem. Please try again. To exit type -1." + System.lineSeparator());
     }
 
 
