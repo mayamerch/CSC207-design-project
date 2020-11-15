@@ -1,177 +1,68 @@
 package MessagePackage;
 
-import EventPackage.*;
-import UserPackage.*;
-import com.sun.xml.internal.bind.v2.TODO;
+import java.util.Scanner;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-// TODO: write in Boot file how to instantiate ConversationController and all functionality
 public class ConversationController {
-    public ArrayList<Conversation> conversations;
-    public EventManager eventManager;
     public Message message;
+    public ChatroomManager cm;
+    public BroadcastManager bm;
+    Scanner kb = new Scanner(System.in);
 
     /**
      * Creates an instance of ConversationController that contains all the recorded conversations (empty at first)
-     * @param conversations a list of all ongoing or previous conversations
-     * @param message the message which is being sent (either in a Chatroom or a Broadcast)
+     *
+     * @param message a message being sent in the conversation (either a chatroom or a broadcast)
+     * @param cm a ChatroomManager object
+     * @param bm a BroadcastManager object
      */
-    public ConversationController(ArrayList<Conversation> conversations, Message message){
-        this.conversations = conversations;
+    public ConversationController(Message message, ChatroomManager cm, BroadcastManager bm) {
         this.message = message;
+        this.cm = cm;
+        this.bm = bm;
     }
 
-    /**
-     * Returns true if a Chatroom does not already exist
-     * @param userlist a list of all users within the chat
-     * @param senderUserID the userID of the person creating the Chatroom
-     */
-    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID){
-        Chatroom c = new Chatroom(userlist);
-        if (conversations.contains(c)) {
-            return false;
+    public Integer firstMenu(int input){
+        if(input == 1){
+            System.out.println("manage events");
+            return 1;
         }
-        for (int user : userlist) {
-            if (!c.canRead(user) || !c.canSend(user)) {
-                return false;
-            }
+        else if (input == 2){
+            System.out.println("messages");
+            return 3;
         }
-        return true;
+        else if (input == 3){
+            System.out.println("broadcasts");
+            return 4;
+        }
+        else{
+            System.out.println("try again");
+            return -1;
+        }
+
     }
 
-    /**
-     * Creates and returns a new Chatroom, if possible. Raises an Error if not.
-     * @param userlist a list of all users within the chat
-     * @param senderUserID the userID of the person creating the Chatroom
-     */
-    public Chatroom createNewChatRoom(ArrayList<Integer> userlist, int senderUserID) {
-        if(canCreateNewChatRoom(userlist, senderUserID)){
-            Chatroom c = new Chatroom(userlist);
-            conversations.add(c);
-            return c;
-        } //c.sendMessage(message.getContent(), senderUserID);
-        else {
-            throw new java.lang.Error("This Chatroom cannot be created.");
-        }
-    }
+    public void loginMessages() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Login");
+        System.out.println("Enter your goddamn Username: ");
+        String username = scanner.nextLine();
+        System.out.println("Password: ");
+        String password = scanner.nextLine();
+        // TODO: check if credentials are valid - aren't logins done in the user controller?
 
-    /**
-     * Sends a message in a new Chatroom
-     * @param userlist a list of all users within the chat
-     * @param senderUserID the userID of the person sending the Chat
-     */
-    public void sendNewChat(ArrayList<Integer> userlist, int senderUserID){
-        Chatroom c = createNewChatRoom(userlist, senderUserID);
-        c.sendMessage(message.getContent(), senderUserID);
-    }
-
-    /**
-     * Sends a message in an existing Chatroom
-     * @param userlist a list of all users within the chat
-     * @param senderUserID the userID of the person sending the Chat
-     */
-    public void sendExistingChat(ArrayList<Integer> userlist, int senderUserID){
-        Chatroom chatroom = new Chatroom(userlist);
-        for(Conversation c: conversations){
-            if(c.equals(chatroom)); // if chatroom already exists
-            c.sendMessage(message.getContent(), senderUserID);
+        //Assuming password is correct
+        System.out.println("What would you like to do?\n" +
+                "1. Manage Events\n" +
+                "2. Check Messages\n" +
+                "3. Check Broadcasts\n" +
+                "Please input a number: ");
+        int i;
+        do {
+            int input = scanner.nextInt();
+            i = firstMenu(input);
         }
-    }
-
-    /************************************************************************************************************/
-
-    /**
-     * Returns true if a Broadcast does not already exist and can be created
-     // @param mq the message to be sent in the broadcast
-     * @param user the user who will be sending the broadcast
-     * @param event the event whose attendees the broadcast will be sent to
-     */
-    public boolean canCreateNewBroadCast(User user, Event event) {
-        // TODO: is there a better way to do this so it's not repeated:
-        ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        broadcasters.add(user.get_userID());
-        Broadcast b = new Broadcast(broadcasters, event.getEventId());
-        if (conversations.contains(b)) {
-            return false;
-        }
-        for (int broadcaster : broadcasters) {
-            if (!b.canSend(broadcaster)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Creates and returns a new Broadcast, if possible. Raises an Error if not.
-     // @param mq the message to be sent in the broadcast
-     * @param user the user who will be sending the broadcast
-     * @param event the event whose attendees the broadcast will be sent to
-     */
-    public Broadcast createNewBroadcast(User user, Event event) {
-        ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        broadcasters.add(user.get_userID());
-        if(canCreateNewBroadCast(user, event)){
-            Broadcast b = new Broadcast(broadcasters, event.getEventId());
-            conversations.add(b);
-            return b;
-        }
-        else {
-            throw new java.lang.Error("This Broadcast cannot be created.");
-        }
-    }
-
-    /**
-     * Sends a message in a Broadcast
-     * @param user the user who is sending the broadcast
-     * @param event the event at which all the attendees are receiving the broadcast
-     */
-    public void sendNewBroadcast(MessageQueue mq, User user, Event event){
-        ArrayList<Integer> broadcasters = new ArrayList<>();
-        Broadcast b = createNewBroadcast(user, event);
-        b.sendMessage(message.getContent(), user.get_userID());
-    }
-
-    /**
-     * Sends a message in an existing Broadcast
-     * @param user the user who is sending the broadcast
-     * @param event the event at which all the attendees are receiving the broadcast
-     */
-    public void sendExistingBroadcast(MessageQueue mq, User user, Event event){
-        ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        broadcasters.add(user.get_userID());
-        Broadcast broadcast = new Broadcast(broadcasters, event.getEventId());
-        for(Conversation c: conversations){
-            if(c.equals(broadcast)); // if chatroom already exists
-            c.sendMessage(message.getContent(), user.get_userID());
-        }
-    }
-
-    /**
-     * Sends a Broadcast for multiple talks of a speaker
-     * @param speaker the broadcast is being sent to all talks this speaker is speaking at
-     // @param messageQueue messages being sent in the broadcast
-     */
-    public void createBroadcastInAllSpeakerEvents(Speaker speaker){ // mq removed
-        for(int eventID: speaker.getTalksList()){
-            createNewBroadcast(speaker, eventManager.getEvent(eventID));
-        }
-    }
-
-    /**
-     * Returns all conversations for a given userID
-     * @param userID identifies user given this userID and returns their conversations they can read
-     */
-    public ArrayList<Conversation> returnConversationsforUserID(int userID){
-        ArrayList<Conversation> allConversations = new ArrayList<>();
-        for(Conversation c: conversations){
-            if (c.canRead(userID)){
-                allConversations.add(c);
-            }
-        }
-        return allConversations;
+        while (i == -1);
+        System.out.println("the menu chosen is " + i);
     }
 
 }
