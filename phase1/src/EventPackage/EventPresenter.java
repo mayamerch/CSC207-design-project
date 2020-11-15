@@ -227,7 +227,7 @@ public class EventPresenter {
                 "and for Event Room and Event Speaker enter the Ids " +
                 "corresponding to them." + System.lineSeparator() +
                 "For Event Date enter it in the format: yyyy-MM-dd-HH:mm" + System.lineSeparator() +
-                "If you want to cancel this process then type -1 and ignore error.");
+                "If you want to cancel this process then type -1.");
     }
 
 

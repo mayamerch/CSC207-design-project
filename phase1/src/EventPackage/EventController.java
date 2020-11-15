@@ -83,6 +83,8 @@ public class EventController {
                         choice = reader.nextLine();
                     }
 
+                    ep.goBack();
+
                     break;
 
                 case "2":
@@ -135,11 +137,13 @@ public class EventController {
                     else {
                         ep.createEvent();
                         String OrganizerInput = reader.next();
-                        int status = this.createEvent(OrganizerInput, speakerIds);
-                        if (status != 0)
-                            ep.printError(status);
-                        else
-                            ep.printStatus(0);
+                        if (!OrganizerInput.equals("-1")) {
+                            int status = this.createEvent(OrganizerInput, speakerIds);
+                            if (status != 0)
+                                ep.printError(status);
+                            else
+                                ep.printStatus(0);
+                        }
 
                         ep.goBack();
                     }
