@@ -30,10 +30,14 @@ public class SpeakerController extends UserController {
             // This should be a speaker if a speaker is using the controller
             System.out.println("Enter ID of Event");
             eventID = validateEventInput();
-            ArrayList<Integer> talksList = speakerManager.getSpeakerList(user);
-            if (speakerManager.getSpeakerEvent(user, eventID)){
+            if (eventManager.getEvent(eventID).getEventSpeaker() == user.get_userID()){
                 eventList.add(eventID);
-                System.out.println("Enter -1 when you want to stop");}
+                System.out.println("Enter -1 when you want to stop");
+            }
+//            ArrayList<Integer> talksList = speakerManager.getSpeakerList(user);
+//            if (speakerManager.getSpeakerEvent(user, eventID)){
+//                eventList.add(eventID);
+//                System.out.println("Enter -1 when you want to stop");}
             else{System.out.println("You are not speaking in that event");}
         }
         while (eventID != -1);
