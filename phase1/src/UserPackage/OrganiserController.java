@@ -162,7 +162,8 @@ public class OrganiserController extends UserController {
 
     /** TODO: implement this when Broadcast implemented
      */
-    public void send_broadcast(){}
+    public void send_broadcast(){
+    }
 
     // This controller would likely assign speakers to talks using a method in event manager
 
