@@ -69,9 +69,13 @@ public class BroadcastController {
      * @param event the event at which all the attendees are receiving the broadcast
      */
     public void sendNewBroadcast(User user, Event event, String message){
-        ArrayList<Integer> broadcasters = new ArrayList<>();
         Broadcast b = createNewBroadcast(user, event);
-        b.sendMessage(message, user.get_userID());
+        if(broadcasts.contains(b)){
+            sendExistingBroadcast(user, event, message);
+        }
+        else{
+            b.sendMessage(message, user.get_userID());
+        }
     }
 
     /**
@@ -82,10 +86,13 @@ public class BroadcastController {
     public void sendExistingBroadcast(User user, Event event, String message){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(user.get_userID());
-        Broadcast broadcast = new Broadcast(broadcasters, event.getEventId());
-        for(Conversation c: broadcasts){
-            if(c.equals(broadcast)); // if chatroom already exists
-            c.sendMessage(message, user.get_userID());
+        Broadcast b = new Broadcast(broadcasters, event.getEventId());
+
+        if(broadcasts.contains(b)){
+            b.sendMessage(message, user.get_userID());
+        }
+        else{
+            sendNewBroadcast(user, event, message);
         }
     }
 
