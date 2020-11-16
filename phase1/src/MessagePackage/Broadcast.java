@@ -19,7 +19,6 @@ public class Broadcast implements Conversation{
      * @param eventID the ID of the event of which the attendees are being broadcasted to
      */
     public Broadcast(ArrayList<Integer> broadcasters, int eventID){
-
         this.broadcasters = broadcasters;
         this.messageQueue = new MessageQueue();
         this.eventID = eventID;
@@ -64,9 +63,7 @@ public class Broadcast implements Conversation{
 
     @Override
     public String toString(){
-        return ( this.messageQueue.toString() +
-                this.eventID +
-                this.broadcasters);
+        return (this.eventID + "\n" + this.broadcasters + "\n" + this.messageQueue.toString());
     }
 
 }
