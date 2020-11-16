@@ -2,21 +2,17 @@ package MessagePackage;
 
 import java.util.Scanner;
 
-public class ConversationController {
-    public Message message;
-    public ChatroomManager cm;
-    public BroadcastManager bm;
-    Scanner kb = new Scanner(System.in);
+public class ConversationPresenter {
+    public ChatroomController cm;
+    public BroadcastController bm;
 
     /**
      * Creates an instance of ConversationController that contains all the recorded conversations (empty at first)
-     *
-     * @param message a message being sent in the conversation (either a chatroom or a broadcast)
+
      * @param cm a ChatroomManager object
      * @param bm a BroadcastManager object
      */
-    public ConversationController(Message message, ChatroomManager cm, BroadcastManager bm) {
-        this.message = message;
+    public ConversationPresenter(ChatroomController cm, BroadcastController bm) {
         this.cm = cm;
         this.bm = bm;
     }
@@ -63,6 +59,38 @@ public class ConversationController {
         }
         while (i == -1);
         System.out.println("the menu chosen is " + i);
+    }
+
+    public void secondMenu(int input1, int input2){
+        System.out.println("What would you like to do?\n" +
+                "1. Read\n" +
+                "2. Send\n" +
+                "Please input a number: ");
+        Scanner kb = new Scanner(System.in);
+        input2 = kb.nextInt();
+
+        input1 = firstMenu(input1);
+        if (input1 == 2){ // messages
+            if(input2 == 1){
+                System.out.println("read chats");
+                //System.out.println(cm.returnChatsforUserID());
+            }
+            if(input2 == 2){
+                System.out.println("send chats");
+            }
+        }
+        else if (input1 == 3){ // broadcasts
+            if(input2 == 1){
+                System.out.println("read broadcasts");
+                //System.out.println(bm.returnBroadcastsforUserID(this.message.getUserId()));
+            }
+            if(input2 == 2){
+                System.out.println("send broadcasts");
+            }
+        }
+        else{
+            System.out.println("try again");
+        }
     }
 
 }

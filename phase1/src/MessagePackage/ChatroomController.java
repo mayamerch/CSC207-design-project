@@ -4,16 +4,15 @@ import EventPackage.EventManager;
 
 import java.util.ArrayList;
 
-public class ChatroomManager {
+public class ChatroomController {
     public ArrayList<Chatroom> chats;
-    public EventManager eventManager;
     public Message message;
 
     /**
      * Creates an instance of ChatroomManager that contains all the recorded conversations (empty at first)
      * @param message the message which is being sent
      */
-    public ChatroomManager(Message message){
+    public ChatroomController(Message message){
         this.chats = new ArrayList<Chatroom>();
         this.message = message;
     }
