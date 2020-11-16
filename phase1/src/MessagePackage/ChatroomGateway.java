@@ -67,11 +67,11 @@ public class ChatroomGateway {
     private ChatroomController stringToChatroomController(String s){
         String[] stuff = s.split("\n\n"); // each string in stuff is for one chatroom
 
-        ChatroomController chatroomController = new ChatroomController();
+        ArrayList<Chatroom> chats = new ArrayList<Chatroom>();
         for (String chatroomStr: stuff){
-
+            chats.add(stringToChatroom(chatroomStr));
         }
-
+        return new ChatroomController(chats);
     }
 
     /*
