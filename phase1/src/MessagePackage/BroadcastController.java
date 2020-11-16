@@ -114,4 +114,14 @@ public class BroadcastController {
         return myBroadcasts;
     }
 
+    @Override
+    public String toString(){
+        StringBuilder s = new StringBuilder("");
+        for (Broadcast b: this.broadcasts){
+            s.append(b.toString());
+            s.append("\n\n");
+        }
+        return s.toString();
+    }
+
 }
