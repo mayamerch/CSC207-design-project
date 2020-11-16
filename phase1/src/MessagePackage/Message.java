@@ -47,7 +47,7 @@ public class Message { // storing all messages
 
     @Override
     public String toString() {
-        return this.userId.toString() + this.content;
+        return this.userId.toString() + "~" + this.content;
     }
 
 }
