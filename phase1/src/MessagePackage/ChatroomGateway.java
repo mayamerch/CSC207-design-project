@@ -64,9 +64,13 @@ public class ChatroomGateway {
         return new Chatroom(userList, mq, myStatusStr);
     }
 
-    private void stringToChatroomController(String s){
-        String[] stuff = s.split("\n\n");
+    private ChatroomController stringToChatroomController(String s){
+        String[] stuff = s.split("\n\n"); // each string in stuff is for one chatroom
 
+        ChatroomController chatroomController = new ChatroomController();
+        for (String chatroomStr: stuff){
+
+        }
 
     }
 

@@ -14,6 +14,10 @@ public class ChatroomController {
         this.chats = new ArrayList<Chatroom>();
     }
 
+    public ChatroomController(ArrayList<Chatroom> chats){
+        this.chats = chats;
+    }
+
     public ArrayList<Chatroom> getChats() {
         return chats;
     }
