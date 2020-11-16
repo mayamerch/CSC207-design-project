@@ -10,13 +10,25 @@ public class Chatroom implements Conversation{
     private status myStatus;
 
     /**
-     * Creates a chatroom between two or more users in userList
+     * Creates a new chatroom between two or more users in userList
      * @param userList a list of all users one can message
      */
     public Chatroom(ArrayList<Integer> userList){
         this.userList = userList;
         this.messageQueue = new MessageQueue();
         this.myStatus = status.PENDING;
+    }
+
+    /**
+     * Constructor used in Gateway to instantiate an existing chatroom with all of its data
+     * @param userList
+     * @param messageQueue
+     * @param myStatus
+     */
+    public Chatroom(ArrayList<Integer> userList, MessageQueue messageQueue, status myStatus){
+        this.userList = userList;
+        this.messageQueue = new MessageQueue();
+        this.myStatus = myStatus;
     }
 
     public MessageQueue getMessageQueue(){return messageQueue;}
