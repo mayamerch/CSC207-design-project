@@ -25,6 +25,45 @@ public class OrganiserController extends UserController {
         this.roomManager = new RoomManager();
     }
 
+    public void runController(){
+        System.out.println("Please select your desired action");
+        System.out.println("1. Create event \n 2. reschedule Event \n 3. cancel event \n 4. Create Speaker " +
+                "\n 5. Send Broadcast \n 6. Save events and users \n 7. Read text \n 8. log out" );
+        int userChoice = scanner.nextInt();
+        if (userChoice<0 || userChoice > 8){
+            System.out.println("Invalid input for action");
+            runController();
+        }
+        else{ runController(userChoice);}
+    }
+    public void runController(int userChoice){
+        switch(userChoice){
+            case 1:
+                createEvent();
+                runController();
+            case 2:
+                rescheduleEvent();
+                runController();
+            case 3:
+                cancelEvent();
+                runController();
+            case 4:
+                create_speaker();
+                runController();
+            case 5:
+                send_broadcast();
+                runController();
+            case 6:
+                saveUsersandEvents();
+                runController();
+            case 7:
+                read_schedule_text();
+                runController();
+            case 8:
+                break;
+        }
+    }
+
 
     public void cancelEvent(){
         System.out.println("Enter ID of Event to be cancelled");
@@ -164,6 +203,7 @@ public class OrganiserController extends UserController {
      */
     public void send_broadcast(){
     }
+    public void saveUsersandEvents() {}
 
     // This controller would likely assign speakers to talks using a method in event manager
 

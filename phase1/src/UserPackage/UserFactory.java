@@ -9,12 +9,19 @@ public class UserFactory {
             return null;
         }
         if (usertype.equalsIgnoreCase("ORGANISER")) {
-            return new Organiser(new_username, new_password);
+            Organiser organiser = new Organiser(new_username, new_password);
+            organiser.setType('O');
+            return organiser;
         }
         if (usertype.equalsIgnoreCase("SPEAKER")){
-            return new Speaker(new_username, new_password);}
+            Speaker speaker = new Speaker(new_username, new_password);
+            speaker.setType('S');
+            return speaker;
+        }
         else if (usertype.equalsIgnoreCase("ATTENDEE")) {
-            return new Attendee(new_username, new_password);
+            Attendee attendee = new Attendee(new_username, new_password);
+            attendee.setType('A');
+            return attendee;
         } else {
             System.out.println("A " + usertype.toLowerCase() + " is an undefined user for this program.");
             return null;

@@ -14,6 +14,7 @@ public class AttendeeController extends UserController {
 
 
     AttendeeController(UserManager user_manager, EventManager event_manager){
+
         super(user_manager, event_manager);
     }
 

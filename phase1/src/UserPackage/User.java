@@ -8,6 +8,7 @@ public abstract class User {
     private int userID;
     private String username;
     private String password;
+    private char type;
 
     /**
      * Constructs a new User object
@@ -17,6 +18,7 @@ public abstract class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.type = 'U';
     }
     // user_ID needs to be unique so it needs to be assigned to user by something above like a use case
     // which can access all the usernames. Since use cases can edit entity info they can assign
@@ -65,6 +67,13 @@ public abstract class User {
     public void set_userId(int new_userID) {
         this.userID = new_userID;
     }
+
+    public char getType(){return type;}
+
+    public void setType(char type){
+        this.type = type;
+    }
+
 
 }
 

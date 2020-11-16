@@ -11,6 +11,7 @@ public class UserManager implements Serializable {
     private int usersCreated;
     private LinkedList<User> speakerList;
     private LinkedList<User> attendeeList;
+    private LinkedList<User> organiserList;
 
 
     /**
@@ -41,7 +42,10 @@ public class UserManager implements Serializable {
                 speakerList.add(new_user);
             }
             else if (new_user instanceof Attendee){
-                attendeeList.add(new_user);
+                if (new_user instanceof Organiser){
+                    organiserList.add(new_user);
+                }
+                else{ attendeeList.add(new_user); }
             }
             return true;
         }

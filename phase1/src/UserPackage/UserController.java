@@ -7,7 +7,6 @@ public abstract class UserController {
     protected int currentUserId;
     protected UserManager userManager;
     protected EventManager eventManager;
-    // private AttendanceManager;?
     Scanner scanner = new Scanner(System.in);
 
     public UserController(UserManager userManager, EventManager eventManager){
@@ -20,7 +19,7 @@ public abstract class UserController {
     /**
      TODO: change this so username or ID entered, and function will get User By ID to validate
      */
-    public void UserLogin() {
+    public char UserLogin() {
         System.out.println("Enter Username");
         String username = scanner.nextLine();
         System.out.println("Enter Password");
@@ -29,8 +28,10 @@ public abstract class UserController {
         if (potentialID >= 0 ) {
             currentUserId = potentialID;
             System.out.println("Login Successful");
+            return userManager.getUserByID(currentUserId).getType();
         } else {
             System.out.println("Invalid email or password");
+            return 'N';
         }
     }
     public int validateUserIDInput(){
@@ -45,15 +46,15 @@ public abstract class UserController {
         }
     }
 
-    public int validateEventInput(){
-        int eventID;
-        System.out.println("Enter ID of Event");
-        eventID = scanner.nextInt();
-        if (eventManager.getEvent(eventID) != null){
-            return eventID;}
-        else{
-            System.out.println("Invalid Event ID, please Try again");
-            return validateEventInput();
-        }
-    }
+//    public int validateEventInput(){
+//        int eventID;
+//        System.out.println("Enter ID of Event");
+//        eventID = scanner.nextInt();
+//        if (eventManager.getEvent(eventID) != null){
+//            return eventID;}
+//        else{
+//            System.out.println("Invalid Event ID, please Try again");
+//            return validateEventInput();
+//        }
+//    }
 }
