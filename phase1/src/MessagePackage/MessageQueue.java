@@ -32,7 +32,7 @@ public class MessageQueue {
     public String toString() {
         StringBuilder s = new StringBuilder("");
         for(Message m : messageQueue){
-            s.append(m.toString());
+            s.append(m.toString() + "\t");
         }
         return s.toString();
     }

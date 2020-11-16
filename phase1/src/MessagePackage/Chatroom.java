@@ -88,9 +88,7 @@ public class Chatroom implements Conversation{
 
     @Override
     public String toString(){
-        return ( this.messageQueue.toString() +
-                this.myStatus +
-                this.userList);
+        return (this.myStatus.toString() + "\n" + this.userList + "\n" + this.messageQueue.toString());
     }
 
 
