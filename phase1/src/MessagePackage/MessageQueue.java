@@ -1,14 +1,10 @@
 package MessagePackage;
 
-import UserPackage.UserFactory;
-import UserPackage.UserManager;
-
 import java.util.ArrayList;
 
 public class MessageQueue {
 
     ArrayList<Message> messageQueue;
-    UserManager userManager;
 
     /**
      * Constructs a new MessageQueue object
@@ -36,7 +32,7 @@ public class MessageQueue {
     public String toString() {
         StringBuilder s = new StringBuilder("");
         for(Message m : messageQueue){
-            s.append(userManager.getUserByID(m.userId).get_username()).append(" : ").append(m.content);
+            s.append(m.toString());
         }
         return s.toString();
     }

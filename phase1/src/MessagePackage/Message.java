@@ -45,4 +45,9 @@ public class Message { // storing all messages
         this.userId = userId;
     }
 
+    @Override
+    public String toString() {
+        return this.userId.toString() + this.content;
+    }
+
 }
