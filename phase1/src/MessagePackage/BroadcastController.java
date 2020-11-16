@@ -7,7 +7,7 @@ import UserPackage.User;
 
 import java.util.ArrayList;
 
-public class BroadcastManager {
+public class BroadcastController {
     public ArrayList<Broadcast> broadcasts; // conversations in conversation controller
     public EventManager eventManager;
     public Message message;
@@ -16,7 +16,7 @@ public class BroadcastManager {
      * Creates an instance of BroadcastManager that contains all the recorded conversations (empty at first)
      * @param message the message which is being sent
      */
-    public BroadcastManager(Message message){
+    public BroadcastController(Message message){
         this.broadcasts = new ArrayList<Broadcast>();
         this.message = message;
     }
