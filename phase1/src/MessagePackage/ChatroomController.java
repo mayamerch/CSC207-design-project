@@ -17,6 +17,13 @@ public class ChatroomController {
         this.message = message;
     }
 
+    public ArrayList<Chatroom> getChats() {
+        return chats;
+    }
+    public Message getMessage() {
+        return message;
+    }
+
     /**
      * Returns true if a Chatroom does not already exist
      * @param userlist a list of all users within the chat

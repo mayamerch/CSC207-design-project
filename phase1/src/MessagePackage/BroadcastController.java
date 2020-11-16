@@ -21,6 +21,13 @@ public class BroadcastController {
         this.message = message;
     }
 
+    public ArrayList<Broadcast> getBroadcasts() {
+        return broadcasts;
+    }
+    public Message getMessage() {
+        return message;
+    }
+
     /**
      * Returns true if a Broadcast does not already exist and can be created
      // @param mq the message to be sent in the broadcast
