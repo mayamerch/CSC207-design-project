@@ -285,4 +285,11 @@ public class EventPresenter {
     }
 
 
+    /**
+     * Prompts the user to go back.
+     */
+    public void pressContinue() {
+        System.out.println("Type anything to go back.");
+    }
+
 }
