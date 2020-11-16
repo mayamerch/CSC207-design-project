@@ -1,3 +1,8 @@
+import EventPackage.EventController;
+import EventPackage.EventManager;
+import EventPackage.RoomManager;
+import UserPackage.UserController;
+
 import java.util.Scanner;
 
 public class Boot {
@@ -26,7 +31,6 @@ public class Boot {
 
     public static void main(String[] args){
         Boot boot = new Boot();
-
         Scanner scanner = new Scanner(System.in);
         System.out.println("Login");
         System.out.println("Enter your goddamn Username: ");
@@ -34,7 +38,7 @@ public class Boot {
         System.out.println("Password: ");
         String password = scanner.nextLine();
         // TODO: check if credentials are valid
-
+        EventController ec = new EventController();
         //Assuming password is correct
         System.out.println("What would you like to do?\n" +
                 "1. Manage Events\n" +
@@ -48,6 +52,13 @@ public class Boot {
         }
         while (i == -1);
         System.out.println("the menu chosen is "+ i);
-        // take it to appropriate controller from here
+        switch (i) {
+            case 1:
+                ec.run(userID, userType, speakerIDS);
+            case 2:
+                // Run method for messages
+            case 3:
+                //Run method for broadcasts
+        }
     }
 }
