@@ -12,8 +12,8 @@ public class Attendee extends User{
      */
 
 
-    public Attendee(String username, String password) {
-        super(username, password);
+    public Attendee(String username, String password, char type) {
+        super(username, password, type);
         this.friends_list = new ArrayList<>();
 
     }

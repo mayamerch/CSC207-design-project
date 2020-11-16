@@ -3,18 +3,33 @@ import EventPackage.EventManager;
 
 import java.util.Scanner;
 
-public abstract class UserController {
+public class UserController {
     protected int currentUserId;
     protected UserManager userManager;
-    protected EventManager eventManager;
+    protected UserGateway userGateway;
     Scanner scanner = new Scanner(System.in);
 
-    public UserController(UserManager userManager, EventManager eventManager){
-        this.userManager = userManager;
-        this.eventManager = eventManager;
+    public UserController(UserManager userManager){
+        this.userManager = new UserManager();
+        this.userGateway = null;
         // the user manager and event manager are formed in the system controller
     }
 
+    public UserManager getUserManager() {
+        return userManager;
+    }
+    public void setUserManager(){
+        System.out.println("Enter the path to the saved user manager here");
+        String path = scanner.nextLine();
+        UserManager newUserManager = userGateway.readUserManager(path);
+        if (newUserManager != null){
+            this.userManager = newUserManager;
+        }
+        else{
+            this.userManager = new UserManager();
+        }
+
+    }
 
     /**
      TODO: change this so username or ID entered, and function will get User By ID to validate
@@ -44,6 +59,10 @@ public abstract class UserController {
             System.out.println("That is not a Valid UserID. Please try Again.");
             return validateUserIDInput();
         }
+    }
+
+    public void saveUserManager(){
+        userGateway.saveUserManager(getUserManager());
     }
 
 //    public int validateEventInput(){
