@@ -41,7 +41,7 @@ public class ChatroomGateway {
     values is list of objects in ArrayList
 
     if (!ArrayList.equals("[]")) {
-        String[] values = fieldArr[6].substring(1, fieldArr[6].length() - 1).split(", ");
+        String[] values = ArrayList.substring(1, ArrayList.length() - 1).split(", ");
         }
     }
     */
