@@ -1,7 +1,6 @@
 package EventPackage;
 
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,10 +88,16 @@ public class EventController {
 
                 case "2":
                     ep.seeMyEvents(em, rm, UserId, UserPerm);
+                    ep.pressContinue();
+                    reader.nextLine();
+                    ep.goBack();
                     break;
 
                 case "3":
                     ep.seeRooms(rm);
+                    ep.pressContinue();
+                    reader.nextLine();
+                    ep.goBack();
                     break;
 
                 case "4":
