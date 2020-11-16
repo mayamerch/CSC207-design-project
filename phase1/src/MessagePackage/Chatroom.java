@@ -86,6 +86,13 @@ public class Chatroom implements Conversation{
         }
     }
 
+    @Override
+    public String toString(){
+        return ( this.messageQueue.toString() +
+                this.myStatus +
+                this.userList);
+    }
+
 
 
 }

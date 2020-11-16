@@ -15,14 +15,15 @@ public class Broadcast implements Conversation{
 
     /**
      * Message broadcasted by someone in ArrayList broadcasters, identified by userID
-      //@param messageQueue the Message being broadcasted
      * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast
      * @param eventID the ID of the event of which the attendees are being broadcasted to
      */
-    public Broadcast(ArrayList<Integer> broadcasters, int eventID){ // took out mq as a param
+    public Broadcast(ArrayList<Integer> broadcasters, int eventID){
+
         this.broadcasters = broadcasters;
         this.messageQueue = new MessageQueue();
         this.eventID = eventID;
+
     }
 
     public MessageQueue getMessageQueue(){return messageQueue;}
@@ -59,6 +60,13 @@ public class Broadcast implements Conversation{
     @Override
     public boolean canSend(Integer userID){
         return this.getAllSenderIDs().contains(userID);
+    }
+
+    @Override
+    public String toString(){
+        return ( this.messageQueue.toString() +
+                this.eventID +
+                this.broadcasters);
     }
 
 }
