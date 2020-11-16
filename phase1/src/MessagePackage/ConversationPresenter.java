@@ -11,11 +11,11 @@ public class ConversationPresenter {
         }
         else if (input == 2){
             System.out.println("messages");
-            return 3;
+            return 2;
         }
         else if (input == 3){
             System.out.println("broadcasts");
-            return 4;
+            return 3;
         }
         else{
             System.out.println("try again");
@@ -48,7 +48,8 @@ public class ConversationPresenter {
         System.out.println("the menu chosen is " + i);
     }
 
-    public void secondMenu(int input1, int input2){
+    public void secondMenu(int input1, int input2, BroadcastController bc, Message message){
+        input1 = firstMenu(input1);
         System.out.println("What would you like to do?\n" +
                 "1. Read\n" +
                 "2. Send\n" +
@@ -56,7 +57,6 @@ public class ConversationPresenter {
         Scanner kb = new Scanner(System.in);
         input2 = kb.nextInt();
 
-        input1 = firstMenu(input1);
         if (input1 == 2){ // messages
             if(input2 == 1){
                 System.out.println("read chats");
@@ -69,10 +69,11 @@ public class ConversationPresenter {
         else if (input1 == 3){ // broadcasts
             if(input2 == 1){
                 System.out.println("read broadcasts");
-                //System.out.println(bm.returnBroadcastsforUserID(this.message.getUserId()));
+                System.out.println(bc.returnBroadcastsforUserID(message.getUserId()));
             }
             if(input2 == 2){
                 System.out.println("send broadcasts");
+                //System.out.println(bc.send);
             }
         }
         else{
