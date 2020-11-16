@@ -3,19 +3,6 @@ package MessagePackage;
 import java.util.Scanner;
 
 public class ConversationPresenter {
-    public ChatroomController cm;
-    public BroadcastController bm;
-
-    /**
-     * Creates an instance of ConversationController that contains all the recorded conversations (empty at first)
-
-     * @param cm a ChatroomManager object
-     * @param bm a BroadcastManager object
-     */
-    public ConversationPresenter(ChatroomController cm, BroadcastController bm) {
-        this.cm = cm;
-        this.bm = bm;
-    }
 
     public Integer firstMenu(int input){
         if(input == 1){
