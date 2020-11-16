@@ -8,24 +8,18 @@ import UserPackage.User;
 import java.util.ArrayList;
 
 public class BroadcastController {
-    public ArrayList<Broadcast> broadcasts; // conversations in conversation controller
+    public ArrayList<Broadcast> broadcasts;
     public EventManager eventManager;
-    public Message message;
 
     /**
-     * Creates an instance of BroadcastManager that contains all the recorded conversations (empty at first)
-     * @param message the message which is being sent
+     * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
      */
-    public BroadcastController(Message message){
+    public BroadcastController(){
         this.broadcasts = new ArrayList<Broadcast>();
-        this.message = message;
     }
 
     public ArrayList<Broadcast> getBroadcasts() {
         return broadcasts;
-    }
-    public Message getMessage() {
-        return message;
     }
 
     /**
@@ -74,10 +68,10 @@ public class BroadcastController {
      * @param user the user who is sending the broadcast
      * @param event the event at which all the attendees are receiving the broadcast
      */
-    public void sendNewBroadcast(MessageQueue mq, User user, Event event){
+    public void sendNewBroadcast(User user, Event event, String message){
         ArrayList<Integer> broadcasters = new ArrayList<>();
         Broadcast b = createNewBroadcast(user, event);
-        b.sendMessage(message.getContent(), user.get_userID());
+        b.sendMessage(message, user.get_userID());
     }
 
     /**
@@ -85,13 +79,13 @@ public class BroadcastController {
      * @param user the user who is sending the broadcast
      * @param event the event at which all the attendees are receiving the broadcast
      */
-    public void sendExistingBroadcast(MessageQueue mq, User user, Event event){
+    public void sendExistingBroadcast(User user, Event event, String message){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(user.get_userID());
         Broadcast broadcast = new Broadcast(broadcasters, event.getEventId());
         for(Conversation c: broadcasts){
             if(c.equals(broadcast)); // if chatroom already exists
-            c.sendMessage(message.getContent(), user.get_userID());
+            c.sendMessage(message, user.get_userID());
         }
     }
 
