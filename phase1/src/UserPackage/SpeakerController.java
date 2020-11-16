@@ -11,8 +11,8 @@ public class SpeakerController extends UserController {
     private SpeakerManager speakerManager;
 
 
-    public SpeakerController(UserManager user_manager, EventManager event_manager) {
-        super(user_manager, event_manager);
+    public SpeakerController(UserManager user_manager) {
+        super(user_manager);
         speakerManager = new SpeakerManager();
 
     }

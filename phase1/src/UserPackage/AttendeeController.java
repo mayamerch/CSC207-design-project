@@ -15,7 +15,7 @@ public class AttendeeController extends UserController {
 
     AttendeeController(UserManager user_manager, EventManager event_manager){
 
-        super(user_manager, event_manager);
+        super(user_manager);
     }
 
     // current implementation of event manager signs up and removes people through event manager

@@ -15,10 +15,10 @@ public abstract class User {
      * @param username: a name unique to this instance of user, is a String
      * @param password: a password used to log in, is a String
      */
-    public User(String username, String password) {
+    public User(String username, String password, char type) {
         this.username = username;
         this.password = password;
-        this.type = 'U';
+        this.type = type;
     }
     // user_ID needs to be unique so it needs to be assigned to user by something above like a use case
     // which can access all the usernames. Since use cases can edit entity info they can assign
