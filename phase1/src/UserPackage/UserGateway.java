@@ -36,9 +36,8 @@ public class UserGateway {
 
     public void write(List<List<String>> userdata){
         // each list is the userdata for an individual user (ID, username, password, friends list)
-        FileWriter csvWriter = null;
         try {
-            csvWriter = new FileWriter("userdata.csv");
+            FileWriter csvWriter = new FileWriter("userdata.csv");
             csvWriter.append("UserID");
             csvWriter.append(",");
             csvWriter.append("Username");
@@ -60,14 +59,11 @@ public class UserGateway {
 
     public void saveUserManager(UserManager userManager){
         File userManagerFile = new File("UserManager.txt");
-        FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(userManagerFile);
+            FileOutputStream fos = new FileOutputStream(userManagerFile);
             OutputStream buffer = new BufferedOutputStream(fos);
             ObjectOutputStream oos = new ObjectOutputStream(buffer);
             oos.writeObject(userManager);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

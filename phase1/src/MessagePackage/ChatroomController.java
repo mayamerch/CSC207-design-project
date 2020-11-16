@@ -8,7 +8,7 @@ public class ChatroomController {
     public ArrayList<Chatroom> chats;
 
     /**
-     * Creates an instance of ChatroomControlelr that contains all the recorded conversations (empty at first)
+     * Creates an instance of ChatroomController that contains all the recorded conversations (empty at first)
      */
     public ChatroomController(){
         this.chats = new ArrayList<Chatroom>();
@@ -87,6 +87,16 @@ public class ChatroomController {
             }
         }
         return myChats;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder s = new StringBuilder("");
+        for (Chatroom c: this.chats){
+            s.append(c.toString());
+            s.append("\n\n");
+        }
+        return s.toString();
     }
 
 }
