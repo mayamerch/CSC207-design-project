@@ -21,14 +21,14 @@ public class Chatroom implements Conversation{
 
     /**
      * Constructor used in Gateway to instantiate an existing chatroom with all of its data
-     * @param userList
-     * @param messageQueue
-     * @param myStatus
+     * @param userList a list of all users one can message
+     * @param messageQueue a MessageQueue of all messages sent in chat
+     * @param myStatusStr a string matching "ACCEPTED" "PENDING" "REJECTED" to represent status enum
      */
-    public Chatroom(ArrayList<Integer> userList, MessageQueue messageQueue, status myStatus){
+    public Chatroom(ArrayList<Integer> userList, MessageQueue messageQueue, String myStatusStr){
         this.userList = userList;
         this.messageQueue = new MessageQueue();
-        this.myStatus = myStatus;
+        this.myStatus = status.valueOf(myStatusStr);
     }
 
     public MessageQueue getMessageQueue(){return messageQueue;}

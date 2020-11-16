@@ -2,6 +2,7 @@ package MessagePackage;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatroomGateway {
@@ -55,14 +56,17 @@ public class ChatroomGateway {
     }
 
     private Chatroom stringToChatroom(String s){
+        String[] stuff = s.split("\n");
+        String myStatusStr = stuff[0];
+        ArrayList<Integer> userList = stringToUserList(stuff[1]);
+        MessageQueue mq = stringToMessageQueue(stuff[2]);
 
-        String[] stuff = s.split("\n"); // [0] is myStatus, [1] is userList, [2] is MessageQueue
-
-
-        // Overloading.. make a second constructor for Chatroom that takes MessageQueue and myStatus as param
+        return new Chatroom(userList, mq, myStatusStr);
     }
 
-    private void fileToChatroomController(){
+    private void stringToChatroomController(String s){
+        String[] stuff = s.split("\n\n");
+
 
     }
 
