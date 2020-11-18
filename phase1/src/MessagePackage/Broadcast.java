@@ -10,23 +10,26 @@ public class Broadcast implements Conversation{
 
     private ArrayList<Integer> broadcasters;
     private MessageQueue messageQueue;
-    private int eventID;
+    //private int eventID;
+    private Event e;
     private EventManager eventManager;
 
     /**
      * Message broadcasted by someone in ArrayList broadcasters, identified by userID
      * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast
-     * @param eventID the ID of the event of which the attendees are being broadcasted to
+     * @param e the ID of the event of which the attendees are being broadcasted to
      */
-    public Broadcast(ArrayList<Integer> broadcasters, int eventID){
+    public Broadcast(ArrayList<Integer> broadcasters, Event e){//int eventID){
         this.broadcasters = broadcasters;
         this.messageQueue = new MessageQueue();
-        this.eventID = eventID;
+        this.e = e;
+        //this.eventID = eventID;
 
     }
 
     public MessageQueue getMessageQueue(){return messageQueue;}
-    public int getEventID(){return eventID;}
+
+    public int getEventID(){return e.getEventId();}
 
     @Override
     public void sendMessage(String messageStr, int senderUserID) {
@@ -43,7 +46,7 @@ public class Broadcast implements Conversation{
 
     @Override
     public ArrayList<Integer> getAllReaderIDs() {
-        return eventManager.getEvent(this.eventID).getEventAttendees();
+        return e.getEventAttendees(); //eventManager.getEvent(this.eventID).getEventAttendees(); /// HERE
     }
 
     @Override
@@ -63,7 +66,7 @@ public class Broadcast implements Conversation{
 
     @Override
     public String toString(){
-        return (this.eventID + "\n" + this.broadcasters + "\n" + this.messageQueue.toString());
+        return ("For " + e.getEventName() + ", from user " + this.broadcasters + ":\n" + this.messageQueue.toString());
     }
 
 }

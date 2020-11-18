@@ -63,6 +63,7 @@ public class ChatroomController {
     public void sendNewChat(ArrayList<Integer> userlist, int senderUserID, String message){
         Chatroom c = createNewChatRoom(userlist, senderUserID);
         c.sendMessage(message, senderUserID);
+        System.out.println("Your chat has been sent.");
     }
 
     /**
@@ -76,6 +77,7 @@ public class ChatroomController {
             if(c.equals(chatroom)); // if chatroom already exists
             c.sendMessage(message, senderUserID);
         }
+        System.out.println("Your chat has been sent.");
     }
 
     /**
