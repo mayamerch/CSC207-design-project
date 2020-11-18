@@ -5,7 +5,7 @@ import EventPackage.EventManager;
 import java.util.ArrayList;
 
 public class ChatroomController {
-    public ArrayList<Chatroom> chats;
+    private ArrayList<Chatroom> chats;
 
     /**
      * Creates an instance of ChatroomController that contains all the recorded conversations (empty at first)

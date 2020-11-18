@@ -8,8 +8,8 @@ import UserPackage.User;
 import java.util.ArrayList;
 
 public class BroadcastController {
-    public ArrayList<Broadcast> broadcasts;
-    public EventManager eventManager;
+    private ArrayList<Broadcast> broadcasts;
+    private EventManager eventManager;
 
     /**
      * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
