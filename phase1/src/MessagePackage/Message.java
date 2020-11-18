@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Message { // storing all messages
     // TODO: make these private?
-    public String content;  // NEED TO ENSURE CONTENT DOES NOT INCLUDE THE FOLLOWING: ~ , \t, \n, \n\n
+    public String content;  // TODO: NEED TO ENSURE CONTENT DOES NOT INCLUDE THE FOLLOWING: ~ , \t, \n, \n\n
     public Integer userId;
 
     /**
@@ -48,7 +48,7 @@ public class Message { // storing all messages
 
     @Override
     public String toString() {
-        return this.userId.toString() + "~" + this.content;
+        return this.content;
     }
 
 }

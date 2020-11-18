@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class BroadcastController {
     private ArrayList<Broadcast> broadcasts;
+    private EventManager em = new EventManager();
 
     /**
      * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
@@ -25,13 +26,13 @@ public class BroadcastController {
      * Returns true if a Broadcast does not already exist and can be created
      // @param mq the message to be sent in the broadcast
      * @param senderUserID the user who will be sending the broadcast
-     * @param eventID the ID of the event whose attendees the broadcast will be sent to
+     * @param e the ID of the event whose attendees the broadcast will be sent to
      */
-    public boolean canCreateNewBroadCast(int senderUserID, int eventID) {
+    public boolean canCreateNewBroadCast(int senderUserID, Event e) {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(senderUserID);
 
-        Broadcast b = new Broadcast(broadcasters, eventID);
+        Broadcast b = new Broadcast(broadcasters, e);
         if (broadcasts.contains(b)) {
             return false;
         }
@@ -47,14 +48,14 @@ public class BroadcastController {
      * Creates and returns a new Broadcast, if possible. Raises an Error if not.
      // @param mq the message to be sent in the broadcast
      * @param senderUserID the user who will be sending the broadcast
-     * @param eventID the ID of the event whose attendees the broadcast will be sent to
+     * @param e the ID of the event whose attendees the broadcast will be sent to
      */
-    public Broadcast createNewBroadcast(int senderUserID, int eventID) {
+    public Broadcast createNewBroadcast(int senderUserID, Event e) {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(senderUserID);
 
-        if(canCreateNewBroadCast(senderUserID, eventID)){
-            Broadcast b = new Broadcast(broadcasters, eventID);
+        if(canCreateNewBroadCast(senderUserID, e)){
+            Broadcast b = new Broadcast(broadcasters, e);
             broadcasts.add(b);
             return b;
         }
@@ -64,37 +65,24 @@ public class BroadcastController {
     }
 
     /**
-     * Sends a message in a Broadcast
+     * Sends a message in an existing Broadcast, or creates a new one if it doesn't exist
      * @param senderUserID the ID of the user who is sending the broadcast
-     * @param eventID the ID of the event at which all the attendees are receiving the broadcast
+     * @param e the ID of the event at which all the attendees are receiving the broadcast
      */
-    public void sendNewBroadcast(int senderUserID, int eventID, String message){
-        Broadcast b = createNewBroadcast(senderUserID, eventID);
-        if(broadcasts.contains(b)){
-            sendExistingBroadcast(senderUserID, eventID, message);
-        }
-        else{
-            b.sendMessage(message, senderUserID);
-        }
-    }
-
-    /**
-     * Sends a message in an existing Broadcast
-     * @param senderUserID the ID of the user who is sending the broadcast
-     * @param eventID the ID of the event at which all the attendees are receiving the broadcast
-     */
-    public void sendExistingBroadcast(int senderUserID, int eventID, String message){
+    public void sendBroadcast(int senderUserID, Event e, String message){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(senderUserID);
+        Broadcast b = new Broadcast(broadcasters, e);
 
-        Broadcast b = new Broadcast(broadcasters, eventID);
-
-        if(broadcasts.contains(b)){
-            b.sendMessage(message, senderUserID);
+        for(Broadcast broadcast: broadcasts){
+            if(broadcast.equals(b)){
+                b.sendMessage(message, senderUserID);
+                return;
+            }
         }
-        else{
-            sendNewBroadcast(senderUserID, eventID, message);
-        }
+        b = createNewBroadcast(senderUserID, e);
+        b.sendMessage(message, senderUserID);
+        System.out.println("Your broadcast has been sent.");
     }
 
     /**
@@ -104,7 +92,7 @@ public class BroadcastController {
      */
     public void createBroadcastInAllSpeakerEvents(Speaker speaker){ // mq removed
         for(int eventID: speaker.getTalksList()){
-            createNewBroadcast(speaker.get_userID(), eventID);
+            createNewBroadcast(speaker.get_userID(), em.getEvent(eventID));
         }
     }
 
@@ -126,7 +114,7 @@ public class BroadcastController {
         StringBuilder s = new StringBuilder("");
         for (Broadcast c: returnBroadcastsforUserID(userID)){
             s.append(c.toString());
-            s.append("\n\n") ;
+            s.append("\n------") ;
         }
         return s.toString();
     }
@@ -140,5 +128,4 @@ public class BroadcastController {
         }
         return s.toString();
     }
-
 }

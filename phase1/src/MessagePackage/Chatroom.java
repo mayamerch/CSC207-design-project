@@ -27,7 +27,7 @@ public class Chatroom implements Conversation{
      */
     public Chatroom(ArrayList<Integer> userList, MessageQueue messageQueue, String myStatusStr){
         this.userList = userList;
-        this.messageQueue = new MessageQueue();
+        this.messageQueue = messageQueue;
         this.myStatus = status.valueOf(myStatusStr);
     }
 
@@ -102,7 +102,6 @@ public class Chatroom implements Conversation{
     public String toString(){
         return (this.myStatus.toString() + "\n" + this.userList + "\n" + this.messageQueue.toString());
     }
-
 
 
 }
