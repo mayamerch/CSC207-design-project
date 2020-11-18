@@ -47,6 +47,9 @@ public class UserManager implements Serializable {
                 }
                 else{ attendeeList.add(new_user); }
             }
+
+            usersCreated += 1;
+
             return true;
         }
         return false;
@@ -81,6 +84,11 @@ public class UserManager implements Serializable {
     public  LinkedList<User> getUserList(){
         return userList;
     }
+
+    public LinkedList<User> getSpeakerList() {return speakerList;}
+
+
+
 
     /**
      * TODO: Change this to linked list implementation. Can replace validate ID with this function`
