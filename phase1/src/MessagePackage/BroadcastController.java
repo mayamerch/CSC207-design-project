@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class BroadcastController {
     private ArrayList<Broadcast> broadcasts;
-    private EventManager eventManager;
 
     /**
      * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
@@ -25,14 +24,14 @@ public class BroadcastController {
     /**
      * Returns true if a Broadcast does not already exist and can be created
      // @param mq the message to be sent in the broadcast
-     * @param user the user who will be sending the broadcast
-     * @param event the event whose attendees the broadcast will be sent to
+     * @param senderUserID the user who will be sending the broadcast
+     * @param eventID the ID of the event whose attendees the broadcast will be sent to
      */
-    public boolean canCreateNewBroadCast(User user, Event event) {
-        // TODO: is there a better way to do this so it's not repeated:
+    public boolean canCreateNewBroadCast(int senderUserID, int eventID) {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        broadcasters.add(user.get_userID());
-        Broadcast b = new Broadcast(broadcasters, event.getEventId());
+        broadcasters.add(senderUserID);
+
+        Broadcast b = new Broadcast(broadcasters, eventID);
         if (broadcasts.contains(b)) {
             return false;
         }
@@ -47,14 +46,15 @@ public class BroadcastController {
     /**
      * Creates and returns a new Broadcast, if possible. Raises an Error if not.
      // @param mq the message to be sent in the broadcast
-     * @param user the user who will be sending the broadcast
-     * @param event the event whose attendees the broadcast will be sent to
+     * @param senderUserID the user who will be sending the broadcast
+     * @param eventID the ID of the event whose attendees the broadcast will be sent to
      */
-    public Broadcast createNewBroadcast(User user, Event event) {
+    public Broadcast createNewBroadcast(int senderUserID, int eventID) {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        broadcasters.add(user.get_userID());
-        if(canCreateNewBroadCast(user, event)){
-            Broadcast b = new Broadcast(broadcasters, event.getEventId());
+        broadcasters.add(senderUserID);
+
+        if(canCreateNewBroadCast(senderUserID, eventID)){
+            Broadcast b = new Broadcast(broadcasters, eventID);
             broadcasts.add(b);
             return b;
         }
@@ -65,34 +65,35 @@ public class BroadcastController {
 
     /**
      * Sends a message in a Broadcast
-     * @param user the user who is sending the broadcast
-     * @param event the event at which all the attendees are receiving the broadcast
+     * @param senderUserID the ID of the user who is sending the broadcast
+     * @param eventID the ID of the event at which all the attendees are receiving the broadcast
      */
-    public void sendNewBroadcast(User user, Event event, String message){
-        Broadcast b = createNewBroadcast(user, event);
+    public void sendNewBroadcast(int senderUserID, int eventID, String message){
+        Broadcast b = createNewBroadcast(senderUserID, eventID);
         if(broadcasts.contains(b)){
-            sendExistingBroadcast(user, event, message);
+            sendExistingBroadcast(senderUserID, eventID, message);
         }
         else{
-            b.sendMessage(message, user.get_userID());
+            b.sendMessage(message, senderUserID);
         }
     }
 
     /**
      * Sends a message in an existing Broadcast
-     * @param user the user who is sending the broadcast
-     * @param event the event at which all the attendees are receiving the broadcast
+     * @param senderUserID the ID of the user who is sending the broadcast
+     * @param eventID the ID of the event at which all the attendees are receiving the broadcast
      */
-    public void sendExistingBroadcast(User user, Event event, String message){
+    public void sendExistingBroadcast(int senderUserID, int eventID, String message){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        broadcasters.add(user.get_userID());
-        Broadcast b = new Broadcast(broadcasters, event.getEventId());
+        broadcasters.add(senderUserID);
+
+        Broadcast b = new Broadcast(broadcasters, eventID);
 
         if(broadcasts.contains(b)){
-            b.sendMessage(message, user.get_userID());
+            b.sendMessage(message, senderUserID);
         }
         else{
-            sendNewBroadcast(user, event, message);
+            sendNewBroadcast(senderUserID, eventID, message);
         }
     }
 
@@ -103,7 +104,7 @@ public class BroadcastController {
      */
     public void createBroadcastInAllSpeakerEvents(Speaker speaker){ // mq removed
         for(int eventID: speaker.getTalksList()){
-            createNewBroadcast(speaker, eventManager.getEvent(eventID));
+            createNewBroadcast(speaker.get_userID(), eventID);
         }
     }
 
