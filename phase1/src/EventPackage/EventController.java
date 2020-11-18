@@ -52,9 +52,10 @@ public class EventController {
     public void run(int UserId, int UserPerm, ArrayList<Integer> speakerIds) {
 
         Scanner reader = new Scanner(System.in);
+        Scanner reader2 = new Scanner(System.in);
 
         ep.printMenu(UserPerm);
-        String UserInput = reader.nextLine();
+        String UserInput = reader2.nextLine();
 
         while (!UserInput.equals("0")) {
 
@@ -176,7 +177,7 @@ public class EventController {
             }
 
             ep.printMenu(UserPerm);
-            UserInput = reader.nextLine();
+            UserInput = reader2.nextLine();
         }
 
         ep.goBack();

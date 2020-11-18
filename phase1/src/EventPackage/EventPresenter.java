@@ -273,7 +273,7 @@ public class EventPresenter {
      * @param id Id of the room created
      */
     public void displayRoom(int id) {
-        System.out.println("Your assigned room number is "+id+System.lineSeparator());
+        System.out.println("Your assigned room number is "+id);
         System.out.println("Please don't forget this number."+System.lineSeparator());
     }
 
