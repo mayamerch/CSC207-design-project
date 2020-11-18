@@ -88,8 +88,6 @@ public class UserManager implements Serializable {
     public LinkedList<User> getSpeakerList() {return speakerList;}
 
 
-
-
     /**
      * TODO: Change this to linked list implementation. Can replace validate ID with this function`
      */

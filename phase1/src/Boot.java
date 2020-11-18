@@ -33,7 +33,7 @@ public class Boot {
         Boot boot = new Boot();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Login");
-        System.out.println("Enter your goddamn Username: ");
+        System.out.println("Enter your  Username: ");
         String username = scanner.nextLine();
         System.out.println("Password: ");
         String password = scanner.nextLine();
@@ -54,7 +54,7 @@ public class Boot {
         System.out.println("the menu chosen is "+ i);
         switch (i) {
             case 1:
-                ec.run(userID, userType, speakerIDS);
+                // ec.run(userID, userType, speakerIDS); Add when everything is implemented
             case 2:
                 // Run method for messages
             case 3:
