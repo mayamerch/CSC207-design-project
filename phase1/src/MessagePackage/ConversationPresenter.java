@@ -79,11 +79,11 @@ public class ConversationPresenter {
     }
 
     public void printChats(ChatroomController cc, int userID){
-        System.out.println(cc.myChats(userID));
+        System.out.println(cc.myChats(userID) + "\n");
     }
 
     public void printBroadcasts(BroadcastController bc, int userID){
-        System.out.println(bc.myBroadcasts(userID));
+        System.out.println(bc.myBroadcasts(userID) + "\n");
     }
 
 }
