@@ -52,9 +52,8 @@ public class ConversationPresenter {
                     ArrayList<Integer> recipients = new ArrayList<>();
                     System.out.println("Enter the ID(s) of the user(s) you want to message. Enter -1 when finished:");
                     int sendto = -2;
-                    while (kb.nextInt() != -1) {
-                        sendto = kb.nextInt();
-                        recipients.add(sendto);
+                    while (!(kb.nextInt() == -1)) {
+                        recipients.add(kb.nextInt());
                     }
 
                     cc.sendNewChat(recipients, yourUserID, chat);

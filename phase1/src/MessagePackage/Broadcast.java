@@ -19,7 +19,7 @@ public class Broadcast implements Conversation{
      * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast
      * @param e the ID of the event of which the attendees are being broadcasted to
      */
-    public Broadcast(ArrayList<Integer> broadcasters, Event e){//int eventID){
+    public Broadcast(ArrayList<Integer> broadcasters, Event e){ //int eventID){
         this.broadcasters = broadcasters;
         this.messageQueue = new MessageQueue();
         this.e = e;
