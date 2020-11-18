@@ -7,10 +7,12 @@ public class EventTest {
         EventController ec = new EventController();
 
         ArrayList<Integer> SpeakerIds = new ArrayList<>(); //Contains sample Id of speakers
+
+        // More Statement adding Ids of speakers acn be added
         SpeakerIds.add(1);
         SpeakerIds.add(2);
 
-        ec.run(0, 0, SpeakerIds); // User Id (first number) has no impact its what shows up when you attend an event
-        // Second parameter is permissions, -1 for speaker, 1 for attendee, 0 for organizer
+        ec.run(0, 0, SpeakerIds); // User Id (first number) has no impact separately, its what shows up when you attend an event (your UserId)
+                                                // Second parameter is permissions, -1 for speaker, 1 for attendee, 0 for organizer
     }
 }
