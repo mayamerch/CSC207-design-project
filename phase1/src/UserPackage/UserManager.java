@@ -119,4 +119,16 @@ public class UserManager implements Serializable {
 
     }
 
+
+    /**
+     * Returns a list of usernames
+     * @return a list of usernames of users in UserManager
+     */
+    public ArrayList<String> getUsernames() {
+        ArrayList<String> usernames = new ArrayList<String>();
+        for (User user: userList)
+            usernames.add(user.get_username());
+        return usernames;
+    }
+
 }
