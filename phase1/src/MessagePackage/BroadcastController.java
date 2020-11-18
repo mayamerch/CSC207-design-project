@@ -121,6 +121,15 @@ public class BroadcastController {
         return myBroadcasts;
     }
 
+    public String myBroadcasts(int userID){
+        StringBuilder s = new StringBuilder("");
+        for (Broadcast c: returnBroadcastsforUserID(userID)){
+            s.append(c.toString());
+            s.append("\n\n") ;
+        }
+        return s.toString();
+    }
+
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder("");

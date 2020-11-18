@@ -93,6 +93,16 @@ public class ChatroomController {
         return myChats;
     }
 
+    public String myChats(int userID){
+        StringBuilder s = new StringBuilder("");
+        for (Chatroom c: returnChatsforUserID(userID)){
+            s.append(c.toString());
+            s.append("\n\n") ;
+        }
+        return s.toString();
+    }
+
+
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder("");

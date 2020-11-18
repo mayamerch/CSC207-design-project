@@ -1,5 +1,6 @@
 package MessagePackage;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConversationPresenter {
@@ -25,15 +26,7 @@ public class ConversationPresenter {
     }
 
     public void loginMessages() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Login");
-        System.out.println("Enter your goddamn Username: ");
-        String username = scanner.nextLine();
-        System.out.println("Password: ");
-        String password = scanner.nextLine();
-        // TODO: check if credentials are valid - aren't logins done in the user controller?
-
-        //Assuming password is correct
+        Scanner kb = new Scanner(System.in);
         System.out.println("What would you like to do?\n" +
                 "1. Manage Events\n" +
                 "2. Check Messages\n" +
@@ -41,7 +34,7 @@ public class ConversationPresenter {
                 "Please input a number: ");
         int i;
         do {
-            int input = scanner.nextInt();
+            int input = kb.nextInt();
             i = firstMenu(input);
         }
         while (i == -1);
@@ -86,11 +79,11 @@ public class ConversationPresenter {
     }
 
     public void printChats(ChatroomController cc, int userID){
-        System.out.println(cc.returnChatsforUserID(userID));
+        System.out.println(cc.myChats(userID));
     }
 
     public void printBroadcasts(BroadcastController bc, int userID){
-        System.out.println(bc.returnBroadcastsforUserID(userID));
+        System.out.println(bc.myBroadcasts(userID));
     }
 
 }
