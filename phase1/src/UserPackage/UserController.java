@@ -1,6 +1,7 @@
 package UserPackage;
 import EventPackage.EventManager;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class UserController {
@@ -29,6 +30,11 @@ public class UserController {
             this.userManager = new UserManager();
         }
 
+    }
+
+    //Use this to test Conversation
+    public LinkedList<User> getUserList() {
+        return this.userManager.getUserList();
     }
 
     /**
