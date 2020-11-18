@@ -100,23 +100,23 @@ public class UserManager implements Serializable {
         return null;
     }
 
-        /**
-         * TODO: MAy need to create separate lists for Attendee, Organiser and Speaker
-         * AttendeeManager and OrganiserManager? Not very expandable
-         */
-        public boolean AddFriend(int attendeeId, int friendId){
-            User user;
-            user = getUserByID(attendeeId);
-            User friend;
-            friend = getUserByID(friendId);
-            if (!(user instanceof Organiser || friend instanceof Organiser)){
-                ((Attendee) user).add_friend(friend.get_username());
-                return true;
-            }
-            else{
-                return false;
-            }
-
+    /**
+     * TODO: MAy need to create separate lists for Attendee, Organiser and Speaker
+     * AttendeeManager and OrganiserManager? Not very expandable
+     */
+    public boolean AddFriend(int attendeeId, int friendId){
+        User user;
+        user = getUserByID(attendeeId);
+        User friend;
+        friend = getUserByID(friendId);
+        if (!(user instanceof Organiser || friend instanceof Organiser)){
+            ((Attendee) user).add_friend(friend.get_username());
+            return true;
         }
+        else{
+            return false;
+        }
+
+    }
 
 }
