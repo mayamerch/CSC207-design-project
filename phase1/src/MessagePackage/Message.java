@@ -3,6 +3,7 @@ package MessagePackage;
 import java.util.ArrayList;
 
 public class Message { // storing all messages
+    // TODO: make these private?
     public String content;  // NEED TO ENSURE CONTENT DOES NOT INCLUDE THE FOLLOWING: ~ , \t, \n, \n\n
     public Integer userId;
 

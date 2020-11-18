@@ -1,39 +1,32 @@
 package MessagePackage;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConversationPresenter {
 
+    /**
+     * Prints first menu for user logging in to manage their messages
+     * a specific user
+     */
     public Integer firstMenu(int input){
-        if(input == 1){
-            System.out.println("manage events");
-            return 1;
-        }
-        else if (input == 2){
-            System.out.println("messages");
+        if (input == 1){
+            System.out.println("Messages");
             return 2;
         }
-        else if (input == 3){
-            System.out.println("broadcasts");
+        else if (input == 2){
+            System.out.println("Broadcasts");
             return 3;
         }
         else{
-            System.out.println("try again");
+            System.out.println("Enter a valid number");
             return -1;
         }
 
     }
 
     public void loginMessages() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Login");
-        System.out.println("Enter your goddamn Username: ");
-        String username = scanner.nextLine();
-        System.out.println("Password: ");
-        String password = scanner.nextLine();
-        // TODO: check if credentials are valid - aren't logins done in the user controller?
-
-        //Assuming password is correct
+        Scanner kb = new Scanner(System.in);
         System.out.println("What would you like to do?\n" +
                 "1. Manage Events\n" +
                 "2. Check Messages\n" +
@@ -41,44 +34,56 @@ public class ConversationPresenter {
                 "Please input a number: ");
         int i;
         do {
-            int input = scanner.nextInt();
+            int input = kb.nextInt();
             i = firstMenu(input);
         }
         while (i == -1);
-        System.out.println("the menu chosen is " + i);
+        System.out.println("The menu chosen is " + i);
     }
 
-    public void secondMenu(int input1, int input2, BroadcastController bc, Message message){
+    public void secondMenu(int input1, BroadcastController bc, ChatroomController cc){
+        Scanner kb = new Scanner(System.in);
         input1 = firstMenu(input1);
+
+        System.out.println("Enter your userID: ");
+        int userID = kb.nextInt();
+
         System.out.println("What would you like to do?\n" +
                 "1. Read\n" +
                 "2. Send\n" +
                 "Please input a number: ");
-        Scanner kb = new Scanner(System.in);
-        input2 = kb.nextInt();
+        int input2 = kb.nextInt();
 
         if (input1 == 2){ // messages
             if(input2 == 1){
-                System.out.println("read chats");
-                //System.out.println(cm.returnChatsforUserID());
+                System.out.println("Read chats");
+                printChats(cc, userID);
             }
             if(input2 == 2){
-                System.out.println("send chats");
+                System.out.println("Send chats");
             }
         }
         else if (input1 == 3){ // broadcasts
             if(input2 == 1){
-                System.out.println("read broadcasts");
-                System.out.println(bc.returnBroadcastsforUserID(message.getUserId()));
+                System.out.println("Read broadcasts");
+                printBroadcasts(bc, userID);
             }
             if(input2 == 2){
-                System.out.println("send broadcasts");
-                //System.out.println(bc.send);
+                System.out.println("Send broadcasts");
             }
         }
         else{
-            System.out.println("try again");
+            System.out.println("Enter a valid number: ");
+            secondMenu(input1, bc, cc);
         }
+    }
+
+    public void printChats(ChatroomController cc, int userID){
+        System.out.println(cc.myChats(userID) + "\n");
+    }
+
+    public void printBroadcasts(BroadcastController bc, int userID){
+        System.out.println(bc.myBroadcasts(userID) + "\n");
     }
 
 }
