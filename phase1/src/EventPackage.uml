@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>EventPackage</OriginalElement>
+  <nodes>
+    <node x="421.8124999999999" y="1640.0">EventPackage.EventTest</node>
+    <node x="360.8124999999999" y="1313.0">EventPackage.EventController</node>
+    <node x="155.3364583333332" y="88.0">EventPackage.Room</node>
+    <node x="140.60936147186135" y="783.0">EventPackage.EventPresenter</node>
+    <node x="672.8124999999999" y="374.02147971360375">EventPackage.EventManager</node>
+    <node x="351.8124999999999" y="434.7995226730311">EventPackage.EventRoomGateway</node>
+    <node x="0.0" y="446.0">EventPackage.RoomManager</node>
+    <node x="629.9540043290041" y="0.0">EventPackage.Event</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="EventPackage.EventTest" target="EventPackage.EventController">
+      <point x="-37.25" y="-27.0" />
+      <point x="459.0624999999999" y="1615.0" />
+      <point x="428.5624999999999" y="1615.0" />
+      <point x="-67.75" y="138.5" />
+    </edge>
+    <edge source="EventPackage.EventRoomGateway" target="EventPackage.Room">
+      <point x="-112.5" y="-116.0" />
+      <point x="389.3124999999999" y="328.0" />
+      <point x="255.0864583333332" y="328.0" />
+      <point x="33.25" y="61.0" />
+    </edge>
+    <edge source="EventPackage.EventController" target="EventPackage.EventManager">
+      <point x="73.90909090909088" y="-138.5" />
+      <point x="570.2215909090908" y="1273.0" />
+      <point x="840.9374999999999" y="1273.0" />
+      <point x="33.625" y="182.5" />
+    </edge>
+    <edge source="EventPackage.EventController" target="EventPackage.EventRoomGateway">
+      <point x="24.636363636363626" y="-138.5" />
+      <point x="520.9488636363635" y="1293.0" />
+      <point x="514.1093614718613" y="1293.0" />
+      <point x="514.1093614718613" y="743.0" />
+      <point x="576.8124999999999" y="743.0" />
+      <point x="75.0" y="116.0" />
+    </edge>
+    <edge source="EventPackage.EventPresenter" target="EventPackage.Event">
+      <point x="44.00000000000006" y="-225.0" />
+      <point x="360.6093614718614" y="753.0" />
+      <point x="662.3124999999999" y="753.0" />
+      <point x="662.3124999999999" y="338.0" />
+      <point x="712.0968614718612" y="338.0" />
+      <point x="-32.85714285714289" y="149.0" />
+    </edge>
+    <edge source="EventPackage.RoomManager" target="EventPackage.Room">
+      <point x="-77.66666666666669" y="-94.5" />
+      <point x="38.833333333333314" y="328.0" />
+      <point x="166.41979166666653" y="328.0" />
+      <point x="-55.416666666666686" y="61.0" />
+    </edge>
+    <edge source="EventPackage.EventRoomGateway" target="EventPackage.Event">
+      <point x="37.5" y="-116.0" />
+      <point x="539.3124999999999" y="318.0" />
+      <point x="646.3825757575755" y="318.0" />
+      <point x="-98.57142857142856" y="149.0" />
+    </edge>
+    <edge source="EventPackage.EventPresenter" target="EventPackage.Room">
+      <point x="-43.99999999999994" y="-225.0" />
+      <point x="272.6093614718614" y="763.0" />
+      <point x="263.5016233766233" y="763.0" />
+      <point x="263.5016233766233" y="338.0" />
+      <point x="232.91979166666658" y="338.0" />
+      <point x="11.083333333333371" y="61.0" />
+    </edge>
+    <edge source="EventPackage.EventController" target="EventPackage.Event">
+      <point x="123.18181818181824" y="-138.5" />
+      <point x="619.4943181818181" y="1293.0" />
+      <point x="952.3124999999999" y="1293.0" />
+      <point x="952.3124999999999" y="318.0" />
+      <point x="843.5254329004326" y="318.0" />
+      <point x="98.57142857142856" y="149.0" />
+    </edge>
+    <edge source="EventPackage.EventController" target="EventPackage.EventPresenter">
+      <point x="-49.27272727272725" y="-138.5" />
+      <point x="447.03977272727263" y="1263.0" />
+      <point x="228.60936147186135" y="1263.0" />
+      <point x="-88.0" y="225.0" />
+    </edge>
+    <edge source="EventPackage.EventPresenter" target="EventPackage.RoomManager">
+      <point x="-131.99999999999994" y="-225.0" />
+      <point x="184.6093614718614" y="763.0" />
+      <point x="203.875" y="763.0" />
+      <point x="87.375" y="94.5" />
+    </edge>
+    <edge source="EventPackage.EventManager" target="EventPackage.Event">
+      <point x="-89.66666666666674" y="-182.5" />
+      <point x="717.6458333333331" y="338.0" />
+      <point x="744.9540043290041" y="338.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="EventPackage.EventController" target="EventPackage.RoomManager">
+      <point x="-123.18181818181813" y="-138.5" />
+      <point x="373.13068181818176" y="1293.0" />
+      <point x="103.00312499999995" y="1293.0" />
+      <point x="103.00312499999995" y="763.0" />
+      <point x="29.125" y="763.0" />
+      <point x="-87.375" y="94.5" />
+    </edge>
+    <edge source="EventPackage.EventPresenter" target="EventPackage.EventManager">
+      <point x="132.00000000000006" y="-225.0" />
+      <point x="448.6093614718614" y="763.0" />
+      <point x="706.4374999999999" y="763.0" />
+      <point x="-100.875" y="182.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8738269030239834" x="741.7207637231503" y="509.85322195704055" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
