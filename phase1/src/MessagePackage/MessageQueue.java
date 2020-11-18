@@ -30,10 +30,11 @@ public class MessageQueue {
 
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder("");
+        StringBuilder s = new StringBuilder("[");
         for(Message m : messageQueue){
-            s.append(m.toString() + "\t");
+            s.append(m.toString()).append("\t");
         }
+        s.append("]");
         return s.toString();
     }
 }

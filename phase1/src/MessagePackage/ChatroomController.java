@@ -13,6 +13,10 @@ public class ChatroomController {
         this.chats = new ArrayList<Chatroom>();
     }
 
+    /**
+     * Used in Gateway to create instance of ChatroomController from saved chats
+     * @param chats ArrayList of Chatroom from Gateway
+     */
     public ChatroomController(ArrayList<Chatroom> chats){
         this.chats = chats;
     }
