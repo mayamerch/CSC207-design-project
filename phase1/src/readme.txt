@@ -1,0 +1,1 @@
+Currently, only the event package functions as intended. In order to test it please go to EventTest.java
