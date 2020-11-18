@@ -15,7 +15,7 @@ public class ChatroomGateway {
 
     public ChatroomGateway() {
         try {
-            this.chatroomDataFile = new File("phase1/src/MessagePackage/ChatroomDataFile.txt");
+            this.chatroomDataFile = new File("src/MessagePackage/ChatroomDataFile.txt");
             this.chatroomDataFile.createNewFile();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -74,11 +74,10 @@ public class ChatroomGateway {
 
     private Chatroom stringToChatroom(String s){
         String[] stuff = s.split("\n");
-        String myStatusStr = stuff[0].substring(1, stuff[0].length()-1); // removes outer brackets
-        ArrayList<Integer> userList = stringToUserList(stuff[1]);
-        MessageQueue mq = stringToMessageQueue(stuff[2]);
+        ArrayList<Integer> userList = stringToUserList(stuff[0]);
+        MessageQueue mq = stringToMessageQueue(stuff[1]);
 
-        return new Chatroom(userList, mq, myStatusStr);
+        return new Chatroom(userList, mq);
     }
 
 /*    private ChatroomController stringToChatroomController(String s){
