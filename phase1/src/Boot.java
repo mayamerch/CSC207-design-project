@@ -10,20 +10,11 @@ public class Boot {
     Scanner scanner = new Scanner(System.in);
 
     public Integer firstMenu(int input){
-        if(input == 1){
-            System.out.println("manage events");
-            return 1;
-        }
-        else if (input == 2){
-            System.out.println("messages");
-            return 3;
-        }
-        else if (input == 3){
-            System.out.println("broadcasts");
-            return 4;
-        }
+        if(input == 1){ return 1; }
+        else if (input == 2){ return 2; }
+        else if (input == 3){ return 3; }
         else{
-            System.out.println("try again");
+            System.out.println("Try again");
             return -1;
         }
 
@@ -42,8 +33,8 @@ public class Boot {
         //Assuming password is correct
         System.out.println("What would you like to do?\n" +
                 "1. Manage Events\n" +
-                "2. Check Messages\n" +
-                "3. Check Broadcasts\n" +
+                "2. Manage Conversations\n" +
+                "3. Manage Friends\n" +
                 "Please input a number: ");
         int i;
         do {
@@ -51,14 +42,14 @@ public class Boot {
             i = boot.firstMenu(input);
         }
         while (i == -1);
-        System.out.println("the menu chosen is "+ i);
+        System.out.println("The menu chosen is "+ i);
         switch (i) {
             case 1:
                 // ec.run(userID, userType, speakerIDS); Add when everything is implemented
             case 2:
-                // Run method for messages
+                // ConversationPresenter called here
             case 3:
-                //Run method for broadcasts
+                //UserPresenter called here
         }
     }
 }
