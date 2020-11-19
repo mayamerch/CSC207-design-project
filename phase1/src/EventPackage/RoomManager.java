@@ -70,7 +70,7 @@ public class RoomManager {
     /**
      * Finds whether a room exists or not
      * @param roomNumber id of the room
-     * @return           true i room exists false if not
+     * @return           true if room exists false if not
      */
     public boolean roomExists(int roomNumber) {
         for (Room room: roomList) {
