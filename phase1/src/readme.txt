@@ -1,1 +1,1 @@
-Currently, only the event package functions as intended. In order to test it please go to EventTest.java
+The Event package and Message packages function as intended. In order to test them, please go to EventTest.java and TestMessagePackage.java.
