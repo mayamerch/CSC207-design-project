@@ -4,6 +4,7 @@ package EventPackage;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class EventController {
@@ -49,8 +50,8 @@ public class EventController {
      *                 1 If User is an Attendee
      * @param speakerIds A list of the ids of speakers at this conference
      **/
-    public void run(int UserId, int UserPerm, ArrayList<Integer> speakerIds) {
-
+    public void run(int UserId, int UserPerm, LinkedList<Integer> llSpeakerIds) {
+        ArrayList<Integer> speakerIds = helper(llSpeakerIds);
         Scanner reader = new Scanner(System.in);
         Scanner reader2 = new Scanner(System.in);
 
