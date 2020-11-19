@@ -1,5 +1,6 @@
 package UserPackage;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class UserController {
@@ -90,19 +91,19 @@ public class UserController {
                 return false;}
             case 2:
                 if (userManager.createAccount(username, password, "Attendee")){
-                    System.out.println("USer successfully created");
+                    System.out.println("User successfully created");
                     return true;
                 }
                 else{System.out.println("The Username must be unique.");
                 return false;}
             case 3:
-                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() == 'O'){
+                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != 'O'){
                     System.out.println("You need to be logged in as an Organiser to do this");
                     return false;
                 }
                 User user = userManager.getUserByID(currentUserId);
-                if (userManager.createAccount(username, password, "Attendee")){
-                    System.out.println("USer successfully created");
+                if (userManager.createAccount(username, password, "Speaker")){
+                    System.out.println("User successfully created");
                     return true;
                 }
                 else{System.out.println("The Username must be unique.");
@@ -148,6 +149,32 @@ public class UserController {
         else{
             System.out.println("You have now added each other as friends");
         }
+    }
+
+    /**
+     * Logs out current user
+     */
+    public void  logOut() {
+        currentUserId = -1;
+    }
+
+    /**
+     * Returns the char type associated with the current user
+     * @return getType() of current user
+     */
+    public char getUserType() {
+        if (currentUserId != -1)
+            return userManager.getUserByID(currentUserId).getType();
+        else
+            return 'N';
+    }
+
+    /**
+     * Returns the list containing all Speaker
+     * @return A LinkedList with all Speakers
+     */
+    public LinkedList<User> getSpeakerList() {
+        return userManager.getSpeakerList();
     }
 
 }
