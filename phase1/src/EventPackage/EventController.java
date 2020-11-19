@@ -176,6 +176,7 @@ public class EventController {
                     break;
             }
 
+            EvRoGate.write(em.getEventList(), rm.getRoomList());
             ep.printMenu(UserPerm);
             UserInput = reader2.nextLine();
         }
