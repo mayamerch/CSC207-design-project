@@ -78,4 +78,14 @@ public class Broadcast implements Conversation{
     public String toString(){
         return broadcasters.toString() + "\n" + messageQueue.toString() + "\n" + e.getEventId();
     }
+
+    /**
+     * To use in Presenter for printing to console
+     * @return string formatted for text UI for Broadcast
+     */
+
+    public String format(){
+        //TODO: string format for presenter... Get Event Name.
+        return e.getEventName() + "\n" + messageQueue.format();
+    }
 }
