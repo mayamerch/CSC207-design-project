@@ -21,6 +21,9 @@ public class UserManager implements Serializable {
         userList = new LinkedList<User>();
         factory = new UserFactory();
         usersCreated = 0;
+        organiserList = new LinkedList<User>();
+        attendeeList = new LinkedList<User>();
+        speakerList = new LinkedList<User>();
     }
 
     /**
@@ -104,18 +107,14 @@ public class UserManager implements Serializable {
      * TODO: MAy need to create separate lists for Attendee, Organiser and Speaker
      * AttendeeManager and OrganiserManager? Not very expandable
      */
-    public boolean AddFriend(int attendeeId, int friendId){
+    public boolean AddFriend(int UserId, int friendId){
         User user;
-        user = getUserByID(attendeeId);
+        user = getUserByID(UserId);
         User friend;
         friend = getUserByID(friendId);
-        if (!(user instanceof Organiser || friend instanceof Organiser)){
-            ((Attendee) user).add_friend(friend.get_username());
-            return true;
-        }
-        else{
-            return false;
-        }
+        user.add_friend(friend.get_userID());
+        friend.add_friend(user.get_userID());
+        return user.getFriends_list().size() != 0;
 
     }
 
@@ -129,6 +128,10 @@ public class UserManager implements Serializable {
         for (User user: userList)
             usernames.add(user.get_username());
         return usernames;
+    }
+
+    public LinkedList<User> getOrganiserList(){
+        return this.organiserList;
     }
 
 }

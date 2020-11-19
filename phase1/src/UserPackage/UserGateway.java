@@ -58,12 +58,14 @@ public class UserGateway {
     }
 
     public void saveUserManager(UserManager userManager){
-        File userManagerFile = new File("UserManager.txt");
+        File userManagerFilePath = new File("C:\\Users\\edwar\\Documents\\UofT\\CSC207\\Phase1Test");
         try {
-            FileOutputStream fos = new FileOutputStream(userManagerFile);
+            FileOutputStream fos = new FileOutputStream(userManagerFilePath);
             OutputStream buffer = new BufferedOutputStream(fos);
             ObjectOutputStream oos = new ObjectOutputStream(buffer);
             oos.writeObject(userManager);
+            fos.close();
+            oos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -9,6 +9,7 @@ public abstract class User {
     private String username;
     private String password;
     private char type;
+    private ArrayList<Integer> friends_list;
 
     /**
      * Constructs a new User object
@@ -19,6 +20,7 @@ public abstract class User {
         this.username = username;
         this.password = password;
         this.type = type;
+        this.friends_list = new ArrayList<>();
     }
 
     // user_ID needs to be unique so it needs to be assigned to user by something above like a use case
@@ -75,6 +77,32 @@ public abstract class User {
 
     public void setType(char type){
         this.type = type;
+    }
+
+    public ArrayList<Integer> getFriends_list() {
+        return friends_list;
+    }
+
+    /**
+     * Adds a User's username to this Attendee's list of friends
+     * @param friend_username: the username of the new friend
+     */
+    public void add_friend(int friend_username){
+
+        this.friends_list.add(friend_username);
+    }
+
+    /**
+     * Remove's a User's username from this Attendee's list of friends
+     * @param friend_username: the username of the friend
+     * TODO: modify with user_Id if necessary
+     */
+    public void remove_friend(String friend_username){
+        this.friends_list.remove(friend_username);
+        // remove's first instance of friend's username. can replace with ID if we allow
+        // Duplicate usernames. Hypothetical user may want friends list of names not IDs
+        // Can we store a list of ID's and represent them onscreen as usernames?
+        // If using IDs, we can remove(object) safely.
     }
 
 
