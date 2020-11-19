@@ -1,17 +1,14 @@
 package UserPackage;
 
-import MessagePackage.Conversation;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public abstract class User implements Serializable {
     private int userID;
     private String username;
     private String password;
     private char type;
-    private ArrayList<Integer> friends_list;
+    private ArrayList<Integer> friendsList;
     private ArrayList<Integer> friendRequestList;
 
     /**
@@ -23,7 +20,7 @@ public abstract class User implements Serializable {
         this.username = username;
         this.password = password;
         this.type = type;
-        this.friends_list = new ArrayList<>();
+        this.friendsList = new ArrayList<>();
         this.friendRequestList = new ArrayList<>();
     }
 
@@ -84,29 +81,35 @@ public abstract class User implements Serializable {
     }
 
     public ArrayList<Integer> getFriends_list() {
-        return friends_list;
+        return friendsList;
     }
+
+    public ArrayList<Integer> getFriendRequestList(){return friendRequestList;}
 
     /**
      * Adds a User's username to this Attendee's list of friends
-     * @param friend_username: the username of the new friend
+     * @param friendID: the id of the new friend
      */
-    public void add_friend(int friend_username){
+    public void addFriend(int friendID){
 
-        this.friends_list.add(friend_username);
+        this.friendsList.add(friendID);
+    }
+
+    /**
+     * Adds a User's username to this User's list of friend requests
+     * @param friendID: the ID of the new friend
+     */
+    public void addFriendRequest(int friendID){
+        this.friendRequestList.add(friendID);
     }
 
     /**
      * Remove's a User's username from this Attendee's list of friends
-     * @param friend_username: the username of the friend
+     * @param friendID: the id of the friend's account
      * TODO: modify with user_Id if necessary
      */
-    public void remove_friend(String friend_username){
-        this.friends_list.remove(friend_username);
-        // remove's first instance of friend's username. can replace with ID if we allow
-        // Duplicate usernames. Hypothetical user may want friends list of names not IDs
-        // Can we store a list of ID's and represent them onscreen as usernames?
-        // If using IDs, we can remove(object) safely.
+    public void remove_friend(int friendID){
+        this.friendsList.remove(friendID);
     }
 
 
