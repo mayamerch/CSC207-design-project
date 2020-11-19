@@ -7,7 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UserGateway {
-
+    /**
+     * Takes A Linked List of user objects and saves them to a.ser file.
+     * @param list: The linked list of users to be saved
+     */
     public void saveUserList(LinkedList<User> list){
         //File userManagerFilePath = new File("userFile.ser");
         try {
@@ -21,6 +24,11 @@ public class UserGateway {
             i.printStackTrace();
         }
     }
+    /**
+     * Takes a String path to the .ser file where the Linked List of Users is stored and
+     * De serlaizes it to return a Linked List of Users to the program
+     * @param path: The path to the .ser file where the Linked List of Users is stored, String
+     */
     public LinkedList<User> readUserList(String path){
         LinkedList<User> list = null;
         try {

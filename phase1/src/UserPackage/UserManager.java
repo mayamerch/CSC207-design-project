@@ -15,7 +15,7 @@ public class UserManager implements Serializable {
 
 
     /**
-     * Creates a UserManager with an empty list of Users and a user factory, and a usersCreated of 0
+     * Creates a UserManager with an empty list of Users, Organisers, and Speakers and a usersCreated of 0
      */
     public UserManager() {
         userList = new LinkedList<User>();
@@ -24,7 +24,10 @@ public class UserManager implements Serializable {
         attendeeList = new LinkedList<User>();
         speakerList = new LinkedList<User>();
     }
-
+    /**
+     * Creates a UserManager with an existing Linked list of Users and a user factory, and sets UsersCreated
+     * and sets the UserList, AttendeeList, OrganiserList and SpeakerList accordingly
+     */
     public UserManager(LinkedList<User> list) {
         //use this for when taking in a user list from a file
         userList = list;
@@ -61,6 +64,10 @@ public class UserManager implements Serializable {
         }
         return false;
     }
+    /**
+     * Checks the userList to see if any user already has this username, returning true or false
+     * @param username: The username of the new account, String
+     */
     private boolean checkUnusedUsername(String username){
         for (User x: userList){
             if (x.getUsername().equals(username))
@@ -87,16 +94,29 @@ public class UserManager implements Serializable {
         }
         return -1;
     }
-
+    /**
+     * Returns the List of Users in the UserManager
+     * @return the userList parameter, LinkedList
+     */
     public  LinkedList<User> getUserList(){
         return userList;
     }
-
-    public LinkedList<User> getSpeakerList() {return speakerList;}
-
-
     /**
-     * TODO: Change this to linked list implementation. Can replace validate ID with this function`
+     * Returns the List of Speakers in the UserManager
+     * @return the speakerrList parameter, LinkedList
+     */
+    public LinkedList<User> getSpeakerList() {return speakerList;}
+    /**
+     * Returns a list of Organisers
+     * @return a list of Users objects who are of type organiser
+     */
+    public LinkedList<User> getOrganiserList(){
+        return this.organiserList;
+    }
+    /**
+     * Takes in an UserID`and returns the corresponding User object
+     * @param userID: ID of the user we want to find
+     * @return User
      */
     public User getUserByID(int userID) {
         for (User user : userList) {
@@ -108,8 +128,10 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * TODO: MAy need to create separate lists for Attendee, Organiser and Speaker
-     * AttendeeManager and OrganiserManager? Not very expandable
+     * Takes in the ID of the current user and the ID of the user to be added as a friend then
+     * modifies both user's friend lists accordingly
+     * @param userID: ID of current user, integer
+     * @param friendID: ID of friend to be added, integer
      */
     public boolean addFriend(int userID, int friendID){
         User currentUser, friend;
@@ -125,6 +147,13 @@ public class UserManager implements Serializable {
         return currentUser.getFriendsList().size() > currentUserFriendListSizeBeforeAdding;
 
     }
+    /**
+     * Takes in the ID of the current user and the ID of the user to be added as a friend then
+     * sends a friend request and modifies the friend's friend request list to include the ID
+     * of the current User. Returns true if successful.
+     * @param userID: ID of current user, integer
+     * @param friendID: ID of friend to be added, integer
+     */
     public boolean sendFriendRequest(int userID, int friendID){
         User friend;
         friend = getUserByID(friendID);
@@ -145,6 +174,12 @@ public class UserManager implements Serializable {
         friend.addFriendRequest(userID);
         return true;
     }
+    /**
+     * Takes in the ID of the current user and the ID of the user to be added as a friend then
+     * accepts the friend request from the user whose ID is friend ID. Returns True if successful
+     * @param userID: ID of current user, integer
+     * @param friendID: ID of friend to be added, integer
+     */
     public boolean acceptFriendRequest(int userID, int friendID){
         User currentUser = getUserByID(userID);
         User friend = getUserByID(friendID);
@@ -172,10 +207,11 @@ public class UserManager implements Serializable {
         return usernames;
     }
 
-    public LinkedList<User> getOrganiserList(){
-        return this.organiserList;
-    }
-
+    /**
+     * Takes in a Linked List of users and returns the UserID with the highest value
+     * @param list, the Linked List of Users
+     * @return the highest UserID, integer
+     */
     private int findMaxIDFromList(LinkedList<User> list){
         int maxID = 0;
         if (list == null)
@@ -186,6 +222,11 @@ public class UserManager implements Serializable {
         }
         return maxID;
     }
+    /**
+     * Takes in a Linked List of users and creates Linked Lists of Users, one for Organisers, Speakers
+     * and Attendees
+     * @param list, the Linked List of Users
+     */
     private void remakeAOSLists(LinkedList<User> list){
         //remakes each type of list from a userList
         for (User x: list){

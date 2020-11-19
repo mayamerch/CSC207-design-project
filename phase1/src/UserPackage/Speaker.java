@@ -26,7 +26,7 @@ public class Speaker extends User{
      * @param eventID: the ID of the new event the speaker is to give
      */
     public void add_event(int eventID){
-        this.TalksList.add(eventID);
+        this.TalksList.add(Integer.valueOf(eventID));
     }
     /**
      * Removes an event to this Speaker's list of talks
@@ -34,5 +34,5 @@ public class Speaker extends User{
      * TODO: modify with event_name if necessary
      */
     public void remove_event(int eventID){
-        this.TalksList.remove(eventID);}
+        this.TalksList.remove(Integer.valueOf(eventID));}
 }

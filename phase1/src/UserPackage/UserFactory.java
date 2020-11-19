@@ -2,7 +2,12 @@ package UserPackage;
 
 public class UserFactory {
 
-    // Use getuser method to get an object of type User
+    /**
+     * @param new_username the username of the user to be created, String
+     * @param new_password the password of the user to be created, String
+     * @param usertype the type of the User to be created, char
+     * @return the created User.
+     */
     public User getuser(String new_username, String new_password, String usertype) {
 
         if (usertype == null) {
