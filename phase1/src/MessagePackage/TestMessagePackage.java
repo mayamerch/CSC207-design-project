@@ -6,6 +6,7 @@ import UserPackage.Speaker;
 import UserPackage.UserController;
 import UserPackage.UserManager;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,7 +28,7 @@ Things that are created:
  */
 
 public class TestMessagePackage {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         ChatroomController cc = new ChatroomController();
         EventManager em = new EventManager();
         UserManager um = new UserManager();

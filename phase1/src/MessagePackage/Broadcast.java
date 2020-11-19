@@ -27,6 +27,20 @@ public class Broadcast implements Conversation{
     }
 
     /**
+     * Create a broadcast from existing saved broadcast (from BroadcastDataFile)
+     * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast
+     * @param mq a collection of all the Messages sent in this broadcast
+     * @param eventID the ID of the event of which the attendees are being broadcasted to
+     * @param eventManager an eventManager to manage the event that is being broadcasted to
+     */
+    public Broadcast(ArrayList<Integer> broadcasters, MessageQueue mq, int eventID, EventManager eventManager){
+        this.broadcasters = broadcasters;
+        this.messageQueue = mq;
+        this.eventID = eventID;
+        this.eventManager = eventManager;
+    }
+
+    /**
      * @return messageQueue instance variable
      */
     public MessageQueue getMessageQueue(){return messageQueue;}

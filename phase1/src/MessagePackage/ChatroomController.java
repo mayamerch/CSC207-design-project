@@ -1,23 +1,28 @@
 package MessagePackage;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChatroomController {
     private ArrayList<Chatroom> chats;
+    private ChatroomGateway gateway;
 
     /**
-     * Creates an instance of ChatroomController that contains all the recorded conversations (empty at first)
+     * Creates an instance of ChatroomController that contains all the recorded conversations.
+     * Reads in existing saved Chatrooms from ChatroomDataFile.txt
      */
-    public ChatroomController(){
-        this.chats = new ArrayList<Chatroom>();
+    public ChatroomController() throws FileNotFoundException {
+        this.gateway = new ChatroomGateway();
+        this.chats = gateway.makeChats();
     }
 
     /**
-     * Used in Gateway to create instance of ChatroomController from saved chats
-     * @param chats ArrayList of Chatroom from Gateway
+     * saves chats to ChatroomDataFile. Should be executed before program exits.
+     * @throws IOException if writing to file was unsuccessful
      */
-    public ChatroomController(ArrayList<Chatroom> chats){
-        this.chats = chats;
+    public void saveChats() throws IOException {
+        this.gateway.writeChatsToFile(this.chats);
     }
 
     public ArrayList<Chatroom> getChats() {

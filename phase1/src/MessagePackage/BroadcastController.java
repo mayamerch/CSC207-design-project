@@ -4,20 +4,33 @@ import EventPackage.EventManager;
 import UserPackage.Speaker;
 import UserPackage.UserManager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class BroadcastController {
     private ArrayList<Broadcast> broadcasts;
     private EventManager em;
     private UserManager um;
+    private BroadcastGateway gateway;
 
     /**
      * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
      */
-    public BroadcastController(EventManager em, UserManager um){
-        this.broadcasts = new ArrayList<Broadcast>();
+    public BroadcastController(EventManager em, UserManager um) throws FileNotFoundException {
         this.em = em;
         this.um = um;
+        this.gateway = new BroadcastGateway(em);
+        this.broadcasts = gateway.makeBroadcasts();
+
+    }
+
+    /**
+     * Save broadcasts to BroadcastDataFile. Should be run before program exits.
+     * @throws IOException if writing to file was unsuccessful
+     */
+    public void saveBroadcasts() throws IOException {
+        this.gateway.writeBroadcastsToFile(this.broadcasts);
     }
 
     /**
@@ -128,7 +141,7 @@ public class BroadcastController {
         return s.toString();
     }
 
-    /*
+    /**
      * @return string to be parsed by Gateway classes
      */
     @Override
