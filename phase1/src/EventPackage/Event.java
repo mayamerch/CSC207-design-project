@@ -173,4 +173,17 @@ public class Event{
                 eventAttendees;
     }
 
+
+    /**
+     * Returns a list of all participants (attendees + speaker)
+     * @return list of participants
+     */
+    public ArrayList<Integer> getParticipants() {
+        ArrayList<Integer> participants = new ArrayList<>();
+        participants.add(eventSpeaker);
+        participants.addAll(eventAttendees);
+
+        return participants;
+    }
+
 }
