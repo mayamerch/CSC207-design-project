@@ -8,37 +8,49 @@ public class UserPresenter {
     UserManager userManager;
     Scanner sc = new Scanner(System.in);
 
-    public UserPresenter(UserManager userManager){
-        this.userManager = userManager;
-    }
+//    public UserPresenter(UserManager userManager){
+//        this.userManager = userManager;
+//    }
 
     public void printFriendMenu(int userId){
 
         User currentUser = userManager.getUserByID(userId);
+        boolean check = true;
+        int i;
+        do{
+            System.out.println("What would you like to do?\n" +
+                    "1. View Current Friends\n" +
+                    "2. Friend Requests\n" +
+                    "3. Add a new friend\n" +
+                    "Press 0 to exit\n" +
+                    "Please input a number: ");
+            i = sc.nextInt();
 
-        System.out.println("What would you like to do?\n" +
-                "1. View Current Friends\n" +
-                "2. Friend Requests\n" +
-                "3. Add a new friend\n" +
-                "Please input a number: ");
-        Integer i = sc.nextInt();
-
-        switch (i){
-            case 1:
-                System.out.println(printList(currentUser.getFriendsList()));
+            if(i==1){
+                //friendlist
+                printList(currentUser.getFriendsList());
+            } else if (i == 2) {
+                printList(currentUser.getFriendRequestList());
+            }
+            else if(i==3){
+                //TODO: add friend requests?
+            }
+            else if(i==0){
                 break;
-            case 2:
-                System.out.println(printList(currentUser.getFriendRequestList()));
-                break;
-            case 3: //Create Add Friend  ;
-        }
+            }
+            else{
+                System.out.println("Please try again.");
+            }
+        } while (0 > i || i > 3);
 
     }
+
+
     public String printList(ArrayList<Integer> list){
-        String display = "";
+        StringBuilder display = new StringBuilder();
         for (int x: list){
-            display = display + userManager.getUserByID(x).getUsername() +"("+x+"), \n";
+            display.append(userManager.getUserByID(x).getUsername()).append("(").append(x).append("), \n");
         }
-        return display;
+        return display.toString();
     }
 }

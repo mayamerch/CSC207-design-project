@@ -24,9 +24,6 @@ public abstract class User implements Serializable {
         this.friendRequestList = new ArrayList<>();
     }
 
-    // user_ID needs to be unique so it needs to be assigned to user by something above like a use case
-    // which can access all the usernames. Since use cases can edit entity info they can assign
-    // attributes to entities
     /**
      * Sets the username of this User.
      * @param new_username: a new username String
@@ -73,9 +70,16 @@ public abstract class User implements Serializable {
     public void setUserID(int new_userID) {
         this.userID = new_userID;
     }
-
+    /**
+     * Gets the Type of this User.
+     * @return Type of the User, a character
+     */
     public char getType(){return type;}
 
+    /**
+     * Sets the Type of this User.
+     * @param type of the User, a character
+     */
     public void setType(char type){
         this.type = type;
     }
@@ -102,7 +106,10 @@ public abstract class User implements Serializable {
     public void addFriendRequest(int friendID){
         this.friendRequestList.add(friendID);
     }
-
+    /**
+     * Removes a User's username to this User's list of friend requests
+     * @param friendID: the ID of the new friend
+     */
     public void removeFriendRequest(int friendID){
         this.friendRequestList.remove(Integer.valueOf(friendID));
     }

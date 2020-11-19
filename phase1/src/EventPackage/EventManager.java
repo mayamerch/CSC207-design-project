@@ -210,7 +210,7 @@ public class EventManager {
      * @param eventRoom The new room of event
      * @param eventSpeaker The new speaker at event
      * @param eventDuration The new duration of th event
-     * @return              True if event was rescheduled, false if it was unable  to
+     * @return              True if event was rescheduled, false if it was unable to
      */
     public boolean reschedule(int eventId, Date eventDate, int eventRoom, int eventSpeaker, int eventDuration) {
         int index = -1;
@@ -234,6 +234,7 @@ public class EventManager {
         return true;
     }
 
+
     /**
      * Returns the list of events in this EventManger
      * @return      List of events
@@ -256,5 +257,46 @@ public class EventManager {
             }
         }
         return speaking;
+    }
+
+
+    /**
+     * Returns a list of ids of all the speakers currently speaking at an event
+     * @return a list of ids of all the speakers
+     */
+    public ArrayList<Integer> getAllSpeakers() {
+        ArrayList<Integer> allSpeakers = new ArrayList<>();
+        for (Event event: eventList)
+            if (!allSpeakers.contains(event.getEventSpeaker()))
+                allSpeakers.add(event.getEventSpeaker());
+        return allSpeakers;
+    }
+
+
+    /**
+     * Returns a list of ids of all the attendees currently attending anny event
+     * @return a list of ids of all the attendees
+     */
+    public ArrayList<Integer> getAllAttendees() {
+        ArrayList<Integer> allAttendees = new ArrayList<>();
+        for (Event event: eventList)
+            for (Integer attendee: event.getEventAttendees())
+                if (!allAttendees.contains(attendee))
+                    allAttendees.add(attendee);
+        return allAttendees;
+    }
+
+
+    /**
+     * Returns a list of ids of all users currently involved in an event
+     * @return a list of all the users involved in an event
+     */
+    public ArrayList<Integer> getAllParticipants() {
+        ArrayList<Integer> allParticipants = new ArrayList<>();
+        for (Event event: eventList)
+            for (Integer participant: event.getParticipants())
+                if (!allParticipants.contains(participant))
+                    allParticipants.add(participant);
+        return allParticipants;
     }
 }
