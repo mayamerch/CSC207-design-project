@@ -28,6 +28,11 @@ public class MessageQueue {
         return this.messageQueue;
     }
 
+
+    /**
+     * To use in Gateway class for saving MessageQueue as a string to write to file.
+     * @return string of form [message \t ...]
+     */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder("[");
@@ -35,6 +40,18 @@ public class MessageQueue {
             s.append(m.toString()).append("\t");
         }
         s.append("]");
+        return s.toString();
+    }
+
+    /**
+     * Used in Presenter for displaying string in console
+     * @return string of form message \n
+     */
+    public String format(){
+        StringBuilder s = new StringBuilder();
+        for(Message m : messageQueue){
+            s.append(m.format()).append("\n");
+        }
         return s.toString();
     }
 }

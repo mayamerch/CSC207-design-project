@@ -114,7 +114,7 @@ public class BroadcastController {
     public String myBroadcasts(int userID){
         StringBuilder s = new StringBuilder("");
         for (Broadcast b: returnBroadcastsforUserID(userID)){
-            s.append(b.toString());
+            s.append(b.format());
             s.append("\n------\n") ;
         }
         return s.toString();

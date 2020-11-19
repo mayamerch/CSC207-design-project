@@ -6,20 +6,9 @@ import java.util.ArrayList;
 
 public class BroadcastGateway {
     private File broadcastDataFile;
-    private ArrayList<StringBuilder> broadcastData;
 
     public BroadcastGateway() {
-        try {
-            this.broadcastDataFile = new File("phase1/src/EventPackage/chatroomData.txt");
-            if (this.broadcastDataFile.createNewFile()) {
-                this.broadcastData = new ArrayList<>();
-            } else {
-                this.broadcastData = reader(broadcastDataFile);
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+
     }
 
     private ArrayList<StringBuilder> reader(File broadcastDataFile) {

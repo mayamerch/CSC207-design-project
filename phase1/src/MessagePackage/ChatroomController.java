@@ -100,8 +100,8 @@ public class ChatroomController {
     public String myChats(int userID){
         StringBuilder s = new StringBuilder("");
         for (Chatroom c: returnChatsforUserID(userID)){
-            s.append(c.toString());
-            s.append("\n\n") ;
+            s.append(c.format());
+            s.append("\n------\n") ;
         }
         return s.toString();
     }
