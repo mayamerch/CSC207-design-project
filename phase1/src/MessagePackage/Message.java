@@ -3,7 +3,6 @@ package MessagePackage;
 import java.util.ArrayList;
 
 public class Message { // storing all messages
-    // TODO: make these private?
     private String content;  // TODO: NEED TO ENSURE CONTENT DOES NOT INCLUDE THE FOLLOWING: ~ , \t, \n, \n\n
     private Integer userId;
 
@@ -40,7 +39,6 @@ public class Message { // storing all messages
 
     /**
      * Sets the sender's userID to another userID
-    * TODO: is this necessary since the userId doesn't change (at least not here)?
      */
     public void setUserId(Integer userId) {
         this.userId = userId;
@@ -62,7 +60,7 @@ public class Message { // storing all messages
      * @return
      */
     public String format(){
-        return this.userId.toString()+ ": " + this.content;
+        return "From userID " + this.userId + ": " + this.content;
     }
 
 

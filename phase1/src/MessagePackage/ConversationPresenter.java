@@ -1,8 +1,5 @@
 package MessagePackage;
 
-import EventPackage.EventManager;
-import UserPackage.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,7 +24,7 @@ public class ConversationPresenter {
         return kb.nextInt();
     }
 
-    public void run(ChatroomController cc, BroadcastController bc, EventManager em) {
+    public void run(ChatroomController cc, BroadcastController bc) {
         Scanner kb = new Scanner(System.in);
         System.out.println("Enter your userID:");
         int yourUserID = kb.nextInt();
@@ -53,7 +50,7 @@ public class ConversationPresenter {
                         chat = kb.nextLine();
                     }
                     ArrayList<Integer> recipients = new ArrayList<>();
-                    System.out.println("Enter the ID(s) of the user(s) you want to message. Enter -1 when finished:");
+                    System.out.println("Enter the ID(s) of the user(s) you want to message. Enter -1 twice when finished:");
                     while (!(kb.nextInt() == -1)) {
                         recipients.add(kb.nextInt());
                     }
@@ -82,7 +79,7 @@ public class ConversationPresenter {
                     System.out.println("Enter the ID of the event you want to broadcast to:");
                     int eventID = kb.nextInt();
 
-                    bc.sendBroadcast(yourUserID, em.getEvent(eventID), broadcast);
+                    bc.sendBroadcast(yourUserID, eventID, broadcast);
                     option = -1;
                     break;
 
