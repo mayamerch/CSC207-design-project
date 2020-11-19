@@ -37,7 +37,7 @@ public interface Conversation {
     /**
      *
      * @param userID User requesting access to this Conversation
-     * @return truee iff User can send a message in this Conversation
+     * @return true iff User can send a message in this Conversation
      */
     boolean canSend(Integer userID);
 
