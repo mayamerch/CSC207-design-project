@@ -50,7 +50,7 @@ public class MessageQueue {
     public String format(){
         StringBuilder s = new StringBuilder();
         for(Message m : messageQueue){
-            s.append(m.format()).append("\n");
+            s.append(m.format());
         }
         return s.toString();
     }

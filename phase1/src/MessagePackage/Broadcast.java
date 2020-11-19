@@ -10,26 +10,26 @@ public class Broadcast implements Conversation{
 
     private ArrayList<Integer> broadcasters;
     private MessageQueue messageQueue;
-    //private int eventID;
-    private Event e;  //TODO: Event e stored inside Broadcast but is also stored in EventManager?
+    private int eventID;
+    //private Event e;  //TODO: Event e stored inside Broadcast but is also stored in EventManager?
     private EventManager eventManager;
 
     /**
      * Message broadcasted by someone in ArrayList broadcasters, identified by userID
      * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast
-     * @param e the ID of the event of which the attendees are being broadcasted to
+     * @param eventID the ID of the event of which the attendees are being broadcasted to
      */
-    public Broadcast(ArrayList<Integer> broadcasters, Event e){ //int eventID){
+    public Broadcast(ArrayList<Integer> broadcasters, int eventID, EventManager eventManager){ // Event e){
         this.broadcasters = broadcasters;
         this.messageQueue = new MessageQueue();
-        this.e = e;
-        //this.eventID = eventID;
-
+        //this.e = e;
+        this.eventID = eventID;
+        this.eventManager = eventManager;
     }
 
     public MessageQueue getMessageQueue(){return messageQueue;}
 
-    public int getEventID(){return e.getEventId();}
+    public int getEventID(){return eventID;}
 
     @Override
     public void sendMessage(String messageStr, int senderUserID) {
@@ -46,7 +46,7 @@ public class Broadcast implements Conversation{
 
     @Override
     public ArrayList<Integer> getAllReaderIDs() {
-        return e.getEventAttendees(); //eventManager.getEvent(this.eventID).getEventAttendees(); /// HERE
+        return eventManager.getEvent(this.eventID).getEventAttendees(); /// e.getEventAttendees();
     }
 
     @Override
@@ -73,10 +73,9 @@ public class Broadcast implements Conversation{
      * To use in Gateway class for saving Broadcast as a string to write to file.
      * @return string of all instance variables inside Broadcast
      */
-    //TODO: change Event to eventID?
     @Override
     public String toString(){
-        return broadcasters.toString() + "\n" + messageQueue.toString() + "\n" + e.getEventId();
+        return broadcasters.toString() + "\n" + messageQueue.toString() + "\n" + eventID;
     }
 
     /**
@@ -85,7 +84,6 @@ public class Broadcast implements Conversation{
      */
 
     public String format(){
-        //TODO: string format for presenter... Get Event Name.
-        return e.getEventName() + "\n" + messageQueue.format();
+        return eventManager.getEvent(eventID).getEventName() + ":\n" + messageQueue.format();
     }
 }

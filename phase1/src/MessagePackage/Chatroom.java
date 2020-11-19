@@ -74,7 +74,7 @@ public class Chatroom implements Conversation{
     }
 
     public String format(){
-        return this.messageQueue.toString();
+        return this.messageQueue.format();
     }
 
 

@@ -62,7 +62,7 @@ public class Message { // storing all messages
      * @return
      */
     public String format(){
-        return this.userId.toString()+ ": " + this.content;
+        return "From userID " + this.userId + ": " + this.content;
     }
 
 

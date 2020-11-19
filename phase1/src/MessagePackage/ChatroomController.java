@@ -74,13 +74,14 @@ public class ChatroomController {
         for(Chatroom chatroom: chats){
             if(chatroom.equals(c)){
                 c.sendMessage(message, senderUserID);
+                System.out.println("Your chat has been sent.");
                 return;
             }
         }
         c = createNewChatRoom(userlist, senderUserID);
         c.sendMessage(message, senderUserID);
         chats.add(c);
-        System.out.println("Your chats has been sent.");
+        System.out.println("Your chat has been sent.");
     }
 
     /**
