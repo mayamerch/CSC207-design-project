@@ -1,13 +1,20 @@
 package UserPackage;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserPresenter {
 
+    UserManager userManager;
+    Scanner sc = new Scanner(System.in);
+
+    public UserPresenter(UserManager userManager){
+        this.userManager = userManager;
+    }
+
     public void printFriendMenu(int userId){
-        Scanner sc = new Scanner(System.in);
-        UserManager userManager = new UserManager();
-        User loggedIn = userManager.getUserByID(userId);
+
+        User currentUser = userManager.getUserByID(userId);
 
         System.out.println("What would you like to do?\n" +
                 "1. View Current Friends\n" +
@@ -17,10 +24,21 @@ public class UserPresenter {
         Integer i = sc.nextInt();
 
         switch (i){
-            case 1: System.out.println(loggedIn.getFriendsList());
-            case 2: System.out.println(loggedIn.getFriendRequestList());
+            case 1:
+                System.out.println(printList(currentUser.getFriendsList()));
+                break;
+            case 2:
+                System.out.println(printList(currentUser.getFriendRequestList()));
+                break;
             case 3: //Create Add Friend  ;
         }
 
+    }
+    public String printList(ArrayList<Integer> list){
+        String display = "";
+        for (int x: list){
+            display = display + userManager.getUserByID(x).getUsername() +"("+x+"), \n";
+        }
+        return display;
     }
 }
