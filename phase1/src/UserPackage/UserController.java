@@ -59,7 +59,11 @@ public class UserController {
         int userID;
         System.out.println("Enter ID of User");
         userID = scanner.nextInt();
-        if (userManager.getUserByID(userID) != null){
+        if (userID == currentUserId){
+            System.out.println("You cannot put in your own ID");
+            return validateUserIDInput();
+        }
+        else if (userManager.getUserByID(userID) != null){
             return userID;}
         else{
             System.out.println("That is not a Valid UserID. Please try Again.");
@@ -83,7 +87,16 @@ public class UserController {
             System.out.println("You are not authorized to do this");
         }
     }
-    public void addFriend(){
+    public void SendFriendRequest(){
+        System.out.println("Enter Username of friend you would like to add");
+        int potentialFriendId = validateUserIDInput();
+        if (!userManager.sendFriendRequest(currentUserId, potentialFriendId)){
+            System.out.println("You have either already sent a friend request or " +
+                    "they have already accepted you as a friend");
+        }
+        else{
+            System.out.println("Friend Request Sent");
+        }
 
     }
 
