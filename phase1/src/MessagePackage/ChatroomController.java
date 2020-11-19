@@ -1,9 +1,6 @@
 package MessagePackage;
 
-import EventPackage.Event;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ChatroomController {
     private ArrayList<Chatroom> chats;

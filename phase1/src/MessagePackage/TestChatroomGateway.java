@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ChatroomGatewayTest {
+public class TestChatroomGateway {
 
     public static void main(String[] args) throws IOException {
         ChatroomGateway g = new ChatroomGateway();

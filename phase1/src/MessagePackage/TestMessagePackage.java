@@ -2,15 +2,15 @@ package MessagePackage;
 
 import EventPackage.Event;
 import EventPackage.EventManager;
-import UserPackage.Speaker;
 import UserPackage.UserController;
 import UserPackage.UserManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MessageTest {
+// This is a test file for the Message Package!
+
+public class TestMessagePackage {
     public static void main(String[] args) {
         ChatroomController cc = new ChatroomController();
         EventManager em = new EventManager();

@@ -1,8 +1,5 @@
 package MessagePackage;
 
-import EventPackage.EventManager;
-import UserPackage.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 

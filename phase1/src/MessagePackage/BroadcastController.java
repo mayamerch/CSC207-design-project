@@ -1,9 +1,7 @@
 package MessagePackage;
 
-import EventPackage.Event;
 import EventPackage.EventManager;
 import UserPackage.Speaker;
-import UserPackage.User;
 
 import java.util.ArrayList;
 
