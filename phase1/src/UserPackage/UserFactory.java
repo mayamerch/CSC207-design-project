@@ -3,7 +3,7 @@ package UserPackage;
 public class UserFactory {
 
     // Use getuser method to get an object of type User
-    public User getuser(String usertype, String new_username, String new_password) {
+    public User getuser(String new_username, String new_password, String usertype) {
 
         if (usertype == null) {
             return null;
