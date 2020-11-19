@@ -15,30 +15,19 @@ public class UserPresenter {
     public void printFriendMenu(int userId){
 
         User currentUser = userManager.getUserByID(userId);
-
         System.out.println("What would you like to do?\n" +
                 "1. View Current Friends\n" +
                 "2. Friend Requests\n" +
                 "3. Add a new friend\n" +
                 "Please input a number: ");
-        Integer i = sc.nextInt();
 
-        switch (i){
-            case 1:
-                System.out.println(printList(currentUser.getFriendsList()));
-                break;
-            case 2:
-                System.out.println(printList(currentUser.getFriendRequestList()));
-                break;
-            case 3: //Create Add Friend  ;
-        }
 
     }
     public String printList(ArrayList<Integer> list){
-        String display = "";
+        StringBuilder display = new StringBuilder();
         for (int x: list){
-            display = display + userManager.getUserByID(x).getUsername() +"("+x+"), \n";
+            display.append(userManager.getUserByID(x).getUsername()).append("(").append(x).append("), \n");
         }
-        return display;
+        return display.toString();
     }
 }
