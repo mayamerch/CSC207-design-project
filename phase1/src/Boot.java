@@ -55,7 +55,7 @@ public class Boot {
         System.out.println("The menu chosen is "+ i);
         switch (i) {
             case 1:
-                ec.run(currId, userType, uc.getUserManager().getSpeakerList());
+                //ec.run(currId, userType, uc.getUserManager().getSpeakerList());
             case 2:
                 // ConversationPresenter called here
             case 3:
