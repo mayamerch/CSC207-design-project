@@ -28,6 +28,11 @@ public class MessageQueue {
         return this.messageQueue;
     }
 
+
+    /**
+     * To use in Gateway class for saving MessageQueue as a string to write to file.
+     * @return string of form [message \t ...]
+     */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder("[");

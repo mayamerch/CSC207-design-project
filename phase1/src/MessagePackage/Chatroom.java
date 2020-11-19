@@ -64,7 +64,10 @@ public class Chatroom implements Conversation{
     }
 
 
-
+    /**
+     * To use in Gateway class for saving Chatroom as a string to write to file.
+     * @return string of form userList+\n+messageQueue
+     */
     @Override
     public String toString(){
         return (this.userList + "\n" + this.messageQueue.toString());
