@@ -26,7 +26,7 @@ public class MessageTest {
         broadcasters.add(419);
 
         ArrayList<Integer> userlist = new ArrayList<>();
-        userlist.add(419);
+        userlist.add(200);
 
         Date date = new Date(2020, 04, 19);
         Event e = new Event(1, "maya's event", 419, date, 2858, 60);
@@ -35,10 +35,10 @@ public class MessageTest {
 
         bc.sendBroadcast(419, e, "testing the presenter");
 
-        /*MessageQueue mq = new MessageQueue();
+        MessageQueue mq = new MessageQueue();
         Chatroom c = new Chatroom(userlist, mq);
-        c.sendMessage("my message", 200);
-        cc.sendChat(userlist, 419, "my message");*/
+        c.sendMessage("my message", 419);
+        cc.sendChat(userlist, 419, "my message");
 
         ConversationPresenter conversationPresenter = new ConversationPresenter();
         conversationPresenter.run(cc, bc, em);

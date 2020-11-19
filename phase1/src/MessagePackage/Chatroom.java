@@ -70,5 +70,10 @@ public class Chatroom implements Conversation{
         return (this.userList + "\n" + this.messageQueue.toString());
     }
 
+    public String format(){
+        return this.messageQueue.toString();
+    }
+
+
 
 }
