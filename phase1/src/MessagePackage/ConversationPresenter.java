@@ -89,7 +89,7 @@ public class ConversationPresenter {
 
 
                 default:
-                    System.out.println("Enter a number 1-4, 0 to exit:");
+                    System.out.println("Enter a menu number 1-4, or 0 to exit:");
                     option = kb.nextInt();
             }
         }

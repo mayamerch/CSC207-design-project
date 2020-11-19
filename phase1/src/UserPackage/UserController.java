@@ -19,7 +19,7 @@ public class UserController {
     public UserManager getUserManager() {
         return userManager;
     }
-    public void setUserManager(){
+/*    public void setUserManager(){
         System.out.println("Enter the path to the saved user manager here");
         String path = scanner.nextLine();
         UserManager newUserManager = userGateway.readUserManager(path);
