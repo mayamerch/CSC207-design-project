@@ -11,7 +11,7 @@ public class Broadcast implements Conversation{
     private ArrayList<Integer> broadcasters;
     private MessageQueue messageQueue;
     //private int eventID;
-    private Event e;
+    private Event e;  //TODO: Event e stored inside Broadcast but is also stored in EventManager?
     private EventManager eventManager;
 
     /**
@@ -64,9 +64,18 @@ public class Broadcast implements Conversation{
         return this.getAllSenderIDs().contains(userID);
     }
 
+
+    /*public String toString(){
+        return ("For " + e.getEventName() + ", from user " + this.broadcasters + ":\n" + this.messageQueue.toString());
+    }*/
+
+    /**
+     * To use in Gateway class for saving Broadcast as a string to write to file.
+     * @return string of all instance variables inside Broadcast
+     */
+    //TODO: change Event to eventID?
     @Override
     public String toString(){
-        return ("For " + e.getEventName() + ", from user " + this.broadcasters + ":\n" + this.messageQueue.toString());
+        return broadcasters.toString() + "\n" + messageQueue.toString() + "\n" + e.getEventId();
     }
-
 }

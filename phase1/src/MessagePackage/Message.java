@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Message { // storing all messages
     // TODO: make these private?
-    public String content;  // TODO: NEED TO ENSURE CONTENT DOES NOT INCLUDE THE FOLLOWING: ~ , \t, \n, \n\n
-    public Integer userId;
+    private String content;  // TODO: NEED TO ENSURE CONTENT DOES NOT INCLUDE THE FOLLOWING: ~ , \t, \n, \n\n
+    private Integer userId;
 
     /**
      * Constructs a new Message object
@@ -46,9 +46,14 @@ public class Message { // storing all messages
         this.userId = userId;
     }
 
+
+    /**
+     * To use in Gateway class for saving Message as a string to write to file.
+     * @return string of form "userID~message content"
+     */
     @Override
     public String toString() {
-        return this.content;
+        return this.userId.toString()+ "~" + this.content;
     }
 
 }

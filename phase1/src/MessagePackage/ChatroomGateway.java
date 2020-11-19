@@ -3,36 +3,32 @@ package MessagePackage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 
 public class ChatroomGateway {
     private File chatroomDataFile;
-    //private ArrayList<StringBuilder> chatroomData;
-
 
     public ChatroomGateway() {
-        try {
-            this.chatroomDataFile = new File("src/MessagePackage/ChatroomDataFile.txt");
-            this.chatroomDataFile.createNewFile();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        this.chatroomDataFile = new File("src/MessagePackage/ChatroomDataFile.txt");
     }
 
     public void writeControllerToFile(ChatroomController controller) throws IOException {
         FileWriter writer = new FileWriter(this.chatroomDataFile);
         writer.write(controller.toString());
+        writer.close();
+    }
+
+    public void resetChatroomDataFile() throws IOException {
+        FileWriter writer = new FileWriter(this.chatroomDataFile);
+        writer.write("");
+        writer.close();
     }
 
     public ChatroomController makeController() throws FileNotFoundException {
-        ArrayList<Chatroom> chats = new ArrayList<Chatroom>();
-
-        File file = new File("/Users/jzhang/Desktop/ChatroomDataFile.txt");
-        Scanner scan = new Scanner(file);
+        ArrayList<Chatroom> chats = new ArrayList<>();
+        Scanner scan = new Scanner(this.chatroomDataFile);
         scan.useDelimiter("\n\n");
         while (scan.hasNext()) {
             Chatroom c = stringToChatroom(scan.next());
@@ -80,14 +76,5 @@ public class ChatroomGateway {
         return new Chatroom(userList, mq);
     }
 
-/*    private ChatroomController stringToChatroomController(String s){
-        String[] stuff = s.split("\n\n"); // each string in stuff is for one chatroom
-
-        ArrayList<Chatroom> chats = new ArrayList<Chatroom>();
-        for (String chatroomStr: stuff){
-            chats.add(stringToChatroom(chatroomStr));
-        }
-        return new ChatroomController(chats);
-    }*/
 
 }

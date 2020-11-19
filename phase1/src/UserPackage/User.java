@@ -1,10 +1,12 @@
 package UserPackage;
 
 import MessagePackage.Conversation;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class User {
+public abstract class User implements Serializable {
     private int userID;
     private String username;
     private String password;
