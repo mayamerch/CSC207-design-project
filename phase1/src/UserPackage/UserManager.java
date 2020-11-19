@@ -47,18 +47,16 @@ public class UserManager implements Serializable {
             userList.add(new_user);
             int new_userID = usersCreated + 1;
             new_user.setUserID(new_userID);
-            if (new_user instanceof Speaker){
+            if (new_user.getType() == 'S'){
                 speakerList.add(new_user);
             }
-            else if (new_user instanceof Attendee){
-                if (new_user instanceof Organiser){
-                    organiserList.add(new_user);
-                }
-                else{ attendeeList.add(new_user); }
+            else if (new_user.getType() == 'O') {
+                organiserList.add(new_user);
             }
-
+            else {
+                attendeeList.add(new_user);
+            }
             usersCreated += 1;
-
             return true;
         }
         return false;
