@@ -31,7 +31,7 @@ public class ConversationPresenter {
 
         int option = printOptions();
 
-        while (option != 0 && yourUserID != -1) {
+        while (option != 0) {
             switch (option) {
 
 

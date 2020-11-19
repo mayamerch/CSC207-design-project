@@ -2,50 +2,51 @@ package MessagePackage;
 
 import EventPackage.EventManager;
 import UserPackage.Speaker;
+import UserPackage.UserManager;
 
 import java.util.ArrayList;
 
 public class BroadcastController {
     private ArrayList<Broadcast> broadcasts;
     private EventManager em;
+    private UserManager um;
 
     /**
      * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
      */
-    public BroadcastController(EventManager em){
+    public BroadcastController(EventManager em, UserManager um){
         this.broadcasts = new ArrayList<Broadcast>();
         this.em = em;
+        this.um = um;
     }
 
+    /**
+     * @return an ArrayList of all broadcasts created
+     */
     public ArrayList<Broadcast> getBroadcasts() {
         return broadcasts;
     }
 
     /**
      * Returns true if a Broadcast does not already exist and can be created
-     // @param mq the message to be sent in the broadcast
      * @param senderUserID the user who will be sending the broadcast
      * @param eventID the ID of the event whose attendees the broadcast will be sent to
      */
     public boolean canCreateNewBroadCast(int senderUserID, int eventID) {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        broadcasters.add(senderUserID);
+        if(!(um.getUserByID(senderUserID).getType() == 'O' || um.getUserByID(senderUserID).getType() == 'S')){
+            throw new java.lang.Error("You are not able to send a broadcast.");
+        }
+        else{
+            broadcasters.add(senderUserID);
+        }
 
         Broadcast b = new Broadcast(broadcasters, eventID, em);
-        if (broadcasts.contains(b)) {
-            return false;
-        }
-        for (int broadcaster : broadcasters) {
-            if (!b.canSend(broadcaster)) {
-                return false;
-            }
-        }
-        return true;
+        return !broadcasts.contains(b); // return whether it exists or not
     }
 
     /**
      * Creates and returns a new Broadcast, if possible. Raises an Error if not.
-     // @param mq the message to be sent in the broadcast
      * @param senderUserID the user who will be sending the broadcast
      * @param eventID the ID of the event whose attendees the broadcast will be sent to
      */
@@ -88,9 +89,8 @@ public class BroadcastController {
     /**
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
-    // @param messageQueue messages being sent in the broadcast
      */
-    public void createBroadcastInAllSpeakerEvents(Speaker speaker){ // mq removed
+    public void createBroadcastInAllSpeakerEvents(Speaker speaker){
         for(int eventID: speaker.getTalksList()){
             createNewBroadcast(speaker.getUserID(), eventID);
         }
@@ -110,6 +110,11 @@ public class BroadcastController {
         return myBroadcasts;
     }
 
+    /**
+     * To use in Presenter for printing to console
+     * @param userID the broadcaster's userID
+     * @return string formatted for text UI for Broadcast
+     */
     public String myBroadcasts(int userID){
         StringBuilder s = new StringBuilder("");
         for (Broadcast b: returnBroadcastsforUserID(userID)){
@@ -119,6 +124,9 @@ public class BroadcastController {
         return s.toString();
     }
 
+    /*
+     * @return string to be parsed by Gateway classes
+     */
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder("");

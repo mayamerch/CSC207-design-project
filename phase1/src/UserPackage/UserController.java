@@ -86,7 +86,7 @@ public class UserController {
             System.out.println("You are not authorized to do this");
         }
     }
-    public void SendFriendRequest(){
+    public void sendFriendRequest(){
         System.out.println("Enter Username of friend you would like to add");
         int potentialFriendId = validateUserIDInput();
         if (!userManager.sendFriendRequest(currentUserId, potentialFriendId)){
@@ -96,7 +96,16 @@ public class UserController {
         else{
             System.out.println("Friend Request Sent");
         }
-
+    }
+    public void acceptFriendRequest(){
+        System.out.println("Enter Username of friend whose request you would like to accept");
+        int potentialFriendId = validateUserIDInput();
+        if (!userManager.acceptFriendRequest(currentUserId, potentialFriendId)){
+            System.out.println("This person has not sent you a request");
+        }
+        else{
+            System.out.println("You have now added each other as friends");
+        }
     }
 
 }

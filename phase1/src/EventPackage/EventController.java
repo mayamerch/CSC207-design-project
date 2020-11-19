@@ -15,6 +15,9 @@ public class EventController {
     private EventRoomGateway EvRoGate;
 
 
+    /**
+     * Creates an instance of EventController and loads in all the saved data
+     */
     public EventController() {
         this.EvRoGate = new EventRoomGateway();
         em = new EventManager(EvRoGate.parseEvent());
@@ -177,6 +180,7 @@ public class EventController {
                     break;
             }
 
+            EvRoGate.write(em.getEventList(), rm.getRoomList());
             ep.printMenu(UserPerm);
             UserInput = reader2.nextLine();
         }
