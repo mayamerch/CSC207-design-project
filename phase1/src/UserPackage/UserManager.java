@@ -107,22 +107,48 @@ public class UserManager implements Serializable {
      * TODO: MAy need to create separate lists for Attendee, Organiser and Speaker
      * AttendeeManager and OrganiserManager? Not very expandable
      */
-    public boolean AddFriend(int UserId, int friendId){
+    public boolean addFriend(int UserId, int friendId){
         User user;
         user = getUserByID(UserId);
         User friend;
         friend = getUserByID(friendId);
-        user.add_friend(friend.get_userID());
-        friend.add_friend(user.get_userID());
+        user.addFriend(friend.get_userID());
+        friend.addFriend(user.get_userID());
         return user.getFriends_list().size() != 0;
 
     }
     public boolean sendFriendRequest(int UserId, int friendId){
-        User user;
-        user = getUserByID(UserId);
         User friend;
         friend = getUserByID(friendId);
-
+        User user = getUserByID(UserId);
+        ArrayList<Integer> friendList = user.getFriends_list();
+        // Check if friend already in YOUR friends List
+        for (int x: friendList) {
+            if (x == friendId) {
+                return false;
+            }
+        }
+        ArrayList<Integer> requestList = friend.getFriendRequestList();
+        for (int x: requestList){
+            if (x == UserId){
+                return false;
+            }
+        }
+        friend.addFriendRequest(UserId);
+        return true;
+    }
+    public boolean acceptFriendRequest(int UserId, int friendId){
+        User user = getUserByID(UserId);
+        User friend = getUserByID(friendId);
+        ArrayList<Integer> requestList = user.getFriendRequestList();
+        for (int x: requestList){
+            if (x == friendId){
+                addFriend(UserId, friendId);
+                return true;
+            }
+        }
+        return false;
+        // This means the friend is not in the friend request list
     }
 
 

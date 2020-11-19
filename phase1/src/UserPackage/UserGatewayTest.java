@@ -14,7 +14,7 @@ public class UserGatewayTest {
         userManager.createAccount("user2", "User2","Attendee");
         User user1 = userManager.getUserByID(1);
         User user2 = userManager.getUserByID(2);
-        userManager.AddFriend(1, 2);
+        userManager.addFriend(1, 2);
 
         userGateway.saveUserList(userManager.getUserList());
    
