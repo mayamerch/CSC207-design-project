@@ -40,7 +40,7 @@ public class UserManager implements Serializable {
         if (new_user != null &&checkUnusedUsername(newUsername)) {
             userList.add(new_user);
             int new_userID = usersCreated + 1;
-            new_user.set_userId(new_userID);
+            new_user.setUserID(new_userID);
             if (new_user instanceof Speaker){
                 speakerList.add(new_user);
             }
@@ -59,7 +59,7 @@ public class UserManager implements Serializable {
     }
     private boolean checkUnusedUsername(String username){
         for (User x: userList){
-            if (x.get_username().equals(username))
+            if (x.getUsername().equals(username))
                 return false;
         }
         return true;
@@ -74,12 +74,12 @@ public class UserManager implements Serializable {
      * @param user: an instance of User the person is trying to log into
      */
     public boolean validateLogin(User user, String username, String password){
-        return ((user.get_username().equalsIgnoreCase(username)) && (user.get_password().equals(password)));
+        return ((user.getUsername().equalsIgnoreCase(username)) && (user.getPassword().equals(password)));
     }
     public int validateLogin(String username, String password){
         for (User x : userList){
             if (validateLogin(x, username, password))
-                return x.get_userID();
+                return x.getUserID();
         }
         return -1;
     }
@@ -96,7 +96,7 @@ public class UserManager implements Serializable {
      */
     public User getUserByID(int userID) {
         for (User user : userList) {
-            if (userID == user.get_userID()) {
+            if (userID == user.getUserID()) {
                 return user;
             }
         }
@@ -107,43 +107,48 @@ public class UserManager implements Serializable {
      * TODO: MAy need to create separate lists for Attendee, Organiser and Speaker
      * AttendeeManager and OrganiserManager? Not very expandable
      */
-    public boolean addFriend(int UserId, int friendId){
-        User user;
-        user = getUserByID(UserId);
-        User friend;
-        friend = getUserByID(friendId);
-        user.addFriend(friend.get_userID());
-        friend.addFriend(user.get_userID());
-        return user.getFriends_list().size() != 0;
+    public boolean addFriend(int userID, int friendID){
+        User currentUser, friend;
+        currentUser = getUserByID(userID);
+        friend = getUserByID(friendID);
+
+        int currentUserFriendListSizeBeforeAdding = currentUser.getFriendsList().size();
+
+        currentUser.addFriend(friend.getUserID());
+        friend.addFriend(currentUser.getUserID());
+
+        //returns true if currentUser has successfully added someone to friendsList
+        return currentUser.getFriendsList().size() > currentUserFriendListSizeBeforeAdding;
 
     }
-    public boolean sendFriendRequest(int UserId, int friendId){
+    public boolean sendFriendRequest(int userID, int friendID){
         User friend;
-        friend = getUserByID(friendId);
-        User user = getUserByID(UserId);
-        ArrayList<Integer> friendList = user.getFriends_list();
-        // Check if friend already in YOUR friends List
-        for (int x: friendList) {
-            if (x == friendId) {
+        friend = getUserByID(friendID);
+        User currentUser = getUserByID(userID);
+
+        // Check if friend already in currentUser's friends List
+        for (int x: currentUser.getFriendsList()) {
+            if (x == friendID) {
                 return false;
             }
         }
-        ArrayList<Integer> requestList = friend.getFriendRequestList();
-        for (int x: requestList){
-            if (x == UserId){
+        // check if currentUser already has sent a friend request to potential friend
+        for (int x: friend.getFriendRequestList()){
+            if (x == userID){
                 return false;
             }
         }
-        friend.addFriendRequest(UserId);
+        friend.addFriendRequest(userID);
         return true;
     }
-    public boolean acceptFriendRequest(int UserId, int friendId){
-        User user = getUserByID(UserId);
-        User friend = getUserByID(friendId);
-        ArrayList<Integer> requestList = user.getFriendRequestList();
-        for (int x: requestList){
-            if (x == friendId){
-                addFriend(UserId, friendId);
+    public boolean acceptFriendRequest(int userID, int friendID){
+        User currentUser = getUserByID(userID);
+        User friend = getUserByID(friendID);
+
+        for (int x: currentUser.getFriendRequestList()){
+            if (x == friendID){
+                addFriend(userID, friendID);
+                currentUser.removeFriendRequest(friendID);
                 return true;
             }
         }
@@ -159,7 +164,7 @@ public class UserManager implements Serializable {
     public ArrayList<String> getUsernames() {
         ArrayList<String> usernames = new ArrayList<String>();
         for (User user: userList)
-            usernames.add(user.get_username());
+            usernames.add(user.getUsername());
         return usernames;
     }
 

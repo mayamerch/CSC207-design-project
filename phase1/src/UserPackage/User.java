@@ -48,14 +48,14 @@ public abstract class User implements Serializable {
      * Returns the username of this User.
      * @return username
      */
-    public String get_username(){
+    public String getUsername(){
         return username;
     }
     /**
      * Returns the password of this User.
      * @return password
      */
-    public String get_password() {
+    public String getPassword() {
         return password;
     }
 
@@ -63,14 +63,14 @@ public abstract class User implements Serializable {
      * Returns the userID of this User.
      * @return userID, an integer
      */
-    public int get_userID() {
+    public int getUserID() {
         return userID;
     }
     /**
      * Sets the UserID of this User.
      * @param new_userID: a new password String
      */
-    public void set_userId(int new_userID) {
+    public void setUserID(int new_userID) {
         this.userID = new_userID;
     }
 
@@ -80,7 +80,7 @@ public abstract class User implements Serializable {
         this.type = type;
     }
 
-    public ArrayList<Integer> getFriends_list() {
+    public ArrayList<Integer> getFriendsList() {
         return friendsList;
     }
 
@@ -101,6 +101,10 @@ public abstract class User implements Serializable {
      */
     public void addFriendRequest(int friendID){
         this.friendRequestList.add(friendID);
+    }
+
+    public void removeFriendRequest(int friendID){
+        this.friendRequestList.remove(friendID);
     }
 
     /**

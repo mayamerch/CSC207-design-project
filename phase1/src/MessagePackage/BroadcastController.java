@@ -92,7 +92,7 @@ public class BroadcastController {
      */
     public void createBroadcastInAllSpeakerEvents(Speaker speaker){ // mq removed
         for(int eventID: speaker.getTalksList()){
-            createNewBroadcast(speaker.get_userID(), eventID);
+            createNewBroadcast(speaker.getUserID(), eventID);
         }
     }
 
