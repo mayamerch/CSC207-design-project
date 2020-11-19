@@ -12,7 +12,7 @@ public class EventTest {
         SpeakerIds.add(1);
         SpeakerIds.add(2);
 
-        ec.run(0, 0, SpeakerIds); // User Id (first number) has no impact separately, its what shows up when you attend an event (your UserId)
+        ec.run(0, 'O', SpeakerIds); // User Id (first number) has no impact separately, its what shows up when you attend an event (your UserId)
                                                 // Second parameter is permissions, -1 for speaker, 1 for attendee, 0 for organizer
     }
 }

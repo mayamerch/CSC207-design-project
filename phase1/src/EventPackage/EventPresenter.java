@@ -10,7 +10,7 @@ public class EventPresenter {
      * a specific user
      * @param UserPerm The permission the user has that decides what they can do with events
      */
-    public void printMenu(int UserPerm) {
+    public void printMenu(String UserPerm) {
 
         StringBuilder temp = new StringBuilder();
 
@@ -21,10 +21,10 @@ public class EventPresenter {
         temp.append("2. See my Events (Events attending or speaking at)" + System.lineSeparator());
         temp.append("3. See Rooms" + System.lineSeparator());
 
-        if (UserPerm != -1) {
+        if (!UserPerm.equals("S")) {
             temp.append("4. Attend a new Event" + System.lineSeparator());
             temp.append("5. Cancel Attending an Event" + System.lineSeparator());
-            if (UserPerm == 0) {
+            if (UserPerm.equals("O")) {
                 temp.append("6. Create a new Event" + System.lineSeparator());
                 temp.append("7. Create a new Room" + System.lineSeparator());
             }
@@ -42,11 +42,11 @@ public class EventPresenter {
      * Prints a message that shows that the User is denied an option
      * @param UserPerm The permission of this User
      */
-    public void denyUser(int UserPerm) {
-        if (UserPerm == -1)
+    public void denyUser(String UserPerm) {
+        if (UserPerm.equals("S"))
             System.out.println("Sorry this option doesn't exist for a speaker. Please try again."
                     + System.lineSeparator());
-        else if (UserPerm == 1)
+        else if (UserPerm.equals("A"))
             System.out.println("Sorry this option doesn't exist for an attendee. Please try again."
                     + System.lineSeparator());
         else
@@ -75,11 +75,11 @@ public class EventPresenter {
      * @param UserId The Id of the User we want the events for.
      * @param UserPerm The Type of this User
      */
-    public void seeMyEvents(EventManager em, RoomManager rm, int UserId, int UserPerm) {
+    public void seeMyEvents(EventManager em, RoomManager rm, int UserId, String UserPerm) {
         System.out.println("My Events");
         System.out.println("---------------------------------");
         ArrayList<Event> eventList;
-        if (UserPerm != -1)
+        if (!UserPerm.equals("S"))
             eventList = em.myEvents(UserId);
         else
             eventList = em.speakingAt(UserId);

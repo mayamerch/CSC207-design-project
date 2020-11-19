@@ -60,7 +60,7 @@ public class BroadcastController {
             return b;
         }
         else {
-            throw new java.lang.Error("This Broadcast cannot be created.");
+            throw new java.lang.Error("This broadcast cannot be created.");
         }
     }
 
@@ -73,6 +73,10 @@ public class BroadcastController {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(senderUserID);
         Broadcast b = createNewBroadcast(senderUserID, eventID);
+
+        if(!em.getEventList().contains(em.getEvent(eventID))){
+            throw new java.lang.Error("This event does not exist.");
+        }
 
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){

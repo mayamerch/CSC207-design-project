@@ -25,11 +25,10 @@ public class TestMessagePackage {
         Event e = em.getEvent(1);
         e.addAttendee(2);
 
-        //bc.sendBroadcast(419, 1, "testing the presenter");
-
         ArrayList<Integer> userlist = new ArrayList<>();
         userlist.add(2);
         cc.sendChat(userlist, 1, "my message");
+        bc.sendBroadcast(1, 12, "testing the presenter");
 
 
         ConversationPresenter conversationPresenter = new ConversationPresenter();
