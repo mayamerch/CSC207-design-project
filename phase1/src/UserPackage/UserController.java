@@ -67,8 +67,8 @@ public class UserController {
         }
     }
 
-    public void saveUserManager(){
-        userGateway.saveUserManager(getUserManager());
+    public void saveUserList(){
+        userGateway.saveUserList(getUserManager().getUserList());
     }
 
 //    public int validateEventInput(){
