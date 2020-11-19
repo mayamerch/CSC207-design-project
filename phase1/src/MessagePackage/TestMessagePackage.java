@@ -9,8 +9,9 @@ import UserPackage.UserManager;
 import java.util.ArrayList;
 import java.util.Date;
 
-// This is a test file for the Message Package!
 /*
+This is a test file for the Message Package!
+
 Things that are created:
 -a ChatroomController
 -an EventManager
