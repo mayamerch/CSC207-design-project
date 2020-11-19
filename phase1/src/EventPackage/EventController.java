@@ -47,15 +47,17 @@ public class EventController {
     /**
      * Interacts with user and asks for input then performs actions related to events based on that input.
      * @param UserId The id of the user its interacting with
-     * @param UserPerm -1 If User is a Speaker
-     *                 0 If User is an Organizer
-     *                 1 If User is an Attendee
+     * @param UserPermChar 'S' If User is a Speaker
+     *                      'O' If User is an Organizer
+     *                      'A' If User is an Attendee
      * @param speakerIds A list of the ids of speakers at this conference
      **/
-    public void run(int UserId, int UserPerm, ArrayList<Integer> speakerIds) {
+    public void run(int UserId, char UserPermChar, ArrayList<Integer> speakerIds) {
 
         Scanner reader = new Scanner(System.in);
         Scanner reader2 = new Scanner(System.in);
+
+        String UserPerm = Character.toString(UserPermChar);
 
         ep.printMenu(UserPerm);
         String UserInput = reader2.nextLine();
@@ -105,7 +107,7 @@ public class EventController {
                     break;
 
                 case "4":
-                    if (UserPerm == -1)
+                    if (UserPerm.equals("S"))
                         ep.denyUser(UserPerm);
                     else {
                         ep.seeAvailEvents(em, rm, UserId);
@@ -122,7 +124,7 @@ public class EventController {
                     break;
 
                 case "5":
-                    if (UserPerm == -1)
+                    if (UserPerm.equals("S"))
                         ep.denyUser(UserPerm);
                     else {
                         ep.seeMyEvents(em, rm, UserId, UserPerm);
@@ -141,7 +143,7 @@ public class EventController {
                     break;
 
                 case "6":
-                    if (UserPerm == -1 || UserPerm == 1)
+                    if (UserPerm.equals("S") ||UserPerm.equals("A"))
                         ep.denyUser(UserPerm);
                     else {
                         ep.createEvent();
@@ -159,7 +161,7 @@ public class EventController {
                     break;
 
                 case "7":
-                    if (UserPerm == -1 || UserPerm == 1)
+                    if (UserPerm.equals("S") || UserPerm.equals("A"))
                         ep.denyUser(UserPerm);
                     else {
                         ep.createRoom();

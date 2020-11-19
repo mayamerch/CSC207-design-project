@@ -5,15 +5,14 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class UserController {
-    protected int currentUserId;
+    public int currentUserId;
     protected UserManager userManager;
     protected UserGateway userGateway;
     Scanner scanner = new Scanner(System.in);
 
     public UserController(){
-        this.userManager = new UserManager();
-        this.userGateway = null;
-        // the user manager and event manager are formed in the system controller
+        this.userGateway = new UserGateway();
+        this.userManager = new UserManager(this.userGateway.readUserList("src/UserPackage/userFile.ser"));
     }
 
     public UserManager getUserManager() {
