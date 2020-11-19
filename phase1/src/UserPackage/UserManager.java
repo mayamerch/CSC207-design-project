@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class UserManager implements Serializable {
 
-    private UserFactory factory;
+    private UserFactory factory = new UserFactory();
     private LinkedList<User> userList;
     private int usersCreated;
     private LinkedList<User> speakerList;
@@ -19,11 +19,17 @@ public class UserManager implements Serializable {
      */
     public UserManager() {
         userList = new LinkedList<User>();
-        factory = new UserFactory();
         usersCreated = 0;
         organiserList = new LinkedList<User>();
         attendeeList = new LinkedList<User>();
         speakerList = new LinkedList<User>();
+    }
+
+    public UserManager(LinkedList<User> list) {
+        //use this for when taking in a user list from a file
+        userList = list;
+        usersCreated = findMaxIDFromList(list);
+        remakeAOSLists(list);
     }
 
     /**
@@ -172,4 +178,30 @@ public class UserManager implements Serializable {
         return this.organiserList;
     }
 
+    private int findMaxIDFromList(LinkedList<User> list){
+        int maxID = 0;
+        if (list == null)
+            return 0;
+        for(User x: list){
+            if (x.getUserID() > maxID)
+                maxID = x.getUserID();
+        }
+        return maxID;
+    }
+    private void remakeAOSLists(LinkedList<User> list){
+        //remakes each type of list from a userList
+        for (User x: list){
+            switch (x.getType()){
+                case 'A':
+                    attendeeList.add(x);
+                    break;
+                case 'O':
+                    organiserList.add(x);
+                    break;
+                case 'S':
+                    speakerList.add(x);
+                    break;
+            }
+        }
+    }
 }
