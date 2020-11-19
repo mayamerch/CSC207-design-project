@@ -104,7 +104,7 @@ public abstract class User implements Serializable {
     }
 
     public void removeFriendRequest(int friendID){
-        this.friendRequestList.remove(friendID);
+        this.friendRequestList.remove(Integer.valueOf(friendID));
     }
 
     /**
@@ -113,7 +113,7 @@ public abstract class User implements Serializable {
      * TODO: modify with user_Id if necessary
      */
     public void remove_friend(int friendID){
-        this.friendsList.remove(friendID);
+        this.friendsList.remove(Integer.valueOf(friendID));
     }
 
 
