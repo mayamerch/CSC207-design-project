@@ -51,10 +51,9 @@ public class EventController {
      * @param UserPerm -1 If User is a Speaker
      *                 0 If User is an Organizer
      *                 1 If User is an Attendee
-     * @param speakerIds A list of the ids of speakers at this conference
+     * @param speakerIds A Linked list of the of speakers at this conference
      **/
-    public void run(int UserId, int UserPerm, LinkedList<Integer> llSpeakerIds) {
-        ArrayList<Integer> speakerIds = helper(llSpeakerIds);
+    public void run(int UserId, int UserPerm, ArrayList<Integer> speakerIds) {
         Scanner reader = new Scanner(System.in);
         Scanner reader2 = new Scanner(System.in);
 

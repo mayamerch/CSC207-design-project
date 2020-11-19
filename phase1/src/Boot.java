@@ -1,10 +1,11 @@
 import EventPackage.EventController;
 import EventPackage.EventManager;
 import EventPackage.RoomManager;
-import UserPackage.UserController;
-import UserPackage.UserGateway;
-import UserPackage.UserManager;
+import UserPackage.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Boot {
@@ -20,6 +21,14 @@ public class Boot {
             return -1;
         }
 
+    }
+
+    public ArrayList<Integer> userToID(LinkedList<User> ll) {
+        ArrayList <Integer> userIDs = new ArrayList<>();
+        for (User user: ll) {
+            userIDs.add(user.getUserID());
+        }
+        return userIDs;
     }
 
     public static void main(String[] args){
@@ -55,7 +64,7 @@ public class Boot {
         System.out.println("The menu chosen is "+ i);
         switch (i) {
             case 1:
-                ec.run(currId, userType, uc.getUserManager().getSpeakerList());
+                ec.run(currId, userType, boot.userToID(uc.getUserManager().getSpeakerList()));
             case 2:
                 // ConversationPresenter called here
             case 3:
