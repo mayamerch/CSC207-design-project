@@ -12,6 +12,7 @@ public abstract class User implements Serializable {
     private String password;
     private char type;
     private ArrayList<Integer> friends_list;
+    private ArrayList<Integer> friendRequestList;
 
     /**
      * Constructs a new User object
@@ -23,6 +24,7 @@ public abstract class User implements Serializable {
         this.password = password;
         this.type = type;
         this.friends_list = new ArrayList<>();
+        this.friendRequestList = new ArrayList<>();
     }
 
     // user_ID needs to be unique so it needs to be assigned to user by something above like a use case

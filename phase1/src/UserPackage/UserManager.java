@@ -117,6 +117,13 @@ public class UserManager implements Serializable {
         return user.getFriends_list().size() != 0;
 
     }
+    public boolean sendFriendRequest(int UserId, int friendId){
+        User user;
+        user = getUserByID(UserId);
+        User friend;
+        friend = getUserByID(friendId);
+
+    }
 
 
     /**

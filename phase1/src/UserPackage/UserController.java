@@ -10,7 +10,7 @@ public class UserController {
     protected UserGateway userGateway;
     Scanner scanner = new Scanner(System.in);
 
-    public UserController(UserManager userManager){
+    public UserController(){
         this.userManager = new UserManager();
         this.userGateway = null;
         // the user manager and event manager are formed in the system controller
@@ -20,15 +20,15 @@ public class UserController {
         return userManager;
     }
     public void setUserManager(){
-        System.out.println("Enter the path to the saved user manager here");
-        String path = scanner.nextLine();
-        UserManager newUserManager = userGateway.readUserManager(path);
-        if (newUserManager != null){
-            this.userManager = newUserManager;
-        }
-        else{
-            this.userManager = new UserManager();
-        }
+//        System.out.println("Enter the path to the saved user manager here");
+//        String path = scanner.nextLine();
+//        UserManager newUserManager = userGateway.readUserManager(path);
+//        if (newUserManager != null){
+//            this.userManager = newUserManager;
+//        }
+//        else{
+//            this.userManager = new UserManager();
+//        }
 
     }
 
@@ -70,16 +70,21 @@ public class UserController {
     public void saveUserList(){
         userGateway.saveUserList(getUserManager().getUserList());
     }
+    public void createUser(){
+        User user = userManager.getUserByID(currentUserId);
+        if (user.getType() == 'O'){
+            System.out.println("Enter Username of speaker");
+            String username = scanner.nextLine();
+            System.out.println("Enter Password for speaker");
+            String password = scanner.nextLine();
+            userManager.createAccount(username, password, "Speaker");
+        }
+        else{
+            System.out.println("You are not authorized to do this");
+        }
+    }
+    public void addFriend(){
 
-//    public int validateEventInput(){
-//        int eventID;
-//        System.out.println("Enter ID of Event");
-//        eventID = scanner.nextInt();
-//        if (eventManager.getEvent(eventID) != null){
-//            return eventID;}
-//        else{
-//            System.out.println("Invalid Event ID, please Try again");
-//            return validateEventInput();
-//        }
-//    }
+    }
+
 }
