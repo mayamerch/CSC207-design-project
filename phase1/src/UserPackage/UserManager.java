@@ -35,7 +35,7 @@ public class UserManager implements Serializable {
      */
     public boolean createAccount(String newUsername, String newPassword, String usertype){
         User new_user;
-        new_user = this.factory.getuser(newUsername, newPassword, usertype);
+        new_user = this.factory.getuser(usertype, newUsername, newPassword);
         // Casting as User?
         if (new_user != null &&checkUnusedUsername(newUsername)) {
             userList.add(new_user);

@@ -82,6 +82,7 @@ public class BroadcastController {
         }
         b = createNewBroadcast(senderUserID, e);
         b.sendMessage(message, senderUserID);
+        //broadcasts.add(b);
         System.out.println("Your broadcast has been sent.");
     }
 
@@ -112,9 +113,9 @@ public class BroadcastController {
 
     public String myBroadcasts(int userID){
         StringBuilder s = new StringBuilder("");
-        for (Broadcast c: returnBroadcastsforUserID(userID)){
-            s.append(c.toString());
-            s.append("\n------") ;
+        for (Broadcast b: returnBroadcastsforUserID(userID)){
+            s.append(b.toString());
+            s.append("\n------\n") ;
         }
         return s.toString();
     }
