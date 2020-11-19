@@ -1,18 +1,19 @@
 package MessagePackage;
 
 import EventPackage.EventManager;
+import UserPackage.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConversationPresenter {
 
-    public String returnChats(ChatroomController cc, int userID){
-        return cc.myChats(userID);
+    public void printChats(ChatroomController cc, int userID){
+        System.out.println(cc.myChats(userID));
     }
 
-    public String returnBroadcasts(BroadcastController bc, int userID){
-        return bc.myBroadcasts(userID);
+    public void printBroadcasts(BroadcastController bc, int userID){
+        System.out.println(bc.myBroadcasts(userID));
     }
 
     public int printOptions(){
@@ -33,14 +34,17 @@ public class ConversationPresenter {
 
         int option = printOptions();
 
-        while (option != 0) {
-
+        while (option != 0 && yourUserID != -1) {
             switch (option) {
+
+
                 case 1: // print chats
                     System.out.println("Here are your chats:");
-                    System.out.println(returnChats(cc, yourUserID));
+                    printChats(cc, yourUserID);
                     option = -1;
                     break;
+
+
 
                 case 2: // send chats
                     System.out.println("Enter the message to send as a chat. Enter DONE when finished:");
@@ -48,23 +52,25 @@ public class ConversationPresenter {
                     while(!kb.nextLine().equals("DONE")){
                         chat = kb.nextLine();
                     }
-
                     ArrayList<Integer> recipients = new ArrayList<>();
                     System.out.println("Enter the ID(s) of the user(s) you want to message. Enter -1 when finished:");
-                    int sendto = -2;
                     while (!(kb.nextInt() == -1)) {
                         recipients.add(kb.nextInt());
                     }
 
-                    cc.sendNewChat(recipients, yourUserID, chat);
+                    cc.sendChat(recipients, yourUserID, chat);
                     option = -1;
                     break;
 
+
+
                 case 3: // print broadcasts
                     System.out.println("Here are your broadcasts:");
-                    System.out.println(returnBroadcasts(bc, yourUserID));
+                    printBroadcasts(bc, yourUserID);
                     option = -1;
                     break;
+
+
 
                 case 4: // send broadcasts
                     System.out.println("Enter the message to send as a broadcast. Enter DONE when finished:");
@@ -80,8 +86,10 @@ public class ConversationPresenter {
                     option = -1;
                     break;
 
+
+
                 default:
-                    System.out.println("Please enter a number 1-4, or 0 if you are finished:");
+                    System.out.println("Enter a number 1-4, 0 to exit:");
                     option = kb.nextInt();
             }
         }

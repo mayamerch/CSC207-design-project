@@ -1,5 +1,7 @@
 package MessagePackage;
 
+import EventPackage.Event;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -59,29 +61,26 @@ public class ChatroomController {
         }
     }
 
-    /**
-     * Sends a message in a new Chatroom
-     * @param userlist a list of all users within the chat
-     * @param senderUserID the userID of the person sending the Chat
-     */
-    public void sendNewChat(ArrayList<Integer> userlist, int senderUserID, String message){
-        Chatroom c = createNewChatRoom(userlist, senderUserID);
-        c.sendMessage(message, senderUserID);
-        System.out.println("Your chat has been sent.");
-    }
 
     /**
-     * Sends a message in an existing Chatroom
-     * @param userlist a list of all users within the chat
-     * @param senderUserID the userID of the person sending the Chat
+     * Sends a message in an existing Chat, or creates a new one if it doesn't exist
+     * @param userlist of everyone you are sending the message to
+     * @param senderUserID the ID of the user who is sending the broadcast
+     * @param message content of the message you are sending
      */
-    public void sendExistingChat(ArrayList<Integer> userlist, int senderUserID, String message){
-        Chatroom chatroom = new Chatroom(userlist);
-        for(Conversation c: chats){
-            if(c.equals(chatroom)); // if chatroom already exists
-            c.sendMessage(message, senderUserID);
+    public void sendChat(ArrayList<Integer> userlist, int senderUserID, String message){
+        Chatroom c = createNewChatRoom(userlist, senderUserID);
+
+        for(Chatroom chatroom: chats){
+            if(chatroom.equals(c)){
+                c.sendMessage(message, senderUserID);
+                return;
+            }
         }
-        System.out.println("Your chat has been sent.");
+        c = createNewChatRoom(userlist, senderUserID);
+        c.sendMessage(message, senderUserID);
+        chats.add(c);
+        System.out.println("Your chats has been sent.");
     }
 
     /**
