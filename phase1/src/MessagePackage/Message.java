@@ -56,4 +56,14 @@ public class Message { // storing all messages
         return this.userId.toString()+ "~" + this.content;
     }
 
+
+    /**
+     * To use for Presenter class for presenting Messages.
+     * @return
+     */
+    public String format(){
+        return this.userId.toString()+ ": " + this.content;
+    }
+
+
 }

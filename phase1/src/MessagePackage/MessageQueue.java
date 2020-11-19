@@ -42,4 +42,16 @@ public class MessageQueue {
         s.append("]");
         return s.toString();
     }
+
+    /**
+     * Used in Presenter for displaying string in console
+     * @return string of form message \n
+     */
+    public String format(){
+        StringBuilder s = new StringBuilder();
+        for(Message m : messageQueue){
+            s.append(m.format()).append("\n");
+        }
+        return s.toString();
+    }
 }
