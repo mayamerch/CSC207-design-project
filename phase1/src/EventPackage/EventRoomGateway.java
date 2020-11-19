@@ -22,7 +22,7 @@ public class EventRoomGateway {
      */
     public EventRoomGateway() {
         try {
-            this.fileDataEvent = new File("src/EventPackage/eventData.txt");
+            this.fileDataEvent = new File("phase1/src/EventPackage/eventData.txt");
             if (this.fileDataEvent.createNewFile()) {
                 this.eventData = new ArrayList<>();
             } else {
@@ -34,7 +34,7 @@ public class EventRoomGateway {
         }
 
         try {
-            this.fileDataRoom = new File("src/EventPackage/roomData.txt");
+            this.fileDataRoom = new File("phase1/src/EventPackage/roomData.txt");
             if (this.fileDataRoom.createNewFile()) {
                 this.roomData = new ArrayList<>();
             } else {

@@ -210,7 +210,7 @@ public class EventManager {
      * @param eventRoom The new room of event
      * @param eventSpeaker The new speaker at event
      * @param eventDuration The new duration of th event
-     * @return              True if event was rescheduled, false if it was unable  to
+     * @return              True if event was rescheduled, false if it was unable to
      */
     public boolean reschedule(int eventId, Date eventDate, int eventRoom, int eventSpeaker, int eventDuration) {
         int index = -1;
@@ -233,6 +233,7 @@ public class EventManager {
 
         return true;
     }
+
 
     /**
      * Returns the list of events in this EventManger
