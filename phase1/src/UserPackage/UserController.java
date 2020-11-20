@@ -1,20 +1,26 @@
 package UserPackage;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class UserController {
     public int currentUserId;
-    protected UserManager userManager;
     protected UserGateway userGateway;
+    protected UserManager userManager;
     Scanner scanner = new Scanner(System.in);
     /**
      * Constructs a new UserController object, setting the user manager based off of the gateway
      */
-    public UserController(){
+    public UserController() {
         this.userGateway = new UserGateway();
-        this.userManager = new UserManager(this.userGateway.readUserList("src/UserPackage/userFile.ser"));
-        // Add something so if this fails it calls on the no argument constructor
+        try {
+            this.userManager = new UserManager(this.userGateway.readUserList("userFile.ser"));
+        } catch (NullPointerException n) {
+            System.out.println("Empty UM");
+            this.userManager = new UserManager();
+            // Add something so if this fails it calls on the no argument constructor
+        }
     }
     /**
      * Returns the userManager attribute of the User Controller
@@ -85,6 +91,7 @@ public class UserController {
             case 1:
                 if (userManager.createAccount(username, password, "Organiser")){
                     System.out.println("User successfully created");
+                    userGateway.saveUserList(userManager.getUserList());
                     return true;
                 }
                 else{System.out.println("The Username must be unique.");
@@ -92,6 +99,7 @@ public class UserController {
             case 2:
                 if (userManager.createAccount(username, password, "Attendee")){
                     System.out.println("User successfully created");
+                    userGateway.saveUserList(userManager.getUserList());
                     return true;
                 }
                 else{System.out.println("The Username must be unique.");
@@ -104,6 +112,7 @@ public class UserController {
                 User user = userManager.getUserByID(currentUserId);
                 if (userManager.createAccount(username, password, "Speaker")){
                     System.out.println("User successfully created");
+                    userGateway.saveUserList(userManager.getUserList());
                     return true;
                 }
                 else{System.out.println("The Username must be unique.");

@@ -21,7 +21,7 @@ public class Boot {
                 "1. Sign in\n" +
                 "2. Create a new account");
         input = scanner.nextLine();
-        while (checkInput(input, new String[]{"1", "2"})) {
+        while (!checkInput(input, new String[]{"1", "2"})) {
             System.out.println("Please try again");
             input = scanner.nextLine();
         }
@@ -41,10 +41,10 @@ public class Boot {
                 "1. Manage Events\n" +
                 "2. Manage Conversations\n" +
                 "3. Manage Friends\n" +
-                "4. Exit" +
+                "4. Exit\n" +
                 "Please input a number: ");
         String input = scanner.nextLine();
-        while (checkInput(input, new String[]{"1", "2", "3", "4"})) {
+        while (!checkInput(input, new String[]{"1", "2", "3", "4"})) {
             System.out.println("Please try again");
             input = scanner.nextLine();
         }
@@ -53,7 +53,7 @@ public class Boot {
 
     private boolean checkInput(String s, String[] options) {
         for (String option: options) {
-            if (s.equalsIgnoreCase(option)) {
+            if (s.equals(option)) {
                 return true;
             }
         }
@@ -111,7 +111,8 @@ public class Boot {
                     uc.logOut();
                     break;
             }
-            op = boot.secondMenu();
+            if (op != 4)
+                op = boot.secondMenu();
         } while (op != 4);
     }
 }
