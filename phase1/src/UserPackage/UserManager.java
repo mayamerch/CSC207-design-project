@@ -9,9 +9,9 @@ public class UserManager implements Serializable {
     private UserFactory factory = new UserFactory();
     private LinkedList<User> userList;
     private int usersCreated;
-    private LinkedList<User> speakerList;
-    private LinkedList<User> attendeeList;
-    private LinkedList<User> organiserList;
+    private LinkedList<User> speakerList = new LinkedList<>();
+    private LinkedList<User> attendeeList = new LinkedList<>();
+    private LinkedList<User> organiserList = new LinkedList<>();
 
 
     /**

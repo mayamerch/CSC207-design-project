@@ -1,1 +1,2 @@
-The Event package and Message packages function as intended. In order to test them, please go to EventTest.java and TestMessagePackage.java.
+The Event package and Message packages function as intended.
+In order to test them, please go to EventTest.java and TestMessagePackage.java.

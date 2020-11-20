@@ -6,6 +6,7 @@ import UserPackage.Speaker;
 import UserPackage.UserController;
 import UserPackage.UserManager;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,10 +28,11 @@ Things that are created:
  */
 
 public class TestMessagePackage {
-    public static void main(String[] args) {
-        ChatroomController cc = new ChatroomController();
+    public static void main(String[] args) throws FileNotFoundException {
         EventManager em = new EventManager();
         UserManager um = new UserManager();
+
+        ChatroomController cc = new ChatroomController(em, um);
         BroadcastController bc = new BroadcastController(em, um);
 
         um.createAccount("maya", "password", "SPEAKER"); // id 1

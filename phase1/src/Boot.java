@@ -8,21 +8,70 @@ import UserPackage.UserManager;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Boot {
 
+    UserController uc = new UserController();
     Scanner scanner = new Scanner(System.in);
 
-    public Integer firstMenu(int input){
-        if(input == 1){ return 1; }
-        else if (input == 2){ return 2; }
-        else if (input == 3){ return 3; }
-        else{
-            System.out.println("Try again");
-            return -1;
+    public boolean firstMenu(){
+        String input;
+        System.out.println("Please choose an option\n" +
+                "1. Sign in\n" +
+                "2. Create a new account");
+        input = scanner.nextLine();
+        while (!checkInput(input, new String[]{"1", "2"})) {
+            System.out.println("Please try again");
+            input = scanner.nextLine();
         }
+        if (input.equals("1")) {
+            return signIn();
+        } else {
+            if(createNewAccount()) {
+                return signIn();
+            } else {
+                return false;
+            }
+        }
+    }
 
+    public Integer secondMenu(){
+        System.out.println("What would you like to do?\n" +
+                "1. Manage Events\n" +
+                "2. Manage Conversations\n" +
+                "3. Manage Friends\n" +
+                "4. Exit\n" +
+                "Please input a number: ");
+        String input = scanner.nextLine();
+        while (!checkInput(input, new String[]{"1", "2", "3", "4"})) {
+            System.out.println("Please try again");
+            input = scanner.nextLine();
+        }
+        return Integer.parseInt(input);
+    }
+
+    private boolean checkInput(String s, String[] options) {
+        for (String option: options) {
+            if (s.equals(option)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean signIn() {
+        // Is some kind of "go back" functionality needed?
+        char userType = uc.UserLogin();
+        while (userType == 'N') {
+            userType = uc.UserLogin();
+        }
+        return true;
+    }
+
+    public boolean createNewAccount() {
+        return uc.createUser();
     }
 
     public ArrayList<Integer> LLtoAL(LinkedList<User> ll) {
@@ -33,44 +82,38 @@ public class Boot {
         return userIDs;
     }
 
+
+
     public static void main(String[] args){
         Boot boot = new Boot();
-
-        UserController uc = new UserController();
-
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Login");
-//        System.out.println("Enter your  Username: ");
-//        String username = scanner.nextLine();
-//        System.out.println("Password: ");
-//        String password = scanner.nextLine();
-        char userType = uc.UserLogin();
-        while (userType == 'N') {
-            userType = uc.UserLogin();
-        }
-        int currId = uc.currentUserId;
+        UserController uc = boot.uc;
         Scanner scanner = new Scanner(System.in);
+        boolean loggedIn = boot.firstMenu();
+        while (!loggedIn) {
+            loggedIn = boot.firstMenu();
+        }
+        //once logged in
+        int currId = uc.currentUserId;
         EventController ec = new EventController();
-        //Assuming password is correct
-        System.out.println("What would you like to do?\n" +
-                "1. Manage Events\n" +
-                "2. Manage Conversations\n" +
-                "3. Manage Friends\n" +
-                "Please input a number: ");
-        int i;
+        int op = boot.secondMenu();
         do {
-            int input = scanner.nextInt();
-            i = boot.firstMenu(input);
-        }
-        while (i == -1);
-        System.out.println("The menu chosen is "+ i);
-        switch (i) {
-            case 1:
-                ec.run(currId, userType, boot.LLtoAL(uc.getUserManager().getSpeakerList()));
-            case 2:
-                // ConversationPresenter called here
-            case 3:
-                //UserPresenter called here
-        }
+            System.out.println("The menu chosen is " + op);
+            switch (op) {
+                case 1:
+                    ec.run(currId, uc.getUserType(), boot.LLtoAL(uc.getSpeakerList()));
+                    break;
+                case 2:
+                    // ConversationPresenter called here
+                    break;
+                case 3:
+                    //UserPresenter called here
+                    break;
+                case 4:
+                    uc.logOut();
+                    break;
+            }
+            if (op != 4)
+                op = boot.secondMenu();
+        } while (op != 4);
     }
 }

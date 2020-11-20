@@ -1,23 +1,35 @@
 package MessagePackage;
 
+import EventPackage.EventManager;
+import UserPackage.UserManager;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChatroomController {
     private ArrayList<Chatroom> chats;
+    private ChatroomGateway gateway;
+    private EventManager em;
+    private UserManager um;
 
     /**
-     * Creates an instance of ChatroomController that contains all the recorded conversations (empty at first)
+     * Creates an instance of ChatroomController that contains all the recorded conversations.
+     * Reads in existing saved Chatrooms from ChatroomDataFile.txt
      */
-    public ChatroomController(){
-        this.chats = new ArrayList<Chatroom>();
+    public ChatroomController(EventManager em, UserManager um) throws FileNotFoundException {
+        this.em = em;
+        this.um = um;
+        this.gateway = new ChatroomGateway();
+        this.chats = gateway.makeChats();
     }
 
     /**
-     * Used in Gateway to create instance of ChatroomController from saved chats
-     * @param chats ArrayList of Chatroom from Gateway
+     * saves chats to ChatroomDataFile. Should be executed before program exits.
+     * @throws IOException if writing to file was unsuccessful
      */
-    public ChatroomController(ArrayList<Chatroom> chats){
-        this.chats = chats;
+    public void saveChats() throws IOException {
+        this.gateway.writeChatsToFile(this.chats);
     }
 
     public ArrayList<Chatroom> getChats() {
@@ -71,14 +83,14 @@ public class ChatroomController {
         for(Chatroom chatroom: chats){
             if(chatroom.equals(c)){
                 c.sendMessage(message, senderUserID);
-                System.out.println("Your chat has been sent.");
+                System.out.println("Your message has been sent.");
                 return;
             }
         }
         c = createNewChatRoom(userlist, senderUserID);
         c.sendMessage(message, senderUserID);
         chats.add(c);
-        System.out.println("Your chat has been sent.");
+        System.out.println("Your message has been sent.");
     }
 
     /**
@@ -113,6 +125,16 @@ public class ChatroomController {
             s.append("\n\n") ;
         }
         return s.toString();
+    }
+
+    public void sendMessageToAllSpeakers(int organizerUserID, String message){
+        ArrayList<Integer> speakers = em.getAllSpeakers();
+        if(um.getUserByID(organizerUserID).getType() == 'O') {
+            sendChat(speakers, organizerUserID, message);
+        }
+        else{
+            throw new java.lang.Error("Only organizers can broadcast to all speakers.");
+        }
     }
 
 }
