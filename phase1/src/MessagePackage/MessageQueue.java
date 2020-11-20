@@ -39,8 +39,8 @@ public class MessageQueue {
         for(Message m : messageQueue){
             s.append(m.toString()).append("\t");
         }
-        s.append("]");
-        return s.toString();
+        String str = s.toString().trim(); //changed
+        return str + "]";
     }
 
     /**

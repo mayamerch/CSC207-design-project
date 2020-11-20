@@ -24,7 +24,6 @@ public class BroadcastController {
         this.um = um;
         this.gateway = new BroadcastGateway(em);
         this.broadcasts = gateway.makeBroadcasts();
-
     }
 
     /**
