@@ -76,10 +76,17 @@ public class ConversationPresenter {
                         broadcast = kb.nextLine();
                     }
 
-                    System.out.println("Enter the ID of the event you want to broadcast to:");
-                    int eventID = kb.nextInt();
+                    System.out.println("If you are an organizer, enter 0 to broadcast to the entire conference, or enter any number to send a broadcast to one event:");
+                    int organizer = kb.nextInt();
+                    if(organizer == 0){
+                        bc.broadcastConference(yourUserID, broadcast);
+                    }
+                    else{
+                        System.out.println("Enter the ID of the event you want to broadcast to. Enter -1 if you want to message the entire conference:");
+                        int eventID = kb.nextInt();
+                        bc.sendBroadcast(yourUserID, eventID, broadcast);
+                    }
 
-                    bc.sendBroadcast(yourUserID, eventID, broadcast);
                     option = -1;
                     break;
 

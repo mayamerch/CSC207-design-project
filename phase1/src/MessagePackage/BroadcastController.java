@@ -1,5 +1,6 @@
 package MessagePackage;
 
+import EventPackage.Event;
 import EventPackage.EventManager;
 import UserPackage.Speaker;
 import UserPackage.UserManager;
@@ -7,6 +8,7 @@ import UserPackage.UserManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+// organizer can message everyone in conference, and all speakers, do that in presenter
 
 public class BroadcastController {
     private ArrayList<Broadcast> broadcasts;
@@ -53,7 +55,6 @@ public class BroadcastController {
         else{
             broadcasters.add(senderUserID);
         }
-
         Broadcast b = new Broadcast(broadcasters, eventID, em);
         return !broadcasts.contains(b); // return whether it exists or not
     }
@@ -74,6 +75,22 @@ public class BroadcastController {
         }
         else {
             throw new java.lang.Error("This broadcast cannot be created.");
+        }
+    }
+
+    /**
+     * Sends a broadcast to everyone participating in the entire conference
+     * @param organizerUserID the organizer who will be sending the broadcast
+     * @param message the message to be broadcasted to the conference
+     */
+    public void broadcastConference(int organizerUserID, String message){
+        if(um.getUserByID(organizerUserID).getType() == 'O') {
+            for (Event e : em.getEventList()) {
+                sendBroadcast(organizerUserID, e.getEventId(), message);
+            }
+        }
+        else{
+            throw new java.lang.Error("Only organizers can broadcast to the entire conference.");
         }
     }
 

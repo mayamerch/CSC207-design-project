@@ -274,7 +274,7 @@ public class EventManager {
 
 
     /**
-     * Returns a list of ids of all the attendees currently attending anny event
+     * Returns a list of ids of all the attendees currently attending any event
      * @return a list of ids of all the attendees
      */
     public ArrayList<Integer> getAllAttendees() {
