@@ -1,6 +1,9 @@
 import EventPackage.EventController;
 import EventPackage.EventManager;
 import EventPackage.RoomManager;
+import MessagePackage.BroadcastController;
+import MessagePackage.ChatroomController;
+import MessagePackage.ConversationPresenter;
 import UserPackage.User;
 import UserPackage.UserController;
 import UserPackage.UserGateway;
@@ -95,6 +98,9 @@ public class Boot {
         //once logged in
         int currId = uc.currentUserId;
         EventController ec = new EventController();
+        ChatroomController cc = new ChatroomController(ec.getEventManager(), uc.getUserManager());
+        BroadcastController bc = new BroadcastController(ec.getEventManager(), uc.getUserManager());
+        ConversationPresenter cp = new ConversationPresenter();
         int op = boot.secondMenu();
         do {
             System.out.println("The menu chosen is " + op);
@@ -103,7 +109,7 @@ public class Boot {
                     ec.run(currId, uc.getUserType(), boot.LLtoAL(uc.getSpeakerList()));
                     break;
                 case 2:
-                    // ConversationPresenter called here
+                    cp.run(cc, bc);
                     break;
                 case 3:
                     //UserPresenter called here

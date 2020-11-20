@@ -22,11 +22,16 @@ public class BroadcastController {
     /**
      * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
      */
-    public BroadcastController(EventManager em, UserManager um) throws FileNotFoundException {
+    public BroadcastController(EventManager em, UserManager um) {
         this.em = em;
         this.um = um;
         this.gateway = new BroadcastGateway(em);
-        this.broadcasts = gateway.makeBroadcasts();
+        try {
+            this.broadcasts = gateway.makeBroadcasts();
+        } catch (FileNotFoundException f) {
+            this.broadcasts = new ArrayList<Broadcast>();
+        }
+
     }
 
     public UserManager getUm() {

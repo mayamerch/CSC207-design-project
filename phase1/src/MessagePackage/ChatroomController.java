@@ -17,11 +17,16 @@ public class ChatroomController {
      * Creates an instance of ChatroomController that contains all the recorded conversations.
      * Reads in existing saved Chatrooms from ChatroomDataFile.txt
      */
-    public ChatroomController(EventManager em, UserManager um) throws FileNotFoundException {
+    public ChatroomController(EventManager em, UserManager um) {
         this.em = em;
         this.um = um;
         this.gateway = new ChatroomGateway();
-        this.chats = gateway.makeChats();
+        try {
+            this.chats = gateway.makeChats();
+        } catch (FileNotFoundException f) {
+            this.chats = new ArrayList<Chatroom>();
+        }
+
     }
 
     /**
