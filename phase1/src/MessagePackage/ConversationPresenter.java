@@ -41,8 +41,6 @@ public class ConversationPresenter {
                     option = -1;
                     break;
 
-
-
                 case 2: // send chats
                     System.out.println("Enter the message to send as a chat. Enter DONE when finished:");
                     String chat = "";
@@ -89,7 +87,6 @@ public class ConversationPresenter {
 
                     option = -1;
                     break;
-
 
 
                 default:
