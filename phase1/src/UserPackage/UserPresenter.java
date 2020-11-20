@@ -45,6 +45,22 @@ public class UserPresenter {
 
     }
 
+    public void printMenu(){
+        StringBuilder temp = new StringBuilder();
+
+        temp.append("Manage Connections" + System.lineSeparator());
+        temp.append("---------------------------------" + System.lineSeparator());
+
+        temp.append("1. See all Friends" + System.lineSeparator());
+        temp.append("2. Accept Friend Requests" + System.lineSeparator());
+        temp.append("3. Add a Friend" + System.lineSeparator());
+
+        temp.append("0. Exit this menu." + System.lineSeparator() + System.lineSeparator());
+
+        temp.append("Please choose an option number." + System.lineSeparator());
+        System.out.print(temp);
+    }
+
 
     public String printList(ArrayList<Integer> list){
         StringBuilder display = new StringBuilder();
@@ -53,4 +69,13 @@ public class UserPresenter {
         }
         return display.toString();
     }
+
+    public void goBack() {
+        System.out.println("Going back to previous menu." + System.lineSeparator());
+    }
+
+    public void denyUser()  {
+        System.out.println("This option does not exist." + System.lineSeparator());
+    }
+
 }

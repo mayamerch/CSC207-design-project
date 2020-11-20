@@ -112,7 +112,7 @@ public class Boot {
                     cp.run(cc, bc);
                     break;
                 case 3:
-                    //UserPresenter called here
+                    uc.run(currId);
                     break;
                 case 4:
                     uc.logOut();

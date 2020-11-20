@@ -9,7 +9,10 @@ public class UserController {
     public int currentUserId;
     protected UserGateway userGateway;
     protected UserManager userManager;
+    protected UserPresenter up;
     Scanner scanner = new Scanner(System.in);
+
+
     /**
      * Constructs a new UserController object, setting the user manager based off of the gateway
      */
@@ -185,6 +188,31 @@ public class UserController {
      */
     public LinkedList<User> getSpeakerList() {
         return userManager.getSpeakerList();
+    }
+
+    public void run(int currentUserId){
+        Scanner reader = new Scanner(System.in);
+        Scanner reader2 = new Scanner(System.in);
+
+        up.printMenu();
+        String UserInput = reader2.nextLine();
+
+        while(!UserInput.equals("0")){
+            switch (UserInput){
+                case "1":
+                    up.printList(userManager.getUserByID(currentUserId).getFriendsList());
+                    break;
+                case "2":
+                    up.printList(userManager.getUserByID(currentUserId).getFriendRequestList());
+                    break;
+                default:
+                    up.denyUser();
+                    break;
+            }
+            up.printMenu();
+            UserInput = reader2.nextLine();
+        }
+        up.goBack();
     }
 
 }
