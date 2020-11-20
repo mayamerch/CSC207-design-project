@@ -38,6 +38,8 @@ public class UserGateway {
             in.close();
             fileIn.close();
             return list;
+        } catch (FileNotFoundException f) {
+            return null;
         } catch (IOException i) {
             i.printStackTrace();
             return null;

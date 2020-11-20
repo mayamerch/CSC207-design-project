@@ -2,6 +2,7 @@ package UserPackage;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class UserController {
@@ -86,9 +87,9 @@ public class UserController {
         System.out.println("Enter Password for new User");
         String password = scanner.nextLine();
         System.out.println("Enter The type of the User you want to create\n 1. Organiser \n 2. Attendee \n 3.Speaker");
-        int userType = scanner.nextInt();
+        String userType = scanner.nextLine();
         switch(userType){
-            case 1:
+            case "1":
                 if (userManager.createAccount(username, password, "Organiser")){
                     System.out.println("User successfully created");
                     userGateway.saveUserList(userManager.getUserList());
@@ -96,7 +97,7 @@ public class UserController {
                 }
                 else{System.out.println("The Username must be unique.");
                 return false;}
-            case 2:
+            case "2":
                 if (userManager.createAccount(username, password, "Attendee")){
                     System.out.println("User successfully created");
                     userGateway.saveUserList(userManager.getUserList());
@@ -104,7 +105,7 @@ public class UserController {
                 }
                 else{System.out.println("The Username must be unique.");
                 return false;}
-            case 3:
+            case "3":
                 if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != 'O'){
                     System.out.println("You need to be logged in as an Organiser to do this");
                     return false;
