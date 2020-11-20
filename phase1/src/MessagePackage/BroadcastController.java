@@ -3,11 +3,14 @@ package MessagePackage;
 import EventPackage.Event;
 import EventPackage.EventManager;
 import UserPackage.Speaker;
+import UserPackage.User;
 import UserPackage.UserManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 // organizer can message everyone in conference, and all speakers, do that in presenter
 
 public class BroadcastController {
@@ -127,9 +130,10 @@ public class BroadcastController {
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
      */
-    public void createBroadcastInAllSpeakerEvents(Speaker speaker){
+    public void sendBroadcastInAllSpeakerEvents(Speaker speaker, String message){
         for(int eventID: speaker.getTalksList()){
-            createNewBroadcast(speaker.getUserID(), eventID);
+            sendBroadcast(speaker.getUserID(), eventID, message);
+            //createNewBroadcast(speaker.getUserID(), eventID);
         }
     }
 

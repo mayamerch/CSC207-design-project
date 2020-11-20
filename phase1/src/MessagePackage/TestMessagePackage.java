@@ -29,9 +29,10 @@ Things that are created:
 
 public class TestMessagePackage {
     public static void main(String[] args) throws FileNotFoundException {
-        ChatroomController cc = new ChatroomController();
         EventManager em = new EventManager();
         UserManager um = new UserManager();
+
+        ChatroomController cc = new ChatroomController(em, um);
         BroadcastController bc = new BroadcastController(em, um);
 
         um.createAccount("maya", "password", "SPEAKER"); // id 1

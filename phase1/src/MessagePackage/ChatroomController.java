@@ -1,5 +1,8 @@
 package MessagePackage;
 
+import EventPackage.EventManager;
+import UserPackage.UserManager;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,12 +10,16 @@ import java.util.ArrayList;
 public class ChatroomController {
     private ArrayList<Chatroom> chats;
     private ChatroomGateway gateway;
+    private EventManager em;
+    private UserManager um;
 
     /**
      * Creates an instance of ChatroomController that contains all the recorded conversations.
      * Reads in existing saved Chatrooms from ChatroomDataFile.txt
      */
-    public ChatroomController() throws FileNotFoundException {
+    public ChatroomController(EventManager em, UserManager um) throws FileNotFoundException {
+        this.em = em;
+        this.um = um;
         this.gateway = new ChatroomGateway();
         this.chats = gateway.makeChats();
     }
@@ -76,14 +83,14 @@ public class ChatroomController {
         for(Chatroom chatroom: chats){
             if(chatroom.equals(c)){
                 c.sendMessage(message, senderUserID);
-                System.out.println("Your chat has been sent.");
+                System.out.println("Your message has been sent.");
                 return;
             }
         }
         c = createNewChatRoom(userlist, senderUserID);
         c.sendMessage(message, senderUserID);
         chats.add(c);
-        System.out.println("Your chat has been sent.");
+        System.out.println("Your message has been sent.");
     }
 
     /**
@@ -118,6 +125,16 @@ public class ChatroomController {
             s.append("\n\n") ;
         }
         return s.toString();
+    }
+
+    public void sendMessageToAllSpeakers(int organizerUserID, String message){
+        ArrayList<Integer> speakers = em.getAllSpeakers();
+        if(um.getUserByID(organizerUserID).getType() == 'O') {
+            sendChat(speakers, organizerUserID, message);
+        }
+        else{
+            throw new java.lang.Error("Only organizers can broadcast to all speakers.");
+        }
     }
 
 }
