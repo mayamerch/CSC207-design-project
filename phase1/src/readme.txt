@@ -1,2 +1,5 @@
 The Event package and Message packages function as intended.
 In order to test them, please go to EventTest.java and TestMessagePackage.java.
+
+Run main method in Boot.java.
+If there is some sort of error relating to

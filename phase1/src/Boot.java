@@ -109,7 +109,7 @@ public class Boot {
                     ec.run(currId, uc.getUserType(), boot.LLtoAL(uc.getSpeakerList()));
                     break;
                 case 2:
-                    cp.run(cc, bc);
+                    cp.run(currId, uc.getUserType(), cc, bc);
                     break;
                 case 3:
                     uc.run(currId);

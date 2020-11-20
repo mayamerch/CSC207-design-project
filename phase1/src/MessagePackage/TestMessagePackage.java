@@ -7,6 +7,7 @@ import UserPackage.UserController;
 import UserPackage.UserManager;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,27 +29,31 @@ Things that are created:
  */
 
 public class TestMessagePackage {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         EventManager em = new EventManager();
         UserManager um = new UserManager();
 
         ChatroomController cc = new ChatroomController(em, um);
         BroadcastController bc = new BroadcastController(em, um);
 
-        um.createAccount("maya", "password", "SPEAKER"); // id 1
+        um.createAccount("user1", "password", "SPEAKER"); // id 1
         um.createAccount("user2", "password", "ATTENDEE"); // id 2
+        um.createAccount("user3", "password", "ORGANISER");
         Date date = new Date(2020, 04, 19);
-        em.createEvent("maya's event", 2858, date, 1, 60); // id 1
+        em.createEvent("maya's event", 1, date, 1, 60); // id 1
         Event e = em.getEvent(1);
         e.addAttendee(2);
 
-        ArrayList<Integer> userlist = new ArrayList<>();
-        userlist.add(2);
-        cc.sendChat(userlist, 1, "my message");
-        bc.sendBroadcast(1, 1, "testing the presenter");
-
+        ArrayList<Integer> userList = new ArrayList<>();
+        userList.add(1);
+        userList.add(2);
+        cc.sendChat(userList, 1, "user1 to user2");
+        bc.sendBroadcast(3, 1, "testing the presenter");
+        int currID = 1;
 
         ConversationPresenter conversationPresenter = new ConversationPresenter();
-        conversationPresenter.run(cc, bc);
+        //conversationPresenter.run(currID, cc, bc);
+        cc.saveChats();
+        bc.saveBroadcasts();
     }
 }

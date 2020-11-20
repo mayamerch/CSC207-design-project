@@ -47,12 +47,8 @@ public class ConversationPresenter { // User.java to get friends
         return kb.nextInt();
     }
 
-    public void run(ChatroomController cc, BroadcastController bc) {
+    public void run(int currID, char userType, ChatroomController cc, BroadcastController bc) {
         Scanner kb = new Scanner(System.in);
-        System.out.println("Enter your userID:");
-        int yourUserID = kb.nextInt();
-
-        char userType = bc.getUm().getUserByID(yourUserID).getType();
 
         int option = 0;
 
@@ -73,7 +69,7 @@ public class ConversationPresenter { // User.java to get friends
 
                 case 1: // print chats
                     System.out.println("Here are your chats:");
-                    printChats(cc, yourUserID);
+                    printChats(cc, currID);
                     option = -1;
                     break;
 
@@ -89,7 +85,7 @@ public class ConversationPresenter { // User.java to get friends
                         recipients.add(kb.nextInt());
                     }
 
-                    cc.sendChat(recipients, yourUserID, chat);
+                    cc.sendChat(recipients, currID, chat);
                     option = -1;
                     break;
 
@@ -97,7 +93,7 @@ public class ConversationPresenter { // User.java to get friends
 
                 case 3: // print broadcasts
                     System.out.println("Here are your broadcasts:");
-                    printBroadcasts(bc, yourUserID);
+                    printBroadcasts(bc, currID);
                     option = -1;
                     break;
 
@@ -112,7 +108,7 @@ public class ConversationPresenter { // User.java to get friends
 
                     System.out.println("Enter the ID of the event you want to broadcast to:");
                     int speakerEventID = kb.nextInt();
-                    bc.sendBroadcast(yourUserID, speakerEventID, speakerBroadcast);
+                    bc.sendBroadcast(currID, speakerEventID, speakerBroadcast);
                     option = -1;
                     break;
 
@@ -123,7 +119,7 @@ public class ConversationPresenter { // User.java to get friends
                     while(!kb.nextLine().equals("DONE")){
                         organizerBroadcast = kb.nextLine();
                     }
-                    bc.broadcastConference(yourUserID, organizerBroadcast);
+                    bc.broadcastConference(currID, organizerBroadcast);
 
                     /*System.out.println("Enter 0 to broadcast to entire conference, or enter -1 to send a broadcast to a single event:");
                     int organizer = kb.nextInt();
@@ -145,7 +141,7 @@ public class ConversationPresenter { // User.java to get friends
                     while(!kb.nextLine().equals("DONE")){
                         speakerAllEventsBroadcast = kb.nextLine();
                     }
-                    bc.sendBroadcastInAllSpeakerEvents((Speaker)bc.getUm().getUserByID(yourUserID), speakerAllEventsBroadcast);
+                    bc.sendBroadcastInAllSpeakerEvents((Speaker)bc.getUm().getUserByID(currID), speakerAllEventsBroadcast);
                     option = -1;
                     break;
 
@@ -156,7 +152,7 @@ public class ConversationPresenter { // User.java to get friends
                     while(!kb.nextLine().equals("DONE")){
                         messageToSpeakers = kb.nextLine();
                     }
-                    cc.sendMessageToAllSpeakers(yourUserID, messageToSpeakers);
+                    cc.sendMessageToAllSpeakers(currID, messageToSpeakers);
                     option = -1;
                     break;
 
