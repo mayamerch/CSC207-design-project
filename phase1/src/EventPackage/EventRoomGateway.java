@@ -25,7 +25,7 @@ public class EventRoomGateway {
             //One of the two works according to how you run Intellij
 
             this.fileDataEvent = new File("phase1/src/EventPackage/eventData.txt");
-            //this.fileDataEvent = new File("src/EventPackage/eventData.txt");
+            //this.fileDataEvent = new File("eventData.txt");
             if (this.fileDataEvent.createNewFile()) {
                 this.eventData = new ArrayList<>();
             } else {
@@ -39,7 +39,7 @@ public class EventRoomGateway {
         try {
             //One of the two works according to how you run Intellij
 
-            this.fileDataEvent = new File("phase1/src/EventPackage/roomData.txt");
+            this.fileDataRoom = new File("phase1/src/EventPackage/roomData.txt");
             //this.fileDataEvent = new File("src/EventPackage/roomData.txt");
 
             if (this.fileDataRoom.createNewFile()) {
