@@ -3,7 +3,7 @@ package MessagePackage;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ConversationPresenter {
+public class ConversationPresenter { // User.java to get friends
 
     public void printChats(ChatroomController cc, int userID){
         System.out.println(cc.myChats(userID));
@@ -19,17 +19,34 @@ public class ConversationPresenter {
                 "1. Check Messages\n" +
                 "2. Send Messages\n" +
                 "3. Check Broadcasts\n" +
-                "4. Send Broadcasts\n");
+                "4. Send Broadcasts\n"); // should only show up for organizer and speakers
 
         return kb.nextInt();
     }
 
-    public void run(ChatroomController cc, BroadcastController bc) {
+    public int printOptionsAttendees(){
+        Scanner kb = new Scanner(System.in);
+        System.out.println("What would you like to do?\n" +
+                "1. Check Messages\n" +
+                "2. Send Messages\n" +
+                "3. Check Broadcasts\n");
+        return kb.nextInt();
+    }
+
+    public void run(ChatroomController cc, BroadcastController bc, char userType) {
         Scanner kb = new Scanner(System.in);
         System.out.println("Enter your userID:");
         int yourUserID = kb.nextInt();
 
-        int option = printOptions();
+        int option = 0;
+
+        if(userType == 'O' || userType == 'S'){
+            option = printOptions();
+        }
+        else if(userType == 'A'){
+            option = printOptionsAttendees();
+        }
+
 
         while (option != 0) {
             switch (option) {
@@ -69,27 +86,40 @@ public class ConversationPresenter {
 
 
 
-                case 4: // send broadcasts
+                case 4: // send broadcasts SPEAKER
                     System.out.println("Enter the message to send as a broadcast. Enter DONE when finished:");
-                    String broadcast = "";
+                    String speakerBroadcast = "";
                     while(!kb.nextLine().equals("DONE")){
-                        broadcast = kb.nextLine();
+                        speakerBroadcast = kb.nextLine();
                     }
 
-                    System.out.println("If you are an organizer, enter 0 to broadcast to the entire conference, or enter any number to send a broadcast to one event:");
+                    System.out.println("Enter the ID of the event you want to broadcast to:");
+                    int speakerEventID = kb.nextInt();
+                    bc.sendBroadcast(yourUserID, speakerEventID, speakerBroadcast);
+                    option = -1;
+                    break;
+
+
+                case 5: // send broadcasts ORGANIZER
+                    System.out.println("Enter the message to send as a broadcast. Enter DONE when finished:");
+                    String organizerBroadcast = "";
+                    while(!kb.nextLine().equals("DONE")){
+                        organizerBroadcast = kb.nextLine();
+                    }
+
+                    System.out.println("Enter 0 to broadcast to entire conference, or enter -1 to send a broadcast to a single event:");
                     int organizer = kb.nextInt();
                     if(organizer == 0){
-                        bc.broadcastConference(yourUserID, broadcast);
+                        bc.broadcastConference(yourUserID, organizerBroadcast);
                     }
-                    else{
-                        System.out.println("Enter the ID of the event you want to broadcast to. Enter -1 if you want to message the entire conference:");
-                        int eventID = kb.nextInt();
-                        bc.sendBroadcast(yourUserID, eventID, broadcast);
+                    else if(organizer == 1){
+                        System.out.println("Enter the ID of the event you want to broadcast to:");
+                        int organizerEventID = kb.nextInt();
+                        bc.sendBroadcast(yourUserID, organizerEventID, organizerBroadcast);
                     }
 
                     option = -1;
                     break;
-
 
 
                 default:
