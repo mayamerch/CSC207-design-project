@@ -18,6 +18,7 @@ public class UserController {
      */
     public UserController() {
         this.userGateway = new UserGateway();
+        this.up = new UserPresenter();
         try {
             this.userManager = new UserManager(this.userGateway.readUserList("userFile.ser"));
         } catch (NullPointerException n) {
