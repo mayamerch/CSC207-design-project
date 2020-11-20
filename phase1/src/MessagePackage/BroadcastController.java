@@ -26,6 +26,10 @@ public class BroadcastController {
         this.broadcasts = gateway.makeBroadcasts();
     }
 
+    public UserManager getUm() {
+        return um;
+    }
+
     /**
      * Save broadcasts to BroadcastDataFile. Should be run before program exits.
      * @throws IOException if writing to file was unsuccessful

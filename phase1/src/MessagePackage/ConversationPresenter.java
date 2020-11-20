@@ -33,10 +33,12 @@ public class ConversationPresenter { // User.java to get friends
         return kb.nextInt();
     }
 
-    public void run(ChatroomController cc, BroadcastController bc, char userType) {
+    public void run(ChatroomController cc, BroadcastController bc) {
         Scanner kb = new Scanner(System.in);
         System.out.println("Enter your userID:");
         int yourUserID = kb.nextInt();
+
+        char userType = bc.getUm().getUserByID(yourUserID).getType();
 
         int option = 0;
 
