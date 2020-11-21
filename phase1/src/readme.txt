@@ -1,4 +1,5 @@
 Run main method in Boot.java to test the program.
+You should open phase1 as a project in IntelliJ to do this not group_0039.
 
 (1)
 If there is some sort of error relating to IOException or FileNotFoundException
