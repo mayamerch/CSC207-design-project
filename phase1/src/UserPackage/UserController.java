@@ -202,18 +202,18 @@ public class UserController {
             switch (UserInput){
                 case "1":
                     up.printList(userManager.getUserByID(currentUserId).getFriendsList());
+                    UserInput="0";
                     break;
                 case "2":
                     up.printList(userManager.getUserByID(currentUserId).getFriendRequestList());
+                    UserInput="0";
                     break;
                 default:
-                    up.denyUser();
+                    System.out.println("Try again");
+                    up.printMenu();
                     break;
             }
-            up.printMenu();
-            UserInput = reader2.nextLine();
         }
-        up.goBack();
     }
 
 }
