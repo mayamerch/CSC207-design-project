@@ -1,6 +1,8 @@
 package MessagePackage;
 
 import UserPackage.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +18,9 @@ public class ConversationPresenter { // User.java to get friends
 
     public int printSpeakerOptions(){
         Scanner kb = new Scanner(System.in);
-        System.out.println("What would you like to do?\n" +
+        System.out.println("Manage Conversations\n"+
+                "---------------------------------\n"+
+                "What would you like to do?\n" +
                 "1. Check Messages\n" +
                 "2. Send Messages\n" +
                 "3. Check Broadcasts\n" +
@@ -28,7 +32,9 @@ public class ConversationPresenter { // User.java to get friends
 
     public int printAttendeeOptions(){
         Scanner kb = new Scanner(System.in);
-        System.out.println("What would you like to do?\n" +
+        System.out.println("Manage Conversations\n"+
+                "---------------------------------\n"+
+                "What would you like to do?\n" +
                 "1. Check Messages\n" +
                 "2. Send Messages\n" +
                 "3. Check Broadcasts\n");
@@ -37,7 +43,9 @@ public class ConversationPresenter { // User.java to get friends
 
     public int printOrganizerOptions(){
         Scanner kb = new Scanner(System.in);
-        System.out.println("What would you like to do?\n" +
+        System.out.println("Manage Conversations\n"+
+                "---------------------------------\n"+
+                "What would you like to do?\n" +
                 "1. Check Messages\n" +
                 "2. Send Messages\n" +
                 "3. Check Broadcasts\n" +
@@ -47,7 +55,7 @@ public class ConversationPresenter { // User.java to get friends
         return kb.nextInt();
     }
 
-    public void run(int currID, char userType, ChatroomController cc, BroadcastController bc) {
+    public void run(int currID, char userType, ChatroomController cc, BroadcastController bc) throws IOException {
         Scanner kb = new Scanner(System.in);
 
         int option = 0;
@@ -86,6 +94,7 @@ public class ConversationPresenter { // User.java to get friends
                     }
 
                     cc.sendChat(recipients, currID, chat);
+                    cc.saveChats();
                     option = -1;
                     break;
 
@@ -109,6 +118,7 @@ public class ConversationPresenter { // User.java to get friends
                     System.out.println("Enter the ID of the event you want to broadcast to:");
                     int speakerEventID = kb.nextInt();
                     bc.sendBroadcast(currID, speakerEventID, speakerBroadcast);
+                    bc.saveBroadcasts();
                     option = -1;
                     break;
 
@@ -120,18 +130,7 @@ public class ConversationPresenter { // User.java to get friends
                         organizerBroadcast = kb.nextLine();
                     }
                     bc.broadcastConference(currID, organizerBroadcast);
-
-                    /*System.out.println("Enter 0 to broadcast to entire conference, or enter -1 to send a broadcast to a single event:");
-                    int organizer = kb.nextInt();
-                    if(organizer == 0){
-                        bc.broadcastConference(yourUserID, organizerBroadcast);
-                    }
-                    else if(organizer == 1){
-                        System.out.println("Enter the ID of the event you want to broadcast to:");
-                        int organizerEventID = kb.nextInt();
-                        bc.sendBroadcast(yourUserID, organizerEventID, organizerBroadcast);
-                    }*/
-
+                    bc.saveBroadcasts();
                     option = -1;
                     break;
 
@@ -142,6 +141,7 @@ public class ConversationPresenter { // User.java to get friends
                         speakerAllEventsBroadcast = kb.nextLine();
                     }
                     bc.sendBroadcastInAllSpeakerEvents((Speaker)bc.getUm().getUserByID(currID), speakerAllEventsBroadcast);
+                    bc.saveBroadcasts();
                     option = -1;
                     break;
 
@@ -153,11 +153,14 @@ public class ConversationPresenter { // User.java to get friends
                         messageToSpeakers = kb.nextLine();
                     }
                     cc.sendMessageToAllSpeakers(currID, messageToSpeakers);
+                    cc.saveChats();
                     option = -1;
                     break;
 
 
                 default:
+                    cc.saveChats();
+                    bc.saveBroadcasts();
                     System.out.println("Enter a menu number, or 0 to exit:");
                     option = kb.nextInt();
             }
