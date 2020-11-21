@@ -29,8 +29,7 @@ public class Chatroom implements Conversation{
 
     }
 
-    public MessageQueue getMessageQueue(){return messageQueue;}
-
+    //public MessageQueue getMessageQueue(){return messageQueue;}
 
     @Override
     public void sendMessage(String messageStr, int senderUserID){
@@ -73,6 +72,10 @@ public class Chatroom implements Conversation{
         return (this.userList + "\n" + this.messageQueue.toString());
     }
 
+    /**
+     * To use to make a string for printing to the console.
+     * @return String formatted for printing to console for textUI.
+     */
     public String format(){
         return this.messageQueue.format();
     }
