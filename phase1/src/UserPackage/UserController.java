@@ -90,11 +90,11 @@ public class UserController {
         String username = scanner.nextLine();
         System.out.println("Enter Password for new User");
         String password = scanner.nextLine();
-        System.out.println("Enter The type of the User you want to create\n 1. Organiser \n 2. Attendee \n 3.Speaker");
+        System.out.println("Enter The type of the User you want to create\n 1. Organizer \n 2. Attendee \n 3.Speaker");
         String userType = scanner.nextLine();
         switch(userType){
             case "1":
-                if (userManager.createAccount(username, password, "Organiser")){
+                if (userManager.createAccount(username, password, "Organizer")){
                     System.out.println("User successfully created");
                     userGateway.saveUserList(userManager.getUserList());
                     return true;
@@ -111,7 +111,7 @@ public class UserController {
                 return false;}
             case "3":
                 if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != 'O'){
-                    System.out.println("You need to be logged in as an Organiser to do this");
+                    System.out.println("You need to be logged in as an Organizer to do this");
                     return false;
                 }
                 User user = userManager.getUserByID(currentUserId);
@@ -191,6 +191,11 @@ public class UserController {
         return userManager.getSpeakerList();
     }
 
+    /**
+     * Interacts with user and asks for input for which user related action the user would like to take then performs
+     * actions related to events based on that input.
+     * @param currentUserId The id of the user its interacting with
+     **/
     public void run(int currentUserId){
         Scanner reader = new Scanner(System.in);
         Scanner reader2 = new Scanner(System.in);

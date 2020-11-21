@@ -1,12 +1,12 @@
 package UserPackage;
 
-public class Organiser extends Attendee{
+public class Organizer extends Attendee{
     /**
-     * Constructs a new Organiser object
+     * Constructs a new Organizer object
      * @param username : a name unique to this instance of user, is a String
      * @param password : a password used to log in, is a String
      */
-    public Organiser(String username, String password, char type) {
+    public Organizer(String username, String password, char type) {
         super(username, password, type);
     }
     // Do we need an IsOrganiser attribute when we can check types?

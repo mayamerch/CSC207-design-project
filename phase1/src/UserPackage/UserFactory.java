@@ -13,9 +13,9 @@ public class UserFactory {
         if (usertype == null) {
             return null;
         }
-        if (usertype.equalsIgnoreCase("ORGANISER")) {
+        if (usertype.equalsIgnoreCase("ORGANIZER")) {
             char type = 'O';
-            return new Organiser(new_username, new_password, type);
+            return new Organizer(new_username, new_password, type);
         }
         if (usertype.equalsIgnoreCase("SPEAKER")){
             char type = 'S';

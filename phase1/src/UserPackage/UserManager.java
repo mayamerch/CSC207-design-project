@@ -11,7 +11,7 @@ public class UserManager implements Serializable {
     private int usersCreated;
     private LinkedList<User> speakerList = new LinkedList<>();
     private LinkedList<User> attendeeList = new LinkedList<>();
-    private LinkedList<User> organiserList = new LinkedList<>();
+    private LinkedList<User> organizerList = new LinkedList<>();
 
 
     /**
@@ -20,7 +20,7 @@ public class UserManager implements Serializable {
     public UserManager() {
         userList = new LinkedList<User>();
         usersCreated = 0;
-        organiserList = new LinkedList<User>();
+        organizerList = new LinkedList<User>();
         attendeeList = new LinkedList<User>();
         speakerList = new LinkedList<User>();
     }
@@ -54,7 +54,7 @@ public class UserManager implements Serializable {
                 speakerList.add(new_user);
             }
             else if (new_user.getType() == 'O') {
-                organiserList.add(new_user);
+                organizerList.add(new_user);
             }
             else {
                 attendeeList.add(new_user);
@@ -110,9 +110,14 @@ public class UserManager implements Serializable {
      * Returns a list of Organisers
      * @return a list of Users objects who are of type organiser
      */
-    public LinkedList<User> getOrganiserList(){
-        return this.organiserList;
+    public LinkedList<User> getOrganizerList(){
+        return this.organizerList;
     }
+    /**
+     * Returns a list of Attendees in the User manager
+     * @return a list of Users objects who are of type Attendee
+     */
+    public LinkedList<User> getAttendeeList(){ return this.attendeeList;}
     /**
      * Takes in an UserID`and returns the corresponding User object
      * @param userID: ID of the user we want to find
@@ -235,7 +240,7 @@ public class UserManager implements Serializable {
                     attendeeList.add(x);
                     break;
                 case 'O':
-                    organiserList.add(x);
+                    organizerList.add(x);
                     break;
                 case 'S':
                     speakerList.add(x);
