@@ -9,6 +9,7 @@ import UserPackage.UserController;
 import UserPackage.UserGateway;
 import UserPackage.UserManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -87,7 +88,7 @@ public class Boot {
 
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Boot boot = new Boot();
         UserController uc = boot.uc;
         Scanner scanner = new Scanner(System.in);

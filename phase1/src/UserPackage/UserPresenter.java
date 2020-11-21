@@ -52,8 +52,7 @@ public class UserPresenter {
         temp.append("---------------------------------" + System.lineSeparator());
 
         temp.append("1. See all Friends" + System.lineSeparator());
-        temp.append("2. Accept Friend Requests" + System.lineSeparator());
-        temp.append("3. Add a Friend" + System.lineSeparator());
+        temp.append("2. See all Friend Requests" + System.lineSeparator());
 
         temp.append("0. Exit this menu." + System.lineSeparator() + System.lineSeparator());
 
