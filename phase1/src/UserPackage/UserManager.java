@@ -163,6 +163,9 @@ public class UserManager implements Serializable {
         User friend;
         friend = getUserByID(friendID);
         User currentUser = getUserByID(userID);
+        // Check if the friendID is the same as the userID, should not work since cannot input your own ID
+        // in general
+        if (userID == friendID){return false;}
 
         // Check if friend already in currentUser's friends List
         for (int x: currentUser.getFriendsList()) {

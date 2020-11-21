@@ -1,5 +1,6 @@
 package UserPackage;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -22,7 +23,7 @@ public class UserController {
         try {
             this.userManager = new UserManager(this.userGateway.readUserList("userFile.ser"));
         } catch (NullPointerException n) {
-            System.out.println("Empty UM");
+            System.out.println("Empty UserManager List of Users");
             this.userManager = new UserManager();
             // Add something so if this fails it calls on the no argument constructor
         }
@@ -41,6 +42,8 @@ public class UserController {
      * @return the type of the User that logged in, character
      */
     public char UserLogin() {
+        System.out.println("Press enter if there is no prompt directly following this line");
+        scanner.nextLine();
         System.out.println("Enter Username");
         String username = scanner.nextLine();
         System.out.println("Enter Password");
@@ -49,9 +52,10 @@ public class UserController {
         if (potentialID >= 0 ) {
             currentUserId = potentialID;
             System.out.println("Login Successful");
+            System.out.println("Your ID is " + currentUserId);
             return userManager.getUserByID(currentUserId).getType();
         } else {
-            System.out.println("Invalid email or password");
+            System.out.println("Invalid username or password");
             return 'N';
         }
     }
@@ -135,33 +139,40 @@ public class UserController {
     /**
      * Sends a Friend request from the User Using this controller to the a user whose ID is entered
      */
-    public void sendFriendRequest(){
+    public boolean sendFriendRequest(){
         if (validateNotLoggedIn()){
             System.out.println("You need to be logged in to do this");
+            return false;
         }
-        System.out.println("Enter Username of friend you would like to add");
+        System.out.println("Enter ID of friend you would like to add");
         int potentialFriendId = validateUserIDInput();
-        if (!userManager.sendFriendRequest(currentUserId, potentialFriendId)){
+        boolean friendRequest = userManager.sendFriendRequest(currentUserId, potentialFriendId);
+        if (!friendRequest){
             System.out.println("You have either already sent a friend request or " +
-                    "they have already accepted you as a friend");
+                    "they have already accepted you as a friend or you entered your username");
+            return false;
         }
         else{
             System.out.println("Friend Request Sent");
+            return true;
         }
     }
     /**
      * Accepts a Friend request from the Current user's List of friend requests.
      */
-    public void acceptFriendRequest(){
+    public boolean acceptFriendRequest(){
         if (validateNotLoggedIn()){
-            System.out.println("You need to be logged in to do this");}
-        System.out.println("Enter Username of friend whose request you would like to accept");
+            System.out.println("You need to be logged in to do this");
+            return false;}
+        System.out.println("Enter ID of friend whose request you would like to accept");
         int potentialFriendId = validateUserIDInput();
         if (!userManager.acceptFriendRequest(currentUserId, potentialFriendId)){
             System.out.println("This person has not sent you a request");
+            return false;
         }
         else{
             System.out.println("You have now added each other as friends");
+            return true;
         }
     }
 
@@ -170,6 +181,7 @@ public class UserController {
      */
     public void  logOut() {
         currentUserId = -1;
+        System.out.println("You have been logged out");
     }
 
     /**
