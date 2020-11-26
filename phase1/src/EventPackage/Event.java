@@ -10,8 +10,7 @@ public class Event{
     private Date eventDate;
     private int eventRoom;
     private int eventSpeaker;
-    private final int eventDuration = 1; // This is final for phase 1 but in phase two it will be changed to variable.
-                                         //It is going to be included in some methods as preparation for phase 2
+    private int eventDuration;
     private ArrayList<Integer> eventAttendees;
 
 
@@ -32,6 +31,7 @@ public class Event{
             this.eventRoom = eventRoom;
             this.eventAttendees = new ArrayList<>();
             this.eventId = eventId;
+            this.eventDuration = eventDuration;
         }
 
     /**
@@ -121,12 +121,13 @@ public class Event{
     }
 
 
-   /*
-    to be used in phase 2
+    /**
+     * Change the duration of an event
+     * @param eventDuration The new duration of the event
+     */
     public void setEventDuration(int eventDuration) {
         this.eventDuration = eventDuration;
     }
-    */
 
 
     /**
