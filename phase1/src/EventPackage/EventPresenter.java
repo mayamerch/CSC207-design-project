@@ -63,7 +63,7 @@ public class EventPresenter {
         System.out.println("All Events");
         System.out.println("---------------------------------");
         ArrayList<Event> eventList = em.getEventList();
-        eventFormat(eventList, rm);
+        eventFormat(em, rm);
     }
 
 
@@ -83,7 +83,7 @@ public class EventPresenter {
             eventList = em.myEvents(UserId);
         else
             eventList = em.speakingAt(UserId);
-        eventFormat(eventList, rm);
+        eventFormat(em, rm);
     }
 
 
@@ -97,7 +97,7 @@ public class EventPresenter {
         System.out.println("Available Events");
         System.out.println("---------------------------------");
         ArrayList<Event> eventList = em.availEvents(UserId);
-        eventFormat(eventList, rm);
+        eventFormat(em, rm);
         StringBuilder temp = new StringBuilder();
         temp.append("Please choose an option. Anything other than a 1 will make you go back." +
                 System.lineSeparator() + System.lineSeparator());
@@ -162,7 +162,8 @@ public class EventPresenter {
     }
 
 
-    private void eventFormat(ArrayList<Event> eventList, RoomManager rm) {
+    private void eventFormat(EventManager eventManger, RoomManager rm) {
+        ArrayList<Event> eventList = eventManger.getEventList();
         String[][] table = new String[eventList.size() + 1][7];
         table[0] = new String[] {"Event ID", "Event Name", "Event Date", "Event Duration", "Room Number",
                 "Spots Left", "Speakers"};
