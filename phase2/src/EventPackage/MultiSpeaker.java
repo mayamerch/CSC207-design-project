@@ -82,4 +82,12 @@ public class MultiSpeaker extends Event{
         return participants;
     }
 
+    /**
+     * return the events type
+     * @return "MS" to represent MultiSpeaker events
+     */
+    public String getEventType() {
+        return "MS";
+    }
+
 }

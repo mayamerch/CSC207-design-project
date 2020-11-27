@@ -51,7 +51,8 @@ public class SingleSpeaker extends Event{
      */
     @Override
     public String toString() {
-        return "SS" + ";" + eventSpeaker + ";" + super.toString();
+        return "SS" + ";" + eventSpeaker
+                + ";" + super.toString();
     }
 
 
@@ -67,4 +68,11 @@ public class SingleSpeaker extends Event{
         return participants;
     }
 
+    /**
+     * return the events type
+     * @return "SS" to represent SingleSpeaker events
+     */
+    public String getEventType() {
+        return "SS";
+    }
 }
