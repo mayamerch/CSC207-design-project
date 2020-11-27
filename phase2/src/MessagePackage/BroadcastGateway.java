@@ -64,19 +64,21 @@ public class BroadcastGateway {
         return new Message(content, sender);
     }
 
-
     /**
-     * Make a MessageQueue from a string
-     * @param s a String of data for a MessageQueue
-     * @return a MessageQueue with data from String s
+     * Make the messages instance variable for a Chatroom
+     * @param s String of data for the messages variable
+     * @return ArrayList of Messages
      */
-    private MessageQueue stringToMessageQueue(String s){
-        String[] stuff = s.split("\t");
-        MessageQueue mq = new MessageQueue();
-        for (String messageStr : stuff){
-            mq.pushMessage(stringToMessage(messageStr));
+
+    private ArrayList<Message> stringToMessages(String s){
+        ArrayList<Message> messages = new ArrayList<>();
+        if (!s.equals("[]")) {
+            String[] stuff = s.substring(1, s.length() - 1).split("\t");
+            for (String messageStr : stuff){
+                messages.add(stringToMessage(messageStr));
+            }
         }
-        return mq;
+        return messages;
     }
 
     /**
@@ -101,13 +103,12 @@ public class BroadcastGateway {
      * @return an instance of Chatroom with data from String s
      */
     private Broadcast stringToBroadcast(String s) {
-        // Broadcast.toString() broadcasters.toString() + "\n" + messageQueue.toString() + "\n" + eventID
         String[] stuff = s.split("\n");
         ArrayList<Integer> broadcasters = stringToBroadcasters(stuff[0]);
-        MessageQueue mq = stringToMessageQueue(stuff[1]);
+        ArrayList<Message> messages = stringToMessages(stuff[1]);
         int eventID = Integer.parseInt(stuff[2]);
 
-        return new Broadcast(broadcasters, mq, eventID, this.em);
+        return new Broadcast(broadcasters, messages, eventID, this.em);
     }
 
 

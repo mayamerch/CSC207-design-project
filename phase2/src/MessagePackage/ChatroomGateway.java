@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -72,20 +73,20 @@ public class ChatroomGateway {
     }
 
     /**
-     * Make a MessageQueue from a string
-     * @param s a String of data for a MessageQueue
-     * @return a MessageQueue with data from String s
+     * Make the messages instance variable for a Chatroom
+     * @param s String of data for the messages variable
+     * @return ArrayList of Messages
      */
 
-    private MessageQueue stringToMessageQueue(String s){
-        MessageQueue mq = new MessageQueue();
+    private ArrayList<Message> stringToMessages(String s){
+        ArrayList<Message> messages = new ArrayList<Message>();
         if (!s.equals("[]")) {
             String[] stuff = s.substring(1, s.length() - 1).split("\t");
             for (String messageStr : stuff){
-                mq.pushMessage(stringToMessage(messageStr));
+                messages.add(stringToMessage(messageStr));
             }
         }
-        return mq;
+        return messages;
     }
 
 
@@ -114,9 +115,9 @@ public class ChatroomGateway {
     private Chatroom stringToChatroom(String s){
         String[] stuff = s.split("\n");
         ArrayList<Integer> userList = stringToUserList(stuff[0]);
-        MessageQueue mq = stringToMessageQueue(stuff[1]);
+        ArrayList<Message> messages = stringToMessages(stuff[1]);
 
-        return new Chatroom(userList, mq);
+        return new Chatroom(userList, messages);
     }
 
 

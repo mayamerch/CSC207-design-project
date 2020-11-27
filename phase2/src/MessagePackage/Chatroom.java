@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Chatroom implements Conversation{
 
     private ArrayList<Integer> userList;
-    private MessageQueue messageQueue;
+    //private MessageQueue messageQueue;
+    private ArrayList<Message> messages;
     //enum status {ACCEPTED, PENDING, REJECTED}
     //private status myStatus;
 
@@ -15,31 +16,33 @@ public class Chatroom implements Conversation{
      */
     public Chatroom(ArrayList<Integer> userList){
         this.userList = userList;
-        this.messageQueue = new MessageQueue();
+        //this.messageQueue = new MessageQueue();
+        this.messages = new ArrayList<Message>();
     }
 
     /**
      * Constructor used in Gateway to instantiate an existing chatroom with all of its data
      * @param userList a list of all users one can message
-     * @param messageQueue a MessageQueue of all messages sent in chat
+     * @param messages an ArrayList of Messages in the chatroom
      */
-    public Chatroom(ArrayList<Integer> userList, MessageQueue messageQueue){
+    public Chatroom(ArrayList<Integer> userList, ArrayList<Message> messages){
         this.userList = userList;
-        this.messageQueue = messageQueue;
-
+        this.messages = messages;
     }
 
     //public MessageQueue getMessageQueue(){return messageQueue;}
 
     @Override
     public void sendMessage(String messageStr, int senderUserID){
-        Message newMessage = new Message(messageStr, senderUserID);
-        this.messageQueue.pushMessage(newMessage);
+        //Message newMessage = new Message(messageStr, senderUserID);
+        //this.messageQueue.pushMessage(newMessage);
+        this.messages.add(new Message(messageStr, senderUserID));
     }
 
     @Override
     public ArrayList<Message> readMessages(){
-        return this.messageQueue.getMessages();
+        //return this.messageQueue.getMessages();
+        return this.messages;
     }
 
     @Override
@@ -69,7 +72,12 @@ public class Chatroom implements Conversation{
      */
     @Override
     public String toString(){
-        return (this.userList + "\n" + this.messageQueue.toString());
+        StringBuilder s = new StringBuilder("[");
+        for(Message m : this.messages){
+            s.append(m.toString()).append("\t");
+        }
+        String str = s.toString().trim() + "]";
+        return (this.userList + "\n" + str);
     }
 
     /**
@@ -77,7 +85,13 @@ public class Chatroom implements Conversation{
      * @return String formatted for printing to console for textUI.
      */
     public String format(){
-        return this.messageQueue.format();
+        //return this.messageQueue.format();
+        StringBuilder s = new StringBuilder();
+        for(Message m : this.messages){
+            s.append(m.format());
+            s.append("\n");
+        }
+        return s.toString();
     }
 
 

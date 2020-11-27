@@ -9,9 +9,10 @@ public class Broadcast implements Conversation{
     // Organizers should be able to send a message to all speakers or all Attendees
 
     private ArrayList<Integer> broadcasters;
-    private MessageQueue messageQueue;
+    //private MessageQueue messageQueue;
     private int eventID;
     private EventManager eventManager;
+    private ArrayList<Message> messages;
 
     /**
      * Create a broadcast by someone in ArrayList broadcasters, identified by userID
@@ -21,7 +22,7 @@ public class Broadcast implements Conversation{
      */
     public Broadcast(ArrayList<Integer> broadcasters, int eventID, EventManager eventManager){
         this.broadcasters = broadcasters;
-        this.messageQueue = new MessageQueue();
+        this.messages = new ArrayList<Message>();
         this.eventID = eventID;
         this.eventManager = eventManager;
     }
@@ -29,21 +30,16 @@ public class Broadcast implements Conversation{
     /**
      * Create a broadcast from existing saved broadcast (from BroadcastDataFile)
      * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast
-     * @param mq a collection of all the Messages sent in this broadcast
+     * @param messages an ArrayList of Messages sent in this broadcast
      * @param eventID the ID of the event of which the attendees are being broadcasted to
      * @param eventManager an eventManager to manage the event that is being broadcasted to
      */
-    public Broadcast(ArrayList<Integer> broadcasters, MessageQueue mq, int eventID, EventManager eventManager){
+    public Broadcast(ArrayList<Integer> broadcasters, ArrayList<Message> messages, int eventID, EventManager eventManager){
         this.broadcasters = broadcasters;
-        this.messageQueue = mq;
+        this.messages = messages;
         this.eventID = eventID;
         this.eventManager = eventManager;
     }
-
-    /**
-     * @return messageQueue instance variable
-     */
-    public MessageQueue getMessageQueue(){return messageQueue;}
 
     /**
      * @return eventID instance variable
@@ -52,15 +48,18 @@ public class Broadcast implements Conversation{
 
     @Override
     public void sendMessage(String messageStr, int senderUserID) {
-        Message newMessage = new Message(messageStr, senderUserID);
         if(broadcasters.contains(senderUserID)){
-            this.messageQueue.pushMessage(newMessage);
+            this.messages.add(new Message(messageStr, senderUserID));
         }
     }
 
+    /**
+     *
+     * @return the ArrayList of Messages in this broadcast
+     */
     @Override
     public ArrayList<Message> readMessages() {
-        return this.messageQueue.getMessages();
+        return this.messages;
     }
 
     @Override
@@ -89,7 +88,12 @@ public class Broadcast implements Conversation{
      */
     @Override
     public String toString(){
-        return broadcasters.toString() + "\n" + messageQueue.toString() + "\n" + eventID;
+        StringBuilder s = new StringBuilder("[");
+        for(Message m : this.messages){
+            s.append(m.toString()).append("\t");
+        }
+        String str = s.toString().trim() + "]";
+        return broadcasters.toString() + "\n" + str + "\n" + eventID;
     }
 
     /**
@@ -97,6 +101,11 @@ public class Broadcast implements Conversation{
      * @return string formatted for text UI for Broadcast
      */
     public String format(){
-        return eventManager.getEvent(eventID).getEventName() + ":\n" + messageQueue.format();
+        StringBuilder s = new StringBuilder();
+        for(Message m : this.messages){
+            s.append(m.format());
+            s.append("\n");
+        }
+        return eventManager.getEvent(eventID).getEventName() + ":\n" + s.toString();
     }
 }
