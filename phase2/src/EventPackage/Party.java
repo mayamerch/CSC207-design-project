@@ -10,4 +10,21 @@ public class Party extends Event{
         super(eventId, eventName, eventCapacity, eventDate, eventRoom, eventDuration, VIPStatus);
     }
 
+    /**
+     * Prints Party events in string format
+     * @return      Party in string format
+     */
+    @Override
+    public String toString() {
+        return "P" + ";" + super.toString();
+    }
+
+
+    /**
+     * return the events type
+     * @return "P" to represent party events
+     */
+    public String getEventType(){
+        return "P";
+    }
 }

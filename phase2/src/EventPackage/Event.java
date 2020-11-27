@@ -194,5 +194,6 @@ public abstract class Event{
                 eventAttendees;
     }
 
+    public abstract String getEventType();
 
 }
