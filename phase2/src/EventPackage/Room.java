@@ -9,7 +9,7 @@ public class Room {
      * @param roomNumber: A unique number representing a room
      * @param roomCapacity: The capacity of said room
      */
-    public Room(int roomNumber, int roomCapacity) //This variable is here for phase 2
+    public Room(int roomNumber, int roomCapacity)
     {
         this.roomNumber = roomNumber;
         this.roomCapacity = roomCapacity;
