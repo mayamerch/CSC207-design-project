@@ -4,14 +4,15 @@ package EventPackage;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Event{
+public abstract class Event{
     private int eventId;
     private String eventName;
     private Date eventDate;
     private int eventRoom;
-    private int eventSpeaker;
+    private int eventCapacity;
     private int eventDuration;
     private ArrayList<Integer> eventAttendees;
+    private boolean VIPStatus;
 
 
     /**
@@ -19,19 +20,22 @@ public class Event{
      * @param eventDate A Date object
      * @param eventRoom Number of Room the event is in.
      * @param eventName Name of event, is a String
-     * @param eventSpeaker The ID of a speaker at an event
+     * @param eventCapacity The capacity of this event
      * @param eventId The unique ID of an event
      * @param eventDuration The duration in hours of the event
+     * @param VIPStatus true if this event is VIP Exclusive, false if not
      */
-    public Event(int eventId, String eventName, int eventSpeaker, Date eventDate, int eventRoom, int eventDuration) // event duration is for phase 2
+    public Event(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom, int eventDuration,
+                 boolean VIPStatus)
         {
             this.eventName = eventName;
-            this.eventSpeaker = eventSpeaker;
+            this.eventCapacity = eventCapacity;
             this.eventDate = eventDate;
             this.eventRoom = eventRoom;
             this.eventAttendees = new ArrayList<>();
             this.eventId = eventId;
             this.eventDuration = eventDuration;
+            this.VIPStatus = VIPStatus;
         }
 
     /**
@@ -71,8 +75,8 @@ public class Event{
 
 
     /**
-     * Returns the duration of this event
-     * @return      The duration of this event
+     * Returns the duration of this event in hours
+     * @return      The duration of this event in hours
      */
     public int getEventDuration() {return eventDuration;}
 
@@ -85,13 +89,21 @@ public class Event{
         return eventAttendees;
     }
 
+    /**
+     * Returns whether this event is exclusive to VIP users
+     * @return      true if its VIP exclusive, false if not
+     */
+    public boolean getVIPStatus(){
+        return VIPStatus;
+    }
+
 
     /**
-     * Returns the ID of the Speaker at this event
-     * @return      The ID of the Speaker at this event
+     * Returns the Capacity of this event
+     * @return      The Capacity of this event
      */
-    public int getEventSpeaker() {
-        return eventSpeaker;
+    public int getEventCapacity() {
+        return eventCapacity;
     }
 
 
@@ -113,15 +125,6 @@ public class Event{
 
 
     /**
-     * Set the ID of the new speaker for the event
-     * @param eventSpeaker The ID of the speaker for this event
-     */
-    public void setEventSpeaker(int eventSpeaker) {
-        this.eventSpeaker = eventSpeaker;
-    }
-
-
-    /**
      * Change the duration of an event
      * @param eventDuration The new duration of the event
      */
@@ -131,12 +134,20 @@ public class Event{
 
 
     /**
+     * Returns whether a specific user is already attending an event
+     * @param AttendeeID The id of the user
+     * @return true if he is already attending the event, false if he isn't
+     */
+    public boolean alreadyAttending(int AttendeeID) {
+        return eventAttendees.contains(AttendeeID);
+    }
+
+    /**
      * Adds an Attendee to an event if he isn't already attending
      * @param AttendeeID ID of Attendee we need to add.
      */
     public void addAttendee(Integer AttendeeID) {
-        if (!eventAttendees.contains(AttendeeID))
-            eventAttendees.add(AttendeeID);
+        eventAttendees.add(AttendeeID);
     }
 
     /**
@@ -160,31 +171,28 @@ public class Event{
 
 
     /**
+     * Returns whether this event is full or not
+     * @return      true if its full, false otherwise
+     */
+    public boolean isFull(){
+        return eventAttendees.size() >= eventCapacity;
+    }
+
+    /**
      * Prints Event in string format
      * @return      event in string format
      */
     @Override
     public String toString() {
-        return (eventId + "," +
-                eventName + "," +
-                eventSpeaker + "," +
-                eventDate + "," +
-                eventRoom + "," +
-                eventDuration) + "," +
+        return (eventId + ";" +
+                eventName + ";" +
+                eventCapacity + ";" +
+                eventDate + ";" +
+                eventRoom + ";" +
+                eventDuration + ";" +
+                VIPStatus) + ";" +
                 eventAttendees;
     }
 
-
-    /**
-     * Returns a list of all participants (attendees + speaker)
-     * @return list of participants
-     */
-    public ArrayList<Integer> getParticipants() {
-        ArrayList<Integer> participants = new ArrayList<>();
-        participants.add(eventSpeaker);
-        participants.addAll(eventAttendees);
-
-        return participants;
-    }
 
 }
