@@ -1,0 +1,14 @@
+<div class="event__body">
+    <div class="event__time">
+    %s
+    </div>
+    <div class="event__name">
+    %s
+    </div>
+    <div class="event__speaker">
+    %s
+    </div>
+    <div class="event__room">
+    room %s
+    </div>
+</div>

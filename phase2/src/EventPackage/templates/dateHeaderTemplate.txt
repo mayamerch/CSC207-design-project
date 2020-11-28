@@ -1,0 +1,4 @@
+<div class="date-header__container">
+    <h3 class="date-header">%s</h3>
+    <hr class="hr-solid">
+</div>

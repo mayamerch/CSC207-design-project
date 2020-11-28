@@ -4,7 +4,7 @@ package EventPackage;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Event{
+public abstract class Event implements Comparable<Event>{
     private int eventId;
     private String eventName;
     private Date eventDate;
@@ -14,6 +14,10 @@ public abstract class Event{
     private ArrayList<Integer> eventAttendees;
     private boolean VIPStatus;
 
+    @Override
+    public int compareTo(Event e){
+        return this.eventDate.compareTo(e.eventDate);
+    }
 
     /**
      * Constructs a new EventPackage.Event object
