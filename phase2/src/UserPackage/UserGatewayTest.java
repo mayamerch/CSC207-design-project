@@ -18,7 +18,7 @@ public class UserGatewayTest {
 
         userGateway.saveUserList(userManager.getUserList());
    
-        LinkedList<User> ul = userGateway.readUserList("userFile.ser");
+        LinkedList<User> ul = userGateway.readUserList();
         System.out.println(ul.size());
     }
 
