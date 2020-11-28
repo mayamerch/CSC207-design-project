@@ -9,7 +9,7 @@ public class MultiSpeaker extends Event{
     private ArrayList<Integer> eventSpeakers;
 
     /**
-     * Constructs a new EventPackage.Event object
+     * Constructs a new MultiSpeaker Event object
      * @param eventDate A Date object
      * @param eventRoom Number of Room the event is in.
      * @param eventName Name of event, is a String
