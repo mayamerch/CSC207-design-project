@@ -8,6 +8,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private char type;
+    private boolean isVIP;
     private ArrayList<Integer> friendsList;
     private ArrayList<Integer> friendRequestList;
 
@@ -19,6 +20,7 @@ public class User implements Serializable {
     public User(String username, String password, char type) {
         this.username = username;
         this.password = password;
+        this.isVIP = false;
         this.type = type;
         this.friendsList = new ArrayList<>();
         this.friendRequestList = new ArrayList<>();
@@ -31,6 +33,10 @@ public class User implements Serializable {
      */
     public void set_username(String new_username) {
         this.username = new_username;
+    }
+
+    public void setVIP(boolean newBoolean){
+        this.isVIP = newBoolean;
     }
 
 

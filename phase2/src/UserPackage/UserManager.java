@@ -131,19 +131,28 @@ public class UserManager implements Serializable {
         }
         return null;
     }
+    /**
+     * Takes in an Username`and returns the corresponding User object
+     * @param userID: ID of the user we want to find
+     * @param newBoolean the new VIP status, boolean
+     */
+    public void changeVIP(int userID, boolean newBoolean){
+        User user = getUserByID(userID);
+        user.setVIP(newBoolean);
+    }
 
     /**
      * Takes in an Username`and returns the corresponding User object
      * @param username: ID of the user we want to find
      * @return User
      */
-    public Integer getUserIDByUsername(String username){
+    public int getUserIDByUsername(String username){
         for (User user : userList) {
             if (username.equals(user.getUsername())) {
                 return user.getUserID();
             }
         }
-        return null;
+        return -1;
     }
 
     /**

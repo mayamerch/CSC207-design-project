@@ -18,7 +18,7 @@ public class UserController {
         this.userGateway = new UserGateway();
         this.up = new UserPresenter();
         try {
-            this.userManager = new UserManager(this.userGateway.readUserList("userFile.ser"));
+            this.userManager = new UserManager(this.userGateway.readUserList());
         } catch (NullPointerException n) {
             System.out.println("Empty UserManager List of Users");
             this.userManager = new UserManager();
@@ -91,7 +91,7 @@ public class UserController {
             System.out.println("You cannot enter your own username");
             return  validateUsernameInput();
         }
-        else if(getUserManager().getUserIDByUsername(username) != null){
+        else if(getUserManager().getUserIDByUsername(username) != -1){
             return username;
         }
         else{
@@ -250,6 +250,10 @@ public class UserController {
         else
             return 'N';
     }
+    /**
+     * Returns the ID of current user if logged in
+     * @return true or false based on logged in or not
+     */
     public boolean printYourID(){
         if (!validateNotLoggedIn()){
             System.out.println(currentUserId);
@@ -264,6 +268,15 @@ public class UserController {
      */
     public LinkedList<User> getSpeakerList() {
         return userManager.getSpeakerList();
+    }
+
+    public void setUserVIP(){
+        System.out.println("Enter the ID of user you want to add");
+        int userID = validateUserIDInput();
+        System.out.println("Enter the new VIP status of this User \n 1. VIP = True \n 2. VIP = False");
+        int userChoice = scanner.nextInt();
+        getUserManager().changeVIP(userID, userChoice == 1);
+        // 1 to set to true, anything else to set to false
     }
 
     /**
