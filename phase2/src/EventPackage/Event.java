@@ -141,6 +141,15 @@ public abstract class Event implements Comparable<Event>{
 
 
     /**
+     * Change the capacity of an event
+     * @param eventCapacity The new capacity of the event
+     */
+    public void setEventCapacity(int eventCapacity) {
+        this.eventCapacity = eventCapacity;
+    }
+
+
+    /**
      * Returns whether a specific user is already attending an event
      * @param AttendeeID The id of the user
      * @return true if he is already attending the event, false if he isn't
@@ -201,6 +210,18 @@ public abstract class Event implements Comparable<Event>{
                 eventAttendees;
     }
 
+
+    /**
+     * return a String representing the events type
+     * @return String representing events type
+     */
     public abstract String getEventType();
+
+
+    /**
+     * returns the list of participants at this event
+     * @return list of participants
+     */
+    public abstract ArrayList<Integer> getParticipants();
 
 }

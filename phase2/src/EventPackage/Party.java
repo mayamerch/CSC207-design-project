@@ -1,5 +1,6 @@
 package EventPackage;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Party extends Event{
@@ -37,5 +38,15 @@ public class Party extends Event{
      */
     public String getEventType(){
         return "P";
+    }
+
+    /**
+     * returns the list of participants at this event
+     * @return list of participants
+     */
+    public ArrayList<Integer> getParticipants() {
+        ArrayList<Integer> participants = new ArrayList<>();
+        participants.addAll(super.getEventAttendees());
+        return participants;
     }
 }

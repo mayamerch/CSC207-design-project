@@ -35,11 +35,22 @@ public class MultiSpeaker extends Event{
 
 
     /**
+     * Changes the list of speakers at this events into a new one
+     * @param eventSpeakers list of ids of new speakers
+     */
+    public void setEventSpeakers(ArrayList<Integer> eventSpeakers) {
+        this.eventSpeakers.clear();
+        for (Integer speakerId: eventSpeakers)
+            this.addEventSpeaker(speakerId);
+    }
+
+    /**
      * Adds the ID of the new speaker to the list of speakers
      * @param eventSpeaker The ID of the speaker to be added
      */
     public void addEventSpeaker(Integer eventSpeaker) {
-        eventSpeakers.add(eventSpeaker);
+        if (!eventSpeakers.contains(eventSpeaker))
+            eventSpeakers.add(eventSpeaker);
     }
 
     /**
@@ -47,7 +58,8 @@ public class MultiSpeaker extends Event{
      * @param eventSpeaker Id of speaker to be removed
      */
     public void removeSpeaker(Integer eventSpeaker) {
-        eventSpeakers.remove(eventSpeaker);
+        if (eventSpeakers.contains(eventSpeaker))
+            eventSpeakers.remove(eventSpeaker);
     }
 
 
