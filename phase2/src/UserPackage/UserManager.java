@@ -36,9 +36,10 @@ public class UserManager implements Serializable {
      */
     private int findMaxIDFromMap(Map<Integer, User> map) {
         int max = 0;
-        for (Integer x: map.keySet())
+        for (Integer x: map.keySet()) {
             if (max < x)
                 max = x;
+        }
         return max;
     }
 
