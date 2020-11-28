@@ -3,7 +3,7 @@ package UserPackage;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
     private int userID;
     private String username;
     private String password;

@@ -57,21 +57,46 @@ public class UserController {
         }
     }
     /**
-     * Checks a userID that is entered into the system
+     * Checks if a userID that is entered into the system belongs to an actual user.
+     * @return the integer that the User entered
      */
     public int validateUserIDInput(){
         int userID;
         System.out.println("Enter ID of User");
         userID = scanner.nextInt();
         if (userID == currentUserId){
-            System.out.println("You cannot put in your own ID");
+            System.out.println("You cannot put in your own ID/Username");
             return validateUserIDInput();
-        }
+            }
         else if (userManager.getUserByID(userID) != null){
             return userID;}
         else{
             System.out.println("That is not a Valid UserID. Please try Again.");
             return validateUserIDInput();
+        }
+    }
+    // This has to be a seperate function because you would validate the ID by converting
+    // the username to a userId sucessfully
+    /**
+     * Checks if a usernamethat is entered into the system belongs to an actual user.
+     * @return the username that the User entered, String
+     */
+    public String validateUsernameInput(){
+        String username;
+        User currentUser = getUserManager().getUserByID(currentUserId);
+        String currentUsername = currentUser.getUsername();
+        System.out.println("Enter Username of User");
+        username = scanner.nextLine();
+        if (username.equals(currentUsername)){
+            System.out.println("You cannot enter your own username");
+            return  validateUsernameInput();
+        }
+        else if(getUserManager().getUserIDByUsername(username) != null){
+            return username;
+        }
+        else{
+            System.out.println("This is not a valid Username");
+            return validateUsernameInput();
         }
     }
     /**
@@ -136,22 +161,39 @@ public class UserController {
     /**
      * Sends a Friend request from the User Using this controller to the a user whose ID is entered
      */
-    public boolean sendFriendRequest(){
-        if (validateNotLoggedIn()){
+    public boolean sendFriendRequest() {
+        if (validateNotLoggedIn()) {
             System.out.println("You need to be logged in to do this");
             return false;
         }
-        System.out.println("Enter ID of friend you would like to add");
-        int potentialFriendId = validateUserIDInput();
-        boolean friendRequest = userManager.sendFriendRequest(currentUserId, potentialFriendId);
-        if (!friendRequest){
-            System.out.println("You have either already sent a friend request or " +
-                    "they have already accepted you as a friend or you entered your username");
-            return false;
+        System.out.println("Add By Username (press 1) or ID (Press another key)?");
+        int userChoice = scanner.nextInt();
+        if (userChoice == 1) {
+            String currentUsername = getUserManager().getUserByID(currentUserId).getUsername();
+            System.out.println("Enter Username of friend you would like to add");
+            String potentialFriendUsername = validateUsernameInput();
+            boolean friendRequest = userManager.sendFriendRequest(currentUsername, potentialFriendUsername);
+            if (!friendRequest) {
+                System.out.println("You have either already sent a friend request or " +
+                        "they have already accepted you as a friend or you entered your username");
+                return false;
+            } else {
+                System.out.println("Friend Request Sent");
+                return true;
+            }
         }
-        else{
-            System.out.println("Friend Request Sent");
-            return true;
+        else {
+            System.out.println("Enter ID of friend you would like to add");
+            int potentialFriendId = validateUserIDInput();
+            boolean friendRequest = userManager.sendFriendRequest(currentUserId, potentialFriendId);
+            if (!friendRequest) {
+                System.out.println("You have either already sent a friend request or " +
+                        "they have already accepted you as a friend or you entered your username");
+                return false;
+            } else {
+                System.out.println("Friend Request Sent");
+                return true;
+            }
         }
     }
     /**
@@ -161,15 +203,32 @@ public class UserController {
         if (validateNotLoggedIn()){
             System.out.println("You need to be logged in to do this");
             return false;}
-        System.out.println("Enter ID of friend whose request you would like to accept");
-        int potentialFriendId = validateUserIDInput();
-        if (!userManager.acceptFriendRequest(currentUserId, potentialFriendId)){
-            System.out.println("This person has not sent you a request");
-            return false;
+        System.out.println("Add By Username (press 1) or ID (Press another key)?");
+        int userChoice = scanner.nextInt();
+        if (userChoice == 1){
+            String currentUsername = getUserManager().getUserByID(currentUserId).getUsername();
+            System.out.println("Enter Username of friend whose request you would like to accept");
+            String potentialFriendUsername = validateUsernameInput();
+            if (!userManager.acceptFriendRequest(currentUsername, potentialFriendUsername)){
+                System.out.println("This person has not sent you a request");
+                return false;
+            }
+            else{
+                System.out.println("You have now added each other as friends");
+                return true;
+            }
         }
         else{
-            System.out.println("You have now added each other as friends");
-            return true;
+            System.out.println("Enter ID of friend whose request you would like to accept");
+            int potentialFriendId = validateUserIDInput();
+            if (!userManager.acceptFriendRequest(currentUserId, potentialFriendId)){
+                System.out.println("This person has not sent you a request");
+                return false;
+            }
+            else{
+                System.out.println("You have now added each other as friends");
+                return true;
+            }
         }
     }
 
@@ -190,6 +249,13 @@ public class UserController {
             return userManager.getUserByID(currentUserId).getType();
         else
             return 'N';
+    }
+    public boolean printYourID(){
+        if (!validateNotLoggedIn()){
+            System.out.println(currentUserId);
+            return true;
+        }
+        return false;
     }
 
     /**
