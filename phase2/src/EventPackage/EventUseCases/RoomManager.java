@@ -2,9 +2,10 @@ package EventPackage.EventUseCases;
 
 import EventPackage.EventEntities.Room;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RoomManager {
+public class RoomManager implements Serializable {
 
     private ArrayList<Room> roomList;
     private int nextNumber;
