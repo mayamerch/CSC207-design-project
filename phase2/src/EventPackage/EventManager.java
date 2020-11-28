@@ -41,7 +41,7 @@ public class EventManager {
      */
     public int createParty(String eventName, int eventCapacity, Date eventDate, int eventRoom,
                            int eventDuration, boolean VIPStatus) {
-        if (roomCompare(eventRoom, eventDate, eventDuration))
+        if (roomCompare(nextID, eventRoom, eventDate, eventDuration))
             return -1;
         Party newEvent = new Party(nextID, eventName, eventCapacity, eventDate,
                 eventRoom, eventDuration, VIPStatus);
@@ -67,10 +67,10 @@ public class EventManager {
      */
     public int createSingleSpeaker(String eventName, int eventCapacity, Date eventDate, int eventRoom,
                                    int eventDuration, boolean VIPStatus, int eventSpeaker) {
-        if (roomCompare(eventRoom, eventDate, eventDuration))
+        if (roomCompare(nextID, eventRoom, eventDate, eventDuration))
             return -1;
 
-        if(speakerCompare(eventDate, eventDuration, eventSpeaker))
+        if(speakerCompare(nextID, eventDate, eventDuration, eventSpeaker))
             return -1;
 
         SingleSpeaker newEvent = new SingleSpeaker(nextID, eventName, eventCapacity, eventDate,
@@ -99,11 +99,11 @@ public class EventManager {
      */
     public int createMultiSpeaker(String eventName, int eventCapacity, Date eventDate, int eventRoom,
                                    int eventDuration, boolean VIPStatus, ArrayList<Integer> eventSpeakers) {
-        if (roomCompare(eventRoom, eventDate, eventDuration))
+        if (roomCompare(nextID, eventRoom, eventDate, eventDuration))
             return -1;
 
         for (Integer speakerId: eventSpeakers)
-            if (speakerCompare(eventDate, eventDuration, speakerId))
+            if (speakerCompare(nextID, eventDate, eventDuration, speakerId))
                 return -1;
 
         MultiSpeaker newEvent = new MultiSpeaker(nextID, eventName, eventCapacity, eventDate,
@@ -117,16 +117,16 @@ public class EventManager {
 
 
 
-    private boolean speakerCompare(Date eventDate, int eventDuration, int eventSpeaker) {
+    private boolean speakerCompare(int eventId, Date eventDate, int eventDuration, int eventSpeaker) {
         for (SingleSpeaker event: singleSpeakerList) {
-            if (event.getEventSpeaker() == eventSpeaker)
+            if (event.getEventId() != eventId &&event.getEventSpeaker() == eventSpeaker)
                 if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
                     return true;
                 }
         }
 
         for (MultiSpeaker event: multiSpeakerList) {
-            if (event.getEventSpeakers().contains(eventSpeaker))
+            if (event.getEventId() != eventId && event.getEventSpeakers().contains(eventSpeaker))
                 if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
                     return true;
                 }
@@ -136,9 +136,9 @@ public class EventManager {
 
 
 
-    private boolean roomCompare(int eventRoom, Date eventDate, int eventDuration) {
+    private boolean roomCompare(int eventId, int eventRoom, Date eventDate, int eventDuration) {
         for (Event event : eventList) {
-            if ((event.getEventRoom() == (eventRoom)))
+            if (event.getEventId() != eventId && event.getEventRoom() == (eventRoom))
                 if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
                     return true;
                 }
@@ -293,33 +293,113 @@ public class EventManager {
 
 
     /**
-     * Reschedules an event by changing its Date, Room, Speaker, and Duration (not included in phase 1) as long as its
+     * Reschedules a Party by changing its Date, Capacity, Room, and Duration (not included in phase 1) as long as its
      * possible.
      * @param eventId The id of the vent to be rescheduled
+     * @param eventCapacity The capacity of the event
      * @param eventDate The new date of event
      * @param eventRoom The new room of event
-     * @param eventSpeaker The new speaker at event
      * @param eventDuration The new duration of th event
      * @return              True if event was rescheduled, false if it was unable to
      */
-    public boolean reschedule(int eventId, Date eventDate, int eventRoom, int eventSpeaker, int eventDuration) {
+    public boolean rescheduleParty(int eventId, int eventCapacity, Date eventDate, int eventRoom,
+                              int eventDuration) {
         int index = -1;
-        int status = -1;
-        for (int i = 0; i < eventList.size(); i++) {
-            if (eventList.get(i).getEventId() == eventId)
+        for (int i = 0; i < partyList.size(); i++) {
+            if (partyList.get(i).getEventId() == eventId)
                 index = i;
         }
 
         if (index == -1)
             return false;
 
-        if (roomCompare(eventRoom, eventDate, eventDuration))
+        if (roomCompare(eventId, eventRoom, eventDate, eventDuration))
             return false;
 
-        eventList.get(index).setEventDate(eventDate);
-        eventList.get(index).setEventRoom(eventRoom);
-        eventList.get(index).setEventSpeaker(eventSpeaker);
-        eventList.get(index).setEventDuration(eventDuration);
+
+        partyList.get(index).setEventDate(eventDate);
+        partyList.get(index).setEventRoom(eventRoom);
+        partyList.get(index).setEventDuration(eventDuration);
+        partyList.get(index).setEventCapacity(eventCapacity);
+
+        return true;
+    }
+
+
+    /**
+     * Reschedules a Party by changing its Date, Capacity, Room, and Duration (not included in phase 1) as long as its
+     * possible.
+     * @param eventId The id of the vent to be rescheduled
+     * @param eventCapacity The capacity of the event
+     * @param eventDate The new date of event
+     * @param eventRoom The new room of event
+     * @param eventDuration The new duration of th event
+     * @param speakerId The id of new speaker  at this event
+     * @return              True if event was rescheduled, false if it was unable to
+     */
+    public boolean rescheduleSingleSpeaker(int eventId, int eventCapacity, Date eventDate, int eventRoom,
+                                   int eventDuration, int speakerId) {
+        int index = -1;
+        for (int i = 0; i < singleSpeakerList.size(); i++) {
+            if (singleSpeakerList.get(i).getEventId() == eventId)
+                index = i;
+        }
+
+        if (index == -1)
+            return false;
+
+        if (roomCompare(eventId, eventRoom, eventDate, eventDuration)
+                || speakerCompare(eventId, eventDate, eventDuration, speakerId))
+            return false;
+
+
+        singleSpeakerList.get(index).setEventDate(eventDate);
+        singleSpeakerList.get(index).setEventRoom(eventRoom);
+        singleSpeakerList.get(index).setEventDuration(eventDuration);
+        singleSpeakerList.get(index).setEventCapacity(eventCapacity);
+        singleSpeakerList.get(index).setEventSpeaker(speakerId);
+
+        return true;
+    }
+
+
+    /**
+     * Reschedules a Party by changing its Date, Capacity, Room, and Duration (not included in phase 1) as long as its
+     * possible.
+     * @param eventId The id of the vent to be rescheduled
+     * @param eventCapacity The capacity of the event
+     * @param eventDate The new date of event
+     * @param eventRoom The new room of event
+     * @param eventDuration The new duration of the event
+     * @param speakerIds The ids of  the new speaker of this event
+     * @return              True if event was rescheduled, false if it was unable to
+     */
+    public boolean rescheduleMultiSpeaker(int eventId, int eventCapacity, Date eventDate, int eventRoom,
+                                   int eventDuration, ArrayList<Integer> speakerIds) {
+        int index = -1;
+        for (int i = 0; i < multiSpeakerList.size(); i++) {
+            if (multiSpeakerList.get(i).getEventId() == eventId)
+                index = i;
+        }
+
+        if (index == -1)
+            return false;
+
+        if (roomCompare(eventId, eventRoom, eventDate, eventDuration))
+            return false;
+
+        if (speakerIds.size() == 0)
+            return false;
+
+        for (Integer speakerId: speakerIds)
+            if (speakerCompare(eventId, eventDate, eventDuration, speakerId))
+                return false;
+
+        multiSpeakerList.get(index).setEventDate(eventDate);
+        multiSpeakerList.get(index).setEventRoom(eventRoom);
+        multiSpeakerList.get(index).setEventDuration(eventDuration);
+        multiSpeakerList.get(index).setEventCapacity(eventCapacity);
+        multiSpeakerList.get(index).setEventSpeakers(speakerIds);
 
         return true;
     }
