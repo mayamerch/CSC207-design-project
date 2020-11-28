@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class EventRoomGateway {
+public class EventGateway {
     private File fileDataEvent;
     private File fileDataRoom;
     private ArrayList<StringBuilder> eventData;
@@ -23,11 +23,11 @@ public class EventRoomGateway {
     /**
      * Creates a new EventRoomGateway
      */
-    public EventRoomGateway() {
+    public EventGateway() {
         try {
             //One of the two works according to how you run Intellij
 
-           // this.fileDataEvent = new File("src/EventPackage/eventData.txt");
+            // this.fileDataEvent = new File("src/EventPackage/eventData.txt");
             this.fileDataEvent = new File("eventData.txt");
             if (this.fileDataEvent.createNewFile()) {
                 this.eventData = new ArrayList<>();
