@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.LinkedList;
 
 public class UserGateway {
+
+    private File file = new File("userFile.ser");
+
     /**
      * Takes A Linked List of user objects and saves them to a.ser file.
      * @param list: The linked list of users to be saved
@@ -11,25 +14,24 @@ public class UserGateway {
     public void saveUserList(LinkedList<User> list){
         //File userManagerFilePath = new File("userFile.ser");
         try {
-            FileOutputStream fileOut = new FileOutputStream("userFile.ser");
+            FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(list);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in userFile.ser");
+            System.out.println("Serialized data is saved in "+file.getPath());
         } catch (IOException i) {
             i.printStackTrace();
         }
     }
     /**
      * Takes a String path to the .ser file where the Linked List of Users is stored and
-     * De serlaizes it to return a Linked List of Users to the program
-     * @param path: The path to the .ser file where the Linked List of Users is stored, String
+     * Deserializes it to return a Linked List of Users to the program
      */
-    public LinkedList<User> readUserList(String path){
+    public LinkedList<User> readUserList(){
         LinkedList<User> list = null;
         try {
-            FileInputStream fileIn = new FileInputStream(path);
+            FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             list = (LinkedList<User>) in.readObject();
             in.close();

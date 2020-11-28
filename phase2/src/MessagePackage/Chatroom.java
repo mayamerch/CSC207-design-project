@@ -1,8 +1,9 @@
 package MessagePackage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Chatroom implements Conversation{
+public class Chatroom implements Conversation, Serializable {
 
     private ArrayList<Integer> userList;
     //private MessageQueue messageQueue;
