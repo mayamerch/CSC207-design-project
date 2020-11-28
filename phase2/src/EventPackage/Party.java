@@ -4,8 +4,19 @@ import java.util.Date;
 
 public class Party extends Event{
 
-    public Party(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom, int eventDuration,
-                 boolean VIPStatus)
+
+    /**
+     * Creates a Party event with all the data given in parameters
+     * @param eventId Id of this event
+     * @param eventName Name of the event
+     * @param eventCapacity The capacity of this event
+     * @param eventDate The date of this event
+     * @param eventRoom The id of the room this event takes place in
+     * @param eventDuration the duration of the the event in hours
+     * @param VIPStatus Whether this event is VIP exclusive or not
+     */
+    public Party(int eventId, String eventName, int eventCapacity, Date eventDate,
+                 int eventRoom, int eventDuration, boolean VIPStatus)
     {
         super(eventId, eventName, eventCapacity, eventDate, eventRoom, eventDuration, VIPStatus);
     }

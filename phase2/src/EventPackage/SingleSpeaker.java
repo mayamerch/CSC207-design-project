@@ -9,7 +9,7 @@ public class SingleSpeaker extends Event{
     private int eventSpeaker;
 
     /**
-     * Constructs a new EventPackage.Event object
+     * Constructs a new SingleSpeaker Event object
      * @param eventDate A Date object
      * @param eventRoom Number of Room the event is in.
      * @param eventName Name of event, is a String

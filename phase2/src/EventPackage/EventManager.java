@@ -6,7 +6,11 @@ import java.util.Date;
 public class EventManager {
 
     private ArrayList<Event> eventList;
+    private ArrayList<Party> partyList;
+    private ArrayList<SingleSpeaker> singleSpeakerList;
+    private ArrayList<MultiSpeaker> multiSpeakerList;
     private int nextID;
+
 
 
     /**
@@ -22,38 +26,107 @@ public class EventManager {
         }
     }
 
-    /**
-     * Creates an instance of eventManager with no events
-     */
-    public EventManager() {
-        this.eventList = new ArrayList<>();
-        this.nextID = 1;
-    }
 
     /**
-     * Creates a new event and stores it in eventManager and increments eventCounter if the event is happening in an
+     * Creates a new Party and stores it in eventManager and increments eventCounter if the event is happening in an
      * available room and at an available time. Returns -1 if it wasn't created and returns the ID of the event created
      * if its successful
-     * @param eventName Name of new event
-     * @param eventRoom Number of room event is occurring at
-     * @param eventDate The date and time the event is occurring at
-     * @param eventSpeaker The Speaker at this event
-     * @return             -1 if event wasn't created and the ID of the event if it was created
+     * @param eventName Name of event to be made
+     * @param eventCapacity The capacity of the event
+     * @param eventDate The date of the event
+     * @param eventRoom The id of the room this event takes place
+     * @param eventDuration The duration of the event in hours
+     * @param VIPStatus Whether this event is VIP exclusive or not
+     * @return -1 if event wasn't created and the ID of the event if it was created
      */
-    public int createEvent(String eventName, int eventRoom, Date eventDate, int eventSpeaker,
-                           int eventDuration) {
-        if (eventCompare(eventRoom, eventDate, eventSpeaker, eventDuration))
+    public int createParty(String eventName, int eventCapacity, Date eventDate, int eventRoom,
+                           int eventDuration, boolean VIPStatus) {
+        if (roomCompare(eventRoom, eventDate, eventDuration))
             return -1;
-        Event newEvent = new Event(nextID, eventName, eventSpeaker, eventDate, eventRoom, eventDuration);
+        Party newEvent = new Party(nextID, eventName, eventCapacity, eventDate,
+                eventRoom, eventDuration, VIPStatus);
         eventList.add(newEvent);
+        partyList.add(newEvent);
         nextID += 1;
         return nextID - 1;
     }
 
 
-    private boolean eventCompare(int eventRoom, Date eventDate, int eventSpeaker, int eventDuration) {
-        for (Event event : eventList) {
-            if ((event.getEventRoom() == (eventRoom)) || (event.getEventSpeaker() == eventSpeaker))
+    /**
+     * Creates a new SingleSpeaker event and stores it in eventManager and increments eventCounter if the event is happening in an
+     * available room and at an available time with an available speaker. Returns -1 if it wasn't created and returns the ID of the event created
+     * if its successful
+     * @param eventName Name of event to be made
+     * @param eventCapacity The capacity of the event
+     * @param eventDate The date of the event
+     * @param eventRoom The id of the room this event takes place
+     * @param eventDuration The duration of the event in hours
+     * @param VIPStatus Whether this event is VIP exclusive or not
+     * @param eventSpeaker The id of the speaker at this event
+     * @return -1 if event wasn't created and the ID of the event if it was created
+     */
+    public int createSingleSpeaker(String eventName, int eventCapacity, Date eventDate, int eventRoom,
+                                   int eventDuration, boolean VIPStatus, int eventSpeaker) {
+        if (roomCompare(eventRoom, eventDate, eventDuration))
+            return -1;
+
+        if(speakerCompare(eventDate, eventDuration, eventSpeaker))
+            return -1;
+
+        SingleSpeaker newEvent = new SingleSpeaker(nextID, eventName, eventCapacity, eventDate,
+                eventRoom, eventDuration, VIPStatus, eventSpeaker);
+        eventList.add(newEvent);
+        singleSpeakerList.add(newEvent);
+        nextID += 1;
+        return nextID - 1;
+    }
+
+
+
+
+    /**
+     * Creates a new MultiSpeaker event and stores it in eventManager and increments eventCounter if the event is happening in an
+     * available room and at an available time with available speakers. Returns -1 if it wasn't created and returns the ID of the event created
+     * if its successful
+     * @param eventName Name of event to be made
+     * @param eventCapacity The capacity of the event
+     * @param eventDate The date of the event
+     * @param eventRoom The id of the room this event takes place
+     * @param eventDuration The duration of the event in hours
+     * @param VIPStatus Whether this event is VIP exclusive or not
+     * @param eventSpeakers The ids of the speakers at this event
+     * @return -1 if event wasn't created and the ID of the event if it was created
+     */
+    public int createMultiSpeaker(String eventName, int eventCapacity, Date eventDate, int eventRoom,
+                                   int eventDuration, boolean VIPStatus, ArrayList<Integer> eventSpeakers) {
+        if (roomCompare(eventRoom, eventDate, eventDuration))
+            return -1;
+
+        for (Integer speakerId: eventSpeakers)
+            if (speakerCompare(eventDate, eventDuration, speakerId))
+                return -1;
+
+        MultiSpeaker newEvent = new MultiSpeaker(nextID, eventName, eventCapacity, eventDate,
+                eventRoom, eventDuration, VIPStatus, eventSpeakers);
+        eventList.add(newEvent);
+        multiSpeakerList.add(newEvent);
+        nextID += 1;
+        return nextID - 1;
+    }
+
+
+
+
+    private boolean speakerCompare(Date eventDate, int eventDuration, int eventSpeaker) {
+        for (SingleSpeaker event: singleSpeakerList) {
+            if (event.getEventSpeaker() == eventSpeaker)
+                if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
+                    return true;
+                }
+        }
+
+        for (MultiSpeaker event: multiSpeakerList) {
+            if (event.getEventSpeakers().contains((Integer) eventSpeaker))
                 if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
                     return true;
                 }
@@ -62,6 +135,19 @@ public class EventManager {
     }
 
 
+
+    private boolean roomCompare(int eventRoom, Date eventDate, int eventDuration) {
+        for (Event event : eventList) {
+            if ((event.getEventRoom() == (eventRoom)))
+                if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
+                    return true;
+                }
+        }
+        return false;
+    }
+
+
+    // true if dates don't overlap false if they do
     private boolean dateCompare(Date date1, Date date2, int duration1, int duration2) {
         if (date1.getYear() != date2.getYear())
             return true;
@@ -95,6 +181,7 @@ public class EventManager {
         return false;
     }
 
+
     /**
      * Enrolls current user to event with eventID and returns an integer
      * @param eventID: ID of an event
@@ -117,6 +204,7 @@ public class EventManager {
         }
         return -1;
     }
+
 
     /**
      * Removes registration of current user to event with eventID and returns an integer
@@ -156,6 +244,7 @@ public class EventManager {
         return availEventList;
     }
 
+
     /**
      * Returns list of events that user has signed up for
      * @param userID ID of a user
@@ -170,6 +259,7 @@ public class EventManager {
         }
         return enrolledEvents;
     }
+
 
     /**
      * Returns an event corresponding to a specific eventID
