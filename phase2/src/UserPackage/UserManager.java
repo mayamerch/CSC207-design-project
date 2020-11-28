@@ -133,6 +133,20 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Takes in an Username`and returns the corresponding User object
+     * @param username: ID of the user we want to find
+     * @return User
+     */
+    public Integer getUserIDByUsername(String username){
+        for (User user : userList) {
+            if (username.equals(user.getUsername())) {
+                return user.getUserID();
+            }
+        }
+        return null;
+    }
+
+    /**
      * Takes in the ID of the current user and the ID of the user to be added as a friend then
      * modifies both user's friend lists accordingly
      * @param userID: ID of current user, integer
@@ -203,16 +217,16 @@ public class UserManager implements Serializable {
         // This means the friend is not in the friend request list
     }
 
+    public boolean sendFriendRequest(String username, String friendUsername){
+        int userID = getUserIDByUsername(username);
+        int friendID = getUserIDByUsername(friendUsername);
+        return sendFriendRequest(userID, friendID);
+    }
 
-    /**
-     * Returns a list of usernames
-     * @return a list of usernames of users in UserManager
-     */
-    public ArrayList<String> getUsernames() {
-        ArrayList<String> usernames = new ArrayList<String>();
-        for (User user: userList)
-            usernames.add(user.getUsername());
-        return usernames;
+    public boolean acceptFriendRequest(String username, String friendUsername){
+        int userID = getUserIDByUsername(username);
+        int friendID = getUserIDByUsername(friendUsername);
+        return acceptFriendRequest(userID, friendID);
     }
 
     /**

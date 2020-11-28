@@ -15,7 +15,7 @@ public class UserFactory {
         }
         if (usertype.equalsIgnoreCase("ORGANIZER")) {
             char type = 'O';
-            return new Organizer(new_username, new_password, type);
+            return new User(new_username, new_password, type);
         }
         if (usertype.equalsIgnoreCase("SPEAKER")){
             char type = 'S';
@@ -23,7 +23,7 @@ public class UserFactory {
         }
         else if (usertype.equalsIgnoreCase("ATTENDEE")) {
             char type = 'A';
-            return new Attendee(new_username, new_password, type);
+            return new User(new_username, new_password, type);
         } else {
             System.out.println("A " + usertype.toLowerCase() + " is an undefined user for this program.");
             return null;
