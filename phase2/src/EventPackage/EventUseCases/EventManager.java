@@ -4,16 +4,19 @@ import EventPackage.EventEntities.Event;
 import EventPackage.EventEntities.MultiSpeakerEvent;
 import EventPackage.EventEntities.Party;
 import EventPackage.EventEntities.SingleSpeakerEvent;
+import EventPackage.EventEntities.SpeakerEvent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class EventManager {
+public class EventManager implements Serializable {
 
     private ArrayList<Event> eventList;
     private ArrayList<Party> partyList;
     private ArrayList<SingleSpeakerEvent> singleSpeakerList;
     private ArrayList<MultiSpeakerEvent> multiSpeakerList;
+    private ArrayList<SpeakerEvent> speakerEvents;
     private int nextID;
 
 
@@ -22,8 +25,16 @@ public class EventManager {
      * Creates an instance eventManager that contains all the events in eventList
      * @param eventList The list of events this instance of eventManager should store
      */
-    public EventManager(ArrayList<Event> eventList) {
+    public EventManager(ArrayList<Event> eventList, ArrayList<Party> partyList,
+                        ArrayList<SingleSpeakerEvent> singleSpeakerList, ArrayList<MultiSpeakerEvent> multiSpeakerList,
+                        ArrayList<SpeakerEvent> speakerEvents) {
+
         this.eventList = eventList;
+        this.partyList = partyList;
+        this.singleSpeakerList = singleSpeakerList;
+        this.multiSpeakerList = multiSpeakerList;
+        this.speakerEvents = speakerEvents;
+
         if (eventList.size() == 0) {
             this.nextID = 1;
         } else {
@@ -82,6 +93,7 @@ public class EventManager {
                 eventRoom, eventDuration, VIPStatus, eventSpeaker);
         eventList.add(newEvent);
         singleSpeakerList.add(newEvent);
+        speakerEvents.add(newEvent);
         nextID += 1;
         return nextID - 1;
     }
@@ -115,6 +127,7 @@ public class EventManager {
                 eventRoom, eventDuration, VIPStatus, eventSpeakers);
         eventList.add(newEvent);
         multiSpeakerList.add(newEvent);
+        speakerEvents.add(newEvent);
         nextID += 1;
         return nextID - 1;
     }
@@ -441,6 +454,13 @@ public class EventManager {
     public ArrayList<MultiSpeakerEvent> getMultiSpeakerList() {
         return multiSpeakerList;
     }
+
+
+    /**
+     * Returns a list of all events that has speakers
+     * @return a list of all events with speakers
+     */
+    public ArrayList<SpeakerEvent> getSpeakerEvents() {return speakerEvents;}
 
 
     /**

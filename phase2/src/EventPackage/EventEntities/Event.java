@@ -1,10 +1,11 @@
 package EventPackage.EventEntities;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Event implements Comparable<Event>{
+public abstract class Event implements Comparable<Event>, Serializable {
     private int eventId;
     private String eventName;
     private Date eventDate;

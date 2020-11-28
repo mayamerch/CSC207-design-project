@@ -2,6 +2,7 @@ package EventPackage.EventEntities;
 
 import EventPackage.EventEntities.Event;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
