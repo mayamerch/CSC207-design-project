@@ -6,7 +6,7 @@ import EventPackage.EventEntities.Event;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SingleSpeakerEvent extends Event {
+public class SingleSpeakerEvent extends Event implements SpeakerEvent {
 
     private int eventSpeaker;
 
