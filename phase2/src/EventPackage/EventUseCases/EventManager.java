@@ -5,10 +5,11 @@ import EventPackage.EventEntities.MultiSpeakerEvent;
 import EventPackage.EventEntities.Party;
 import EventPackage.EventEntities.SingleSpeakerEvent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class EventManager {
+public class EventManager implements Serializable {
 
     private ArrayList<Event> eventList;
     private ArrayList<Party> partyList;
