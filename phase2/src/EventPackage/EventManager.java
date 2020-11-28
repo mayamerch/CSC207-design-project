@@ -7,8 +7,8 @@ public class EventManager {
 
     private ArrayList<Event> eventList;
     private ArrayList<Party> partyList;
-    private ArrayList<SingleSpeaker> singleSpeakerList;
-    private ArrayList<MultiSpeaker> multiSpeakerList;
+    private ArrayList<SingleSpeakerEvent> singleSpeakerList;
+    private ArrayList<MultiSpeakerEvent> multiSpeakerList;
     private int nextID;
 
 
@@ -65,7 +65,7 @@ public class EventManager {
      * @param eventSpeaker The id of the speaker at this event
      * @return -1 if event wasn't created and the ID of the event if it was created
      */
-    public int createSingleSpeaker(String eventName, int eventCapacity, Date eventDate, int eventRoom,
+    public int createSingleSpeakerEvent(String eventName, int eventCapacity, Date eventDate, int eventRoom,
                                    int eventDuration, boolean VIPStatus, int eventSpeaker) {
         if (roomCompare(nextID, eventRoom, eventDate, eventDuration))
             return -1;
@@ -73,7 +73,7 @@ public class EventManager {
         if(speakerCompare(nextID, eventDate, eventDuration, eventSpeaker))
             return -1;
 
-        SingleSpeaker newEvent = new SingleSpeaker(nextID, eventName, eventCapacity, eventDate,
+        SingleSpeakerEvent newEvent = new SingleSpeakerEvent(nextID, eventName, eventCapacity, eventDate,
                 eventRoom, eventDuration, VIPStatus, eventSpeaker);
         eventList.add(newEvent);
         singleSpeakerList.add(newEvent);
@@ -97,7 +97,7 @@ public class EventManager {
      * @param eventSpeakers The ids of the speakers at this event
      * @return -1 if event wasn't created and the ID of the event if it was created
      */
-    public int createMultiSpeaker(String eventName, int eventCapacity, Date eventDate, int eventRoom,
+    public int createMultiSpeakerEvent(String eventName, int eventCapacity, Date eventDate, int eventRoom,
                                    int eventDuration, boolean VIPStatus, ArrayList<Integer> eventSpeakers) {
         if (roomCompare(nextID, eventRoom, eventDate, eventDuration))
             return -1;
@@ -106,7 +106,7 @@ public class EventManager {
             if (speakerCompare(nextID, eventDate, eventDuration, speakerId))
                 return -1;
 
-        MultiSpeaker newEvent = new MultiSpeaker(nextID, eventName, eventCapacity, eventDate,
+        MultiSpeakerEvent newEvent = new MultiSpeakerEvent(nextID, eventName, eventCapacity, eventDate,
                 eventRoom, eventDuration, VIPStatus, eventSpeakers);
         eventList.add(newEvent);
         multiSpeakerList.add(newEvent);
@@ -118,14 +118,14 @@ public class EventManager {
 
 
     private boolean speakerCompare(int eventId, Date eventDate, int eventDuration, int eventSpeaker) {
-        for (SingleSpeaker event: singleSpeakerList) {
+        for (SingleSpeakerEvent event: singleSpeakerList) {
             if (event.getEventId() != eventId &&event.getEventSpeaker() == eventSpeaker)
                 if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
                     return true;
                 }
         }
 
-        for (MultiSpeaker event: multiSpeakerList) {
+        for (MultiSpeakerEvent event: multiSpeakerList) {
             if (event.getEventId() != eventId && event.getEventSpeakers().contains(eventSpeaker))
                 if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
                     return true;
@@ -425,7 +425,7 @@ public class EventManager {
      * Returns the list of Single Speaker events in this EventManger
      * @return      List of Single Speaker events
      */
-    public ArrayList<SingleSpeaker> getSingleSpeakerList() {
+    public ArrayList<SingleSpeakerEvent> getSingleSpeakerList() {
         return singleSpeakerList;
     }
 
@@ -433,7 +433,7 @@ public class EventManager {
      * Returns the list of Multi Speaker events in this EventManger
      * @return      List of Multi Speaker events
      */
-    public ArrayList<MultiSpeaker> getMultiSpeakerList() {
+    public ArrayList<MultiSpeakerEvent> getMultiSpeakerList() {
         return multiSpeakerList;
     }
 
@@ -446,13 +446,13 @@ public class EventManager {
     public ArrayList<Event> speakingAt(int SpeakerId) {
         ArrayList<Event> speaking = new ArrayList<Event>();
 
-        for (SingleSpeaker event: singleSpeakerList) {
+        for (SingleSpeakerEvent event: singleSpeakerList) {
             if (event.getEventSpeaker() == SpeakerId){
                 speaking.add(event);
             }
         }
 
-        for (MultiSpeaker event: multiSpeakerList) {
+        for (MultiSpeakerEvent event: multiSpeakerList) {
             if (event.getEventSpeakers().contains(SpeakerId)){
                 speaking.add(event);
             }
@@ -468,12 +468,12 @@ public class EventManager {
      */
     public ArrayList<Integer> getAllSpeakers() {
         ArrayList<Integer> allSpeakers = new ArrayList<>();
-        for (SingleSpeaker event: singleSpeakerList) {
+        for (SingleSpeakerEvent event: singleSpeakerList) {
             if (!allSpeakers.contains(event.getEventSpeaker()))
                 allSpeakers.add(event.getEventSpeaker());
         }
 
-        for (MultiSpeaker event: multiSpeakerList) {
+        for (MultiSpeakerEvent event: multiSpeakerList) {
             for (int speakerId: event.getEventSpeakers())
                 if (!allSpeakers.contains(speakerId))
                     allSpeakers.add(speakerId);

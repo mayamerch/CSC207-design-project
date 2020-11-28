@@ -4,7 +4,7 @@ package EventPackage;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MultiSpeaker extends Event{
+public class MultiSpeakerEvent extends Event{
 
     private ArrayList<Integer> eventSpeakers;
 
@@ -17,7 +17,7 @@ public class MultiSpeaker extends Event{
      * @param eventId The unique ID of an event
      * @param eventDuration The duration in hours of the event
      */
-    public MultiSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom, int eventDuration,
+    public MultiSpeakerEvent(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom, int eventDuration,
                          boolean VIPStatus, ArrayList<Integer> eventSpeakers)
     {
         super(eventId, eventName, eventCapacity, eventDate, eventRoom, eventDuration, VIPStatus);
