@@ -1,18 +1,13 @@
-import EventPackage.EventController;
-import EventPackage.EventManager;
-import EventPackage.RoomManager;
+import EventPackage.EventOuterLayer.EventController;
 import MessagePackage.BroadcastController;
 import MessagePackage.ChatroomController;
 import MessagePackage.ConversationPresenter;
 import UserPackage.User;
 import UserPackage.UserController;
-import UserPackage.UserGateway;
-import UserPackage.UserManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Boot {

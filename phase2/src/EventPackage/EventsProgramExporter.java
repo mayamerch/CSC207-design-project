@@ -1,6 +1,7 @@
 package EventPackage;
 
 import EventPackage.EventEntities.Event;
+import EventPackage.EventUseCases.EventManager;
 import UserPackage.UserManager;
 
 import java.io.File;

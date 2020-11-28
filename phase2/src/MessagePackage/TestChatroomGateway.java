@@ -1,6 +1,6 @@
 package MessagePackage;
 
-import EventPackage.EventManager;
+import EventPackage.EventUseCases.EventManager;
 import UserPackage.UserManager;
 
 import java.io.IOException;

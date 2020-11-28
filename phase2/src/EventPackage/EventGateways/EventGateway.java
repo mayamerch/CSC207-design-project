@@ -1,4 +1,4 @@
-package EventPackage;
+package EventPackage.EventGateways;
 
 import EventPackage.EventEntities.Event;
 import EventPackage.EventEntities.Room;

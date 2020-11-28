@@ -1,7 +1,7 @@
 package MessagePackage;
 
 import EventPackage.EventEntities.Event;
-import EventPackage.EventManager;
+import EventPackage.EventUseCases.EventManager;
 import UserPackage.Speaker;
 import UserPackage.UserManager;
 

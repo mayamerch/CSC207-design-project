@@ -1,7 +1,9 @@
-package EventPackage;
+package EventPackage.EventOuterLayer;
 
 
 import EventPackage.EventEntities.Event;
+import EventPackage.EventUseCases.EventManager;
+import EventPackage.EventUseCases.RoomManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

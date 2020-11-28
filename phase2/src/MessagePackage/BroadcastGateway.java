@@ -1,6 +1,6 @@
 package MessagePackage;
 
-import EventPackage.EventManager;
+import EventPackage.EventUseCases.EventManager;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package EventPackage;
+package EventPackage.EventUseCases;
 
 import EventPackage.EventEntities.Event;
 import EventPackage.EventEntities.MultiSpeakerEvent;
