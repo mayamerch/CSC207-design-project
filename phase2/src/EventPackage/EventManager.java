@@ -126,7 +126,7 @@ public class EventManager {
         }
 
         for (MultiSpeaker event: multiSpeakerList) {
-            if (event.getEventSpeakers().contains((Integer) eventSpeaker))
+            if (event.getEventSpeakers().contains(eventSpeaker))
                 if (!dateCompare(eventDate, event.getEventDate(), eventDuration, event.getEventDuration())) {
                     return true;
                 }
@@ -313,13 +313,13 @@ public class EventManager {
         if (index == -1)
             return false;
 
-        if (eventCompare(eventRoom, eventDate, eventSpeaker, eventDuration))
+        if (roomCompare(eventRoom, eventDate, eventDuration))
             return false;
 
         eventList.get(index).setEventDate(eventDate);
         eventList.get(index).setEventRoom(eventRoom);
         eventList.get(index).setEventSpeaker(eventSpeaker);
-        // eventList.get(index).setEventDuration(eventDuration);
+        eventList.get(index).setEventDuration(eventDuration);
 
         return true;
     }
@@ -333,6 +333,30 @@ public class EventManager {
         return eventList;
     }
 
+    /**
+     * Returns the list of parties in this EventManger
+     * @return      List of parties
+     */
+    public ArrayList<Party> getPartyList() {
+        return partyList;
+    }
+
+    /**
+     * Returns the list of Single Speaker events in this EventManger
+     * @return      List of Single Speaker events
+     */
+    public ArrayList<SingleSpeaker> getSingleSpeakerList() {
+        return singleSpeakerList;
+    }
+
+    /**
+     * Returns the list of Multi Speaker events in this EventManger
+     * @return      List of Multi Speaker events
+     */
+    public ArrayList<MultiSpeaker> getMultiSpeakerList() {
+        return multiSpeakerList;
+    }
+
 
     /**
      * Returns the list of events a specific speaker is speaking at
@@ -341,24 +365,40 @@ public class EventManager {
      */
     public ArrayList<Event> speakingAt(int SpeakerId) {
         ArrayList<Event> speaking = new ArrayList<Event>();
-        for (Event event: this.eventList) {
+
+        for (SingleSpeaker event: singleSpeakerList) {
             if (event.getEventSpeaker() == SpeakerId){
                 speaking.add(event);
             }
         }
+
+        for (MultiSpeaker event: multiSpeakerList) {
+            if (event.getEventSpeakers().contains(SpeakerId)){
+                speaking.add(event);
+            }
+        }
+
         return speaking;
     }
 
 
     /**
-     * Returns a list of ids of all the speakers currently speaking at an event
+     * Returns a list of ids of all the speakers currently speaking at any event
      * @return a list of ids of all the speakers
      */
     public ArrayList<Integer> getAllSpeakers() {
         ArrayList<Integer> allSpeakers = new ArrayList<>();
-        for (Event event: eventList)
+        for (SingleSpeaker event: singleSpeakerList) {
             if (!allSpeakers.contains(event.getEventSpeaker()))
                 allSpeakers.add(event.getEventSpeaker());
+        }
+
+        for (MultiSpeaker event: multiSpeakerList) {
+            for (int speakerId: event.getEventSpeakers())
+                if (!allSpeakers.contains(speakerId))
+                    allSpeakers.add(speakerId);
+        }
+
         return allSpeakers;
     }
 
