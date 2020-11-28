@@ -1,6 +1,7 @@
 package UserPackage;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class UserGateway {
@@ -11,7 +12,7 @@ public class UserGateway {
      * Takes A Linked List of user objects and saves them to a.ser file.
      * @param list: The linked list of users to be saved
      */
-    public void saveUserList(LinkedList<User> list){
+    public void saveUserMap(HashMap<Integer, User> list){
         //File userManagerFilePath = new File("userFile.ser");
         try {
             FileOutputStream fileOut = new FileOutputStream(file);
@@ -28,15 +29,15 @@ public class UserGateway {
      * Takes a String path to the .ser file where the Linked List of Users is stored and
      * Deserializes it to return a Linked List of Users to the program
      */
-    public LinkedList<User> readUserList(){
-        LinkedList<User> list = null;
+    public HashMap<Integer, User> readUserMap(){
+        HashMap<Integer, User> userHashMap = null;
         try {
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            list = (LinkedList<User>) in.readObject();
+            userHashMap = (HashMap<Integer, User>) in.readObject();
             in.close();
             fileIn.close();
-            return list;
+            return userHashMap;
         } catch (FileNotFoundException f) {
             return null;
         } catch (IOException i) {

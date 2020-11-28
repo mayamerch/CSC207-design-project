@@ -1,38 +1,45 @@
 package UserPackage;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 public class UserManager implements Serializable {
 
     private UserFactory factory = new UserFactory();
-    private LinkedList<User> userList;
     private int usersCreated;
     private LinkedList<User> speakerList = new LinkedList<>();
     private LinkedList<User> attendeeList = new LinkedList<>();
     private LinkedList<User> organizerList = new LinkedList<>();
+    private HashMap<Integer,User> userHashMap = new HashMap<>();
 
 
     /**
      * Creates a UserManager with an empty list of Users, Organisers, and Speakers and a usersCreated of 0
      */
     public UserManager() {
-        userList = new LinkedList<User>();
         usersCreated = 0;
-        organizerList = new LinkedList<User>();
-        attendeeList = new LinkedList<User>();
-        speakerList = new LinkedList<User>();
     }
     /**
      * Creates a UserManager with an existing Linked list of Users and a user factory, and sets UsersCreated
-     * and sets the UserList, AttendeeList, OrganiserList and SpeakerList accordingly
+     * and sets the UserHashMap, AttendeeList, OrganiserList and SpeakerList accordingly
      */
-    public UserManager(LinkedList<User> list) {
-        //use this for when taking in a user list from a file
-        userList = list;
-        usersCreated = findMaxIDFromList(list);
-        remakeAOSLists(list);
+    public UserManager(HashMap<Integer,User> map){
+        userHashMap = map;
+        usersCreated = findMaxIDFromMap(map);
+        remakeAOSLists(map);
+    }
+
+    /**
+     * Takes in a Map of users and returns the UserID with the highest value
+     * @param map, the Linked List of Users
+     * @return the highest UserID, integer
+     */
+    private int findMaxIDFromMap(Map<Integer, User> map) {
+        int max = 0;
+        for (Integer x: map.keySet())
+            if (max < x)
+                max = x;
+        return max;
     }
 
     /**
@@ -43,13 +50,19 @@ public class UserManager implements Serializable {
      * @param usertype: a character specifying the type of user to be created
      */
     public boolean createAccount(String newUsername, String newPassword, String usertype){
+        if(!Character.isLetter(newUsername.charAt(0)))
+            return false; //returns false and doesn't create a new user if first character of username is not a letter
         User new_user;
         new_user = this.factory.getuser(newUsername, newPassword, usertype);
         // Casting as User?
         if (new_user != null &&checkUnusedUsername(newUsername)) {
-            userList.add(new_user);
             int new_userID = usersCreated + 1;
             new_user.setUserID(new_userID);
+            userHashMap.put(new_userID, new_user);
+            if (!checkUserInfo(new_userID, newUsername, newPassword)) {
+                System.out.println("this string should never print, something is really wrong");
+                return false;// extra redundancy to check if user is not added to userHashMap
+            }
             if (new_user.getType() == 'S'){
                 speakerList.add(new_user);
             }
@@ -64,12 +77,16 @@ public class UserManager implements Serializable {
         }
         return false;
     }
+    //used to check if the user is what it's expected to be
+    private boolean checkUserInfo(int id, String username, String password){
+        return getUserByID(id).getUsername().equals(username) && getUserByID(id).getPassword().equals(password);
+    }
     /**
      * Checks the userList to see if any user already has this username, returning true or false
      * @param username: The username of the new account, String
      */
     private boolean checkUnusedUsername(String username){
-        for (User x: userList){
+        for (User x: userHashMap.values()){
             if (x.getUsername().equals(username))
                 return false;
         }
@@ -88,7 +105,7 @@ public class UserManager implements Serializable {
         return ((user.getUsername().equalsIgnoreCase(username)) && (user.getPassword().equals(password)));
     }
     public int validateLogin(String username, String password){
-        for (User x : userList){
+        for (User x : userHashMap.values()){
             if (validateLogin(x, username, password))
                 return x.getUserID();
         }
@@ -98,8 +115,8 @@ public class UserManager implements Serializable {
      * Returns the List of Users in the UserManager
      * @return the userList parameter, LinkedList
      */
-    public  LinkedList<User> getUserList(){
-        return userList;
+    public  HashMap<Integer, User> getUserHashMap(){
+        return userHashMap;
     }
     /**
      * Returns the List of Speakers in the UserManager
@@ -124,12 +141,7 @@ public class UserManager implements Serializable {
      * @return User
      */
     public User getUserByID(int userID) {
-        for (User user : userList) {
-            if (userID == user.getUserID()) {
-                return user;
-            }
-        }
-        return null;
+        return userHashMap.get(userID);
     }
     /**
      * Takes in an Username`and returns the corresponding User object
@@ -147,7 +159,7 @@ public class UserManager implements Serializable {
      * @return User
      */
     public int getUserIDByUsername(String username){
-        for (User user : userList) {
+        for (User user : userHashMap.values()) {
             if (username.equals(user.getUsername())) {
                 return user.getUserID();
             }
@@ -239,28 +251,13 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Takes in a Linked List of users and returns the UserID with the highest value
-     * @param list, the Linked List of Users
-     * @return the highest UserID, integer
-     */
-    private int findMaxIDFromList(LinkedList<User> list){
-        int maxID = 0;
-        if (list == null)
-            return 0;
-        for(User x: list){
-            if (x.getUserID() > maxID)
-                maxID = x.getUserID();
-        }
-        return maxID;
-    }
-    /**
-     * Takes in a Linked List of users and creates Linked Lists of Users, one for Organisers, Speakers
+     * Takes in a Map of users and creates Linked Lists of Users, one for Organisers, Speakers
      * and Attendees
-     * @param list, the Linked List of Users
+     * @param map, the Linked List of Users
      */
-    private void remakeAOSLists(LinkedList<User> list){
-        //remakes each type of list from a userList
-        for (User x: list){
+    private void remakeAOSLists(Map<Integer, User> map){
+        //remakes each type of map from a userList
+        for (User x: map.values()){
             switch (x.getType()){
                 case 'A':
                     attendeeList.add(x);

@@ -18,7 +18,7 @@ public class UserController {
         this.userGateway = new UserGateway();
         this.up = new UserPresenter();
         try {
-            this.userManager = new UserManager(this.userGateway.readUserList());
+            this.userManager = new UserManager(this.userGateway.readUserMap());
         } catch (NullPointerException n) {
             System.out.println("Empty UserManager List of Users");
             this.userManager = new UserManager();
@@ -104,7 +104,7 @@ public class UserController {
      * Controller
      */
     public void saveUserList(){
-        userGateway.saveUserList(getUserManager().getUserList());
+        userGateway.saveUserMap(getUserManager().getUserHashMap());
     }
     /**
      * Creates a new User Object with the right input of Username. returns true or false based on if
@@ -122,7 +122,7 @@ public class UserController {
             case "1":
                 if (userManager.createAccount(username, password, "Organizer")){
                     System.out.println("User successfully created");
-                    userGateway.saveUserList(userManager.getUserList());
+                    userGateway.saveUserMap(userManager.getUserHashMap());
                     return true;
                 }
                 else{System.out.println("The Username must be unique.");
@@ -130,7 +130,7 @@ public class UserController {
             case "2":
                 if (userManager.createAccount(username, password, "Attendee")){
                     System.out.println("User successfully created");
-                    userGateway.saveUserList(userManager.getUserList());
+                    userGateway.saveUserMap(userManager.getUserHashMap());
                     return true;
                 }
                 else{System.out.println("The Username must be unique.");
@@ -143,7 +143,7 @@ public class UserController {
                 User user = userManager.getUserByID(currentUserId);
                 if (userManager.createAccount(username, password, "Speaker")){
                     System.out.println("User successfully created");
-                    userGateway.saveUserList(userManager.getUserList());
+                    userGateway.saveUserMap(userManager.getUserHashMap());
                     return true;
                 }
                 else{System.out.println("The Username must be unique.");
