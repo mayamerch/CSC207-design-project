@@ -2,20 +2,57 @@ package MessagePackage;
 
 import EventPackage.EventManager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BroadcastGateway {
     private File broadcastDataFile;
     private EventManager em;
+    private boolean serialize = true; //if set to true, file is set to ser file in constructor, feel free to delete if we only serialize
 
     public BroadcastGateway(EventManager em) {
         this.em = em;
-        this.broadcastDataFile = new File("src/MessagePackage/BroadcastDataFile.txt");
+
+        //if serialize is a placeholder, we can delete it if we know that serializing works well
+        //if we delete it, we'll delete all the non serializing methods
+        if (serialize)
+            this.broadcastDataFile = new File("src/MessagePackage/BroadcastDataFile.ser");
+        else
+            this.broadcastDataFile = new File("src/MessagePackage/BroadcastDataFile.txt");
+    }
+
+    public void saveBroadcastsObject(ArrayList<Broadcast> broadcasts) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(this.broadcastDataFile);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(broadcasts);
+            out.close();
+            fileOut.close();
+            System.out.println("Serialized data is saved in "+this.broadcastDataFile.getPath());
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+    public ArrayList<Broadcast> readBroadcastsObject(){
+        ArrayList<Broadcast> broadcasts = null;
+        try {
+            FileInputStream fileIn = new FileInputStream(this.broadcastDataFile);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            broadcasts = (ArrayList<Broadcast>) in.readObject();
+            in.close();
+            fileIn.close();
+            return broadcasts;
+        } catch (FileNotFoundException f) {
+            return null;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        } catch (ClassNotFoundException c) {
+            System.out.println("List class not found");
+            c.printStackTrace();
+            return null;
+        }
     }
 
     /**

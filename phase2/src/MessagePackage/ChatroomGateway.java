@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class ChatroomGateway {
     private File chatroomDataFile;
-    private boolean serialize = true; //if set to true, file is set to ser file in constructor
+    private boolean serialize = true; //if set to true, file is set to ser file in constructor, feel free to delete if we only serialize
 
     /**
      * create ChatroomGateway which saves data from ChatroomController into ChatroomDataFile
