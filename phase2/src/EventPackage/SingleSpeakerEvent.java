@@ -4,7 +4,7 @@ package EventPackage;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SingleSpeaker extends Event{
+public class SingleSpeakerEvent extends Event{
 
     private int eventSpeaker;
 
@@ -19,7 +19,7 @@ public class SingleSpeaker extends Event{
      * @param VIPStatus Whether this event is VIP exclusive or not
      * @param eventCapacity The capacity of this event
      */
-    public SingleSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom, int eventDuration,
+    public SingleSpeakerEvent(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom, int eventDuration,
                  boolean VIPStatus, int eventSpeaker)
     {
         super(eventId, eventName, eventCapacity, eventDate, eventRoom, eventDuration, VIPStatus);
