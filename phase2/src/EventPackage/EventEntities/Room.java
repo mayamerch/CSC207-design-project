@@ -1,4 +1,4 @@
-package EventPackage;
+package EventPackage.EventEntities;
 
 public class Room {
     private int roomNumber;

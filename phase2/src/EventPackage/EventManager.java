@@ -1,5 +1,10 @@
 package EventPackage;
 
+import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.MultiSpeakerEvent;
+import EventPackage.EventEntities.Party;
+import EventPackage.EventEntities.SingleSpeakerEvent;
+
 import java.util.ArrayList;
 import java.util.Date;
 

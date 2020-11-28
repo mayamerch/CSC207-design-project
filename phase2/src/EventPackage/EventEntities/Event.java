@@ -1,4 +1,4 @@
-package EventPackage;
+package EventPackage.EventEntities;
 
 
 import java.util.ArrayList;

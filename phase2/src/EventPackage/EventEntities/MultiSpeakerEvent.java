@@ -1,10 +1,12 @@
-package EventPackage;
+package EventPackage.EventEntities;
 
+
+import EventPackage.EventEntities.Event;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MultiSpeakerEvent extends Event{
+public class MultiSpeakerEvent extends Event {
 
     private ArrayList<Integer> eventSpeakers;
 

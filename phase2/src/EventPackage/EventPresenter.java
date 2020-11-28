@@ -1,5 +1,8 @@
 package EventPackage;
 
+import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.Room;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 

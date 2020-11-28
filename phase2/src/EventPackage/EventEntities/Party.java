@@ -1,9 +1,11 @@
-package EventPackage;
+package EventPackage.EventEntities;
+
+import EventPackage.EventEntities.Event;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Party extends Event{
+public class Party extends Event {
 
 
     /**

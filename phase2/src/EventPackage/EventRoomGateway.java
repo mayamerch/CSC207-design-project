@@ -1,5 +1,8 @@
 package EventPackage;
 
+import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.Room;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

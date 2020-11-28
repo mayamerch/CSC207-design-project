@@ -1,5 +1,7 @@
 package EventPackage;
 
+import EventPackage.EventEntities.Room;
+
 import java.util.ArrayList;
 
 public class RoomManager {
