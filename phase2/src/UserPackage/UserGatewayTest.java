@@ -18,7 +18,6 @@ public class UserGatewayTest {
         userManager.addFriend(1, 2);
 
         userGateway.saveUserMap(userManager.getUserHashMap());
-   
         HashMap<Integer, User> ul = userGateway.readUserMap();
         System.out.println(ul.size());
     }
