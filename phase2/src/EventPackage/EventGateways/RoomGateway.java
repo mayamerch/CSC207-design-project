@@ -1,7 +1,6 @@
 package EventPackage.EventGateways;
 
-import EventPackage.EventUseCases.EventManager;
-import EventPackage.RoomManager;
+import EventPackage.EventUseCases.RoomManager;
 
 import java.io.*;
 import java.util.ArrayList;
