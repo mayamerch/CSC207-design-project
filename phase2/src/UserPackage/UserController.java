@@ -38,13 +38,13 @@ public class UserController {
      * Logs in the User based on the Username and Password entered by the User
      * @return the type of the User that logged in, character
      */
-    public char UserLogin() {
-        System.out.println("Press enter if there is no prompt directly following this line");
-        scanner.nextLine();
-        System.out.println("Enter Username");
-        String username = scanner.nextLine();
-        System.out.println("Enter Password");
-        String password = scanner.nextLine();
+    public char UserLogin(String username, String password) {
+//        System.out.println("Press enter if there is no prompt directly following this line");
+//        scanner.nextLine();
+//        System.out.println("Enter Username");
+//        String username = scanner.nextLine();
+//        System.out.println("Enter Password");
+//        String password = scanner.nextLine();
         int potentialID = userManager.validateLogin(username, password);
         if (potentialID >= 0 ) {
             currentUserId = potentialID;

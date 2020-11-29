@@ -35,6 +35,7 @@ public class SignUpForm extends JFrame{
                 String username = tf1.getText();
                 String password = tf2.getText();
                 //TODO: createAccount for user here
+                //UserController.createUser
             }
         });
 
