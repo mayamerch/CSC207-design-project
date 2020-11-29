@@ -22,7 +22,7 @@ public class ConversationPresenter { // User.java to get friends
                 "---------------------------------\n"+
                 "What would you like to do?\n" +
                 "1. Check Messages\n" +
-                "2. Send Messages\n" +
+                "2. Send Chat\n" +
                 "3. Check Broadcasts\n" +
                 "4. Send Broadcast to one Event\n" +
                 "6. Send Broadcast to all your Events\n");
@@ -36,7 +36,7 @@ public class ConversationPresenter { // User.java to get friends
                 "---------------------------------\n"+
                 "What would you like to do?\n" +
                 "1. Check Messages\n" +
-                "2. Send Messages\n" +
+                "2. Send Chat\n" +
                 "3. Check Broadcasts\n");
         return kb.nextInt();
     }
@@ -47,10 +47,10 @@ public class ConversationPresenter { // User.java to get friends
                 "---------------------------------\n"+
                 "What would you like to do?\n" +
                 "1. Check Messages\n" +
-                "2. Send Messages\n" +
+                "2. Send Chat\n" +
                 "3. Check Broadcasts\n" +
-                "7. Send Broadcast to Speakers\n" +
-                "5. Send Broadcast to Attendees\n");
+                "7. Send Message to All Speakers\n" +
+                "8. Send Message to All Attendees\n");
 
         return kb.nextInt();
     }
@@ -118,18 +118,6 @@ public class ConversationPresenter { // User.java to get friends
                     System.out.println("Enter the ID of the event you want to broadcast to:");
                     int speakerEventID = kb.nextInt();
                     bc.sendBroadcast(currID, speakerEventID, speakerBroadcast);
-                    bc.saveBroadcasts();
-                    option = -1;
-                    break;
-
-
-                case 5: // Send Broadcast to Attendees organizer
-                    System.out.println("Enter the message to send as a broadcast. Enter DONE when finished:");
-                    String organizerBroadcast = "";
-                    while(!kb.nextLine().equals("DONE")){
-                        organizerBroadcast = kb.nextLine();
-                    }
-                    bc.broadcastConference(currID, organizerBroadcast);
                     bc.saveBroadcasts();
                     option = -1;
                     break;

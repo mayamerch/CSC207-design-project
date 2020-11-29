@@ -30,16 +30,24 @@ public class ChatroomController {
 
     }
 
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
+    }
+
+    public ArrayList<Chatroom> getChats() {
+        return chats;
+    }
+
     /**
      * saves chats to ChatroomDataFile. Should be executed before program exits.
      * @throws IOException if writing to file was unsuccessful
      */
     public void saveChats() throws IOException {
         this.gateway.writeChatsToFile(this.chats);
-    }
-
-    public ArrayList<Chatroom> getChats() {
-        return chats;
     }
 
     /**
@@ -55,6 +63,12 @@ public class ChatroomController {
         for (int user : userlist) {
             if (!c.canRead(user) || !c.canSend(user)) {
                 return false;
+            }
+        }
+        for(int user: userlist){
+            if(!userManager.getUserByID(senderUserID).getFriendsList().contains(user) ||
+                    !userManager.getUserByID(user).getFriendsList().contains(senderUserID)){ // if someone is not a friend of the sender
+                return false; // can't send message to someone who isn't your friend
             }
         }
         return true;
@@ -140,6 +154,9 @@ public class ChatroomController {
      */
     public void messageAllSpeakers(int organizerUserID, String message){
         ArrayList<Integer> speakers = eventManager.getAllSpeakers();
+        for(int speaker: speakers){
+            userManager.getUserByID(speaker).addFriend(organizerUserID);
+        }
         if(userManager.getUserByID(organizerUserID).getType() == 'O') {
             sendChat(speakers, organizerUserID, message);
         }
@@ -155,6 +172,10 @@ public class ChatroomController {
      */
     public void messageAllAttendees(int organizerUserID, String message){
         ArrayList<Integer> attendees = eventManager.getAllAttendees();
+        // TODO: how to make all organizers friends with everyone
+        for(int attendee: attendees){
+            userManager.getUserByID(attendee).addFriend(organizerUserID);
+        }
         if(userManager.getUserByID(organizerUserID).getType() == 'O') {
             sendChat(attendees, organizerUserID, message);
         }
