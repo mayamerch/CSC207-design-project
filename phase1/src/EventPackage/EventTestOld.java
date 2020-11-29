@@ -2,7 +2,7 @@ package EventPackage;
 
 import java.util.ArrayList;
 
-public class EventTest {
+public class EventTestOld {
     public static void main(String[] args) {
         EventController ec = new EventController();
 

@@ -2,6 +2,8 @@ package EventPackage.EventOuterLayer;
 
 
 import EventPackage.EventEntities.Event;
+import EventPackage.EventGateways.EventGateway;
+import EventPackage.EventGateways.RoomGateway;
 import EventPackage.EventUseCases.EventManager;
 import EventPackage.EventUseCases.RoomManager;
 
@@ -15,16 +17,18 @@ public class EventController {
     private EventManager em;
     private RoomManager rm;
     private EventPresenter ep;
-    private EventRoomGateway EvRoGate;
+    private EventGateway eg;
+    private RoomGateway rg;
 
 
     /**
      * Creates an instance of EventController and loads in all the saved data
      */
     public EventController() {
-        this.EvRoGate = new EventRoomGateway();
-        em = new EventManager(EvRoGate.parseEvent());
-        rm = new RoomManager(EvRoGate.parseRoom());
+        this.eg = new EventGateway();
+        this.rg = new RoomGateway();
+        em = new EventManager(eg.parseEvent());
+        rm = new RoomManager(eg.parseRoom());
         ep = new EventPresenter();
     }
 
@@ -185,14 +189,14 @@ public class EventController {
                     break;
             }
 
-            EvRoGate.write(em.getEventList(), rm.getRoomList());
+            eg.write(em.getEventList(), rm.getRoomList());
             ep.printMenu(UserPerm);
             UserInput = reader2.nextLine();
         }
 
         ep.goBack();
 
-        EvRoGate.write(em.getEventList(), rm.getRoomList());
+        eg.write(em.getEventList(), rm.getRoomList());
 
     }
 

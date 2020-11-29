@@ -21,6 +21,15 @@ public class EventManager implements Serializable {
 
 
 
+    public EventManager() {
+        this.eventList = new ArrayList<>();
+        this.partyList = new ArrayList<>();
+        this.singleSpeakerList = new ArrayList<>();
+        this.multiSpeakerList = new ArrayList<>();
+        this.speakerEvents = new ArrayList<>();
+        this.nextID = 1;
+    }
+
     /**
      * Creates an instance eventManager that contains all the events in eventList
      * @param eventList The list of events this instance of eventManager should store

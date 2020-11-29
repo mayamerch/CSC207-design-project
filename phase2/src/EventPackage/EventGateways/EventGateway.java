@@ -2,11 +2,10 @@ package EventPackage.EventGateways;
 
 import EventPackage.EventEntities.Event;
 import EventPackage.EventEntities.Room;
+import EventPackage.EventUseCases.EventManager;
+import EventPackage.RoomManager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,148 +14,72 @@ import java.util.Scanner;
 
 public class EventGateway {
     private File fileDataEvent;
-    private File fileDataRoom;
-    private ArrayList<StringBuilder> eventData;
-    private ArrayList<StringBuilder> roomData;
-
+    private EventManager eventManager;
 
     /**
-     * Creates a new EventRoomGateway
+     * Creates a new EventGateway
      */
     public EventGateway() {
-        try {
-            //One of the two works according to how you run Intellij
-
-            // this.fileDataEvent = new File("src/EventPackage/eventData.txt");
-            this.fileDataEvent = new File("eventData.txt");
-            if (this.fileDataEvent.createNewFile()) {
-                this.eventData = new ArrayList<>();
-            } else {
-                this.eventData = read(fileDataEvent);
-            }
+        this.fileDataEvent = new File("EventData.ser");
+        try  {
+            if (fileDataEvent.createNewFile())
+                eventManager = new EventManager();
+             else
+                read();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-
-        try {
-            //One of the two works according to how you run Intellij
-
-            //this.fileDataRoom = new File("src/EventPackage/roomData.txt");
-            this.fileDataRoom = new File("phase1/src/EventPackage/roomData.txt");
-
-            if (this.fileDataRoom.createNewFile()) {
-                this.roomData = new ArrayList<>();
-            } else {
-                this.roomData = read(fileDataRoom);
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println("File Access Denied in Gateway");
         }
     }
-
 
     /**
      * Tries to read and return data from a text file.
      * Prints to console on exception
-     * @param fileData Data of file to be read
-     * @return Returns a the data in String form
+     * @return Returns the the EventManager serialized in file
      */
-    public ArrayList<StringBuilder> read(File fileData) {
+    public void read() {
         ArrayList<StringBuilder> data = new ArrayList<>();
         try {
-            Scanner fileReader = new Scanner(fileData);
-            while (fileReader.hasNextLine()) {
-                StringBuilder e = new StringBuilder(fileReader.nextLine());
-                data.add(e);
-            }
-            fileReader.close();
+            FileInputStream fileIn = new FileInputStream(this.fileDataEvent);
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            this.eventManager = (EventManager) objIn.readObject();
+            objIn.close();
+            fileIn.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Check file directory");
+            this.eventManager = new EventManager();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            System.out.println("Empty Events List (Rebuild .ser file or check permissions)");
+            this.eventManager = new EventManager();
         }
-        return data;
     }
 
 
     /**
-     * Tries to write a list of events and rooms to file specified in constructor.
+     * Tries to serialize an EventManager to file specified in constructor.
      * Prints to console on exception
-     * @param eventList A list of Event objects
-     * @param roomList A list of Room objects
+     * @param eventManager An EventManager object
      */
-    public void write(ArrayList<Event> eventList, ArrayList<Room> roomList) {
+    public void write(EventManager eventManager) {
         try {
-            FileWriter eventWriter = new FileWriter(this.fileDataEvent);
-            for (Event e : eventList) {
-                eventWriter.write(e.toString() + System.lineSeparator());
-            }
-            eventWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-
-        try {
-            FileWriter roomWriter = new FileWriter(this.fileDataRoom);
-            for (Room r : roomList) {
-                roomWriter.write(r.toString() + System.lineSeparator());
-            }
-            roomWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            this.eventManager = eventManager;
+            FileOutputStream fileOut = new FileOutputStream(this.fileDataEvent);
+            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+            objOut.writeObject(eventManager);
+            objOut.close();
+            fileOut.close();
+        } catch (IOException i) {
+            System.out.println("Check file directory");
         }
     }
-
-
 
     /**
-     * Returns an arraylist of Event objects by translating data in eventData
-     * @return Returns an arraylist of Event objects
+     * Updates current EventManager and returns it
+     * @return Returns an instance of an EventManager
      */
-    public ArrayList<Event> parseEvent() {
-        ArrayList <Event> objectData = new ArrayList<>();
-        for (StringBuilder stringEvent : this.eventData) {
-            String[] fieldArr = stringEvent.toString().split(",", 7);
-            try {
-                Date newDate = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(fieldArr[3]);
-                Event newEvent = new Event(Integer.parseInt(fieldArr[0]),
-                        fieldArr[1],
-                        Integer.parseInt(fieldArr[2]),
-                        newDate,
-                        Integer.parseInt(fieldArr[4]),
-                        Integer.parseInt(fieldArr[5]));
-                if (!fieldArr[6].equals("[]")) {
-                    String[] attendeesID = fieldArr[6].substring(1, fieldArr[6].length() - 1).split(", ");
-                    for (String s : attendeesID) {
-                        newEvent.addAttendee(Integer.parseInt(s));
-                    }
-                }
-                objectData.add(newEvent);
-            } catch (ParseException e) {
-                continue;
-            }
-        }
-        return objectData;
+
+    public EventManager getEventManager() {
+        read();
+        return this.eventManager;
     }
-
-
-
-    /**
-     * Returns an arraylist of Room objects by translating data in roomData
-     * @return Returns an arraylist of Room objects
-     */
-    public ArrayList<Room> parseRoom() {
-        ArrayList <Room> objectData = new ArrayList<>();
-        for (StringBuilder stringEvent : this.roomData) {
-            String[] fieldArr = stringEvent.toString().split(",");
-            Room newRoom = new Room(Integer.parseInt(fieldArr[0]),
-                    Integer.parseInt(fieldArr[1]));
-            objectData.add(newRoom);
-        }
-        return objectData;
-    }
-
 }
