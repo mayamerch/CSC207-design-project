@@ -91,6 +91,7 @@ public class BroadcastController {
      * @param organizerUserID the organizer who will be sending the broadcast
      * @param message the message to be broadcasted to the conference
      */
+    // TODO: remove this method (changed to a chat)
     public void broadcastConference(int organizerUserID, String message){
         if(um.getUserByID(organizerUserID).getType() == 'O') {
             for (Event e : em.getEventList()) {

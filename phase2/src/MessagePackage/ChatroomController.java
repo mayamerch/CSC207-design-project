@@ -5,21 +5,22 @@ import UserPackage.UserManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatroomController {
     private ArrayList<Chatroom> chats;
     private ChatroomGateway gateway;
-    private EventManager em;
-    private UserManager um;
+    private EventManager eventManager;
+    private UserManager userManager;
 
     /**
      * Creates an instance of ChatroomController that contains all the recorded conversations.
      * Reads in existing saved Chatrooms from ChatroomDataFile.txt
      */
-    public ChatroomController(EventManager em, UserManager um) {
-        this.em = em;
-        this.um = um;
+    public ChatroomController(EventManager eventManager, UserManager userManager) {
+        this.eventManager = eventManager;
+        this.userManager = userManager;
         this.gateway = new ChatroomGateway();
         try {
             this.chats = gateway.makeChats();
@@ -132,14 +133,49 @@ public class ChatroomController {
         return s.toString();
     }
 
-    public void sendMessageToAllSpeakers(int organizerUserID, String message){
-        ArrayList<Integer> speakers = em.getAllSpeakers();
-        if(um.getUserByID(organizerUserID).getType() == 'O') {
+    /**
+     * Sends a chat to all Speakers at the conference
+     * @param organizerUserID the ID of the Organizer sending the chat
+     * @param message the message being sent as a chat
+     */
+    public void messageAllSpeakers(int organizerUserID, String message){
+        ArrayList<Integer> speakers = eventManager.getAllSpeakers();
+        if(userManager.getUserByID(organizerUserID).getType() == 'O') {
             sendChat(speakers, organizerUserID, message);
         }
         else{
-            throw new Error("Only organizers can broadcast to all speakers.");
+            throw new Error("Only organizers can send messages to all speakers.");
+        }
+    }
+
+    /**
+     * Sends a chat to everyone at the conference
+     * @param organizerUserID the ID of the Organizer sending the chat
+     * @param message the message being sent as a chat
+     */
+    public void messageAllAttendees(int organizerUserID, String message){
+        ArrayList<Integer> attendees = eventManager.getAllAttendees();
+        if(userManager.getUserByID(organizerUserID).getType() == 'O') {
+            sendChat(attendees, organizerUserID, message);
+        }
+        else{
+            throw new Error("Only organizers can send messages to all attendees.");
         }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

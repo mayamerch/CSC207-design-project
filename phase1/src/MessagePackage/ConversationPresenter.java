@@ -34,7 +34,7 @@ public class ConversationPresenter { // User.java to get friends
         Scanner kb = new Scanner(System.in);
         System.out.println("Manage Conversations\n"+
                 "---------------------------------\n"+
-                "What would you like to do?\n" +
+                "What would you like to dxo?\n" +
                 "1. Check Messages\n" +
                 "2. Send Messages\n" +
                 "3. Check Broadcasts\n");

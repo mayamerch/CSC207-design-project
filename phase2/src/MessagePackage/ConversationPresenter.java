@@ -1,5 +1,7 @@
 package MessagePackage;
 
+import UserPackage.Speaker;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -150,7 +152,18 @@ public class ConversationPresenter { // User.java to get friends
                     while(!kb.nextLine().equals("DONE")){
                         messageToSpeakers = kb.nextLine();
                     }
-                    cc.sendMessageToAllSpeakers(currID, messageToSpeakers);
+                    cc.messageAllSpeakers(currID, messageToSpeakers);
+                    cc.saveChats();
+                    option = -1;
+                    break;
+
+                case 8: // send broadcast to all attendees from organizer
+                    System.out.println("Enter the message to send to all Attendees. Enter DONE when finished:");
+                    String messageToAttendees = "";
+                    while(!kb.nextLine().equals("DONE")){
+                        messageToAttendees = kb.nextLine();
+                    }
+                    cc.messageAllAttendees(currID, messageToAttendees);
                     cc.saveChats();
                     option = -1;
                     break;
