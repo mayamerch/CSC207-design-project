@@ -68,5 +68,21 @@ public class UserTest {
         assertNotNull("Id not assigned based on existing List", userManager2.getUserByID(4));
         // This checks if The new User manager creates new IDs based on the old user list, which should have max ID of 3
     }
+    @Test(timeout=50)
+    public void testSendAndAcceptFriendRequestUsername(){
+        UserManager userManager = new UserManager();
+        userManager.createAccount("user1", "user1", "Organizer");
+        userManager.createAccount("user2", "User2","Attendee");
+        User user1 = userManager.getUserByID(1);
+        User user2 = userManager.getUserByID(2);
+        userManager.sendFriendRequest("user1", "user2");
+        assertFalse("Can send friend request twice", userManager.sendFriendRequest(1, 2));
+        assertEquals("user not added\n", 1, user2.getFriendRequestList().size());
+        userManager.acceptFriendRequest("user2", "user1");
+        // assertEquals("user not removed\n", 0, user2.getFriendRequestList().size());
+        assertEquals("user did not add friend\n", 1, user1.getFriendsList().size());
+        assertEquals("user not added in friend\n", 1, user2.getFriendsList().size());
+        assertFalse("Can send friend request to friend", userManager.sendFriendRequest(1, 2));
+    }
 
 }
