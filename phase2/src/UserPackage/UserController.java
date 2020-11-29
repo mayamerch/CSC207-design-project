@@ -128,6 +128,10 @@ public class UserController {
                 else{System.out.println("The Username must be unique.");
                 return false;}
             case "2":
+                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != 'O'){
+                    System.out.println("You need to be logged in as an Organizer to do this");
+                    return false;
+                }
                 if (userManager.createAccount(username, password, "Attendee")){
                     System.out.println("User successfully created");
                     userGateway.saveUserMap(userManager.getUserHashMap());
@@ -140,7 +144,6 @@ public class UserController {
                     System.out.println("You need to be logged in as an Organizer to do this");
                     return false;
                 }
-                User user = userManager.getUserByID(currentUserId);
                 if (userManager.createAccount(username, password, "Speaker")){
                     System.out.println("User successfully created");
                     userGateway.saveUserMap(userManager.getUserHashMap());
