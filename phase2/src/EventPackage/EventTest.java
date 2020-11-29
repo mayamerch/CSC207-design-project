@@ -5,6 +5,7 @@ import EventPackage.EventUseCases.EventManager;
 import java.util.ArrayList;
 import java.util.Date;
 
+/*
 public class EventTest {
     public static void main(String[] args) {
         //EventController ec = new EventController();
@@ -33,3 +34,4 @@ public class EventTest {
 
     }
 }
+ */
