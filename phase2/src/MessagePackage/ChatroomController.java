@@ -2,6 +2,7 @@ package MessagePackage;
 
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.UserManager;
+import UserPackage.UserType;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -157,7 +158,7 @@ public class ChatroomController {
         for(int speaker: speakers){
             userManager.getUserByID(speaker).addFriend(organizerUserID);
         }
-        if(userManager.getUserByID(organizerUserID).getType() == 'O') {
+        if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
             sendChat(speakers, organizerUserID, message);
         }
         else{
@@ -176,7 +177,7 @@ public class ChatroomController {
         for(int attendee: attendees){
             userManager.getUserByID(attendee).addFriend(organizerUserID);
         }
-        if(userManager.getUserByID(organizerUserID).getType() == 'O') {
+        if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
             sendChat(attendees, organizerUserID, message);
         }
         else{
