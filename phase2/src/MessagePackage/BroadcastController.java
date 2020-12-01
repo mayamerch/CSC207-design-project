@@ -4,6 +4,7 @@ import EventPackage.EventEntities.Event;
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.Speaker;
 import UserPackage.UserManager;
+import UserPackage.UserType;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -57,7 +58,8 @@ public class BroadcastController {
      */
     public boolean canCreateNewBroadCast(int senderUserID, int eventID) {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        if(!(um.getUserByID(senderUserID).getType() == 'O' || um.getUserByID(senderUserID).getType() == 'S')){
+        if(!(um.getUserByID(senderUserID).getType() == UserType.ORGANIZER ||
+                um.getUserByID(senderUserID).getType() == UserType.SPEAKER)){
             throw new Error("You are not able to send a broadcast.");
         }
         else{
@@ -93,7 +95,7 @@ public class BroadcastController {
      */
     // TODO: remove this method (changed to a chat)
     public void broadcastConference(int organizerUserID, String message){
-        if(um.getUserByID(organizerUserID).getType() == 'O') {
+        if(um.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
             for (Event e : em.getEventList()) {
                 sendBroadcast(organizerUserID, e.getEventId(), message);
             }

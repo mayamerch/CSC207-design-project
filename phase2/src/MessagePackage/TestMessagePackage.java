@@ -3,6 +3,7 @@ package MessagePackage;
 import EventPackage.EventEntities.Event;
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.UserManager;
+import UserPackage.UserType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,9 +34,9 @@ public class TestMessagePackage {
         ChatroomController cc = new ChatroomController(em, um);
         BroadcastController bc = new BroadcastController(em, um);
 
-        um.createAccount("user1", "password", "SPEAKER"); // id 1
-        um.createAccount("user2", "password", "ATTENDEE"); // id 2
-        um.createAccount("user3", "password", "ORGANIZER");
+        um.createAccount("user1", "password", UserType.SPEAKER); // id 1
+        um.createAccount("user2", "password", UserType.ATTENDEE); // id 2
+        um.createAccount("user3", "password", UserType.ORGANIZER);
         Date date = new Date(2020, 04, 19);
         em.createSingleSpeakerEvent("maya's event", 100, date, 1, 60, false, 1);
         Event e = em.getEvent(1);
