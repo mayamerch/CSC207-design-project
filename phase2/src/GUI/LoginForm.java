@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 public class LoginForm extends JFrame{
 
-    JFrame f;
     LoginForm(){
         setSize(400,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,6 +32,14 @@ public class LoginForm extends JFrame{
             public void actionPerformed(ActionEvent e){
                 setVisible(false);
                 new SignUpForm();
+            }
+        });
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(340,340,50, 30);
+        add(exitButton);
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
 
