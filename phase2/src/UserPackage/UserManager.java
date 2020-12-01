@@ -145,13 +145,21 @@ public class UserManager implements Serializable {
         return userHashMap.get(userID);
     }
     /**
-     * Takes in an Username`and returns the corresponding User object
+     * Takes in an UserID and changes the VIP status
      * @param userID: ID of the user we want to find
      * @param newBoolean the new VIP status, boolean
      */
     public void changeVIP(int userID, boolean newBoolean){
         User user = getUserByID(userID);
         user.setVIP(newBoolean);
+    }
+    /**
+     * Takes in an UserID and checks the VIP status
+     * @return true if user is VIP
+     */
+    public boolean checkVIP(int userID){
+        User user = getUserByID(userID);
+        return user.getVIP();
     }
 
     /**

@@ -35,10 +35,21 @@ public class User implements Serializable {
         this.username = new_username;
     }
 
+    /**
+     * Sets the VIP of this User.
+     * @param newBoolean the new VIP status
+     */
     public void setVIP(boolean newBoolean){
         this.isVIP = newBoolean;
     }
 
+    /**
+     * Gets VIP staus of this User.
+     * @return the VIP status
+     */
+    public boolean getVIP(){
+        return this.isVIP;
+    }
 
     /**
      * Sets the password of this User.

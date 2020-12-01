@@ -65,6 +65,11 @@ public class UserController {
             return null;
         }
     }
+
+    public boolean checkUserVIP(int userID){
+        return getUserManager().checkVIP(userID);
+    }
+
     /**
      * Checks if a userID that is entered into the system belongs to an actual user.
      * @return the integer that the User entered
