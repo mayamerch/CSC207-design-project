@@ -50,11 +50,11 @@ public class UserManager implements Serializable {
      * @param newPassword : The password of the new account, String
      * @param usertype: a character specifying the type of user to be created
      */
-    public boolean createAccount(String newUsername, String newPassword, String usertype){
+    public boolean createAccount(String newUsername, String newPassword, UserType usertype){
         if(!Character.isLetter(newUsername.charAt(0)))
             return false; //returns false and doesn't create a new user if first character of username is not a letter
         User new_user;
-        new_user = this.factory.getuser(newUsername, newPassword, usertype);
+        new_user = this.factory.getUser(newUsername, newPassword, usertype);
         // Casting as User?
         if (new_user != null &&checkUnusedUsername(newUsername)) {
             int new_userID = usersCreated + 1;
@@ -64,10 +64,10 @@ public class UserManager implements Serializable {
                 System.out.println("this string should never print, something is really wrong");
                 return false;// extra redundancy to check if user is not added to userHashMap
             }
-            if (new_user.getType() == 'S'){
+            if (new_user.getType() == UserType.SPEAKER){
                 speakerList.add(new_user);
             }
-            else if (new_user.getType() == 'O') {
+            else if (new_user.getType() == UserType.ORGANIZER) {
                 organizerList.add(new_user);
             }
             else {
@@ -239,10 +239,13 @@ public class UserManager implements Serializable {
         // This means the friend is not in the friend request list
     }
 
+    public boolean sendFriendRequest(int userID, String friendUsername){
+        return sendFriendRequest(userID, getUserIDByUsername(friendUsername));
+    }
+
+    //this method will likely not ever get used, just based on how being logged on works
     public boolean sendFriendRequest(String username, String friendUsername){
-        int userID = getUserIDByUsername(username);
-        int friendID = getUserIDByUsername(friendUsername);
-        return sendFriendRequest(userID, friendID);
+        return sendFriendRequest(getUserIDByUsername(username), getUserIDByUsername(friendUsername));
     }
 
     public boolean acceptFriendRequest(String username, String friendUsername){
@@ -260,13 +263,13 @@ public class UserManager implements Serializable {
         //remakes each type of map from a userList
         for (User x: map.values()){
             switch (x.getType()){
-                case 'A':
+                case ATTENDEE:
                     attendeeList.add(x);
                     break;
-                case 'O':
+                case ORGANIZER:
                     organizerList.add(x);
                     break;
-                case 'S':
+                case SPEAKER:
                     speakerList.add(x);
                     break;
             }

@@ -10,7 +10,7 @@ public class Speaker extends User{
      * @param password : a password used to log in, is a String
      */
     ArrayList<Integer> TalksList;
-    public Speaker(String username, String password, char type) {
+    public Speaker(String username, String password, UserType type) {
         super(username, password, type);
         this.TalksList = new ArrayList<>();
     }

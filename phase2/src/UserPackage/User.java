@@ -7,7 +7,7 @@ public class User implements Serializable {
     private int userID;
     private String username;
     private String password;
-    private char type;
+    private UserType type;
     private boolean isVIP;
     private ArrayList<Integer> friendsList;
     private ArrayList<Integer> friendRequestList;
@@ -17,7 +17,7 @@ public class User implements Serializable {
      * @param username: a name unique to this instance of user, is a String
      * @param password: a password used to log in, is a String
      */
-    public User(String username, String password, char type) {
+    public User(String username, String password, UserType type) {
         this.username = username;
         this.password = password;
         this.isVIP = false;
@@ -80,13 +80,13 @@ public class User implements Serializable {
      * Gets the Type of this User.
      * @return Type of the User, a character
      */
-    public char getType(){return type;}
+    public UserType getType(){return type;}
 
     /**
      * Sets the Type of this User.
      * @param type of the User, a character
      */
-    public void setType(char type){
+    public void setType(UserType type){
         this.type = type;
     }
 
