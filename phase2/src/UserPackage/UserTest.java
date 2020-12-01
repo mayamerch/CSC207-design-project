@@ -10,7 +10,7 @@ public class UserTest {
     @Test(timeout=50)
     public void testCreateOrganiser(){
         UserManager userManager = new UserManager();
-        userManager.createAccount("user1", "user1", "Organizer");
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
         // assertTrue("User not created", userManager.createAccount("user1", "user1", "Organiser"));
         assertEquals("user not added\n", 1, userManager.getUserHashMap().size());
         assertEquals("Organiser list not updating\n", 1, userManager.getOrganizerList().size());
@@ -18,8 +18,8 @@ public class UserTest {
     @Test(timeout=50)
     public void testAddFriend(){
         UserManager userManager = new UserManager();
-        userManager.createAccount("user1", "user1", "Organizer");
-        userManager.createAccount("user2", "User2","Attendee");
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        userManager.createAccount("user2", "User2",UserType.ATTENDEE);
         User user1 = userManager.getUserByID(1);
         User user2 = userManager.getUserByID(2);
         userManager.addFriend(1, 2);
@@ -29,15 +29,15 @@ public class UserTest {
     @Test(timeout=50)
     public void testAddDuplicateUserName(){
         UserManager userManager = new UserManager();
-        userManager.createAccount("user1", "user1", "Organizer");
-        assertFalse("Duplicate created", userManager.createAccount("user1", "User2","Attendee"));
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        assertFalse("Duplicate created", userManager.createAccount("user1", "User2",UserType.ATTENDEE));
         assertEquals("Duplicate Username added\n", 1, userManager.getUserHashMap().size());
     }
     @Test(timeout=50)
     public void testSendAndAcceptFriendRequest(){
         UserManager userManager = new UserManager();
-        userManager.createAccount("user1", "user1", "Organizer");
-        userManager.createAccount("user2", "User2","Attendee");
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        userManager.createAccount("user2", "User2",UserType.ATTENDEE);
         User user1 = userManager.getUserByID(1);
         User user2 = userManager.getUserByID(2);
         userManager.sendFriendRequest(1, 2);
@@ -52,9 +52,9 @@ public class UserTest {
     @Test(timeout=50)
     public void testLinkedListUserManagerConstructor(){
         UserManager userManager = new UserManager();
-        userManager.createAccount("user1", "user1", "Organizer");
-        userManager.createAccount("user2", "User2","Attendee");
-        userManager.createAccount("user3", "User3","Speaker");
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        userManager.createAccount("user2", "User2",UserType.ATTENDEE);
+        userManager.createAccount("user3", "User3",UserType.SPEAKER);
         userManager.addFriend(1, 2);
         HashMap<Integer, User> userHashMap = userManager.getUserHashMap();
         // Start with a linked list of users and create a new linked list
@@ -64,15 +64,15 @@ public class UserTest {
         assertEquals("AttendeeList not created properly\n", 1, userManager2.getAttendeeList().size());
         User user1 = userManager2.getUserByID(1);
         assertEquals("Friends List not carried over from list to Usermanager2\n", 1, user1.getFriendsList().size());
-        userManager2.createAccount("user4", "User4","Organizer");
+        userManager2.createAccount("user4", "User4",UserType.ORGANIZER);
         assertNotNull("Id not assigned based on existing List", userManager2.getUserByID(4));
         // This checks if The new User manager creates new IDs based on the old user list, which should have max ID of 3
     }
     @Test(timeout=50)
     public void testSendAndAcceptFriendRequestUsername(){
         UserManager userManager = new UserManager();
-        userManager.createAccount("user1", "user1", "Organizer");
-        userManager.createAccount("user2", "User2","Attendee");
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        userManager.createAccount("user2", "User2",UserType.ATTENDEE);
         User user1 = userManager.getUserByID(1);
         User user2 = userManager.getUserByID(2);
         userManager.sendFriendRequest("user1", "user2");
