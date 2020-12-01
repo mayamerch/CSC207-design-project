@@ -37,7 +37,7 @@ public class TestMessagePackage {
         um.createAccount("user2", "password", "ATTENDEE"); // id 2
         um.createAccount("user3", "password", "ORGANIZER");
         Date date = new Date(2020, 04, 19);
-        em.createEvent("maya's event", 1, date, 1, 60); // id 1
+        em.createSingleSpeakerEvent("maya's event", 100, date, 1, 60, false, 1);
         Event e = em.getEvent(1);
         e.addAttendee(2);
 
