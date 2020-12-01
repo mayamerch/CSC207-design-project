@@ -39,6 +39,7 @@ public class UserController {
      * @return the type of the User that logged in, character
      */
     public char userLogin(){
+        // pls work
         System.out.println("Press enter if there is no prompt directly following this line");
         scanner.nextLine();
         System.out.println("Enter Username");
