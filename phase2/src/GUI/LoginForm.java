@@ -9,6 +9,7 @@ public class LoginForm extends JFrame{
     JFrame f;
     LoginForm(){
         setSize(400,400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JButton b1 = new JButton("Login");
         b1.setBounds(150,150,100, 40);
         add(b1);
