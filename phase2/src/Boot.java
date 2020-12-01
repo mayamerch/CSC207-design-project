@@ -63,9 +63,9 @@ public class Boot {
 
     public boolean signIn() {
         // Is some kind of "go back" functionality needed?
-        char userType = uc.UserLogin();
+        char userType = uc.userLogin();
         while (userType == 'N') {
-            userType = uc.UserLogin();
+            userType = uc.userLogin();
         }
         return true;
     }

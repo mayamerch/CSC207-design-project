@@ -11,13 +11,13 @@ public class UserControllerTest {
         // Once the userFile.ser has been created it will create a user controller based off of the .ser file
         // I then created "user2, user2, Attendee/2", this has ID 2
 
-        userController.UserLogin();
+        userController.userLogin();
         userController.sendFriendRequest();
         // type 2 for ID to send a friend request to user 2
         // type 1 and see if it rejects sending a friend request
         userController.logOut();
         // This should take a \n for the scanner prompt before entering username to log in again
-        userController.UserLogin();
+        userController.userLogin();
         // sign in as user2
         userController.acceptFriendRequest();
         // accept from user1
