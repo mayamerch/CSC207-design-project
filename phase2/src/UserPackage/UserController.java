@@ -38,7 +38,7 @@ public class UserController {
      * this specifically handles the user input
      * @return the type of the User that logged in, character
      */
-    public char userLogin(){
+    public UserType userLogin(){
         // pls work
         System.out.println("Press enter if there is no prompt directly following this line");
         scanner.nextLine();
@@ -53,7 +53,7 @@ public class UserController {
      * Logs in the User based on the Username and Password entered by the User
      * @return the type of the User that logged in, character
      */
-    public char userLogin(String username, String password) {
+    public UserType userLogin(String username, String password) {
         int potentialID = userManager.validateLogin(username, password);
         if (potentialID >= 0 ) {
             currentUserId = potentialID;
@@ -62,7 +62,7 @@ public class UserController {
             return userManager.getUserByID(currentUserId).getType();
         } else {
             System.out.println("Invalid username or password");
-            return 'N';
+            return null;
         }
     }
     /**
@@ -129,7 +129,7 @@ public class UserController {
         String userType = scanner.nextLine();
         switch(userType){
             case "1":
-                if (userManager.createAccount(username, password, "Organizer")){
+                if (userManager.createAccount(username, password, UserType.ORGANIZER)){
                     System.out.println("User successfully created");
                     userGateway.saveUserMap(userManager.getUserHashMap());
                     return true;
@@ -137,11 +137,11 @@ public class UserController {
                 else{System.out.println("The Username must be unique.");
                 return false;}
             case "2":
-                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != 'O'){
+                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != UserType.ORGANIZER){
                     System.out.println("You need to be logged in as an Organizer to do this");
                     return false;
                 }
-                if (userManager.createAccount(username, password, "Attendee")){
+                if (userManager.createAccount(username, password, UserType.ATTENDEE)){
                     System.out.println("User successfully created");
                     userGateway.saveUserMap(userManager.getUserHashMap());
                     return true;
@@ -149,11 +149,11 @@ public class UserController {
                 else{System.out.println("The Username must be unique.");
                 return false;}
             case "3":
-                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != 'O'){
+                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != UserType.ORGANIZER){
                     System.out.println("You need to be logged in as an Organizer to do this");
                     return false;
                 }
-                if (userManager.createAccount(username, password, "Speaker")){
+                if (userManager.createAccount(username, password, UserType.SPEAKER)){
                     System.out.println("User successfully created");
                     userGateway.saveUserMap(userManager.getUserHashMap());
                     return true;
@@ -256,11 +256,11 @@ public class UserController {
      * Returns the char type associated with the current user
      * @return getType() of current user
      */
-    public char getUserType() {
+    public UserType getUserType() {
         if (currentUserId != -1)
             return userManager.getUserByID(currentUserId).getType();
         else
-            return 'N';
+            return null;
     }
     /**
      * Returns the ID of current user if logged in
