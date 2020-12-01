@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignUpForm extends JFrame{
-    JFrame f;
+
     SignUpForm(){
         setSize(400,400);
 
@@ -36,6 +36,17 @@ public class SignUpForm extends JFrame{
                 String password = tf2.getText();
                 //TODO: createAccount for user here
                 //UserController.createUser
+            }
+        });
+        JButton backButton = new JButton("<- Back");
+        backButton.setBounds(10,10,75, 30);
+        add(backButton);
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(340,340,50, 30);
+        add(exitButton);
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
 

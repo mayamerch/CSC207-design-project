@@ -1,13 +1,14 @@
 package UserPackage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpeakerManager {
     /**
      * Creates a Speaker manager
      */
     SpeakerManager(){}
-    public ArrayList<Integer> getSpeakerList(Speaker speaker){
+    public List<Integer> getSpeakerList(Speaker speaker){
         return speaker.getTalksList();
     }
     /**
@@ -17,7 +18,7 @@ public class SpeakerManager {
      * @param eventID : The ID of the event
      */
     public boolean getSpeakerEvent(Speaker speaker, int eventID){
-        ArrayList<Integer> talksList = speaker.getTalksList();
+        List<Integer> talksList = speaker.getTalksList();
         for (int eventNum: talksList){
             if (eventNum == eventID){
                 return true;
@@ -44,7 +45,7 @@ public class SpeakerManager {
      * @param eventID : The ID of the event
      */
     public boolean remove_event(Speaker speaker, int eventID){
-        ArrayList<Integer> talksList = speaker.getTalksList();
+        List<Integer> talksList = speaker.getTalksList();
         for (int eventNum: talksList){
             if (eventNum == eventID){
             speaker.remove_event(eventID);

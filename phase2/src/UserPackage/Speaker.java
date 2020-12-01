@@ -1,6 +1,7 @@
 package UserPackage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Speaker extends User{
     /**
@@ -9,7 +10,7 @@ public class Speaker extends User{
      * @param username : a name unique to this instance of user, is a String
      * @param password : a password used to log in, is a String
      */
-    ArrayList<Integer> TalksList;
+    List<Integer> TalksList;
     public Speaker(String username, String password, UserType type) {
         super(username, password, type);
         this.TalksList = new ArrayList<>();
@@ -18,7 +19,7 @@ public class Speaker extends User{
      * Gets and returns the Speaker's Talks list
      * @return Speaker's talks list as ArrayList<Integer>
      */
-    public ArrayList<Integer> getTalksList() {
+    public List<Integer> getTalksList() {
         return TalksList;
     }
     /**

@@ -2,6 +2,7 @@ package UserPackage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
     private int userID;
@@ -9,8 +10,8 @@ public class User implements Serializable {
     private String password;
     private UserType type;
     private boolean isVIP;
-    private ArrayList<Integer> friendsList;
-    private ArrayList<Integer> friendRequestList;
+    private List<Integer> friendsList;
+    private List<Integer> friendRequestList;
 
     /**
      * Constructs a new User object
@@ -101,11 +102,11 @@ public class User implements Serializable {
         this.type = type;
     }
 
-    public ArrayList<Integer> getFriendsList() {
+    public List<Integer> getFriendsList() {
         return friendsList;
     }
 
-    public ArrayList<Integer> getFriendRequestList(){return friendRequestList;}
+    public List<Integer> getFriendRequestList(){return friendRequestList;}
 
     /**
      * Adds a User's username to this Attendee's list of friends

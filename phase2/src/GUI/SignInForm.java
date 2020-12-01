@@ -1,5 +1,6 @@
 package GUI;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +10,8 @@ import java.awt.event.FocusListener;
 
 public class SignInForm extends JFrame{
 
-    JFrame f;
+    //UserController userController;
+
     SignInForm(){
         setSize(400,400);
 
@@ -47,6 +49,20 @@ public class SignInForm extends JFrame{
                 String password = passwordText.getText();
                 //TODO: logIn user here
                 //UserController.UserLogin
+                setVisible(false);
+                new MenuForm();
+            }
+        });
+
+        JButton backButton = new JButton("<- Back");
+        backButton.setBounds(10,10,75, 30);
+        add(backButton);
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(340,340,50, 30);
+        add(exitButton);
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
 

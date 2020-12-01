@@ -1,7 +1,7 @@
 package UserPackage;
 
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Map;
 
 public class UserGatewayTest {
     public void testGateway(){
@@ -17,8 +17,8 @@ public class UserGatewayTest {
         User user2 = userManager.getUserByID(2);
         userManager.addFriend(1, 2);
 
-        userGateway.saveUserMap(userManager.getUserHashMap());
-        HashMap<Integer, User> ul = userGateway.readUserMap();
+        userGateway.saveUserMap(userManager.getUserMap());
+        Map<Integer, User> ul = userGateway.readUserMap();
         System.out.println(ul.size());
     }
 
