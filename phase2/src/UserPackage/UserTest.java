@@ -2,7 +2,7 @@ package UserPackage;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ public class UserTest {
         UserManager userManager = new UserManager();
         userManager.createAccount("user1", "user1", UserType.ORGANIZER);
         // assertTrue("User not created", userManager.createAccount("user1", "user1", "Organiser"));
-        assertEquals("user not added\n", 1, userManager.getUserHashMap().size());
+        assertEquals("user not added\n", 1, userManager.getUserMap().size());
         assertEquals("Organiser list not updating\n", 1, userManager.getOrganizerList().size());
     }
     @Test(timeout=50)
@@ -31,7 +31,7 @@ public class UserTest {
         UserManager userManager = new UserManager();
         userManager.createAccount("user1", "user1", UserType.ORGANIZER);
         assertFalse("Duplicate created", userManager.createAccount("user1", "User2",UserType.ATTENDEE));
-        assertEquals("Duplicate Username added\n", 1, userManager.getUserHashMap().size());
+        assertEquals("Duplicate Username added\n", 1, userManager.getUserMap().size());
     }
     @Test(timeout=50)
     public void testSendAndAcceptFriendRequest(){
@@ -56,7 +56,7 @@ public class UserTest {
         userManager.createAccount("user2", "User2",UserType.ATTENDEE);
         userManager.createAccount("user3", "User3",UserType.SPEAKER);
         userManager.addFriend(1, 2);
-        HashMap<Integer, User> userHashMap = userManager.getUserHashMap();
+        Map<Integer, User> userHashMap = userManager.getUserMap();
         // Start with a linked list of users and create a new linked list
         UserManager userManager2 = new UserManager(userHashMap);
         assertEquals("OrganizerList not created properly\n", 1, userManager2.getOrganizerList().size());

@@ -10,7 +10,7 @@ public class UserManager implements Serializable {
     private LinkedList<User> speakerList = new LinkedList<>();
     private LinkedList<User> attendeeList = new LinkedList<>();
     private LinkedList<User> organizerList = new LinkedList<>();
-    private HashMap<Integer,User> userHashMap = new HashMap<>();
+    private Map<Integer,User> userMap = new HashMap<>();
 
 
     /**
@@ -23,8 +23,8 @@ public class UserManager implements Serializable {
      * Creates a UserManager with an existing Linked list of Users and a user factory, and sets UsersCreated
      * and sets the UserHashMap, AttendeeList, OrganiserList and SpeakerList accordingly
      */
-    public UserManager(HashMap<Integer,User> map){
-        userHashMap = map;
+    public UserManager(Map<Integer,User> map){
+        userMap = map;
         usersCreated = findMaxIDFromMap(map);
         remakeAOSLists(map);
     }
@@ -59,7 +59,7 @@ public class UserManager implements Serializable {
         if (new_user != null &&checkUnusedUsername(newUsername)) {
             int new_userID = usersCreated + 1;
             new_user.setUserID(new_userID);
-            userHashMap.put(new_userID, new_user);
+            userMap.put(new_userID, new_user);
             if (!checkUserInfo(new_userID, newUsername, newPassword)) {
                 System.out.println("this string should never print, something is really wrong");
                 return false;// extra redundancy to check if user is not added to userHashMap
@@ -87,7 +87,7 @@ public class UserManager implements Serializable {
      * @param username: The username of the new account, String
      */
     private boolean checkUnusedUsername(String username){
-        for (User x: userHashMap.values()){
+        for (User x: userMap.values()){
             if (x.getUsername().equals(username))
                 return false;
         }
@@ -106,7 +106,7 @@ public class UserManager implements Serializable {
         return ((user.getUsername().equalsIgnoreCase(username)) && (user.getPassword().equals(password)));
     }
     public int validateLogin(String username, String password){
-        for (User x : userHashMap.values()){
+        for (User x : userMap.values()){
             if (validateLogin(x, username, password))
                 return x.getUserID();
         }
@@ -116,8 +116,8 @@ public class UserManager implements Serializable {
      * Returns the List of Users in the UserManager
      * @return the userList parameter, LinkedList
      */
-    public  HashMap<Integer, User> getUserHashMap(){
-        return userHashMap;
+    public  Map<Integer, User> getUserMap(){
+        return userMap;
     }
     /**
      * Returns the List of Speakers in the UserManager
@@ -142,7 +142,7 @@ public class UserManager implements Serializable {
      * @return User
      */
     public User getUserByID(int userID) {
-        return userHashMap.get(userID);
+        return userMap.get(userID);
     }
     /**
      * Takes in an Username`and returns the corresponding User object
@@ -160,7 +160,7 @@ public class UserManager implements Serializable {
      * @return User
      */
     public int getUserIDByUsername(String username){
-        for (User user : userHashMap.values()) {
+        for (User user : userMap.values()) {
             if (username.equals(user.getUsername())) {
                 return user.getUserID();
             }

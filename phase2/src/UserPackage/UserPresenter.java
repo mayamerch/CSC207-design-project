@@ -1,6 +1,6 @@
 package UserPackage;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserPresenter {
@@ -61,7 +61,7 @@ public class UserPresenter {
     }
 
 
-    public String printList(ArrayList<Integer> list){
+    public String printList(List<Integer> list){
         StringBuilder display = new StringBuilder();
         for (int x: list){
             display.append(userManager.getUserByID(x).getUsername()).append("(").append(x).append("), \n");
