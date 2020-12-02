@@ -176,6 +176,10 @@ public class UserManager implements Serializable {
         return -1;
     }
 
+    public User getUserByUsername(String username){
+        return getUserByID(getUserIDByUsername(username));
+    }
+
     /**
      * Takes in the ID of the current user and the ID of the user to be added as a friend then
      * modifies both user's friend lists accordingly
@@ -260,6 +264,13 @@ public class UserManager implements Serializable {
         int userID = getUserIDByUsername(username);
         int friendID = getUserIDByUsername(friendUsername);
         return acceptFriendRequest(userID, friendID);
+    }
+
+    public List<Integer> getFriendsListOfUser(int userID){
+        return getUserByID(userID).getFriendsList();
+    }
+    public List<Integer> getFriendRequestListOfUser(int userID){
+        return getUserByID(userID).getFriendRequestList();
     }
 
     /**

@@ -1,6 +1,7 @@
 package UserPackage;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserController {
@@ -169,6 +170,9 @@ public class UserController {
         System.out.println("That is not a valid option for type");
         return false;
     }
+    public boolean createUser(String username, String password, UserType userType){
+        return userManager.createAccount(username, password, userType);
+    }
     /**
      * Returns true or false based on whether a valid user is currently logged into the controller
      */
@@ -294,6 +298,14 @@ public class UserController {
         int userChoice = scanner.nextInt();
         getUserManager().changeVIP(userID, userChoice == 1);
         // 1 to set to true, anything else to set to false
+    }
+
+    //gets friends list of logged on user, might need to account for no logged on user
+    public List<Integer> getFriendsList(){
+        return userManager.getUserByID(currentUserId).getFriendsList();
+    }
+    public List<Integer> getFriendRequestList(){
+        return userManager.getUserByID(currentUserId).getFriendRequestList();
     }
 
     /**
