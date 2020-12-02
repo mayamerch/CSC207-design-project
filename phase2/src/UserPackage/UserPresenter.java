@@ -1,11 +1,43 @@
 package UserPackage;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.Collection;
+import java.util.LinkedList;
+
 
 public class UserPresenter {
 
-    UserManager userManager;
+    private UserManager userManager;
+
+    public UserPresenter(UserManager userManager){
+        this.userManager = userManager;
+    }
+
+    //returns a LinkedList of strings formatted as follows: "username (userID)"
+    private LinkedList<String> userListToString(Collection<User> userCollection){
+        LinkedList<String> list = new LinkedList<>();
+        for(User x: userCollection){
+            list.add(x.getUsername() + " (" + x.getUserID() + ")");
+        }
+        return list;
+    }
+    //converts as list of ids to a linked list of users
+    private LinkedList<User> userIDListToUserList(Collection<Integer> userIDCollection){
+        LinkedList<User> list = new LinkedList<>();
+        for (int x: userIDCollection){
+            list.add(userManager.getUserByID(x));
+        }
+        return list;
+    }
+
+
+    //returns a LinkedList of strings formatted as follows: "username (userID)"
+    //uses userListToString() and userIDListToUserList() as a helper method
+    public LinkedList<String> userIDListToString(Collection<Integer> userIDCollection) {
+        return userListToString(userIDListToUserList(userIDCollection));
+    }
+
+}
+    /*UserManager userManager;
     Scanner sc = new Scanner(System.in);
 
 //    public UserPresenter(UserManager userManager){
@@ -77,4 +109,4 @@ public class UserPresenter {
         System.out.println("This option does not exist." + System.lineSeparator());
     }
 
-}
+}*/

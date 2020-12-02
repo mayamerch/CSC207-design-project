@@ -4,8 +4,8 @@ public class UserPresenterTest {
 
     public static void main(String[] args){
 
-        UserPresenter up = new UserPresenter();
+        //UserPresenter up = new UserPresenter();
 
-        up.printFriendMenu(1);
+        //up.printFriendMenu(1);
     }
 }

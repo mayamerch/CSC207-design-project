@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserController {
-    public int currentUserId;
+    private int currentUserId;
     protected UserGateway userGateway;
     protected UserManager userManager;
-    protected UserPresenter up;
+    protected UserPresenter userPresenter;
     Scanner scanner = new Scanner(System.in);
 
 
@@ -16,8 +16,9 @@ public class UserController {
      * Constructs a new UserController object, setting the user manager based off of the gateway
      */
     public UserController() {
+        this.currentUserId = -1;//by default no user is logged in
         this.userGateway = new UserGateway();
-        //this.up = new UserPresenter();
+        //this.userPresenter = new UserPresenter();
         try {
             this.userManager = new UserManager(this.userGateway.readUserMap());
         } catch (NullPointerException n) {
@@ -34,12 +35,20 @@ public class UserController {
         return userManager;
     }
 
+    public boolean userLogin(String username, String password){
+        //if you need the old version of userLogin that returned UserType, use getUserType() instead
+        this.currentUserId = userManager.validateLogin(username, password);  //-1 if user does not log in successfully
+        if (currentUserId >= 0)
+            return true;    //returns true only if user logs in successfully
+        return false;       //false if user gets password or username wrong
+    }
+
     /**
      * Logs in the User based on the Username and Password entered by the User,
      * this specifically handles the user input
      * @return the type of the User that logged in, character
      */
-    public UserType userLogin(){
+    /*public UserType userLogin(){
         // pls work
         System.out.println("Press enter if there is no prompt directly following this line");
         scanner.nextLine();
@@ -48,13 +57,14 @@ public class UserController {
         System.out.println("Enter Password");
         String password = scanner.nextLine();
         return userLogin(username, password);
-    }
+    }*/
 
     /**
      * Logs in the User based on the Username and Password entered by the User
+     * if logs in, sets currentUserId to the id of the user logged in
      * @return the type of the User that logged in, character
      */
-    public UserType userLogin(String username, String password) {
+    /*public UserType userLogin(String username, String password) {
         int potentialID = userManager.validateLogin(username, password);
         if (potentialID >= 0 ) {
             currentUserId = potentialID;
@@ -65,7 +75,7 @@ public class UserController {
             System.out.println("Invalid username or password");
             return null;
         }
-    }
+    }*/
 
     public boolean checkUserVIP(int userID){
         return getUserManager().checkVIP(userID);
@@ -266,7 +276,7 @@ public class UserController {
      * @return getType() of current user
      */
     public UserType getUserType() {
-        if (currentUserId != -1)
+        if (currentUserId >= 0)
             return userManager.getUserByID(currentUserId).getType();
         else
             return null;
@@ -313,7 +323,7 @@ public class UserController {
      * actions related to events based on that input.
      * @param currentUserId The id of the user its interacting with
      **/
-    public void run(int currentUserId){
+    /*public void run(int currentUserId){
         Scanner reader = new Scanner(System.in);
         Scanner reader2 = new Scanner(System.in);
 
@@ -336,6 +346,6 @@ public class UserController {
                     break;
             }
         }
-    }
+    }*/
 
 }
