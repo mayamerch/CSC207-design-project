@@ -6,11 +6,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Broadcast implements Conversation, Serializable {
-    // Speakers should be able to send a message that automatically goes to all Attendees of their talk/multiple talks they gave
-    // Organizers should be able to send a message to all speakers or all Attendees
 
     private ArrayList<Integer> broadcasters;
-    //private MessageQueue messageQueue;
     private int eventID;
     private EventManager eventManager;
     private ArrayList<Message> messages;
