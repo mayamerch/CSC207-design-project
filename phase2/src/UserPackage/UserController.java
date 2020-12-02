@@ -35,6 +35,11 @@ public class UserController {
         return userManager;
     }
 
+    /**
+     * Logs in the User based on the Username and Password entered by the User
+     * if logs in, sets currentUserId to the id of the user logged in
+     * @return the type of the User that logged in, character
+     */
     public boolean userLogin(String username, String password){
         //if you need the old version of userLogin that returned UserType, use getUserType() instead
         this.currentUserId = userManager.validateLogin(username, password);  //-1 if user does not log in successfully
@@ -48,7 +53,7 @@ public class UserController {
      * this specifically handles the user input
      * @return the type of the User that logged in, character
      */
-    /*public UserType userLogin(){
+    public boolean userLogin(){
         // pls work
         System.out.println("Press enter if there is no prompt directly following this line");
         scanner.nextLine();
@@ -57,13 +62,9 @@ public class UserController {
         System.out.println("Enter Password");
         String password = scanner.nextLine();
         return userLogin(username, password);
-    }*/
+    }
 
-    /**
-     * Logs in the User based on the Username and Password entered by the User
-     * if logs in, sets currentUserId to the id of the user logged in
-     * @return the type of the User that logged in, character
-     */
+
     /*public UserType userLogin(String username, String password) {
         int potentialID = userManager.validateLogin(username, password);
         if (potentialID >= 0 ) {
@@ -188,6 +189,10 @@ public class UserController {
      */
     public boolean validateNotLoggedIn(){
         return userManager.getUserByID(currentUserId) == null;
+    }
+
+    public int getCurrentUserId(){
+        return currentUserId;
     }
     /**
      * Sends a Friend request from the User Using this controller to the a user whose ID is entered
