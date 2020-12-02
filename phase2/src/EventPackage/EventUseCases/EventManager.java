@@ -210,26 +210,19 @@ public class EventManager implements Serializable {
 
 
     /**
-     * Enrolls current user to event with eventID and returns an integer
+     * Enrolls current user to event with eventID if they are able to join it and returns true or false
      * @param eventID: ID of an event
      * @param userID ID of a user
-     * @return 1, if enrollement was successful <p></p>
-     *         0, if UID is already enrolled or event is full <p></p>
-     *         -1, if event does not exist <p></p>
+     * @param userVIP true if user is a VIP, false if not
+     * @return true is user is enrolled false if not
      */
-    public int enroll(int eventID, int userID) {
-        for (Event event: this.eventList) {
+    public boolean enroll(int eventID, int userID, boolean userVIP) {
+        for (Event event: this.availEvents(userID, userVIP)) {
             if (event.getEventId() == eventID) {
-                if(!event.enrolled(userID)) {
-                    event.addAttendee(userID);
-                    return 1;
-                }
-                else {
-                    return 0;
-                }
+                return true;
             }
         }
-        return -1;
+        return false;
     }
 
 
@@ -261,10 +254,11 @@ public class EventManager implements Serializable {
      * @param userID ID of a user
      * @return Returns ArrayList of Events user can sign up for.
      */
-    public ArrayList<Event> availEvents(int userID) {
+    public ArrayList<Event> availEvents(int userID, boolean userVIP) {
         ArrayList<Event> availEventList = new ArrayList<Event>();
         for (Event event: this.eventList) {
-            if (!event.enrolled(userID)){
+            if (!event.enrolled(userID) && event.getVIPStatus() == userVIP
+                    && event.getEventAttendees().size() <= event.getEventCapacity()){
                 availEventList.add(event);
             }
         }

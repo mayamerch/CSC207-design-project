@@ -14,227 +14,56 @@ import java.util.Scanner;
 
 public class EventController {
 
-    private EventManager em;
-    private RoomManager rm;
-    private EventPresenter ep;
-    private EventGateway eg;
-    private RoomGateway rg;
+    private EventManager eventManager;
+    private RoomManager roomManager;
+    private EventGateway eventGateway;
+    private RoomGateway roomGateway;
+    private int userId;
+    private boolean userVIP;
+    private ArrayList<Integer> speakerList;
 
 
     /**
      * Creates an instance of EventController and loads in all the saved data
      */
-    public EventController() {
-        this.eg = new EventGateway();
-        this.rg = new RoomGateway();
-        em = new EventManager(eg.parseEvent());
-        rm = new RoomManager(eg.parseRoom());
-        ep = new EventPresenter();
-    }
+    public EventController(int userId, boolean userVIP, ArrayList<Integer> speakerList) {
+        eventGateway = new EventGateway();
+        roomGateway = new RoomGateway();
+        eventManager = eventGateway.getEventManager();
+        roomManager = roomGateway.getRoomManager();
 
-
-    /**
-     * Returns the EventManager in this controller with all the information
-     * @return      The EventManager in this controller
-     */
-    public EventManager getEventManager() {
-        return em;
-    }
-
-
-    /**
-     * Returns the RoomManager in this controller with all the information
-     * @return      The RoomManager in this controller
-     */
-    public RoomManager getRoomManager() {
-        return rm;
+        this.userId = userId;
+        this.userVIP = userVIP;
+        this.speakerList = speakerList;
     }
 
 
 
-    /**
-     * Interacts with user and asks for input then performs actions related to events based on that input.
-     * @param UserId The id of the user its interacting with
-     * @param UserPermChar 'S' If User is a Speaker
-     *                      'O' If User is an Organizer
-     *                      'A' If User is an Attendee
-     * @param speakerIds A list of the ids of speakers at this conference
-     **/
-    public void run(int UserId, char UserPermChar, ArrayList<Integer> speakerIds) {
 
-        Scanner reader = new Scanner(System.in);
-        Scanner reader2 = new Scanner(System.in);
+    public boolean signUp(int eventId) {
 
-        String UserPerm = Character.toString(UserPermChar);
+        boolean status = eventManager.enroll(eventId, userId, userVIP);
+        return status;
+    }
 
-        ep.printMenu(UserPerm);
-        String UserInput = reader2.nextLine();
 
-        while (!UserInput.equals("0")) {
+    public Object[][] getAllEvents() {
+        Object[][] data = new Object[eventManager.getEventList().size()][];
 
-            switch (UserInput) {
-
-                case "1":
-                    ep.seeEvents(em, rm);
-                    ep.seeAttendees();
-                    String choice = reader.nextLine();
-
-                    while (!choice.equals("0")) {
-                        if (!checkInput(choice))
-                            ep.printStatus(-1);
-                        else {
-                            int eventId = Integer.parseInt(choice);
-                            try {
-                                ep.printAttendees(em.getEvent(eventId).getEventAttendees());
-                            }
-                            catch (Exception e) {
-                                ep.printStatus(-1);
-                            }
-                        }
-                        ep.seeEvents(em, rm);
-                        ep.seeAttendees();
-                        choice = reader.nextLine();
-                    }
-
-                    ep.goBack();
-
-                    break;
-
-                case "2":
-                    ep.seeMyEvents(em, rm, UserId, UserPerm);
-                    ep.pressContinue();
-                    reader.nextLine();
-                    ep.goBack();
-                    break;
-
-                case "3":
-                    ep.seeRooms(rm);
-                    ep.pressContinue();
-                    reader.nextLine();
-                    ep.goBack();
-                    break;
-
-                case "4":
-                    if (UserPerm.equals("S"))
-                        ep.denyUser(UserPerm);
-                    else {
-                        ep.seeAvailEvents(em, rm, UserId);
-                        String UserInput2 = reader.nextLine();
-                        while (UserInput2.equals("1")) {
-                            this.signUp(UserId);
-
-                            ep.seeAvailEvents(em, rm, UserId);
-                            UserInput2 = reader.nextLine();
-                        }
-
-                        ep.goBack();
-                    }
-                    break;
-
-                case "5":
-                    if (UserPerm.equals("S"))
-                        ep.denyUser(UserPerm);
-                    else {
-                        ep.seeMyEvents(em, rm, UserId, UserPerm);
-                        ep.cancelOptions();
-                        String UserInput2 = reader.nextLine();
-                        while (UserInput2.equals("1")) {
-                            this.cancelAttend(UserId);
-
-                            ep.seeMyEvents(em, rm, UserId, UserPerm);
-                            ep.cancelOptions();
-                            UserInput2 = reader.nextLine();
-                        }
-
-                        ep.goBack();
-                    }
-                    break;
-
-                case "6":
-                    if (UserPerm.equals("S") ||UserPerm.equals("A"))
-                        ep.denyUser(UserPerm);
-                    else {
-                        ep.createEvent();
-                        String OrganizerInput = reader.next();
-                        if (!OrganizerInput.equals("-1")) {
-                            int status = this.createEvent(OrganizerInput, speakerIds);
-                            if (status != 0)
-                                ep.printError(status);
-                            else
-                                ep.printStatus(0);
-                        }
-
-                        ep.goBack();
-                    }
-                    break;
-
-                case "7":
-                    if (UserPerm.equals("S") || UserPerm.equals("A"))
-                        ep.denyUser(UserPerm);
-                    else {
-                        ep.createRoom();
-                        String inputString = reader.nextLine();
-                        while (!checkInput(inputString)) {
-                            inputString = reader.nextLine();
-                        }
-                        int input =  Integer.parseInt(inputString);
-                        if (input != -1)
-                            this.createRoom(input);
-                        ep.goBack();
-                    }
-                    break;
-
-                default:
-                    ep.denyUser(UserPerm);
-                    break;
-            }
-
-            eg.write(em.getEventList(), rm.getRoomList());
-            ep.printMenu(UserPerm);
-            UserInput = reader2.nextLine();
+        for (Event event: eventManager.getEventList()) {
+            int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
+            Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
+                    event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
+                    event.getVIPStatus()};
+            data[0] = eventInfo;
         }
 
-        ep.goBack();
-
-        eg.write(em.getEventList(), rm.getRoomList());
-
+        return data;
     }
 
 
-    private boolean checkInput(String UserInput) {
-        try {
-            Integer.parseInt(UserInput);
-        } catch (Exception e) {
-            ep.tryAgain();
-            return false;
-        }
-        return true;
-    }
 
-
-    private void signUp(int UserId) {
-        Scanner reader = new Scanner(System.in);
-
-        ep.chooseEvent();
-        String UserInput = reader.nextLine();
-        while (!checkInput(UserInput)) {
-            UserInput = reader.nextLine();
-        }
-        int UserInputInt = Integer.parseInt(UserInput);
-
-        int status = -1;
-        for (Event event: em.availEvents(UserId)) {
-            if (event.getEventId() == UserInputInt) {
-                em.enroll(UserInputInt, UserId);
-                status = 0;
-            }
-        }
-
-        ep.printStatus(status);
-        ep.goBack();
-    }
-
-
+/*
     private void cancelAttend(int UserId) {
         Scanner reader = new Scanner(System.in);
 
@@ -295,4 +124,6 @@ public class EventController {
         ep.printStatus(0);
         ep.displayRoom(id);
     }
+    */
+
 }

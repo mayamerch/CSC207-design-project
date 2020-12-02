@@ -8,13 +8,14 @@ import java.util.ArrayList;
 public class RoomGateway {
     private File fileDataRoom;
     private RoomManager roomManager;
+
     public RoomGateway()   {
         this.fileDataRoom = new File("RoomData.ser");
         try  {
             if (fileDataRoom.createNewFile())
                 roomManager = new RoomManager();
             else
-                read(this.fileDataRoom);
+                read();
         } catch (IOException e) {
             System.out.println("File Access Denied in Gateway");
         }
@@ -23,11 +24,9 @@ public class RoomGateway {
     /**
      * Tries to read data from a .ser file.
      * Prints to console on exception
-     * @param fileData Data of file to be read
      * @return Returns the the RoomManager serialized in file
      */
-    public void read(File fileData) {
-        ArrayList<StringBuilder> data = new ArrayList<>();
+    public void read() {
         try {
             FileInputStream fileIn = new FileInputStream(this.fileDataRoom);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
@@ -67,8 +66,8 @@ public class RoomGateway {
      * @return Returns an instance of an EventManager
      */
 
-    public RoomManager getEventManager() {
-        read(this.fileDataRoom);
+    public RoomManager getRoomManager() {
+        read();
         return this.roomManager;
     }
 

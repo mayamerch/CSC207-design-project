@@ -33,7 +33,6 @@ public class EventGateway {
      * @return Returns the the EventManager serialized in file
      */
     public void read() {
-        ArrayList<StringBuilder> data = new ArrayList<>();
         try {
             FileInputStream fileIn = new FileInputStream(this.fileDataEvent);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
