@@ -2,6 +2,7 @@ package EventPackage.EventOuterLayer;
 
 
 import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.Room;
 import EventPackage.EventGateways.EventGateway;
 import EventPackage.EventGateways.RoomGateway;
 import EventPackage.EventUseCases.EventManager;
@@ -38,11 +39,23 @@ public class EventController {
     }
 
 
+    private boolean checkInput(String Input) {
+        try {
+            Integer.parseInt(Input);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 
 
-    public boolean signUp(int eventId) {
+    public boolean signUp(String eventId) {
+        if (!checkInput(eventId))
+            return false;
 
-        boolean status = eventManager.enroll(eventId, userId, userVIP);
+        int id = Integer.parseInt(eventId);
+
+        boolean status = eventManager.enroll(id, userId, userVIP);
         return status;
     }
 
@@ -53,12 +66,15 @@ public class EventController {
 
         Object[][] data = new Object[eventManager.getEventList().size()][];
 
-        for (Event event: eventManager.getEventList()) {
+        for (int i = 0; i < eventManager.getEventList().size(); i++) {
+
+            Event event = eventManager.getEventList().get(i);
             int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
+
             Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
                     event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
                     event.getVIPStatus()};
-            data[0] = eventInfo;
+            data[i] = eventInfo;
         }
 
         return data;
@@ -68,12 +84,47 @@ public class EventController {
     public Object[][] getEventsAttending() {
         Object[][] data = new Object[eventManager.myEvents(userId).size()][];
 
-        for (Event event: eventManager.myEvents(userId)) {
+        for (int i = 0; i < eventManager.myEvents(userId).size(); i++) {
+
+            Event event = eventManager.myEvents(userId).get(i);
             int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
+
             Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
                     event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
                     event.getVIPStatus()};
-            data[0] = eventInfo;
+            data[i] = eventInfo;
+        }
+
+        return data;
+    }
+
+
+    public Object[][] getAvailEvents() {
+        Object[][] data = new Object[eventManager.availEvents(userId, userVIP).size()][];
+
+        for (int i = 0; i < eventManager.availEvents(userId, userVIP).size(); i++) {
+
+            Event event = eventManager.availEvents(userId, userVIP).get(i);
+            int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
+
+            Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
+                    event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
+                    event.getVIPStatus()};
+            data[i] = eventInfo;
+        }
+
+        return data;
+    }
+
+    public Object[][] getRooms() {
+        Object[][] data = new Object[roomManager.getRoomList().size()][];
+
+        for (int i = 0; i < roomManager.getRoomList().size(); i++) {
+
+            Room room = roomManager.getRoomList().get(i);
+
+            Object[] roomInfo = {room.getRoomNumber(), room.getRoomCapacity()};
+            data[i] = roomInfo;
         }
 
         return data;

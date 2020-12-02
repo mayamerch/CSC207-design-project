@@ -50,14 +50,22 @@ public class OrganizerEventView extends JFrame{
         attendNewEvent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AttendEventView attendView = new AttendEventView(eventController);
+                attendView.setContentPane(attendView.getMainPanel());
+                attendView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                attendView.pack();
+                attendView.setVisible(true);
             }
         });
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                RoomView roomView = new RoomView(eventController.getAllEvents());
+                roomView.setContentPane(roomView.getMainPanel());
+                roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                roomView.pack();
+                roomView.setVisible(true);
             }
         });
 
