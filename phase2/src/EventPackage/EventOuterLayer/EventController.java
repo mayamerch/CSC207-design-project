@@ -47,7 +47,10 @@ public class EventController {
     }
 
 
+
+
     public Object[][] getAllEvents() {
+
         Object[][] data = new Object[eventManager.getEventList().size()][];
 
         for (Event event: eventManager.getEventList()) {
@@ -62,6 +65,19 @@ public class EventController {
     }
 
 
+    public Object[][] getEventsAttending() {
+        Object[][] data = new Object[eventManager.myEvents(userId).size()][];
+
+        for (Event event: eventManager.myEvents(userId)) {
+            int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
+            Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
+                    event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
+                    event.getVIPStatus()};
+            data[0] = eventInfo;
+        }
+
+        return data;
+    }
 
 /*
     private void cancelAttend(int UserId) {

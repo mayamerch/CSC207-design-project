@@ -10,14 +10,14 @@ public class RoomGateway {
     private RoomManager roomManager;
 
     public RoomGateway()   {
-        this.fileDataRoom = new File("RoomData.ser");
+        this.fileDataRoom = new File("src/EventPackage/EventGateways/RoomData.ser");
         try  {
             if (fileDataRoom.createNewFile())
                 roomManager = new RoomManager();
             else
                 read();
         } catch (IOException e) {
-            System.out.println("File Access Denied in Gateway");
+            System.out.println("File Access Denied in Room Gateway");
         }
     }
 
@@ -37,7 +37,7 @@ public class RoomGateway {
             System.out.println("Check file directory");
             this.roomManager =  new RoomManager();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Empty Events List (Rebuild .ser file or check permissions)");
+            System.out.println("Empty Rooms List (Rebuild .ser file or check permissions)");
             this.roomManager = new RoomManager();
         }
     }
@@ -67,7 +67,6 @@ public class RoomGateway {
      */
 
     public RoomManager getRoomManager() {
-        read();
         return this.roomManager;
     }
 

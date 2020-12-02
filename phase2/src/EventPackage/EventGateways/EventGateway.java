@@ -16,14 +16,14 @@ public class EventGateway {
      * Creates a new EventGateway
      */
     public EventGateway() {
-        this.fileDataEvent = new File("EventData.ser");
+        this.fileDataEvent = new File("src/EventPackage/EventGateways/EventData.ser");
         try  {
             if (fileDataEvent.createNewFile())
                 eventManager = new EventManager();
              else
                 read();
         } catch (IOException e) {
-            System.out.println("File Access Denied in Gateway");
+            System.out.println("File Access Denied in Event Gateway");
         }
     }
 
@@ -43,7 +43,6 @@ public class EventGateway {
             System.out.println("Check file directory");
             this.eventManager = new EventManager();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
             System.out.println("Empty Events List (Rebuild .ser file or check permissions)");
             this.eventManager = new EventManager();
         }
@@ -74,7 +73,6 @@ public class EventGateway {
      */
 
     public EventManager getEventManager() {
-        read();
         return this.eventManager;
     }
 }

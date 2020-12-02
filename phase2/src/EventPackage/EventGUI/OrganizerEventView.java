@@ -14,6 +14,7 @@ public class OrganizerEventView extends JFrame{
     private JButton createEvent;
     private JButton createRoom;
     private JButton editEvent;
+    private JPanel labelPanel;
     private JPanel mainPanel;
     private EventController eventController;
 
@@ -27,9 +28,9 @@ public class OrganizerEventView extends JFrame{
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AllEventsView eventsView = new AllEventsView(eventController.getAllEvents());
+                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
-                eventsView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
                 eventsView.setVisible(true);
             }
@@ -38,7 +39,11 @@ public class OrganizerEventView extends JFrame{
         seeMyEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EventsView eventsView = new EventsView(eventController.getEventsAttending(), "My Events");
+                eventsView.setContentPane(eventsView.getMainPanel());
+                eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                eventsView.pack();
+                eventsView.setVisible(true);
             }
         });
 
