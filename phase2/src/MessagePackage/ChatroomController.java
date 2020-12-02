@@ -157,6 +157,7 @@ public class ChatroomController {
         ArrayList<Integer> speakers = eventManager.getAllSpeakers();
         for(int speaker: speakers){
             userManager.getUserByID(speaker).addFriend(organizerUserID);
+            userManager.getUserByID(organizerUserID).addFriend(speaker);
         }
         if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
             sendChat(speakers, organizerUserID, message);
@@ -173,9 +174,10 @@ public class ChatroomController {
      */
     public void messageAllAttendees(int organizerUserID, String message){
         ArrayList<Integer> attendees = eventManager.getAllAttendees();
-        // TODO: how to make all organizers friends with everyone
+        // TODO: how to make all organizers friends with everyone:
         for(int attendee: attendees){
             userManager.getUserByID(attendee).addFriend(organizerUserID);
+            userManager.getUserByID(organizerUserID).addFriend(attendee);
         }
         if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
             sendChat(attendees, organizerUserID, message);

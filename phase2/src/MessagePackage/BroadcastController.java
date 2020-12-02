@@ -9,7 +9,6 @@ import UserPackage.UserType;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-// organizer can message everyone in conference, and all speakers, do that in presenter
 
 public class BroadcastController {
     private ArrayList<Broadcast> broadcasts;
