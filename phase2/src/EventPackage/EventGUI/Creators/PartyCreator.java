@@ -28,6 +28,9 @@ public class PartyCreator extends JFrame {
     private JTextField capacityInput;
     private JFormattedTextField dateInput;
     private JButton createButton;
+    private JLabel info1;
+    private JLabel info2;
+    private JLabel info3;
     private EventController eventController;
 
     public JPanel getMainPanel() {

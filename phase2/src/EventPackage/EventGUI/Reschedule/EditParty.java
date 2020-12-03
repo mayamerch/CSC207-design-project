@@ -1,4 +1,4 @@
-package EventPackage.EventGUI.Creators;
+package EventPackage.EventGUI.Reschedule;
 
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class SingleSpeakerCreator extends JFrame {
+public class EditParty extends JFrame {
     private JPanel mainPanel;
     private JLabel name;
     private JLabel title;
@@ -28,18 +28,26 @@ public class SingleSpeakerCreator extends JFrame {
     private JComboBox booleanSelector;
     private JFormattedTextField dateInput;
     private JButton createButton;
-    private JTextField speakerInput;
-    private JLabel speaker;
     private JLabel info1;
     private JLabel info2;
     private JLabel info3;
+    private JLabel info4;
+    private JLabel info5;
+    private JLabel currName;
+    private JLabel currCapacity;
+    private JLabel currDate;
+    private JLabel currRoom;
+    private JLabel currDuration;
+    private JLabel currVIP;
+    private JLabel info6;
+    private JLabel currID;
     private EventController eventController;
 
     public JPanel getMainPanel() {
         return mainPanel;
     }
 
-    public SingleSpeakerCreator(EventController eventController1) {
+    public EditParty(EventController eventController1, String currEventId) {
         eventController = eventController1;
 
         String[] choices = {"true", "false"};
@@ -48,6 +56,17 @@ public class SingleSpeakerCreator extends JFrame {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         dateInput = new JFormattedTextField(dateFormat);
+
+        currID.setText(currEventId);
+
+        String[] eventInfo = eventController.getPartyInfo(currEventId);
+
+        currName.setText(eventInfo[0]);
+        currCapacity.setText(eventInfo[1]);
+        currDate.setText(eventInfo[2]);
+        currRoom.setText(eventInfo[3]);
+        currDuration.setText(eventInfo[4]);
+        currVIP.setText(eventInfo[5]);
 
 
         seeRooms.addActionListener(new ActionListener() {
@@ -83,10 +102,9 @@ public class SingleSpeakerCreator extends JFrame {
                 String eventRoom = roomInput.getText();
                 String eventDuration = durationInput.getText();
                 String eventVIP = (String) booleanSelector.getSelectedItem();
-                String speaker = speakerInput.getText();
 
-                int status = eventController.createSingleSpeakerEvent(eventName, eventCapacity, eventDate,
-                        eventRoom, eventDuration, eventVIP, speaker);
+                int status = eventController.editParty(currEventId, eventName, eventCapacity, eventDate,
+                        eventRoom, eventDuration, eventVIP);
 
                 if (status == -2)
                     JOptionPane.showMessageDialog(null,
@@ -96,25 +114,17 @@ public class SingleSpeakerCreator extends JFrame {
 
                 else if (status == -1)
                     JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be created" +
-                                    " due to overlap with another event.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == -3)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be created" +
-                                    " due to its capacity exceeding the capacity of its room.",
+                            "Sorry this event couldn't be edited" +
+                                    " due to new information overlapping with another event.",
                             "Process was unsuccessful",
                             JOptionPane.ERROR_MESSAGE);
 
                 else
                     JOptionPane.showMessageDialog(null,
-                            "Your Event was created successfully.",
+                            "Your Event was edited successfully.",
                             "Process was successful",
                             JOptionPane.PLAIN_MESSAGE);
             }
         });
-
     }
 }

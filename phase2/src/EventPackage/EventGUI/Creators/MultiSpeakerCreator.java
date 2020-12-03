@@ -30,6 +30,10 @@ public class MultiSpeakerCreator extends JFrame {
     private JButton createButton;
     private JTextField speakersInput;
     private JLabel speakers;
+    private JLabel info1;
+    private JLabel info2;
+    private JLabel info3;
+    private JLabel info4;
     private EventController eventController;
 
     public JPanel getMainPanel() {

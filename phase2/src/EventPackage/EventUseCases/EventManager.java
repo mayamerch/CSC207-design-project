@@ -5,6 +5,7 @@ import EventPackage.EventEntities.MultiSpeakerEvent;
 import EventPackage.EventEntities.Party;
 import EventPackage.EventEntities.SingleSpeakerEvent;
 import EventPackage.EventEntities.SpeakerEvent;
+import EventPackage.EventGUI.Creators.SingleSpeakerCreator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -320,11 +321,13 @@ public class EventManager implements Serializable {
      * @param eventCapacity The capacity of the event
      * @param eventDate The new date of event
      * @param eventRoom The new room of event
-     * @param eventDuration The new duration of th event
+     * @param eventDuration The new duration of the event
+     * @param eventName New Name of event
+     * @param VIP New VIP Status
      * @return              True if event was rescheduled, false if it was unable to
      */
-    public boolean rescheduleParty(int eventId, int eventCapacity, Date eventDate, int eventRoom,
-                              int eventDuration) {
+    public boolean rescheduleParty(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom,
+                              int eventDuration, boolean VIP) {
         int index = -1;
         for (int i = 0; i < partyList.size(); i++) {
             if (partyList.get(i).getEventId() == eventId)
@@ -337,11 +340,12 @@ public class EventManager implements Serializable {
         if (roomCompare(eventId, eventRoom, eventDate, eventDuration))
             return false;
 
-
+        partyList.get(index).setEventName(eventName);
         partyList.get(index).setEventDate(eventDate);
         partyList.get(index).setEventRoom(eventRoom);
         partyList.get(index).setEventDuration(eventDuration);
         partyList.get(index).setEventCapacity(eventCapacity);
+        partyList.get(index).setVIPStatus(VIP);
 
         return true;
     }
@@ -356,10 +360,12 @@ public class EventManager implements Serializable {
      * @param eventRoom The new room of event
      * @param eventDuration The new duration of th event
      * @param speakerId The id of new speaker  at this event
+     * @param eventName New Name of event
+     * @param VIP New VIP Status
      * @return              True if event was rescheduled, false if it was unable to
      */
-    public boolean rescheduleSingleSpeaker(int eventId, int eventCapacity, Date eventDate, int eventRoom,
-                                   int eventDuration, int speakerId) {
+    public boolean rescheduleSingleSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate,
+                                           int eventRoom, int eventDuration, int speakerId, boolean VIP) {
         int index = -1;
         for (int i = 0; i < singleSpeakerList.size(); i++) {
             if (singleSpeakerList.get(i).getEventId() == eventId)
@@ -373,12 +379,13 @@ public class EventManager implements Serializable {
                 || speakerCompare(eventId, eventDate, eventDuration, speakerId))
             return false;
 
-
+        singleSpeakerList.get(index).setEventName(eventName);
         singleSpeakerList.get(index).setEventDate(eventDate);
         singleSpeakerList.get(index).setEventRoom(eventRoom);
         singleSpeakerList.get(index).setEventDuration(eventDuration);
         singleSpeakerList.get(index).setEventCapacity(eventCapacity);
         singleSpeakerList.get(index).setEventSpeaker(speakerId);
+        singleSpeakerList.get(index).setVIPStatus(VIP);
 
         return true;
     }
@@ -393,10 +400,13 @@ public class EventManager implements Serializable {
      * @param eventRoom The new room of event
      * @param eventDuration The new duration of the event
      * @param speakerIds The ids of  the new speaker of this event
-     * @return              True if event was rescheduled, false if it was unable to
+     * @param eventName New Name of event
+     * @param VIP New VIP Status
+     * @return          True if event was rescheduled, false if it was unable to
      */
-    public boolean rescheduleMultiSpeaker(int eventId, int eventCapacity, Date eventDate, int eventRoom,
-                                   int eventDuration, ArrayList<Integer> speakerIds) {
+    public boolean rescheduleMultiSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate,
+                                          int eventRoom, int eventDuration, ArrayList<Integer> speakerIds,
+                                          boolean VIP) {
         int index = -1;
         for (int i = 0; i < multiSpeakerList.size(); i++) {
             if (multiSpeakerList.get(i).getEventId() == eventId)
@@ -412,15 +422,18 @@ public class EventManager implements Serializable {
         if (speakerIds.size() == 0)
             return false;
 
-        for (Integer speakerId: speakerIds)
+        for (Integer speakerId: speakerIds) {
             if (speakerCompare(eventId, eventDate, eventDuration, speakerId))
                 return false;
+        }
 
+        multiSpeakerList.get(index).setEventName(eventName);
         multiSpeakerList.get(index).setEventDate(eventDate);
         multiSpeakerList.get(index).setEventRoom(eventRoom);
         multiSpeakerList.get(index).setEventDuration(eventDuration);
         multiSpeakerList.get(index).setEventCapacity(eventCapacity);
         multiSpeakerList.get(index).setEventSpeakers(speakerIds);
+        multiSpeakerList.get(index).setVIPStatus(VIP);
 
         return true;
     }
@@ -536,5 +549,44 @@ public class EventManager implements Serializable {
                 if (!allParticipants.contains(participant))
                     allParticipants.add(participant);
         return allParticipants;
+    }
+
+    /**
+     * Checks if an event is a party event
+     * @param eventId the id of event to be checked
+     * @return true if its a party event, false if not
+     */
+    public boolean isParty(int eventId) {
+        for (Party event: partyList) {
+            if (event.getEventId() == eventId)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if an event is a single speaker event
+     * @param eventId the id of event to be checked
+     * @return true if its a single speaker event, false if not
+     */
+    public boolean isSingleSpeakerEvent(int eventId) {
+        for (SingleSpeakerEvent event: singleSpeakerList) {
+            if (event.getEventId() == eventId)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if an event is a multi-speaker event
+     * @param eventId the id of event to be checked
+     * @return true if its a multi-speaker event, false if not
+     */
+    public boolean isMultiSpeakerEvent(int eventId) {
+        for (MultiSpeakerEvent event: multiSpeakerList) {
+            if (event.getEventId() == eventId)
+                return true;
+        }
+        return false;
     }
 }

@@ -1,8 +1,7 @@
 package EventPackage.EventOuterLayer;
 
 
-import EventPackage.EventEntities.Event;
-import EventPackage.EventEntities.Room;
+import EventPackage.EventEntities.*;
 import EventPackage.EventGateways.EventGateway;
 import EventPackage.EventGateways.RoomGateway;
 import EventPackage.EventUseCases.EventManager;
@@ -241,5 +240,202 @@ public class EventController {
 
         roomManager.createRoom(capacity);
         return true;
+    }
+
+
+    public int findType(String EventId) {
+        int eventId;
+
+        try {
+            eventId = Integer.parseInt(EventId);
+        }
+        catch (Exception e) {
+            return -1;
+        }
+
+        if (eventManager.isParty(eventId))
+            return 1;
+        else if (eventManager.isSingleSpeakerEvent(eventId))
+            return 2;
+        else if (eventManager.isMultiSpeakerEvent(eventId))
+            return 3;
+        else
+            return 0;
+    }
+
+
+    public String[] getPartyInfo(String EventId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        String[] eventInfo = new String[6];
+        int eventId;
+
+        eventId = Integer.parseInt(EventId);
+        Party event = (Party) eventManager.getEvent(eventId);
+
+        eventInfo[0] = event.getEventName();
+        eventInfo[1] = String.valueOf(event.getEventCapacity());
+        eventInfo[2] = sdf.format(event.getEventDate());
+        eventInfo[3] = String.valueOf(event.getEventRoom());
+        eventInfo[4] = String.valueOf(event.getEventDuration());
+        eventInfo[5] = String.valueOf(event.getVIPStatus());
+
+        return eventInfo;
+    }
+
+
+    public int editParty(String EventId, String EventName, String EventCapacity,
+                         String EventDate, String EventRoom, String EventDuration, String EventVIP) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        int eventId = Integer.parseInt(EventId);
+        int capacity;
+        Date date;
+        int room;
+        int duration;
+        boolean vip;
+
+        Party event = (Party) eventManager.getEvent(eventId);
+
+        try {
+            if (EventCapacity.equals(""))
+                capacity = event.getEventCapacity();
+            else
+                capacity = Integer.parseInt(EventCapacity);
+
+            if (EventDate.equals(""))
+                date = event.getEventDate();
+            else
+                date = sdf.parse(EventDate);
+
+            if (EventCapacity.equals(""))
+                room = event.getEventRoom();
+            else
+                room = Integer.parseInt(EventRoom);
+
+            if (EventCapacity.equals(""))
+                duration = event.getEventDuration();
+            else
+                duration = Integer.parseInt(EventDuration);
+
+            vip = Boolean.parseBoolean(EventVIP);
+        }
+        catch (Exception e) {
+            return -2;
+        }
+
+        if (eventManager.rescheduleParty(eventId, EventName, capacity, date, room, duration, vip))
+            return 0;
+        else
+            return -1;
+    }
+
+
+    public int editSingleSpeaker(String EventId, String EventName, String EventCapacity,
+                         String EventDate, String EventRoom, String EventDuration, String EventVIP,
+                                 String EventSpeaker) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        int eventId = Integer.parseInt(EventId);
+        int capacity;
+        Date date;
+        int room;
+        int duration;
+        boolean vip;
+        int speaker;
+
+        SingleSpeakerEvent event = (SingleSpeakerEvent) eventManager.getEvent(eventId);
+
+        try {
+            if (EventCapacity.equals(""))
+                capacity = event.getEventCapacity();
+            else
+                capacity = Integer.parseInt(EventCapacity);
+
+            if (EventDate.equals(""))
+                date = event.getEventDate();
+            else
+                date = sdf.parse(EventDate);
+
+            if (EventCapacity.equals(""))
+                room = event.getEventRoom();
+            else
+                room = Integer.parseInt(EventRoom);
+
+            if (EventCapacity.equals(""))
+                duration = event.getEventDuration();
+            else
+                duration = Integer.parseInt(EventDuration);
+
+            if (EventSpeaker.equals(""))
+                speaker = event.getEventSpeaker();
+            else
+                speaker = Integer.parseInt(EventSpeaker);
+
+            vip = Boolean.parseBoolean(EventVIP);
+        }
+        catch (Exception e) {
+            return -2;
+        }
+
+        if (eventManager.rescheduleSingleSpeaker(eventId, EventName, capacity, date, room, duration, speaker, vip))
+            return 0;
+        else
+            return -1;
+    }
+
+
+    public int editMultiSpeaker(String EventId, String EventName, String EventCapacity,
+                         String EventDate, String EventRoom, String EventDuration, String EventVIP,
+                                String EventSpeakers) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        String[] Speakers = EventSpeakers.split(",");
+        int eventId = Integer.parseInt(EventId);
+        int capacity;
+        Date date;
+        int room;
+        int duration;
+        boolean vip;
+        ArrayList<Integer> speakers = new ArrayList<>();
+
+        MultiSpeakerEvent event = (MultiSpeakerEvent) eventManager.getEvent(eventId);
+
+        try {
+            if (EventCapacity.equals(""))
+                capacity = event.getEventCapacity();
+            else
+                capacity = Integer.parseInt(EventCapacity);
+
+            if (EventDate.equals(""))
+                date = event.getEventDate();
+            else
+                date = sdf.parse(EventDate);
+
+            if (EventCapacity.equals(""))
+                room = event.getEventRoom();
+            else
+                room = Integer.parseInt(EventRoom);
+
+            if (EventCapacity.equals(""))
+                duration = event.getEventDuration();
+            else
+                duration = Integer.parseInt(EventDuration);
+
+            if (EventSpeakers.equals(""))
+                speakers = event.getEventSpeakers();
+            else
+                for (String num: Speakers)
+                    speakers.add(Integer.parseInt(num));
+
+            vip = Boolean.parseBoolean(EventVIP);
+        }
+        catch (Exception e) {
+            return -2;
+        }
+
+        if (eventManager.rescheduleMultiSpeaker(eventId, EventName, capacity, date, room, duration, speakers, vip))
+            return 0;
+        else
+            return -1;
     }
 }

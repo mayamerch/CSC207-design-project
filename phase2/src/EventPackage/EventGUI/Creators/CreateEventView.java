@@ -12,6 +12,7 @@ public class CreateEventView extends JFrame{
     private JButton partyButton;
     private JButton singleSpeakerButton;
     private JButton multiSpeakerButton;
+    private JLabel choose;
     private EventController eventController;
 
 
@@ -31,6 +32,7 @@ public class CreateEventView extends JFrame{
                 partyCreator.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 partyCreator.pack();
                 partyCreator.setVisible(true);
+                setVisible(false);
             }
         });
 
@@ -43,6 +45,7 @@ public class CreateEventView extends JFrame{
                 singleSpeakerCreator.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 singleSpeakerCreator.pack();
                 singleSpeakerCreator.setVisible(true);
+                setVisible(false);
             }
         });
 
@@ -55,6 +58,7 @@ public class CreateEventView extends JFrame{
                 multiSpeakerCreator.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 multiSpeakerCreator.pack();
                 multiSpeakerCreator.setVisible(true);
+                setVisible(false);
             }
         });
     }
