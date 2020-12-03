@@ -32,7 +32,6 @@ public class RescheduleEventView extends JFrame {
 
     public RescheduleEventView(EventController eventController1) {
         eventController = eventController1;
-        eventsInfo = eventController.getAllEvents();
 
         next.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +82,7 @@ public class RescheduleEventView extends JFrame {
     }
 
     private void createUIComponents() {
+        eventsInfo = eventController.getAllEvents();
         eventInfo = new JTable(eventsInfo, header);
         scrollPane = new JScrollPane(eventInfo);
         title = new JLabel();

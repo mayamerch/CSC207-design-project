@@ -30,8 +30,6 @@ public class AttendEventView extends JFrame{
     public AttendEventView(EventController eventController1) {
         eventController = eventController1;
 
-        eventsInfo = eventController.getAvailEvents();
-
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,6 +49,7 @@ public class AttendEventView extends JFrame{
     }
 
     private void createUIComponents() {
+        eventsInfo = eventController.getAvailEvents();
         eventInfo = new JTable(eventsInfo, header);
         scrollPane = new JScrollPane(eventInfo);
         title = new JLabel();

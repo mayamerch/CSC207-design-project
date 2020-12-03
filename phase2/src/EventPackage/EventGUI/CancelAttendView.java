@@ -13,7 +13,6 @@ public class CancelAttendView extends JFrame {
     private JLabel title;
     private JTable eventTable;
     private JScrollPane scrollPane;
-    private JButton chooseEvent;
     private JLabel info;
     private EventController eventController;
     private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
@@ -30,9 +29,6 @@ public class CancelAttendView extends JFrame {
 
     public CancelAttendView(EventController eventController1) {
         eventController = eventController1;
-
-        this.eventsInfo = eventController.getEventsAttending();
-
 
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -67,6 +63,7 @@ public class CancelAttendView extends JFrame {
     }
 
     private void createUIComponents() {
+        eventsInfo = eventController.getEventsAttending();
         eventTable = new JTable(eventsInfo, header);
         scrollPane = new JScrollPane(eventTable);
         title = new JLabel();
