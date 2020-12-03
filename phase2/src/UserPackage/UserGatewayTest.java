@@ -15,7 +15,8 @@ public class UserGatewayTest {
         userManager.createAccount("user2", "User2",UserType.ATTENDEE);
         User user1 = userManager.getUserByID(1);
         User user2 = userManager.getUserByID(2);
-        userManager.addFriend(1, 2);
+        userManager.sendFriendRequest(1, 2);
+        userManager.acceptFriendRequest(2, 1);
 
         userGateway.saveUserMap(userManager.getUserMap());
         Map<Integer, User> ul = userGateway.readUserMap();
