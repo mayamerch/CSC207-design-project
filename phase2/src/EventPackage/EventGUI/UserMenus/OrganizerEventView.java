@@ -20,9 +20,9 @@ public class OrganizerEventView extends JFrame{
     private JButton createEvent;
     private JButton createRoom;
     private JButton editEvent;
-    private JPanel labelPanel;
     private JPanel mainPanel;
     private JButton cancelAttend;
+    private JLabel title;
     private EventController eventController;
 
     /**

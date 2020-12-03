@@ -1,7 +1,5 @@
 package EventPackage.EventGUI.UserMenus;
 
-import EventPackage.EventGUI.AttendEventView;
-import EventPackage.EventGUI.CancelAttendView;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
@@ -10,16 +8,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AttendeeEventView {
-
-
+public class SpeakerEventView {
     private JPanel mainPanel;
     private JButton seeEvents;
     private JButton seeMyEvents;
-    private JButton attendNewEvent;
-    private JButton seeRooms;
-    private JButton cancelAttend;
     private JLabel title;
+    private JButton seeRooms;
     private EventController eventController;
 
     /**
@@ -30,7 +24,7 @@ public class AttendeeEventView {
         return mainPanel;
     }
 
-    public AttendeeEventView(EventController eventController1) {
+    public SpeakerEventView(EventController eventController1) {
         eventController = eventController1;
 
         seeEvents.addActionListener(new ActionListener() {
@@ -47,33 +41,11 @@ public class AttendeeEventView {
         seeMyEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getEventsAttending(), "My Events");
+                EventsView eventsView = new EventsView(eventController.getEventsSpeakingAt(), "My Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
                 eventsView.setVisible(true);
-            }
-        });
-
-        attendNewEvent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AttendEventView attendView = new AttendEventView(eventController);
-                attendView.setContentPane(attendView.getMainPanel());
-                attendView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                attendView.pack();
-                attendView.setVisible(true);
-            }
-        });
-
-        cancelAttend.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CancelAttendView cancelAttendView = new CancelAttendView(eventController);
-                cancelAttendView.setContentPane(cancelAttendView.getMainPanel());
-                cancelAttendView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                cancelAttendView.pack();
-                cancelAttendView.setVisible(true);
             }
         });
 

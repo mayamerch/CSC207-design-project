@@ -97,6 +97,24 @@ public class EventController {
     }
 
 
+    public Object[][] getEventsSpeakingAt() {
+        Object[][] data = new Object[eventManager.speakingAt(userId).size()][];
+
+        for (int i = 0; i < eventManager.speakingAt(userId).size(); i++) {
+
+            Event event = eventManager.speakingAt(userId).get(i);
+            int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
+
+            Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
+                    event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
+                    event.getVIPStatus(), getSpeakerString(event.getEventId())};
+            data[i] = eventInfo;
+        }
+
+        return data;
+    }
+
+
     public Object[][] getAvailEvents() {
         Object[][] data = new Object[eventManager.availEvents(userId, userVIP).size()][];
 
