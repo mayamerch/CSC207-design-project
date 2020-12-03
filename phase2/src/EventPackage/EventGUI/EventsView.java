@@ -7,6 +7,10 @@ public class EventsView extends JFrame{
     private JLabel title;
     private JTable eventInfo;
 
+    /**
+     * returns the Main JPanel of this JFrame
+     * @return the main JPanel
+     */
     public JPanel getMainPanel() {
         return mainPanel;
     }

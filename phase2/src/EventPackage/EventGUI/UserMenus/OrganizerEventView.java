@@ -25,6 +25,10 @@ public class OrganizerEventView extends JFrame{
     private JButton cancelAttend;
     private EventController eventController;
 
+    /**
+     * returns the Main JPanel of this JFrame
+     * @return the main JPanel
+     */
     public JPanel getMainPanel() {
         return mainPanel;
     }
