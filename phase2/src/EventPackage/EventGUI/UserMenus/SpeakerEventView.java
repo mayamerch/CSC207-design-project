@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SpeakerEventView {
+public class SpeakerEventView extends JFrame{
     private JPanel mainPanel;
     private JButton seeEvents;
     private JButton seeMyEvents;

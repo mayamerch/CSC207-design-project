@@ -65,18 +65,20 @@ public class EventController {
 
 
 
-    public Object[][] getAllEvents() {
+    public String[][] getAllEvents() {
 
-        Object[][] data = new Object[eventManager.getEventList().size()][];
+        String[][] data = new String[eventManager.getEventList().size()][];
 
         for (int i = 0; i < eventManager.getEventList().size(); i++) {
 
             Event event = eventManager.getEventList().get(i);
             int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
 
-            Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
-                    event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
-                    event.getVIPStatus(), getSpeakerString(event.getEventId())};
+            String[] eventInfo = {String.valueOf(event.getEventId()), event.getEventName(), event.getEventType(),
+                    String.valueOf(event.getEventRoom()), String.valueOf(event.getEventDate()),
+                    String.valueOf(event.getEventDuration()), String.valueOf(event.getEventCapacity()),
+                    String.valueOf(availableSpace), String.valueOf(event.getVIPStatus()),
+                    getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
         }
 
@@ -84,17 +86,19 @@ public class EventController {
     }
 
 
-    public Object[][] getEventsAttending() {
-        Object[][] data = new Object[eventManager.myEvents(userId).size()][];
+    public String[][] getEventsAttending() {
+        String[][] data = new String[eventManager.myEvents(userId).size()][];
 
         for (int i = 0; i < eventManager.myEvents(userId).size(); i++) {
 
             Event event = eventManager.myEvents(userId).get(i);
             int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
 
-            Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
-                    event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
-                    event.getVIPStatus(), getSpeakerString(event.getEventId())};
+            String[] eventInfo = {String.valueOf(event.getEventId()), event.getEventName(), event.getEventType(),
+                    String.valueOf(event.getEventRoom()), String.valueOf(event.getEventDate()),
+                    String.valueOf(event.getEventDuration()), String.valueOf(event.getEventCapacity()),
+                    String.valueOf(availableSpace), String.valueOf(event.getVIPStatus()),
+                    getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
         }
 
@@ -102,17 +106,19 @@ public class EventController {
     }
 
 
-    public Object[][] getEventsSpeakingAt() {
-        Object[][] data = new Object[eventManager.speakingAt(userId).size()][];
+    public String[][] getEventsSpeakingAt() {
+        String[][] data = new String[eventManager.speakingAt(userId).size()][];
 
         for (int i = 0; i < eventManager.speakingAt(userId).size(); i++) {
 
             Event event = eventManager.speakingAt(userId).get(i);
             int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
 
-            Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
-                    event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
-                    event.getVIPStatus(), getSpeakerString(event.getEventId())};
+            String[] eventInfo = {String.valueOf(event.getEventId()), event.getEventName(), event.getEventType(),
+                    String.valueOf(event.getEventRoom()),
+                    String.valueOf(event.getEventDate()), String.valueOf(event.getEventDuration()),
+                    String.valueOf(event.getEventCapacity()), String.valueOf(availableSpace),
+                    String.valueOf(event.getVIPStatus()), getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
         }
 
@@ -120,31 +126,33 @@ public class EventController {
     }
 
 
-    public Object[][] getAvailEvents() {
-        Object[][] data = new Object[eventManager.availEvents(userId, userVIP).size()][];
+    public String[][] getAvailEvents() {
+        String[][] data = new String[eventManager.availEvents(userId, userVIP).size()][];
 
         for (int i = 0; i < eventManager.availEvents(userId, userVIP).size(); i++) {
 
             Event event = eventManager.availEvents(userId, userVIP).get(i);
             int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
 
-            Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
-                    event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
-                    event.getVIPStatus(), getSpeakerString(event.getEventId())};
+            String[] eventInfo = {String.valueOf(event.getEventId()), event.getEventName(), event.getEventType(),
+                    String.valueOf(event.getEventRoom()),
+                    String.valueOf(event.getEventDate()), String.valueOf(event.getEventDuration()),
+                    String.valueOf(event.getEventCapacity()), String.valueOf(availableSpace),
+                    String.valueOf(event.getVIPStatus()), getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
         }
 
         return data;
     }
 
-    public Object[][] getRooms() {
-        Object[][] data = new Object[roomManager.getRoomList().size()][];
+    public String[][] getRooms() {
+        String[][] data = new String[roomManager.getRoomList().size()][];
 
         for (int i = 0; i < roomManager.getRoomList().size(); i++) {
 
             Room room = roomManager.getRoomList().get(i);
 
-            Object[] roomInfo = {room.getRoomNumber(), room.getRoomCapacity()};
+            String[] roomInfo = {String.valueOf(room.getRoomNumber()), String.valueOf(room.getRoomCapacity())};
             data[i] = roomInfo;
         }
 

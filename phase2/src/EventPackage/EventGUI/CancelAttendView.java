@@ -8,12 +8,16 @@ import java.awt.event.ActionListener;
 
 public class CancelAttendView extends JFrame {
     private JPanel mainPanel;
-    private JTable eventInfo;
     private JLabel chooseEvent;
     private JTextField eventId;
     private JButton okButton;
     private JLabel title;
+    private JTable eventInfo;
+    private JScrollPane scrollPane;
     private EventController eventController;
+    private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
+            "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
+    private String[][] eventsInfo;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -26,10 +30,7 @@ public class CancelAttendView extends JFrame {
     public CancelAttendView(EventController eventController1) {
         eventController = eventController1;
 
-        Object[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-                "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
-
-        eventInfo = new JTable(eventController.getEventsAttending(), header);
+        this.eventsInfo = eventController.getEventsAttending();
 
 
         okButton.addActionListener(new ActionListener() {
@@ -62,5 +63,12 @@ public class CancelAttendView extends JFrame {
                             JOptionPane.PLAIN_MESSAGE);
             }
         });
+    }
+
+    private void createUIComponents() {
+        eventInfo = new JTable(eventsInfo, header);
+        scrollPane = new JScrollPane(eventInfo);
+        title = new JLabel();
+        title.setText("Events you are Currently Attending");
     }
 }

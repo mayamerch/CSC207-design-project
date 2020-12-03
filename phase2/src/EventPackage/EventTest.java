@@ -1,5 +1,6 @@
 package EventPackage;
 
+import EventPackage.EventGUI.UserMenus.AttendeeEventView;
 import EventPackage.EventGUI.UserMenus.OrganizerEventView;
 import EventPackage.EventOuterLayer.EventController;
 
@@ -44,7 +45,7 @@ public class EventTest {
 
         EventController ec = new EventController(0, true, SpeakerIds);
 
-        OrganizerEventView or = new OrganizerEventView(ec);
+        AttendeeEventView or = new AttendeeEventView(ec);
         or.setContentPane(or.getMainPanel());
         or.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         or.pack();

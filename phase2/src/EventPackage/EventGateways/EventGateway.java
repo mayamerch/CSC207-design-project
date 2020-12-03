@@ -16,7 +16,7 @@ public class EventGateway {
      * Creates a new EventGateway
      */
     public EventGateway() {
-        this.fileDataEvent = new File("src/EventPackage/EventGateways/EventData.ser");
+        this.fileDataEvent = new File("EventData.ser");
         try  {
             if (fileDataEvent.createNewFile())
                 eventManager = new EventManager();

@@ -13,7 +13,11 @@ public class AttendEventView extends JFrame{
     private JTextField eventId;
     private JButton okButton;
     private JLabel title;
+    private JScrollPane scrollPane;
     private EventController eventController;
+    private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
+            "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
+    private String[][] eventsInfo;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -26,10 +30,7 @@ public class AttendEventView extends JFrame{
     public AttendEventView(EventController eventController1) {
         eventController = eventController1;
 
-        Object[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-                "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
-
-        eventInfo = new JTable(eventController.getAvailEvents(), header);
+        eventsInfo = eventController.getAvailEvents();
 
 
         okButton.addActionListener(new ActionListener() {
@@ -48,5 +49,12 @@ public class AttendEventView extends JFrame{
                             JOptionPane.ERROR_MESSAGE);
             }
         });
+    }
+
+    private void createUIComponents() {
+        eventInfo = new JTable(eventsInfo, header);
+        scrollPane = new JScrollPane(eventInfo);
+        title = new JLabel();
+        title.setText("Available Events to Attend");
     }
 }

@@ -6,6 +6,9 @@ public class RoomView extends JFrame{
     private JPanel mainPanel;
     private JLabel title;
     private JTable roomInfo;
+    private JScrollPane scrollPane;
+    private final String[] header = {"Room Id", "Room Capacity"};
+    private String[][] roomsInfo;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -15,9 +18,12 @@ public class RoomView extends JFrame{
         return mainPanel;
     }
 
-    public RoomView(Object[][] roomsInfo) {
+    public RoomView(String[][] roomsInfo) {
+        this.roomsInfo = roomsInfo;
+    }
 
-        Object[] header = {"Room Id", "Room Capacity"};
+    private void createUIComponents() {
         roomInfo = new JTable(roomsInfo, header);
+        scrollPane = new JScrollPane(roomInfo);
     }
 }

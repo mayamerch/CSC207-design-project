@@ -10,7 +10,7 @@ public class RoomGateway {
     private RoomManager roomManager;
 
     public RoomGateway()   {
-        this.fileDataRoom = new File("src/EventPackage/EventGateways/RoomData.ser");
+        this.fileDataRoom = new File("RoomData.ser");
         try  {
             if (fileDataRoom.createNewFile())
                 roomManager = new RoomManager();

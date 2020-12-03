@@ -5,6 +5,7 @@ import EventPackage.EventGUI.CancelAttendView;
 import EventPackage.EventGUI.Creators.CreateEventView;
 import EventPackage.EventGUI.Creators.CreateRoomView;
 import EventPackage.EventGUI.EventsView;
+import EventPackage.EventGUI.Reschedule.RescheduleEventView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
 
@@ -105,7 +106,11 @@ public class OrganizerEventView extends JFrame{
         editEvent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                RescheduleEventView rescheduleEventView = new RescheduleEventView(eventController);
+                rescheduleEventView.setContentPane(rescheduleEventView.getMainPanel());
+                rescheduleEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                rescheduleEventView.pack();
+                rescheduleEventView.setVisible(true);
             }
         });
 

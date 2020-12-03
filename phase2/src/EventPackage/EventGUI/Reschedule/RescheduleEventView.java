@@ -16,7 +16,11 @@ public class RescheduleEventView extends JFrame {
     private JLabel id;
     private JTable eventInfo;
     private JButton next;
+    private JScrollPane scrollPane;
     private EventController eventController;
+    private String[][] eventsInfo;
+    private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
+            "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event"};
 
     /**
      * returns the Main JPanel of this JFrame
@@ -28,13 +32,7 @@ public class RescheduleEventView extends JFrame {
 
     public RescheduleEventView(EventController eventController1) {
         eventController = eventController1;
-        Object[][] eventsInfo = eventController.getAllEvents();
-
-        Object[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-                "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event"};
-
-        eventInfo = new JTable(eventsInfo, header);
-
+        eventsInfo = eventController.getAllEvents();
 
         next.addActionListener(new ActionListener() {
             @Override
@@ -82,5 +80,12 @@ public class RescheduleEventView extends JFrame {
 
             }
         });
+    }
+
+    private void createUIComponents() {
+        eventInfo = new JTable(eventsInfo, header);
+        scrollPane = new JScrollPane(eventInfo);
+        title = new JLabel();
+        title.setText("Edit an Event");
     }
 }
