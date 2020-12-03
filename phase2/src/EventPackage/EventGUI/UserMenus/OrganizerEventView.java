@@ -1,5 +1,11 @@
-package EventPackage.EventGUI;
+package EventPackage.EventGUI.UserMenus;
 
+import EventPackage.EventGUI.AttendEventView;
+import EventPackage.EventGUI.CancelAttendView;
+import EventPackage.EventGUI.Creators.CreateEventView;
+import EventPackage.EventGUI.Creators.CreateRoomView;
+import EventPackage.EventGUI.EventsView;
+import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
 
 import javax.swing.*;
@@ -16,6 +22,7 @@ public class OrganizerEventView extends JFrame{
     private JButton editEvent;
     private JPanel labelPanel;
     private JPanel mainPanel;
+    private JButton cancelAttend;
     private EventController eventController;
 
     public JPanel getMainPanel() {
@@ -61,7 +68,7 @@ public class OrganizerEventView extends JFrame{
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getAllEvents());
+                RoomView roomView = new RoomView(eventController.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -72,14 +79,22 @@ public class OrganizerEventView extends JFrame{
         createEvent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                CreateEventView createEventView = new CreateEventView(eventController);
+                createEventView.setContentPane(createEventView.getMainPanel());
+                createEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                createEventView.pack();
+                createEventView.setVisible(true);
             }
         });
 
         createRoom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                CreateRoomView createRoomView = new CreateRoomView(eventController);
+                createRoomView.setContentPane(createRoomView.getMainPanel());
+                createRoomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                createRoomView.pack();
+                createRoomView.setVisible(true);
             }
         });
 
@@ -90,5 +105,15 @@ public class OrganizerEventView extends JFrame{
             }
         });
 
-}
+        cancelAttend.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CancelAttendView cancelAttendView = new CancelAttendView(eventController);
+                cancelAttendView.setContentPane(cancelAttendView.getMainPanel());
+                cancelAttendView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                cancelAttendView.pack();
+                cancelAttendView.setVisible(true);
+            }
+        });
+    }
 }
