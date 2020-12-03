@@ -20,6 +20,10 @@ public class CreateRoomView extends JFrame {
     private JLabel inputInfo;
     private EventController eventController;
 
+    /**
+     * returns the Main JPanel of this JFrame
+     * @return the main JPanel
+     */
     public JPanel getMainPanel() {
         return mainPanel;
     }

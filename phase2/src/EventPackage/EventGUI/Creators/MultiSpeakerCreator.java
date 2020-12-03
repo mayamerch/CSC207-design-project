@@ -36,6 +36,10 @@ public class MultiSpeakerCreator extends JFrame {
     private JLabel info4;
     private EventController eventController;
 
+    /**
+     * returns the Main JPanel of this JFrame
+     * @return the main JPanel
+     */
     public JPanel getMainPanel() {
         return mainPanel;
     }
