@@ -323,10 +323,11 @@ public class EventManager implements Serializable {
      * @param eventRoom The new room of event
      * @param eventDuration The new duration of the event
      * @param eventName New Name of event
+     * @param VIP New VIP Status
      * @return              True if event was rescheduled, false if it was unable to
      */
     public boolean rescheduleParty(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom,
-                              int eventDuration) {
+                              int eventDuration, boolean VIP) {
         int index = -1;
         for (int i = 0; i < partyList.size(); i++) {
             if (partyList.get(i).getEventId() == eventId)
@@ -344,6 +345,7 @@ public class EventManager implements Serializable {
         partyList.get(index).setEventRoom(eventRoom);
         partyList.get(index).setEventDuration(eventDuration);
         partyList.get(index).setEventCapacity(eventCapacity);
+        partyList.get(index).setVIPStatus(VIP);
 
         return true;
     }
@@ -359,10 +361,11 @@ public class EventManager implements Serializable {
      * @param eventDuration The new duration of th event
      * @param speakerId The id of new speaker  at this event
      * @param eventName New Name of event
+     * @param VIP New VIP Status
      * @return              True if event was rescheduled, false if it was unable to
      */
-    public boolean rescheduleSingleSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom,
-                                   int eventDuration, int speakerId) {
+    public boolean rescheduleSingleSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate,
+                                           int eventRoom, int eventDuration, int speakerId, boolean VIP) {
         int index = -1;
         for (int i = 0; i < singleSpeakerList.size(); i++) {
             if (singleSpeakerList.get(i).getEventId() == eventId)
@@ -382,6 +385,7 @@ public class EventManager implements Serializable {
         singleSpeakerList.get(index).setEventDuration(eventDuration);
         singleSpeakerList.get(index).setEventCapacity(eventCapacity);
         singleSpeakerList.get(index).setEventSpeaker(speakerId);
+        singleSpeakerList.get(index).setVIPStatus(VIP);
 
         return true;
     }
@@ -397,10 +401,12 @@ public class EventManager implements Serializable {
      * @param eventDuration The new duration of the event
      * @param speakerIds The ids of  the new speaker of this event
      * @param eventName New Name of event
-     * @return              True if event was rescheduled, false if it was unable to
+     * @param VIP New VIP Status
+     * @return          True if event was rescheduled, false if it was unable to
      */
-    public boolean rescheduleMultiSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom,
-                                   int eventDuration, ArrayList<Integer> speakerIds) {
+    public boolean rescheduleMultiSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate,
+                                          int eventRoom, int eventDuration, ArrayList<Integer> speakerIds,
+                                          boolean VIP) {
         int index = -1;
         for (int i = 0; i < multiSpeakerList.size(); i++) {
             if (multiSpeakerList.get(i).getEventId() == eventId)
@@ -427,6 +433,7 @@ public class EventManager implements Serializable {
         multiSpeakerList.get(index).setEventDuration(eventDuration);
         multiSpeakerList.get(index).setEventCapacity(eventCapacity);
         multiSpeakerList.get(index).setEventSpeakers(speakerIds);
+        multiSpeakerList.get(index).setVIPStatus(VIP);
 
         return true;
     }

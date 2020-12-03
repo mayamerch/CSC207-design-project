@@ -116,6 +116,15 @@ public abstract class Event implements Comparable<Event>, Serializable {
 
 
     /**
+     * Change VIP status of the event
+     * @param status new VIP status of event
+     */
+    public void setVIPStatus(boolean status){
+        VIPStatus = status;
+    }
+
+
+    /**
      * Change the name of an event
      * @param eventName New name of event
      */
