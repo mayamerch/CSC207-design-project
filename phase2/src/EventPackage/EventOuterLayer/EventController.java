@@ -47,6 +47,7 @@ public class EventController {
     }
 
 
+
     public boolean signUp(String eventId) {
         if (!checkInput(eventId))
             return false;

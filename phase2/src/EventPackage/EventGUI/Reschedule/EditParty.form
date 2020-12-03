@@ -137,7 +137,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="6ffd5" class="javax.swing.JComboBox" binding="booleanSelector">
+          <component id="6ffd5" class="javax.swing.JComboBox" binding="booleanSelector" custom-create="true">
             <constraints>
               <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -145,7 +145,7 @@
               <editable value="true"/>
             </properties>
           </component>
-          <component id="4290b" class="javax.swing.JFormattedTextField" binding="dateInput">
+          <component id="4290b" class="javax.swing.JFormattedTextField" binding="dateInput" custom-create="true">
             <constraints>
               <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
