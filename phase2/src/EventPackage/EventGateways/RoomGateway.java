@@ -30,9 +30,9 @@ public class RoomGateway {
         try {
             FileInputStream fileIn = new FileInputStream(this.fileDataRoom);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            this.roomManager = (RoomManager) objIn.readObject();
             objIn.close();
             fileIn.close();
-            this.roomManager = (RoomManager) objIn.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("Check file directory");
             this.roomManager =  new RoomManager();
