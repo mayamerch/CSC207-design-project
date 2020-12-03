@@ -54,7 +54,12 @@ public class EventController {
         int id = Integer.parseInt(eventId);
 
         boolean status = eventManager.enroll(id, userId, userVIP);
+
+        eventGateway.write(eventManager);
+        roomGateway.write(roomManager);
+
         return status;
+
     }
 
 
@@ -175,8 +180,13 @@ public class EventController {
         if (capacity > roomManager.findRoom(room).getRoomCapacity())
             return -3;
 
-        return eventManager.createParty(EventName, capacity, date, room, duration, vip);
-
+        if (eventManager.createParty(EventName, capacity, date, room, duration, vip) == -1)
+            return -1;
+        else {
+            eventGateway.write(eventManager);
+            roomGateway.write(roomManager);
+            return 0;
+        }
     }
 
     public int createSingleSpeakerEvent(String EventName, String EventCapacity, String EventDate, String EventRoom,
@@ -208,7 +218,13 @@ public class EventController {
         if (!speakerList.contains(speaker) || !roomManager.roomExists(room))
             return -4;
 
-        return eventManager.createSingleSpeakerEvent(EventName, capacity, date, room, duration, vip, speaker);
+        if (eventManager.createSingleSpeakerEvent(EventName, capacity, date, room, duration, vip, speaker) == -1)
+            return -1;
+        else {
+            eventGateway.write(eventManager);
+            roomGateway.write(roomManager);
+            return 0;
+        }
     }
 
 
@@ -247,7 +263,11 @@ public class EventController {
             return -3;
 
 
-        return eventManager.createMultiSpeakerEvent(EventName, capacity, date, room, duration, vip, speakers);
+        int status = eventManager.createMultiSpeakerEvent(EventName, capacity, date, room, duration, vip, speakers);
+        eventGateway.write(eventManager);
+        roomGateway.write(roomManager);
+        return status;
+
     }
 
 
@@ -255,7 +275,10 @@ public class EventController {
         if (!checkInput(eventId))
             return -2;
 
-        return eventManager.unenroll(Integer.parseInt(eventId), userId);
+        int status = eventManager.unenroll(Integer.parseInt(eventId), userId);
+        eventGateway.write(eventManager);
+        roomGateway.write(roomManager);
+        return status;
     }
 
 
@@ -270,6 +293,8 @@ public class EventController {
         }
 
         roomManager.createRoom(capacity);
+        eventGateway.write(eventManager);
+        roomGateway.write(roomManager);
         return true;
     }
 
@@ -396,8 +421,11 @@ public class EventController {
         if (!roomManager.roomExists(room))
             return -4;
 
-        if (eventManager.rescheduleParty(eventId, EventName, capacity, date, room, duration, vip))
+        if (eventManager.rescheduleParty(eventId, EventName, capacity, date, room, duration, vip)) {
+            eventGateway.write(eventManager);
+            roomGateway.write(roomManager);
             return 0;
+        }
         else
             return -1;
     }
@@ -453,8 +481,11 @@ public class EventController {
         if (!speakerList.contains(speaker) || !roomManager.roomExists(room))
             return -4;
 
-        if (eventManager.rescheduleSingleSpeaker(eventId, EventName, capacity, date, room, duration, speaker, vip))
+        if (eventManager.rescheduleSingleSpeaker(eventId, EventName, capacity, date, room, duration, speaker, vip)) {
+            eventGateway.write(eventManager);
+            roomGateway.write(roomManager);
             return 0;
+        }
         else
             return -1;
     }
@@ -516,8 +547,11 @@ public class EventController {
             if (!speakerList.contains(Speaker))
                 return -4;
 
-        if (eventManager.rescheduleMultiSpeaker(eventId, EventName, capacity, date, room, duration, speakers, vip))
+        if (eventManager.rescheduleMultiSpeaker(eventId, EventName, capacity, date, room, duration, speakers, vip)) {
+            eventGateway.write(eventManager);
+            roomGateway.write(roomManager);
             return 0;
+        }
         else
             return -1;
     }
