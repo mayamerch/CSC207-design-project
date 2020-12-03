@@ -45,10 +45,6 @@ public class PartyCreator extends JFrame {
     public PartyCreator(EventController eventController1) {
         eventController = eventController1;
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
-        dateInput = new JFormattedTextField(dateFormat);
-
-
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,7 +77,7 @@ public class PartyCreator extends JFrame {
                 String eventDate = dateInput.getText();
                 String eventRoom = roomInput.getText();
                 String eventDuration = durationInput.getText();
-                String eventVIP = (String) booleanSelector.getSelectedItem();
+                String eventVIP = String.valueOf(booleanSelector.getSelectedItem());
 
                 int status = eventController.createParty(eventName, eventCapacity, eventDate,
                         eventRoom, eventDuration, eventVIP);
@@ -124,6 +120,8 @@ public class PartyCreator extends JFrame {
     }
 
     private void createUIComponents() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        dateInput = new JFormattedTextField(dateFormat);
         String[] choices = new String[] {"true", "false"};
         booleanSelector = new JComboBox<>(choices);
         booleanSelector.setSelectedIndex(1);

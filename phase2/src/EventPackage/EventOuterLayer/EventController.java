@@ -66,6 +66,7 @@ public class EventController {
 
 
     public String[][] getAllEvents() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
 
         String[][] data = new String[eventManager.getEventList().size()][];
 
@@ -75,7 +76,7 @@ public class EventController {
             int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
 
             String[] eventInfo = {String.valueOf(event.getEventId()), event.getEventName(), event.getEventType(),
-                    String.valueOf(event.getEventRoom()), String.valueOf(event.getEventDate()),
+                    String.valueOf(event.getEventRoom()), sdf.format(event.getEventDate()),
                     String.valueOf(event.getEventDuration()), String.valueOf(event.getEventCapacity()),
                     String.valueOf(availableSpace), String.valueOf(event.getVIPStatus()),
                     getSpeakerString(event.getEventId())};
@@ -87,6 +88,7 @@ public class EventController {
 
 
     public String[][] getEventsAttending() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         String[][] data = new String[eventManager.myEvents(userId).size()][];
 
         for (int i = 0; i < eventManager.myEvents(userId).size(); i++) {
@@ -95,7 +97,7 @@ public class EventController {
             int availableSpace = event.getEventCapacity() - event.getEventAttendees().size();
 
             String[] eventInfo = {String.valueOf(event.getEventId()), event.getEventName(), event.getEventType(),
-                    String.valueOf(event.getEventRoom()), String.valueOf(event.getEventDate()),
+                    String.valueOf(event.getEventRoom()), sdf.format(event.getEventDate()),
                     String.valueOf(event.getEventDuration()), String.valueOf(event.getEventCapacity()),
                     String.valueOf(availableSpace), String.valueOf(event.getVIPStatus()),
                     getSpeakerString(event.getEventId())};
@@ -107,6 +109,7 @@ public class EventController {
 
 
     public String[][] getEventsSpeakingAt() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         String[][] data = new String[eventManager.speakingAt(userId).size()][];
 
         for (int i = 0; i < eventManager.speakingAt(userId).size(); i++) {
@@ -116,7 +119,7 @@ public class EventController {
 
             String[] eventInfo = {String.valueOf(event.getEventId()), event.getEventName(), event.getEventType(),
                     String.valueOf(event.getEventRoom()),
-                    String.valueOf(event.getEventDate()), String.valueOf(event.getEventDuration()),
+                    sdf.format(event.getEventDate()), String.valueOf(event.getEventDuration()),
                     String.valueOf(event.getEventCapacity()), String.valueOf(availableSpace),
                     String.valueOf(event.getVIPStatus()), getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
@@ -127,6 +130,7 @@ public class EventController {
 
 
     public String[][] getAvailEvents() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         String[][] data = new String[eventManager.availEvents(userId, userVIP).size()][];
 
         for (int i = 0; i < eventManager.availEvents(userId, userVIP).size(); i++) {
@@ -136,7 +140,7 @@ public class EventController {
 
             String[] eventInfo = {String.valueOf(event.getEventId()), event.getEventName(), event.getEventType(),
                     String.valueOf(event.getEventRoom()),
-                    String.valueOf(event.getEventDate()), String.valueOf(event.getEventDuration()),
+                    sdf.format(event.getEventDate()), String.valueOf(event.getEventDuration()),
                     String.valueOf(event.getEventCapacity()), String.valueOf(availableSpace),
                     String.valueOf(event.getVIPStatus()), getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
@@ -170,6 +174,7 @@ public class EventController {
         int room;
         int duration;
         boolean vip;
+
 
         try {
             capacity = Integer.parseInt(EventCapacity);

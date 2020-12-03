@@ -47,10 +47,6 @@ public class SingleSpeakerCreator extends JFrame {
     public SingleSpeakerCreator(EventController eventController1) {
         eventController = eventController1;
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
-        dateInput = new JFormattedTextField(dateFormat);
-
-
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,6 +123,8 @@ public class SingleSpeakerCreator extends JFrame {
     }
 
     private void createUIComponents() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        dateInput = new JFormattedTextField(dateFormat);
         String[] choices = new String[] {"true", "false"};
         booleanSelector = new JComboBox<>(choices);
         booleanSelector.setSelectedIndex(1);
