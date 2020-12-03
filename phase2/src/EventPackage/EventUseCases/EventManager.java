@@ -589,4 +589,45 @@ public class EventManager implements Serializable {
         }
         return false;
     }
+
+    /**
+     * For usage in EventsProgramExporter
+     * @return ArrayList of SpeakerIds
+     */
+    public ArrayList<Integer> getSpeakerIDs(Event e){
+
+        if (isMultiSpeakerEvent(e.getEventId())){
+            return ((MultiSpeakerEvent)e).getEventSpeakers();
+        } else if (isSingleSpeakerEvent(e.getEventId())){
+            return new ArrayList<>(((SingleSpeakerEvent)e).getEventSpeaker());
+        }else{ // a party
+            return new ArrayList<>();
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,4 @@
 package EventPackage.EventEntities;
 
-public interface SpeakerEvent { }
+public interface SpeakerEvent {
+}

@@ -1,6 +1,8 @@
 package EventPackage;
 
 import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.MultiSpeakerEvent;
+import EventPackage.EventEntities.SpeakerEvent;
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.UserManager;
 
@@ -64,7 +66,7 @@ public class EventsProgramExporter {
 
     public void exportEventsBySpeaker(int speakerID){
         // TODO: export a program based on a search for a specific speaker
-        //ArrayList<Event> events = eventManager.getEventsForSpeaker();
+        //ArrayList<Event> events = eventManager.speakingAt();
         //exportEvents(events);
     }
 
@@ -170,13 +172,26 @@ public class EventsProgramExporter {
         for(int i = 0; i < events.size(); i++){
             Event event = events.get(i);
             String eventName = event.getEventName();
-            int userID = event.getEventSpeaker(); //TODO: this does not work anymore now that we have PARTY as an event
-            String speakerName = userManager.getUserByID(userID).getUsername();
+            //int eventID = event.getEventId();
+           /* if (eventManager.isMultiSpeakerEvent(eventID)){
+                ArrayList<Integer> speakers = ((MultiSpeakerEvent)event).getEventSpeakers();
+            } else if (eventManager.isSingleSpeakerEvent(eventID)) {
+                speakerName = "";
+            } else { // it's a party
+                speakerName = "";
+            }*/
+            // TODO: may want to implement a helper method to write the speakerName string
+            ArrayList<Integer> speakerIDs = eventManager.getSpeakerIDs(event);
+            StringBuilder speakerName = new StringBuilder();
+            for (int ID: speakerIDs){
+                speakerName.append(userManager.getUserByID(ID).getUsername());
+            }
+            //= userManager.getUserByID(userID).getUsername();
             Date eventDate = event.getEventDate();
             String time = timeFormatter.format(eventDate);
             String eventRoom = Integer.toString(event.getEventRoom());
 
-            eventsFormatted += String.format(eventTemplate, time, eventName, speakerName, eventRoom);
+            eventsFormatted += String.format(eventTemplate, time, eventName, speakerName.toString(), eventRoom);
 
             // add a space to separate this event and the next event
             if(i < events.size() - 1){
