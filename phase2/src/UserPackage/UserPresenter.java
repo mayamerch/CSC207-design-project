@@ -13,7 +13,7 @@ public class UserPresenter {
     }
 
     //returns a LinkedList of strings formatted as follows: "username (userID)"
-    private LinkedList<String> userListToString(Collection<User> userCollection){
+    public LinkedList<String> userListToString(Collection<User> userCollection){
         LinkedList<String> list = new LinkedList<>();
         for(User x: userCollection){
             list.add(x.getUsername() + " (" + x.getUserID() + ")");
