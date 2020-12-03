@@ -18,7 +18,7 @@ public class LoginTest {
         userManager.createAccount("user2", "letmeinpls", UserType.ORGANIZER);
 
         UserController userController = new UserController(userManager);
-        JFrame frame = new Login(userController);
+        JFrame frame = new LoginView(userController);
         frame.setVisible(true);
     }
 }

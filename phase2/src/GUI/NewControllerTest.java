@@ -18,6 +18,6 @@ public class NewControllerTest {
         userController.acceptFriendRequest("user1"); // accept user 1 from user3
         userController.logOut();
         userController.userLogin("user1", "user1"); // log in as user1
-        new FriendMenuForm(userController);
+        new FriendMenuView(userController);
     }
 }

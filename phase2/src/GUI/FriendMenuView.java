@@ -9,24 +9,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class FriendMenuForm {
+public class FriendMenuView extends JFrame {
     private JButton refreshButton;
     private JList list1;
     private JButton back;
+    private JPanel friendMenuPanel;
     private UserController userController;
 
-    public FriendMenuForm(){}
-    public FriendMenuForm(UserController userController) {
-        User currentUser = userController.getUserManager().getUserByID(userController.getCurrentUserId());
-        List<Integer> currentFriendList = currentUser.getFriendsList();
+    public FriendMenuView(){}
+    public FriendMenuView(UserController userController) {
+        super();
+        this.userController = userController;
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(friendMenuPanel);
+        this.pack();
+
+        List<Integer> currentFriendList = userController.getFriendsList();
         UserPresenter userPresenter = new UserPresenter(userController.getUserManager());
-        List<String> goodFriendList = userPresenter.userIDListToString(currentFriendList);
+        List<String> formattedFriendList = userPresenter.userIDListToString(currentFriendList);
 
         refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DefaultListModel<String> friendDisplay = new DefaultListModel();
-                for (String x: goodFriendList){
+                for (String x: formattedFriendList){
                     friendDisplay.addElement(x);
                 }
                 list1.setModel(friendDisplay);

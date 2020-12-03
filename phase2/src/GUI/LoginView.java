@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login extends JFrame{
+public class LoginView extends JFrame{
     private JPanel loginPanel;
     private JLabel loginLabel;
     private JTextField usernameTextField;
@@ -16,7 +16,7 @@ public class Login extends JFrame{
 
     private UserController userController;
 
-    public Login(UserController userController) {
+    public LoginView(UserController userController) {
         super();
         this.userController = userController;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
