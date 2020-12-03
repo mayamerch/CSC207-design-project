@@ -27,6 +27,12 @@ public class UserController {
             // Add something so if this fails it calls on the no argument constructor
         }
     }
+    // for testing
+    public UserController(UserManager userManager){
+        this.userManager = userManager;
+        this.userGateway = new UserGateway();
+    }
+
     /**
      * Returns the userManager attribute of the User Controller
      * @return userManager, the UserManager Attribute of the controler
