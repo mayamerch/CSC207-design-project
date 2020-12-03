@@ -77,4 +77,6 @@ public class SingleSpeakerEvent extends Event implements SpeakerEvent {
     public String getEventType() {
         return "Single Speaker";
     }
+
+
 }
