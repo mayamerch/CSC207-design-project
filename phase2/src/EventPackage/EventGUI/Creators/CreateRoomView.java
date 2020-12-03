@@ -16,6 +16,8 @@ public class CreateRoomView extends JFrame {
     private JButton seeRooms;
     private JTextField capacityInput;
     private JButton createButton;
+    private JLabel enterInfo;
+    private JLabel inputInfo;
     private EventController eventController;
 
     public JPanel getMainPanel() {

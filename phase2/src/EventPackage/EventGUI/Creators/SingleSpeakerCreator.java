@@ -30,6 +30,9 @@ public class SingleSpeakerCreator extends JFrame {
     private JButton createButton;
     private JTextField speakerInput;
     private JLabel speaker;
+    private JLabel info1;
+    private JLabel info2;
+    private JLabel info3;
     private EventController eventController;
 
     public JPanel getMainPanel() {

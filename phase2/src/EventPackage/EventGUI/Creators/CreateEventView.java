@@ -12,6 +12,7 @@ public class CreateEventView extends JFrame{
     private JButton partyButton;
     private JButton singleSpeakerButton;
     private JButton multiSpeakerButton;
+    private JLabel choose;
     private EventController eventController;
 
 

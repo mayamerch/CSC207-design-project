@@ -5,6 +5,7 @@ import EventPackage.EventEntities.MultiSpeakerEvent;
 import EventPackage.EventEntities.Party;
 import EventPackage.EventEntities.SingleSpeakerEvent;
 import EventPackage.EventEntities.SpeakerEvent;
+import EventPackage.EventGUI.Creators.SingleSpeakerCreator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -536,5 +537,44 @@ public class EventManager implements Serializable {
                 if (!allParticipants.contains(participant))
                     allParticipants.add(participant);
         return allParticipants;
+    }
+
+    /**
+     * Checks if an event is a party event
+     * @param eventId the id of event to be checked
+     * @return true if its a party event, false if not
+     */
+    public boolean isParty(int eventId) {
+        for (Party event: partyList) {
+            if (event.getEventId() == eventId)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if an event is a single speaker event
+     * @param eventId the id of event to be checked
+     * @return true if its a single speaker event, false if not
+     */
+    public boolean isSingleSpeakerEvent(int eventId) {
+        for (SingleSpeakerEvent event: singleSpeakerList) {
+            if (event.getEventId() == eventId)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if an event is a multi-speaker event
+     * @param eventId the id of event to be checked
+     * @return true if its a multi-speaker event, false if not
+     */
+    public boolean isMultiSpeakerEvent(int eventId) {
+        for (MultiSpeakerEvent event: multiSpeakerList) {
+            if (event.getEventId() == eventId)
+                return true;
+        }
+        return false;
     }
 }
