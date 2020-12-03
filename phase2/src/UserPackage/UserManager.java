@@ -176,13 +176,17 @@ public class UserManager implements Serializable {
         return -1;
     }
 
+    public User getUserByUsername(String username){
+        return getUserByID(getUserIDByUsername(username));
+    }
+
     /**
      * Takes in the ID of the current user and the ID of the user to be added as a friend then
      * modifies both user's friend lists accordingly
      * @param userID: ID of current user, integer
      * @param friendID: ID of friend to be added, integer
      */
-    public boolean addFriend(int userID, int friendID){
+    private boolean addFriend(int userID, int friendID){
         User currentUser, friend;
         currentUser = getUserByID(userID);
         friend = getUserByID(friendID);
@@ -194,7 +198,6 @@ public class UserManager implements Serializable {
 
         //returns true if currentUser has successfully added someone to friendsList
         return currentUser.getFriendsList().size() > currentUserFriendListSizeBeforeAdding;
-
     }
     /**
      * Takes in the ID of the current user and the ID of the user to be added as a friend then
@@ -226,6 +229,16 @@ public class UserManager implements Serializable {
         friend.addFriendRequest(userID);
         return true;
     }
+
+    public boolean sendFriendRequest(int userID, String friendUsername){
+        return sendFriendRequest(userID, getUserIDByUsername(friendUsername));
+    }
+
+    //this method will likely not ever get used, just based on how being logged on works
+    public boolean sendFriendRequest(String username, String friendUsername){
+        return sendFriendRequest(getUserIDByUsername(username), getUserIDByUsername(friendUsername));
+    }
+
     /**
      * Takes in the ID of the current user and the ID of the user to be added as a friend then
      * accepts the friend request from the user whose ID is friend ID. Returns True if successful
@@ -247,19 +260,24 @@ public class UserManager implements Serializable {
         // This means the friend is not in the friend request list
     }
 
-    public boolean sendFriendRequest(int userID, String friendUsername){
-        return sendFriendRequest(userID, getUserIDByUsername(friendUsername));
+    public boolean acceptFriendRequest(int userID, String friendUsername){
+        int friendID = getUserIDByUsername(friendUsername);
+        return acceptFriendRequest(userID, friendID);
     }
 
     //this method will likely not ever get used, just based on how being logged on works
-    public boolean sendFriendRequest(String username, String friendUsername){
-        return sendFriendRequest(getUserIDByUsername(username), getUserIDByUsername(friendUsername));
-    }
-
     public boolean acceptFriendRequest(String username, String friendUsername){
         int userID = getUserIDByUsername(username);
         int friendID = getUserIDByUsername(friendUsername);
         return acceptFriendRequest(userID, friendID);
+    }
+
+
+    public List<Integer> getFriendsListOfUser(int userID){
+        return getUserByID(userID).getFriendsList();
+    }
+    public List<Integer> getFriendRequestListOfUser(int userID){
+        return getUserByID(userID).getFriendRequestList();
     }
 
     /**

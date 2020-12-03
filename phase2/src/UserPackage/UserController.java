@@ -1,13 +1,14 @@
 package UserPackage;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserController {
-    public int currentUserId;
+    private int currentUserID;
     protected UserGateway userGateway;
     protected UserManager userManager;
-    protected UserPresenter up;
+    protected UserPresenter userPresenter;
     Scanner scanner = new Scanner(System.in);
 
 
@@ -15,8 +16,9 @@ public class UserController {
      * Constructs a new UserController object, setting the user manager based off of the gateway
      */
     public UserController() {
+        this.currentUserID = -1;//by default no user is logged in
         this.userGateway = new UserGateway();
-        //this.up = new UserPresenter();
+        //this.userPresenter = new UserPresenter();
         try {
             this.userManager = new UserManager(this.userGateway.readUserMap());
         } catch (NullPointerException n) {
@@ -34,11 +36,24 @@ public class UserController {
     }
 
     /**
+     * Logs in the User based on the Username and Password entered by the User
+     * if logs in, sets currentUserId to the id of the user logged in
+     * @return the type of the User that logged in, character
+     */
+    public boolean userLogin(String username, String password){
+        //if you need the old version of userLogin that returned UserType, use getUserType() instead
+        this.currentUserID = userManager.validateLogin(username, password);  //-1 if user does not log in successfully
+        if (currentUserID >= 0)
+            return true;    //returns true only if user logs in successfully
+        return false;       //false if user gets password or username wrong
+    }
+
+    /**
      * Logs in the User based on the Username and Password entered by the User,
      * this specifically handles the user input
      * @return the type of the User that logged in, character
      */
-    public UserType userLogin(){
+    public boolean userLogin(){
         // pls work
         System.out.println("Press enter if there is no prompt directly following this line");
         scanner.nextLine();
@@ -49,11 +64,8 @@ public class UserController {
         return userLogin(username, password);
     }
 
-    /**
-     * Logs in the User based on the Username and Password entered by the User
-     * @return the type of the User that logged in, character
-     */
-    public UserType userLogin(String username, String password) {
+
+    /*public UserType userLogin(String username, String password) {
         int potentialID = userManager.validateLogin(username, password);
         if (potentialID >= 0 ) {
             currentUserId = potentialID;
@@ -64,7 +76,7 @@ public class UserController {
             System.out.println("Invalid username or password");
             return null;
         }
-    }
+    }*/
 
     public boolean checkUserVIP(int userID){
         return getUserManager().checkVIP(userID);
@@ -78,7 +90,7 @@ public class UserController {
         int userID;
         System.out.println("Enter ID of User");
         userID = scanner.nextInt();
-        if (userID == currentUserId){
+        if (userID == currentUserID){
             System.out.println("You cannot put in your own ID/Username");
             return validateUserIDInput();
             }
@@ -97,7 +109,7 @@ public class UserController {
      */
     public String validateUsernameInput(){
         String username;
-        User currentUser = getUserManager().getUserByID(currentUserId);
+        User currentUser = getUserManager().getUserByID(currentUserID);
         String currentUsername = currentUser.getUsername();
         System.out.println("Enter Username of User");
         username = scanner.nextLine();
@@ -142,7 +154,7 @@ public class UserController {
                 else{System.out.println("The Username must be unique.");
                 return false;}
             case "2":
-                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != UserType.ORGANIZER){
+                if (validateNotLoggedIn() || userManager.getUserByID(currentUserID).getType() != UserType.ORGANIZER){
                     System.out.println("You need to be logged in as an Organizer to do this");
                     return false;
                 }
@@ -154,7 +166,7 @@ public class UserController {
                 else{System.out.println("The Username must be unique.");
                 return false;}
             case "3":
-                if (validateNotLoggedIn() || userManager.getUserByID(currentUserId).getType() != UserType.ORGANIZER){
+                if (validateNotLoggedIn() || userManager.getUserByID(currentUserID).getType() != UserType.ORGANIZER){
                     System.out.println("You need to be logged in as an Organizer to do this");
                     return false;
                 }
@@ -169,11 +181,25 @@ public class UserController {
         System.out.println("That is not a valid option for type");
         return false;
     }
+    public boolean createUser(String username, String password, UserType userType){
+        return userManager.createAccount(username, password, userType);
+    }
     /**
      * Returns true or false based on whether a valid user is currently logged into the controller
      */
     public boolean validateNotLoggedIn(){
-        return userManager.getUserByID(currentUserId) == null;
+        return userManager.getUserByID(currentUserID) == null;
+    }
+
+    public int getCurrentUserId(){
+        return currentUserID;
+    }
+
+    public boolean sendFriendRequest(String friendUsername){
+        return userManager.sendFriendRequest(currentUserID, friendUsername);
+    }
+    public boolean sendFriendRequest(int friendID){
+        return userManager.sendFriendRequest(currentUserID, friendID);
     }
     /**
      * Sends a Friend request from the User Using this controller to the a user whose ID is entered
@@ -186,7 +212,7 @@ public class UserController {
         System.out.println("Add By Username (press 1) or ID (Press another key)?");
         int userChoice = scanner.nextInt();
         if (userChoice == 1) {
-            String currentUsername = getUserManager().getUserByID(currentUserId).getUsername();
+            String currentUsername = getUserManager().getUserByID(currentUserID).getUsername();
             System.out.println("Enter Username of friend you would like to add");
             String potentialFriendUsername = validateUsernameInput();
             boolean friendRequest = userManager.sendFriendRequest(currentUsername, potentialFriendUsername);
@@ -202,7 +228,7 @@ public class UserController {
         else {
             System.out.println("Enter ID of friend you would like to add");
             int potentialFriendId = validateUserIDInput();
-            boolean friendRequest = userManager.sendFriendRequest(currentUserId, potentialFriendId);
+            boolean friendRequest = userManager.sendFriendRequest(currentUserID, potentialFriendId);
             if (!friendRequest) {
                 System.out.println("You have either already sent a friend request or " +
                         "they have already accepted you as a friend or you entered your username");
@@ -213,6 +239,14 @@ public class UserController {
             }
         }
     }
+
+    public boolean acceptFriendRequest(String friendUsername){
+        return userManager.acceptFriendRequest(currentUserID, friendUsername);
+    }
+    public boolean acceptFriendRequest(int friendID){
+        return userManager.acceptFriendRequest(currentUserID, friendID);
+    }
+
     /**
      * Accepts a Friend request from the Current user's List of friend requests.
      */
@@ -223,7 +257,7 @@ public class UserController {
         System.out.println("Add By Username (press 1) or ID (Press another key)?");
         int userChoice = scanner.nextInt();
         if (userChoice == 1){
-            String currentUsername = getUserManager().getUserByID(currentUserId).getUsername();
+            String currentUsername = getUserManager().getUserByID(currentUserID).getUsername();
             System.out.println("Enter Username of friend whose request you would like to accept");
             String potentialFriendUsername = validateUsernameInput();
             if (!userManager.acceptFriendRequest(currentUsername, potentialFriendUsername)){
@@ -238,7 +272,7 @@ public class UserController {
         else{
             System.out.println("Enter ID of friend whose request you would like to accept");
             int potentialFriendId = validateUserIDInput();
-            if (!userManager.acceptFriendRequest(currentUserId, potentialFriendId)){
+            if (!userManager.acceptFriendRequest(currentUserID, potentialFriendId)){
                 System.out.println("This person has not sent you a request");
                 return false;
             }
@@ -253,7 +287,7 @@ public class UserController {
      * Logs out current user
      */
     public void  logOut() {
-        currentUserId = -1;
+        currentUserID = -1;
         System.out.println("You have been logged out");
     }
 
@@ -262,8 +296,8 @@ public class UserController {
      * @return getType() of current user
      */
     public UserType getUserType() {
-        if (currentUserId != -1)
-            return userManager.getUserByID(currentUserId).getType();
+        if (currentUserID >= 0)
+            return userManager.getUserByID(currentUserID).getType();
         else
             return null;
     }
@@ -273,7 +307,7 @@ public class UserController {
      */
     public boolean printYourID(){
         if (!validateNotLoggedIn()){
-            System.out.println(currentUserId);
+            System.out.println(currentUserID);
             return true;
         }
         return false;
@@ -296,12 +330,20 @@ public class UserController {
         // 1 to set to true, anything else to set to false
     }
 
+    //gets friends list of logged on user, might need to account for no logged on user
+    public List<Integer> getFriendsList(){
+        return userManager.getUserByID(currentUserID).getFriendsList();
+    }
+    public List<Integer> getFriendRequestList(){
+        return userManager.getUserByID(currentUserID).getFriendRequestList();
+    }
+
     /**
      * Interacts with user and asks for input for which user related action the user would like to take then performs
      * actions related to events based on that input.
      * @param currentUserId The id of the user its interacting with
      **/
-    public void run(int currentUserId){
+    /*public void run(int currentUserId){
         Scanner reader = new Scanner(System.in);
         Scanner reader2 = new Scanner(System.in);
 
@@ -324,6 +366,6 @@ public class UserController {
                     break;
             }
         }
-    }
+    }*/
 
 }
