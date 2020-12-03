@@ -56,7 +56,7 @@ public class Message { // storing all messages
 
 
     /**
-     * To use for Presenter class for presenting Messages.
+     * To use for GUI.Presenter class for presenting Messages.
      * @return
      */
     public String format(){

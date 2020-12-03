@@ -1,16 +1,11 @@
 package GUI;
-
-import UserPackage.User;
 import UserPackage.UserController;
 import UserPackage.UserManager;
 import UserPackage.UserType;
 
-import javax.swing.*;
-import java.util.HashMap;
+public class RunPresenter {
 
-public class FriendGUITest {
     public static void main(String[] args) {
-
         UserManager userManager = new UserManager();
 
         userManager.createAccount("user1", "user1", UserType.ATTENDEE);
@@ -18,12 +13,8 @@ public class FriendGUITest {
         userManager.createAccount("user3", "user3", UserType.ATTENDEE);
         userManager.createAccount("user4", "user4", UserType.ATTENDEE);
         userManager.createAccount("user5", "user5", UserType.ATTENDEE);
-
-
         UserController userController = new UserController(userManager);
         userController.userLogin("user1", "user1");
-        // userController.createUser(); created user2, user2
-        // userController.createUser(); created user3, user3
         userController.sendFriendRequest("user2");  // sent request to user2
         userController.sendFriendRequest("user3"); //
         userController.logOut();
@@ -42,11 +33,16 @@ public class FriendGUITest {
             userManager.createAccount("user" + i, "user"+i, UserType.ATTENDEE);
             userManager.sendFriendRequest(i, 1);
         }
-        // Use the current user controller's user manager to make a new user controller in the presenter
         Presenter presenter = new Presenter();
         presenter.setUserController(userController.getUserManager());
-        presenter.userLogin("user1", "user1");
-        JFrame frame = new FriendRequestMenuView(presenter);
-        frame.setVisible(true);
+        // make a new user controller using the user manager from the old userController
+        LoginView loginView = new LoginView(presenter);
+        while (userController.validateNotLoggedIn()) {
+            loginView.setVisible(true);
+        }
+        loginView.setVisible(false);
+        loginView.dispose();
+        MainMenuView mainMenuView = new MainMenuView(userController);
+        mainMenuView.setVisible(true);
     }
 }

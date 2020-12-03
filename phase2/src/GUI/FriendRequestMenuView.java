@@ -1,8 +1,5 @@
 package GUI;
 
-import UserPackage.UserController;
-import UserPackage.UserPresenter;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,37 +17,37 @@ public class FriendRequestMenuView extends JFrame{
     private JLabel FriendLabel;
     private JScrollPane FriendListScroll;
 
-    private UserPresenter userPresenter;
-    private UserController userController;
-    private List<Integer> friendRequestList;
-    private List<Integer> friendList;
+    private Presenter presenter;
     public int choice;
 
-    public FriendRequestMenuView(UserController userController){
+    public FriendRequestMenuView(Presenter presenter){
         super();
-        this.userController = userController;
-        this.userPresenter = new UserPresenter(userController.getUserManager());
+        this.presenter = presenter;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(friendRequestPanel);
         this.pack();
-        this.friendRequestList = userController.getFriendRequestList();
-        this.friendList = userController.getFriendsList();
+
         seeFriendsListButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayFriendList();
+                if(checkLoggedIn()){
+                displayUserList(presenter.displayFriendList());}
+                else{FriendLabel.setText("Need to be logged in");}
             }
         });
         seeFriendRequestListButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayFriendRequestList();
+                if(checkLoggedIn()){
+                displayUserList(presenter.displayFriendRequestList());}
+                else{FriendLabel.setText("Need to be logged in");}
             }
         });
         acceptFriendRequestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (acceptFriendRequest()){
+                // check for login first, on left side of if statement
+                if (checkLoggedIn() && acceptFriendRequest()){
                     FriendLabel.setText("You have now added each other as friends");
                 }
                 else{FriendLabel.setText("This person has not sent you a request");}
@@ -59,7 +56,7 @@ public class FriendRequestMenuView extends JFrame{
         sendFriendRequestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (sendFriendRequest()){
+                if (checkLoggedIn() && sendFriendRequest()){
                     FriendLabel.setText("Friend Request Sent");
                 }
                 else{FriendLabel.setText("Invalid Username");}
@@ -73,14 +70,6 @@ public class FriendRequestMenuView extends JFrame{
         });
     }
 
-    public void displayFriendRequestList(){
-        List<String> formattedFriendRequestList = userPresenter.userIDListToString(friendRequestList);
-        displayUserList(formattedFriendRequestList);
-    }
-    public void displayFriendList(){
-        List<String> formattedFriendList = userPresenter.userIDListToString(friendList);
-        displayUserList(formattedFriendList);
-    }
     public void displayUserList(List<String> userList){
         DefaultListModel<String> friendDisplay = new DefaultListModel();
         for (String x: userList){
@@ -90,12 +79,16 @@ public class FriendRequestMenuView extends JFrame{
     }
     public boolean sendFriendRequest(){
         String username = userNameTextField.getText();
-        return userController.sendFriendRequest(username);
+        return presenter.sendFriendRequest(username);
     }
     public boolean acceptFriendRequest(){
         String username = userNameTextField.getText();
-        return userController.acceptFriendRequest(username);
+        return presenter.acceptFriendRequest(username);
     }
+    public boolean checkLoggedIn(){
+        return !presenter.checkNotLoggedIn();
+    }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

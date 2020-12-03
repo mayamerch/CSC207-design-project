@@ -17,8 +17,10 @@ public class LoginViewTest {
         userManager.createAccount("user1", "passy", UserType.ATTENDEE);
         userManager.createAccount("user2", "letmeinpls", UserType.ORGANIZER);
 
-        UserController userController = new UserController(userManager);
-        JFrame frame = new LoginView(userController);
+        // UserController userController = new UserController(userManager);
+        Presenter presenter = new Presenter();
+        presenter.setUserController(userManager);
+        JFrame frame = new LoginView(presenter);
         frame.setVisible(true);
     }
 }

@@ -13,12 +13,13 @@ public class LoginView extends JFrame{
     private JLabel passwordLabel;
     private JPasswordField passwordTextField;
     private JButton enterButton;
+    private Presenter presenter;
 
-    private UserController userController;
 
-    public LoginView(UserController userController) {
+
+    public LoginView(Presenter presenter) {
         super();
-        this.userController = userController;
+        this.presenter = presenter;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(loginPanel);
         this.pack();
@@ -37,13 +38,10 @@ public class LoginView extends JFrame{
     }
 
     //might not need this if the constructor works
-    public void setUserController(UserController userController) {
-        this.userController = userController;
-    }
 
     public boolean login(){
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
-        return userController.userLogin(username, password);
+        return presenter.userLogin(username, password);
     }
 }

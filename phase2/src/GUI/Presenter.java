@@ -1,47 +1,58 @@
 package GUI;
+
 import UserPackage.UserController;
+import EventPackage.EventOuterLayer.EventController;
 import UserPackage.UserManager;
-import UserPackage.UserType;
+import UserPackage.UserPresenter;
+
+import java.util.List;
+// import MessagePackage.BroadcastController;
+// import MessagePackage.ChatroomController;
 
 public class Presenter {
+    UserController userController;
+    UserPresenter userPresenter;
 
-    public static void main(String[] args) {
-        UserManager userManager = new UserManager();
-
-        userManager.createAccount("user1", "user1", UserType.ATTENDEE);
-        userManager.createAccount("user2", "user2", UserType.ATTENDEE);
-        userManager.createAccount("user3", "user3", UserType.ATTENDEE);
-        userManager.createAccount("user4", "user4", UserType.ATTENDEE);
-        userManager.createAccount("user5", "user5", UserType.ATTENDEE);
-        UserController userController = new UserController(userManager);
-        userController.userLogin("user1", "user1");
-        userController.sendFriendRequest("user2");  // sent request to user2
-        userController.sendFriendRequest("user3"); //
-        userController.logOut();
-        userController.userLogin("user2", "user2");
-        userController.acceptFriendRequest("user1"); // accept user 1 from user2
-        userController.logOut();
-        userController.userLogin("user3", "user3");
-        userController.acceptFriendRequest("user1"); // accept user 1 from user3
-        userController.logOut();
-        userController.userLogin("user4", "user4");
-        userController.sendFriendRequest("user1");
-        userController.logOut();
-        userController.userLogin("user1", "user1"); // log in as user1
-        //new FriendMenuView(userController);
-        // making a bunch of users to test scroll on friend request
-        for (int i=6; i< 30; i++){
-            userManager.createAccount("user" + i, "user"+i, UserType.ATTENDEE);
-            userManager.sendFriendRequest(i, 1);
-        }
-
-        LoginView loginView = new LoginView(userController);
-        while (userController.validateNotLoggedIn()) {
-            loginView.setVisible(true);
-        }
-        loginView.setVisible(false);
-        loginView.dispose();
-        MainMenuView mainMenuView = new MainMenuView(userController);
-        mainMenuView.setVisible(true);
+    public Presenter(){
+        this.userController = null;
+        this.userPresenter = null;
     }
+
+    // for testing purposes
+    public void setUserController(UserManager userManager) {
+        this.userController = new UserController(userManager);
+        this.userPresenter = new UserPresenter(userController.getUserManager());
+    }
+    public void setUserController() {
+        this.userController = new UserController();
+        this.userPresenter = new UserPresenter(userController.getUserManager());
+    }
+
+    public boolean userLogin(String username, String password){
+        return userController.userLogin(username, password);
+    }
+    public boolean sendFriendRequest(String username){
+        return userController.sendFriendRequest(username);
+    }
+    public boolean acceptFriendRequest(String username){
+        return userController.acceptFriendRequest(username);
+    }
+    public List<Integer> getFriendsList(){
+        return userController.getFriendsList();
+    }
+    public List<Integer> getFriendRequestList(){
+        return userController.getFriendRequestList();
+    }
+    public List<String> displayFriendRequestList(){
+        List<Integer> friendRequestList = getFriendRequestList();
+        return userPresenter.userIDListToString(friendRequestList);
+    }
+    public List<String> displayFriendList(){
+        List<Integer> friendList = getFriendsList();
+        return userPresenter.userIDListToString(friendList);
+    }
+    public boolean checkNotLoggedIn(){
+        return userController.validateNotLoggedIn();
+    }
+
 }

@@ -44,7 +44,7 @@ public class MessageQueue {
     }
 
     /**
-     * Used in Presenter for displaying string in console
+     * Used in GUI.Presenter for displaying string in console
      * @return string of form message \n
      */
     public String format(){
