@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 public class EditSingleSpeaker extends JFrame {
     private JPanel mainPanel;
@@ -46,8 +47,12 @@ public class EditSingleSpeaker extends JFrame {
     private JLabel info7;
     private JLabel currSpeaker;
     private JLabel label1;
+    private JLabel currTime;
+    private JFormattedTextField timeInput;
     private EventController eventController;
     private String IdParam;
+    private String[] eventInfo;
+    private HashMap<String, EventController> hashMap;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -59,11 +64,18 @@ public class EditSingleSpeaker extends JFrame {
 
     public EditSingleSpeaker(EventController eventController1, String currEventId) {
         eventController = eventController1;
+        IdParam = currEventId;
+        eventInfo = eventController.getSingleSpeakerInfo(currEventId);
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
-        dateInput = new JFormattedTextField(dateFormat);
-
-
+        currID.setText(IdParam);
+        currName.setText(eventInfo[0]);
+        currCapacity.setText(eventInfo[1]);
+        currDate.setText(eventInfo[2].substring(0, 10));
+        currTime.setText(eventInfo[2].substring(11, 16));
+        currRoom.setText(eventInfo[3]);
+        currDuration.setText(eventInfo[4]);
+        currVIP.setText(eventInfo[5]);
+        currSpeaker.setText(eventInfo[6]);
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
@@ -94,7 +106,7 @@ public class EditSingleSpeaker extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();
                 String eventCapacity = capacityInput.getText();
-                String eventDate = dateInput.getText();
+                String eventDate = dateInput.getText() + "-" + timeInput.getText();
                 String eventRoom = roomInput.getText();
                 String eventDuration = durationInput.getText();
                 String eventVIP = (String) booleanSelector.getSelectedItem();
@@ -129,31 +141,44 @@ public class EditSingleSpeaker extends JFrame {
                             "Your Event was edited successfully.",
                             "Process was successful",
                             JOptionPane.PLAIN_MESSAGE);
+
+
+                eventInfo = eventController.getSingleSpeakerInfo(currEventId);
+
+                currName.setText(eventInfo[0]);
+                currCapacity.setText(eventInfo[1]);
+                currDate.setText(eventInfo[2].substring(0, 10));
+                currTime.setText(eventInfo[2].substring(11, 16));
+                currRoom.setText(eventInfo[3]);
+                currDuration.setText(eventInfo[4]);
+                currVIP.setText(eventInfo[5]);
+                currSpeaker.setText(eventInfo[6]);
             }
         });
 
-        booleanSelector.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                booleanSelector = (JComboBox) e.getSource();
-            }
-        });
     }
 
     private void createUIComponents() {
+
         String[] choices = {"true", "false"};
         booleanSelector = new JComboBox(choices);
         booleanSelector.setSelectedIndex(1);
 
-        currID.setText(IdParam);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateInput = new JFormattedTextField(dateFormat);
 
-        String[] eventInfo = eventController.getSingleSpeakerInfo(IdParam);
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        timeInput = new JFormattedTextField(timeFormat);
 
-        currName.setText(eventInfo[0]);
-        currCapacity.setText(eventInfo[1]);
-        currDate.setText(eventInfo[2]);
-        currRoom.setText(eventInfo[3]);
-        currDuration.setText(eventInfo[4]);
-        currVIP.setText(eventInfo[5]);
+        currID = new JLabel();
+
+        currName = new JLabel();
+        currCapacity = new JLabel();
+        currDate = new JLabel();
+        currTime = new JLabel();
+        currRoom = new JLabel();
+        currDuration = new JLabel();
+        currVIP = new JLabel();
+        currSpeaker = new JLabel();
     }
 }

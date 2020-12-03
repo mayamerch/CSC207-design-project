@@ -220,6 +220,7 @@ public class EventManager implements Serializable {
     public boolean enroll(int eventID, int userID, boolean userVIP) {
         for (Event event: this.availEvents(userID, userVIP)) {
             if (event.getEventId() == eventID) {
+                event.addAttendee(userID);
                 return true;
             }
         }

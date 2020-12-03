@@ -47,6 +47,7 @@ public class EventController {
     }
 
 
+
     public boolean signUp(String eventId) {
         if (!checkInput(eventId))
             return false;
@@ -410,7 +411,7 @@ public class EventController {
             else
                 capacity = Integer.parseInt(EventCapacity);
 
-            if (EventDate.equals(""))
+            if (EventDate.equals("-"))
                 date = event.getEventDate();
             else
                 date = sdf.parse(EventDate);
@@ -465,7 +466,7 @@ public class EventController {
             else
                 capacity = Integer.parseInt(EventCapacity);
 
-            if (EventDate.equals(""))
+            if (EventDate.equals("-"))
                 date = event.getEventDate();
             else
                 date = sdf.parse(EventDate);
@@ -526,7 +527,7 @@ public class EventController {
             else
                 capacity = Integer.parseInt(EventCapacity);
 
-            if (EventDate.equals(""))
+            if (EventDate.equals("-"))
                 date = event.getEventDate();
             else
                 date = sdf.parse(EventDate);

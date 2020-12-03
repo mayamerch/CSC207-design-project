@@ -46,6 +46,8 @@ public class EditMultiSpeaker extends JFrame {
     private JLabel info7;
     private JLabel currSpeakers;
     private JLabel label1;
+    private JFormattedTextField timeInput;
+    private JLabel currTime;
     private String IdParam;
 
     private EventController eventController;
@@ -60,11 +62,20 @@ public class EditMultiSpeaker extends JFrame {
 
     public EditMultiSpeaker(EventController eventController1, String currEventId) {
         eventController = eventController1;
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
-        dateInput = new JFormattedTextField(dateFormat);
-
         IdParam = currEventId;
+
+        currID.setText(IdParam);
+
+        String[] eventInfo = eventController.getMultiSpeakerInfo(IdParam);
+
+        currName.setText(eventInfo[0]);
+        currCapacity.setText(eventInfo[1]);
+        currDate.setText(eventInfo[2].substring(0, 10));
+        currTime.setText(eventInfo[2].substring(11, 16));
+        currRoom.setText(eventInfo[3]);
+        currDuration.setText(eventInfo[4]);
+        currVIP.setText(eventInfo[5]);
+        currSpeakers.setText(eventInfo[6]);
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
@@ -95,7 +106,7 @@ public class EditMultiSpeaker extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();
                 String eventCapacity = capacityInput.getText();
-                String eventDate = dateInput.getText();
+                String eventDate = dateInput.getText() + "-" + timeInput.getText();
                 String eventRoom = roomInput.getText();
                 String eventDuration = durationInput.getText();
                 String eventVIP = (String) booleanSelector.getSelectedItem();
@@ -139,16 +150,10 @@ public class EditMultiSpeaker extends JFrame {
         booleanSelector = new JComboBox<>(choices);
         booleanSelector.setSelectedIndex(1);
 
-        currID.setText(IdParam);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateInput = new JFormattedTextField(dateFormat);
 
-        String[] eventInfo = eventController.getMultiSpeakerInfo(IdParam);
-
-        currName.setText(eventInfo[0]);
-        currCapacity.setText(eventInfo[1]);
-        currDate.setText(eventInfo[2]);
-        currRoom.setText(eventInfo[3]);
-        currDuration.setText(eventInfo[4]);
-        currVIP.setText(eventInfo[5]);
-        currSpeakers.setText(eventInfo[6]);
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        timeInput = new JFormattedTextField(timeFormat);
     }
 }
