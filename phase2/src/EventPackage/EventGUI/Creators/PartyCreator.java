@@ -22,7 +22,7 @@ public class PartyCreator extends JFrame {
     private JLabel vipStatus;
     private JButton seeEvents;
     private JTextField nameInput;
-    private JComboBox booleanSelector;
+    private JComboBox<String> booleanSelector;
     private JTextField durationInput;
     private JTextField roomInput;
     private JTextField capacityInput;
@@ -44,10 +44,6 @@ public class PartyCreator extends JFrame {
 
     public PartyCreator(EventController eventController1) {
         eventController = eventController1;
-
-        String[] choices = {"true", "false"};
-        booleanSelector = new JComboBox(choices);
-        booleanSelector.setSelectedIndex(1);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         dateInput = new JFormattedTextField(dateFormat);
@@ -125,5 +121,11 @@ public class PartyCreator extends JFrame {
             }
         });
 
+    }
+
+    private void createUIComponents() {
+        String[] choices = new String[] {"true", "false"};
+        booleanSelector = new JComboBox<>(choices);
+        booleanSelector.setSelectedIndex(1);
     }
 }

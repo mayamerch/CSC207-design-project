@@ -46,8 +46,8 @@ public class EditSingleSpeaker extends JFrame {
     private JLabel info7;
     private JLabel currSpeaker;
     private JLabel label1;
-
     private EventController eventController;
+    private String IdParam;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -60,24 +60,9 @@ public class EditSingleSpeaker extends JFrame {
     public EditSingleSpeaker(EventController eventController1, String currEventId) {
         eventController = eventController1;
 
-        String[] choices = {"true", "false"};
-        booleanSelector = new JComboBox(choices);
-        booleanSelector.setSelectedIndex(1);
-
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         dateInput = new JFormattedTextField(dateFormat);
 
-        currID.setText(currEventId);
-
-        String[] eventInfo = eventController.getSingleSpeakerInfo(currEventId);
-
-        currName.setText(eventInfo[0]);
-        currCapacity.setText(eventInfo[1]);
-        currDate.setText(eventInfo[2]);
-        currRoom.setText(eventInfo[3]);
-        currDuration.setText(eventInfo[4]);
-        currVIP.setText(eventInfo[5]);
-        currSpeaker.setText(eventInfo[6]);
 
 
         seeRooms.addActionListener(new ActionListener() {
@@ -146,5 +131,29 @@ public class EditSingleSpeaker extends JFrame {
                             JOptionPane.PLAIN_MESSAGE);
             }
         });
+
+        booleanSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                booleanSelector = (JComboBox) e.getSource();
+            }
+        });
+    }
+
+    private void createUIComponents() {
+        String[] choices = {"true", "false"};
+        booleanSelector = new JComboBox(choices);
+        booleanSelector.setSelectedIndex(1);
+
+        currID.setText(IdParam);
+
+        String[] eventInfo = eventController.getSingleSpeakerInfo(IdParam);
+
+        currName.setText(eventInfo[0]);
+        currCapacity.setText(eventInfo[1]);
+        currDate.setText(eventInfo[2]);
+        currRoom.setText(eventInfo[3]);
+        currDuration.setText(eventInfo[4]);
+        currVIP.setText(eventInfo[5]);
     }
 }

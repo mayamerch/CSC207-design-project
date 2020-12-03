@@ -46,6 +46,7 @@ public class EditMultiSpeaker extends JFrame {
     private JLabel info7;
     private JLabel currSpeakers;
     private JLabel label1;
+    private String IdParam;
 
     private EventController eventController;
 
@@ -60,25 +61,10 @@ public class EditMultiSpeaker extends JFrame {
     public EditMultiSpeaker(EventController eventController1, String currEventId) {
         eventController = eventController1;
 
-        String[] choices = {"true", "false"};
-        booleanSelector = new JComboBox(choices);
-        booleanSelector.setSelectedIndex(1);
-
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         dateInput = new JFormattedTextField(dateFormat);
 
-        currID.setText(currEventId);
-
-        String[] eventInfo = eventController.getMultiSpeakerInfo(currEventId);
-
-        currName.setText(eventInfo[0]);
-        currCapacity.setText(eventInfo[1]);
-        currDate.setText(eventInfo[2]);
-        currRoom.setText(eventInfo[3]);
-        currDuration.setText(eventInfo[4]);
-        currVIP.setText(eventInfo[5]);
-        currSpeakers.setText(eventInfo[6]);
-
+        IdParam = currEventId;
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
@@ -146,5 +132,23 @@ public class EditMultiSpeaker extends JFrame {
                             JOptionPane.PLAIN_MESSAGE);
             }
         });
+    }
+
+    private void createUIComponents() {
+        String[] choices = new String[] {"true", "false"};
+        booleanSelector = new JComboBox<>(choices);
+        booleanSelector.setSelectedIndex(1);
+
+        currID.setText(IdParam);
+
+        String[] eventInfo = eventController.getMultiSpeakerInfo(IdParam);
+
+        currName.setText(eventInfo[0]);
+        currCapacity.setText(eventInfo[1]);
+        currDate.setText(eventInfo[2]);
+        currRoom.setText(eventInfo[3]);
+        currDuration.setText(eventInfo[4]);
+        currVIP.setText(eventInfo[5]);
+        currSpeakers.setText(eventInfo[6]);
     }
 }

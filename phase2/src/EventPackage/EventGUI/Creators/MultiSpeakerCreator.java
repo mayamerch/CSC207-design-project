@@ -48,9 +48,6 @@ public class MultiSpeakerCreator extends JFrame {
     public MultiSpeakerCreator(EventController eventController1) {
         eventController = eventController1;
 
-        String[] choices = {"true", "false"};
-        booleanSelector = new JComboBox(choices);
-        booleanSelector.setSelectedIndex(1);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         dateInput = new JFormattedTextField(dateFormat);
@@ -129,5 +126,11 @@ public class MultiSpeakerCreator extends JFrame {
             }
         });
 
+    }
+
+    private void createUIComponents() {
+        String[] choices = new String[] {"true", "false"};
+        booleanSelector = new JComboBox<>(choices);
+        booleanSelector.setSelectedIndex(1);
     }
 }

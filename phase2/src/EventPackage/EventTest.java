@@ -45,7 +45,7 @@ public class EventTest {
 
         EventController ec = new EventController(0, true, SpeakerIds);
 
-        AttendeeEventView or = new AttendeeEventView(ec);
+        OrganizerEventView or = new OrganizerEventView(ec);
         or.setContentPane(or.getMainPanel());
         or.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         or.pack();

@@ -32,7 +32,6 @@ public class AttendEventView extends JFrame{
 
         eventsInfo = eventController.getAvailEvents();
 
-
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
