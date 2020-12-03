@@ -75,6 +75,6 @@ public class SingleSpeakerEvent extends Event implements SpeakerEvent {
      * @return "SS" to represent SingleSpeaker events
      */
     public String getEventType() {
-        return "SS";
+        return "Single Speaker";
     }
 }

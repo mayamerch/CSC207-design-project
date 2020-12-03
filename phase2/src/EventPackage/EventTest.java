@@ -1,14 +1,10 @@
 package EventPackage;
 
-import EventPackage.EventEntities.Event;
-import EventPackage.EventGUI.OrganizerEventView;
-import EventPackage.EventGateways.EventGateway;
+import EventPackage.EventGUI.UserMenus.OrganizerEventView;
 import EventPackage.EventOuterLayer.EventController;
-import EventPackage.EventUseCases.EventManager;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class EventTest {

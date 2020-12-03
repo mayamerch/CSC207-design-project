@@ -101,7 +101,7 @@ public class MultiSpeakerEvent extends Event implements SpeakerEvent {
      * @return "MS" to represent MultiSpeaker events
      */
     public String getEventType() {
-        return "MS";
+        return "Multi-Speaker";
     }
 
 }

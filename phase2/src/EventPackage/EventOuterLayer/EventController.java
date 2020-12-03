@@ -130,67 +130,116 @@ public class EventController {
         return data;
     }
 
-/*
-    private void cancelAttend(int UserId) {
-        Scanner reader = new Scanner(System.in);
-
-        ep.chooseEvent();
-        String UserInput = reader.nextLine();
-        while (!checkInput(UserInput)) {
-            UserInput = reader.nextLine();
-        }
-        int UserInputInt = Integer.parseInt(UserInput);
-
-        int status = -1;
-        for (Event event: em.myEvents(UserId)) {
-            if (event.getEventId() == UserInputInt) {
-                em.unenroll(UserInputInt, UserId);
-                status = 0;
-            }
-        }
-
-        ep.printStatus(status);
-        ep.goBack();
-    }
 
 
-    private int createEvent(String UserInput, ArrayList<Integer> speakerIds) {
-        String eventName;
-        int eventRoom;
-        Date eventDate;
-        int eventSpeaker;
-        int eventDuration = 1;
+    public int createParty(String EventName, String EventCapacity, String EventDate, String EventRoom,
+                           String EventDuration, String EventVIP) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
-        int status;
+        int capacity;
+        Date date;
+        int room;
+        int duration;
+        boolean vip;
 
-        String[] splitInput = UserInput.split(";");
-        if (splitInput.length != 4)
-            return -2;
-
-        eventName = splitInput[0];
         try {
-            eventRoom = Integer.parseInt(splitInput[1]);
-            eventDate = sdf.parse(splitInput[2]);
-            eventSpeaker = Integer.parseInt(splitInput[3]);
+            capacity = Integer.parseInt(EventCapacity);
+            date = sdf.parse(EventDate);
+            room = Integer.parseInt(EventRoom);
+            duration = Integer.parseInt(EventDuration);
+            vip = Boolean.parseBoolean(EventVIP);
         }
         catch (Exception e) {
+            return -2;
+        }
+
+        if (capacity > roomManager.findRoom(room).getRoomCapacity())
             return -3;
-        }
 
-        if (!(speakerIds.contains(eventSpeaker)) || !(rm.roomExists(eventRoom))) {
-            return -4;
-        }
-        status = em.createEvent(eventName, eventRoom, eventDate, eventSpeaker, eventDuration);
+        return eventManager.createParty(EventName, capacity, date, room, duration, vip);
 
-
-        return status;
     }
 
-    private void createRoom(int input) {
-        int id = rm.createRoom(input);
-        ep.printStatus(0);
-        ep.displayRoom(id);
-    }
-    */
+    public int createSingleSpeakerEvent(String EventName, String EventCapacity, String EventDate, String EventRoom,
+                                        String EventDuration, String EventVIP, String EventSpeaker) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        int capacity;
+        Date date;
+        int room;
+        int duration;
+        boolean vip;
+        int speaker;
+
+        try {
+            capacity = Integer.parseInt(EventCapacity);
+            date = sdf.parse(EventDate);
+            room = Integer.parseInt(EventRoom);
+            duration = Integer.parseInt(EventDuration);
+            vip = Boolean.parseBoolean(EventVIP);
+            speaker = Integer.parseInt(EventSpeaker);
+        }
+        catch (Exception e) {
+            return -2;
+        }
+
+        if (capacity > roomManager.findRoom(room).getRoomCapacity())
+            return -3;
+
+        return eventManager.createSingleSpeakerEvent(EventName, capacity, date, room, duration, vip, speaker);
+    }
+
+
+    public int createMultiSpeakerEvent(String EventName, String EventCapacity, String EventDate, String EventRoom,
+                                       String EventDuration, String EventVIP, String[] EventSpeaker) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        int capacity;
+        Date date;
+        int room;
+        int duration;
+        boolean vip;
+        ArrayList<Integer> speakers = new ArrayList<>();
+
+        try {
+            capacity = Integer.parseInt(EventCapacity);
+            date = sdf.parse(EventDate);
+            room = Integer.parseInt(EventRoom);
+            duration = Integer.parseInt(EventDuration);
+            vip = Boolean.parseBoolean(EventVIP);
+            for (String num: EventSpeaker)
+                speakers.add(Integer.parseInt(num));
+        }
+        catch (Exception e) {
+            return -2;
+        }
+
+        if (capacity > roomManager.findRoom(room).getRoomCapacity())
+            return -3;
+
+        return eventManager.createMultiSpeakerEvent(EventName, capacity, date, room, duration, vip, speakers);
+    }
+
+
+    public int cancelAttend(String eventId) {
+        if (!checkInput(eventId))
+            return -2;
+
+        return eventManager.unenroll(Integer.parseInt(eventId), userId);
+    }
+
+
+    public boolean createRoom(String RoomCapacity){
+        int capacity;
+
+        try {
+           capacity = Integer.parseInt(RoomCapacity);
+        }
+        catch (Exception e) {
+            return false;
+        }
+
+        roomManager.createRoom(capacity);
+        return true;
+    }
 }
