@@ -8,7 +8,7 @@ import UserPackage.UserType;
 import javax.swing.*;
 import java.util.HashMap;
 
-public class LoginTest {
+public class LoginViewTest {
     public static void main(String[] args){
 
         HashMap<Integer, User> userMap = new HashMap<>();

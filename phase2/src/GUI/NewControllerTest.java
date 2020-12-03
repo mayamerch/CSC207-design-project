@@ -1,10 +1,24 @@
 package GUI;
 
+import UserPackage.User;
 import UserPackage.UserController;
+import UserPackage.UserManager;
+import UserPackage.UserType;
+
+import javax.swing.*;
+import java.util.HashMap;
 
 public class NewControllerTest {
     public static void main(String[] args) {
-        UserController userController = new UserController();
+
+        HashMap<Integer, User> userMap = new HashMap<>();
+        UserManager userManager = new UserManager();
+
+        userManager.createAccount("user1", "user1", UserType.ATTENDEE);
+        userManager.createAccount("user2", "user2", UserType.ATTENDEE);
+        userManager.createAccount("user3", "user3", UserType.ATTENDEE);
+
+        UserController userController = new UserController(userManager);
         userController.userLogin("user1", "user1");
         // userController.createUser(); created user2, user2
         // userController.createUser(); created user3, user3
@@ -18,6 +32,9 @@ public class NewControllerTest {
         userController.acceptFriendRequest("user1"); // accept user 1 from user3
         userController.logOut();
         userController.userLogin("user1", "user1"); // log in as user1
-        new FriendMenuView(userController);
+        //new FriendMenuView(userController);
+
+        JFrame frame = new FriendMenuView(userController);
+        frame.setVisible(true);
     }
 }
