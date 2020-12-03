@@ -40,7 +40,7 @@ public class Party extends Event {
      * @return "P" to represent party events
      */
     public String getEventType(){
-        return "P";
+        return "Party";
     }
 
     /**
