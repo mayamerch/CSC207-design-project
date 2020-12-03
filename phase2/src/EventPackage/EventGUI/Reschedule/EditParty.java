@@ -41,6 +41,7 @@ public class EditParty extends JFrame {
     private JLabel currVIP;
     private JLabel info6;
     private JLabel currID;
+    private JLabel label1;
     private EventController eventController;
 
     /**
@@ -122,6 +123,14 @@ public class EditParty extends JFrame {
                                     " due to new information overlapping with another event.",
                             "Process was unsuccessful",
                             JOptionPane.ERROR_MESSAGE);
+
+                else if (status == -4)
+                    JOptionPane.showMessageDialog(null,
+                            "Sorry this event couldn't be created" +
+                                    " as the room doesn't exist.",
+                            "Process was unsuccessful",
+                            JOptionPane.ERROR_MESSAGE);
+
 
                 else
                     JOptionPane.showMessageDialog(null,

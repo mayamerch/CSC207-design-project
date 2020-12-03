@@ -34,6 +34,7 @@ public class MultiSpeakerCreator extends JFrame {
     private JLabel info2;
     private JLabel info3;
     private JLabel info4;
+    private JLabel label1;
     private EventController eventController;
 
     /**
@@ -110,6 +111,13 @@ public class MultiSpeakerCreator extends JFrame {
                     JOptionPane.showMessageDialog(null,
                             "Sorry this event couldn't be created" +
                                     " due to its capacity exceeding the capacity of its room.",
+                            "Process was unsuccessful",
+                            JOptionPane.ERROR_MESSAGE);
+
+                else if (status == -4)
+                    JOptionPane.showMessageDialog(null,
+                            "Sorry this event couldn't be created" +
+                                    " as at least one of the speakers or the room don't exist.",
                             "Process was unsuccessful",
                             JOptionPane.ERROR_MESSAGE);
 

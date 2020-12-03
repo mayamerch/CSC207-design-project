@@ -151,6 +151,9 @@ public class EventController {
             return -2;
         }
 
+        if (!roomManager.roomExists(room))
+            return -4;
+
         if (capacity > roomManager.findRoom(room).getRoomCapacity())
             return -3;
 
@@ -184,6 +187,9 @@ public class EventController {
         if (capacity > roomManager.findRoom(room).getRoomCapacity())
             return -3;
 
+        if (!speakerList.contains(speaker) || !roomManager.roomExists(room))
+            return -4;
+
         return eventManager.createSingleSpeakerEvent(EventName, capacity, date, room, duration, vip, speaker);
     }
 
@@ -212,8 +218,16 @@ public class EventController {
             return -2;
         }
 
+        if (!roomManager.roomExists(room))
+            return -4;
+
+        for (int Speaker: speakers)
+            if (!speakerList.contains(Speaker))
+                return -4;
+
         if (capacity > roomManager.findRoom(room).getRoomCapacity())
             return -3;
+
 
         return eventManager.createMultiSpeakerEvent(EventName, capacity, date, room, duration, vip, speakers);
     }
@@ -281,6 +295,45 @@ public class EventController {
         return eventInfo;
     }
 
+    public String[] getSingleSpeakerInfo(String EventId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        String[] eventInfo = new String[7];
+        int eventId;
+
+        eventId = Integer.parseInt(EventId);
+        SingleSpeakerEvent event = (SingleSpeakerEvent) eventManager.getEvent(eventId);
+
+        eventInfo[0] = event.getEventName();
+        eventInfo[1] = String.valueOf(event.getEventCapacity());
+        eventInfo[2] = sdf.format(event.getEventDate());
+        eventInfo[3] = String.valueOf(event.getEventRoom());
+        eventInfo[4] = String.valueOf(event.getEventDuration());
+        eventInfo[5] = String.valueOf(event.getVIPStatus());
+        eventInfo[6] = String.valueOf(event.getEventSpeaker());
+
+        return eventInfo;
+    }
+
+
+    public String[] getMultiSpeakerInfo(String EventId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        String[] eventInfo = new String[7];
+        int eventId;
+
+        eventId = Integer.parseInt(EventId);
+        MultiSpeakerEvent event = (MultiSpeakerEvent) eventManager.getEvent(eventId);
+
+        eventInfo[0] = event.getEventName();
+        eventInfo[1] = String.valueOf(event.getEventCapacity());
+        eventInfo[2] = sdf.format(event.getEventDate());
+        eventInfo[3] = String.valueOf(event.getEventRoom());
+        eventInfo[4] = String.valueOf(event.getEventDuration());
+        eventInfo[5] = String.valueOf(event.getVIPStatus());
+        eventInfo[6] = String.valueOf(event.getEventSpeakers());
+
+        return eventInfo;
+    }
+
 
     public int editParty(String EventId, String EventName, String EventCapacity,
                          String EventDate, String EventRoom, String EventDuration, String EventVIP) {
@@ -321,6 +374,9 @@ public class EventController {
         catch (Exception e) {
             return -2;
         }
+
+        if (!roomManager.roomExists(room))
+            return -4;
 
         if (eventManager.rescheduleParty(eventId, EventName, capacity, date, room, duration, vip))
             return 0;
@@ -375,6 +431,9 @@ public class EventController {
         catch (Exception e) {
             return -2;
         }
+
+        if (!speakerList.contains(speaker) || !roomManager.roomExists(room))
+            return -4;
 
         if (eventManager.rescheduleSingleSpeaker(eventId, EventName, capacity, date, room, duration, speaker, vip))
             return 0;
@@ -431,6 +490,13 @@ public class EventController {
         catch (Exception e) {
             return -2;
         }
+
+        if (!roomManager.roomExists(room))
+            return -4;
+
+        for (int Speaker: speakers)
+            if (!speakerList.contains(Speaker))
+                return -4;
 
         if (eventManager.rescheduleMultiSpeaker(eventId, EventName, capacity, date, room, duration, speakers, vip))
             return 0;

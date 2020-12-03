@@ -113,6 +113,13 @@ public class SingleSpeakerCreator extends JFrame {
                             "Process was unsuccessful",
                             JOptionPane.ERROR_MESSAGE);
 
+                else if (status == -4)
+                    JOptionPane.showMessageDialog(null,
+                            "Sorry this event couldn't be created" +
+                                    " as either the speaker or room don't exist.",
+                            "Process was unsuccessful",
+                            JOptionPane.ERROR_MESSAGE);
+
                 else
                     JOptionPane.showMessageDialog(null,
                             "Your Event was created successfully.",

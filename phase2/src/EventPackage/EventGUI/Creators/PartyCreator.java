@@ -31,6 +31,7 @@ public class PartyCreator extends JFrame {
     private JLabel info1;
     private JLabel info2;
     private JLabel info3;
+    private JLabel label1;
     private EventController eventController;
 
     /**
@@ -106,6 +107,13 @@ public class PartyCreator extends JFrame {
                     JOptionPane.showMessageDialog(null,
                             "Sorry this event couldn't be created" +
                                     " due to its capacity exceeding the capacity of its room.",
+                            "Process was unsuccessful",
+                            JOptionPane.ERROR_MESSAGE);
+
+                else if (status == -4)
+                    JOptionPane.showMessageDialog(null,
+                            "Sorry this event couldn't be created" +
+                                    " as the room doesn't exist.",
                             "Process was unsuccessful",
                             JOptionPane.ERROR_MESSAGE);
 
