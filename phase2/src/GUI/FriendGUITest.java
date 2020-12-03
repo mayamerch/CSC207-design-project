@@ -11,7 +11,6 @@ import java.util.HashMap;
 public class FriendGUITest {
     public static void main(String[] args) {
 
-        HashMap<Integer, User> userMap = new HashMap<>();
         UserManager userManager = new UserManager();
 
         userManager.createAccount("user1", "user1", UserType.ATTENDEE);
