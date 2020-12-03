@@ -321,10 +321,11 @@ public class EventManager implements Serializable {
      * @param eventCapacity The capacity of the event
      * @param eventDate The new date of event
      * @param eventRoom The new room of event
-     * @param eventDuration The new duration of th event
+     * @param eventDuration The new duration of the event
+     * @param eventName New Name of event
      * @return              True if event was rescheduled, false if it was unable to
      */
-    public boolean rescheduleParty(int eventId, int eventCapacity, Date eventDate, int eventRoom,
+    public boolean rescheduleParty(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom,
                               int eventDuration) {
         int index = -1;
         for (int i = 0; i < partyList.size(); i++) {
@@ -338,7 +339,7 @@ public class EventManager implements Serializable {
         if (roomCompare(eventId, eventRoom, eventDate, eventDuration))
             return false;
 
-
+        partyList.get(index).setEventName(eventName);
         partyList.get(index).setEventDate(eventDate);
         partyList.get(index).setEventRoom(eventRoom);
         partyList.get(index).setEventDuration(eventDuration);
@@ -357,9 +358,10 @@ public class EventManager implements Serializable {
      * @param eventRoom The new room of event
      * @param eventDuration The new duration of th event
      * @param speakerId The id of new speaker  at this event
+     * @param eventName New Name of event
      * @return              True if event was rescheduled, false if it was unable to
      */
-    public boolean rescheduleSingleSpeaker(int eventId, int eventCapacity, Date eventDate, int eventRoom,
+    public boolean rescheduleSingleSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom,
                                    int eventDuration, int speakerId) {
         int index = -1;
         for (int i = 0; i < singleSpeakerList.size(); i++) {
@@ -374,7 +376,7 @@ public class EventManager implements Serializable {
                 || speakerCompare(eventId, eventDate, eventDuration, speakerId))
             return false;
 
-
+        singleSpeakerList.get(index).setEventName(eventName);
         singleSpeakerList.get(index).setEventDate(eventDate);
         singleSpeakerList.get(index).setEventRoom(eventRoom);
         singleSpeakerList.get(index).setEventDuration(eventDuration);
@@ -394,9 +396,10 @@ public class EventManager implements Serializable {
      * @param eventRoom The new room of event
      * @param eventDuration The new duration of the event
      * @param speakerIds The ids of  the new speaker of this event
+     * @param eventName New Name of event
      * @return              True if event was rescheduled, false if it was unable to
      */
-    public boolean rescheduleMultiSpeaker(int eventId, int eventCapacity, Date eventDate, int eventRoom,
+    public boolean rescheduleMultiSpeaker(int eventId, String eventName, int eventCapacity, Date eventDate, int eventRoom,
                                    int eventDuration, ArrayList<Integer> speakerIds) {
         int index = -1;
         for (int i = 0; i < multiSpeakerList.size(); i++) {
@@ -413,10 +416,12 @@ public class EventManager implements Serializable {
         if (speakerIds.size() == 0)
             return false;
 
-        for (Integer speakerId: speakerIds)
+        for (Integer speakerId: speakerIds) {
             if (speakerCompare(eventId, eventDate, eventDuration, speakerId))
                 return false;
+        }
 
+        multiSpeakerList.get(index).setEventName(eventName);
         multiSpeakerList.get(index).setEventDate(eventDate);
         multiSpeakerList.get(index).setEventRoom(eventRoom);
         multiSpeakerList.get(index).setEventDuration(eventDuration);

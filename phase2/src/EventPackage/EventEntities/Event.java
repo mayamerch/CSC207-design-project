@@ -116,6 +116,14 @@ public abstract class Event implements Comparable<Event>, Serializable {
 
 
     /**
+     * Change the name of an event
+     * @param eventName New name of event
+     */
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    /**
      * Set the date the event is going to occur at
      * @param eventDate The new date the event is occurring at
      */
