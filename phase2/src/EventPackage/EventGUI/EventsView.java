@@ -19,7 +19,7 @@ public class EventsView extends JFrame{
         this.title.setText(title);
 
         Object[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-                "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event"};
+                "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
         eventInfo = new JTable(eventsInfo, header);
     }
 }

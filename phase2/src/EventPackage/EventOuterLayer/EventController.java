@@ -10,7 +10,6 @@ import EventPackage.EventUseCases.RoomManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 
 public class EventController {
 
@@ -72,7 +71,7 @@ public class EventController {
 
             Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
                     event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
-                    event.getVIPStatus()};
+                    event.getVIPStatus(), getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
         }
 
@@ -90,7 +89,7 @@ public class EventController {
 
             Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
                     event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
-                    event.getVIPStatus()};
+                    event.getVIPStatus(), getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
         }
 
@@ -108,7 +107,7 @@ public class EventController {
 
             Object[] eventInfo = {event.getEventId(), event.getEventName(), event.getEventType(), event.getEventRoom(),
                     event.getEventDate(), event.getEventDuration(), event.getEventCapacity(), availableSpace,
-                    event.getVIPStatus()};
+                    event.getVIPStatus(), getSpeakerString(event.getEventId())};
             data[i] = eventInfo;
         }
 
@@ -437,5 +436,17 @@ public class EventController {
             return 0;
         else
             return -1;
+    }
+
+
+    private String getSpeakerString(int eventId) {
+        Event event = eventManager.getEvent(eventId);
+
+        if (event.getEventType().equals("Single Speaker"))
+            return String.valueOf(((SingleSpeakerEvent) event).getEventSpeaker());
+        else if (event.getEventType().equals("Multi-Speaker"))
+            return String.valueOf(((MultiSpeakerEvent) event).getEventSpeakers());
+        else
+            return "None";
     }
 }
