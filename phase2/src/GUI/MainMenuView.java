@@ -1,10 +1,18 @@
 package GUI;
 
+import EventPackage.EventGUI.CancelAttendView;
+import EventPackage.EventGUI.UserMenus.AttendeeEventView;
+import EventPackage.EventGUI.UserMenus.OrganizerEventView;
+import EventPackage.EventGUI.UserMenus.SpeakerEventView;
+import EventPackage.EventOuterLayer.EventController;
+import UserPackage.User;
 import UserPackage.UserController;
+import UserPackage.UserType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MainMenuView extends JFrame{
     private JPanel mainMenuPanel;
@@ -36,6 +44,43 @@ public class MainMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 userController.logOut();
+            }
+        });
+        eventsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int userid = userController.getCurrentUserId();
+                boolean userVip = userController.getUserManager().getUserByID(userid).getVIP();
+                ArrayList<Integer> speakerIds = new ArrayList<>();
+                for (User user: userController.getSpeakerList()) {
+                    speakerIds.add(user.getUserID());
+                }
+                UserType userType = userController.getUserType();
+                EventController eventController = new EventController(userid, userVip, speakerIds);
+
+                if (userType == UserType.ATTENDEE) {
+                    AttendeeEventView attendeeEventView = new AttendeeEventView(eventController);
+                    attendeeEventView.setContentPane(attendeeEventView.getMainPanel());
+                    attendeeEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    attendeeEventView.pack();
+                    attendeeEventView.setVisible(true);
+                }
+
+                else if (userType == UserType.ORGANIZER) {
+                    OrganizerEventView organizerEventView = new OrganizerEventView(eventController);
+                    organizerEventView.setContentPane(organizerEventView.getMainPanel());
+                    organizerEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    organizerEventView.pack();
+                    organizerEventView.setVisible(true);
+                }
+
+                else {
+                    SpeakerEventView speakerEventView = new SpeakerEventView(eventController);
+                    speakerEventView.setContentPane(speakerEventView.getMainPanel());
+                    speakerEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    speakerEventView.pack();
+                    speakerEventView.setVisible(true);
+                }
             }
         });
     }
