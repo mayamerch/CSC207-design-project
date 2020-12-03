@@ -24,6 +24,7 @@ public class FriendRequestMenuView extends JFrame{
     private UserController userController;
     private List<Integer> friendRequestList;
     private List<Integer> friendList;
+    public int choice;
 
     public FriendRequestMenuView(UserController userController){
         super();
@@ -62,6 +63,12 @@ public class FriendRequestMenuView extends JFrame{
                     FriendLabel.setText("Friend Request Sent");
                 }
                 else{FriendLabel.setText("Invalid Username");}
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            choice = -1;
             }
         });
     }
