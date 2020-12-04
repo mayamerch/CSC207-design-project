@@ -358,9 +358,10 @@ public class EventPresenter {
      * The parameters are all in string form
      * @param EventId Id of the Event
      * @return -1 if there was a problem with information
-     *          0
-     *          1
-     *          2
+     *          0 if event doesnt exist
+     *          1 if its a party
+     *          2 if its a SingleSpeaker event
+     *          3 if its a MultiSpeaker event
      */
     public int findType(String EventId) {
         int eventId;

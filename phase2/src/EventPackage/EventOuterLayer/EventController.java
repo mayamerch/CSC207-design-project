@@ -40,27 +40,52 @@ public class EventController {
     }
 
 
+    /**
+     * return the list of speakers
+     * @return the list of speakers
+     */
     public ArrayList<Integer> getSpeakerList() {
         return speakerList;
     }
 
+    /**
+     * returns the RoomManager
+     * @return the RoomManger
+     */
     public RoomManager getRoomManager() {
         return roomManager;
     }
 
+    /**
+     * Returns the EventManager
+     * @return the EventManager
+     */
     public EventManager getEventManager() {
         return eventManager;
     }
 
-
+    /**
+     * returns the Users Id
+     * @return the Users Id
+     */
     public int getUserId() {
         return userId;
     }
 
+    /**
+     * returns if this user is a VIP or not
+     * @return whether user is VIP or not
+     */
     public boolean isUserVIP() {
         return userVIP;
     }
 
+    /**
+     * Signs the current user up for an event
+     * @param eventId Id of the event to join
+     * @return true if user was added
+     *          false if he wasn't
+     */
     public boolean signUp(int eventId) {
 
         boolean status = eventManager.enroll(eventId, userId, userVIP);
@@ -73,7 +98,16 @@ public class EventController {
     }
 
 
-
+    /**
+     * Creates a party event if all the information is suitable
+     * @param EventName Name of the event
+     * @param EventCapacity capacity of the event
+     * @param EventDate Date of the event
+     * @param EventRoom Room id of the event
+     * @param EventDuration duration of the event
+     * @param EventVIP VIP status of the event
+     * @return status of process, 0 is success
+     */
     public int createParty(String EventName, int EventCapacity, Date EventDate, int EventRoom,
                            int EventDuration, boolean EventVIP) {
 
@@ -95,6 +129,17 @@ public class EventController {
         }
     }
 
+    /**
+     * Creates a Single Speaker event if all the information is suitable
+     * @param EventName Name of the event
+     * @param capacity capacity of the event
+     * @param date Date of the event
+     * @param room Room id of the event
+     * @param duration duration of the event
+     * @param vip VIP status of the event
+     * @param speaker speaker of this event
+     * @return status of process, 0 is success
+     */
     public int createSingleSpeakerEvent(String EventName, int capacity, Date date, int room,
                                         int duration, boolean vip, int speaker) {
 
@@ -114,6 +159,17 @@ public class EventController {
     }
 
 
+    /**
+     * Creates a Multi-Speaker event if all the information is suitable
+     * @param EventName Name of the event
+     * @param capacity capacity of the event
+     * @param date Date of the event
+     * @param room Room id of the event
+     * @param duration duration of the event
+     * @param vip VIP status of the event
+     * @param speakers list of speakers of this event
+     * @return status of process, 0 is success
+     */
     public int createMultiSpeakerEvent(String EventName, int capacity, Date date, int room,
                                        int duration, boolean vip, ArrayList<Integer> speakers) {
 
@@ -135,7 +191,11 @@ public class EventController {
 
     }
 
-
+    /**
+     * stops current user from attending an event
+     * @param eventId id of the event
+     * @return true if successful, false if not
+     */
     public int cancelAttend(int eventId) {
         int status = eventManager.unenroll(eventId, userId);
         eventGateway.write(eventManager);
@@ -144,6 +204,11 @@ public class EventController {
     }
 
 
+    /**
+     * Create a room
+     * @param capacity capacity of the room
+     * @return true
+     */
     public boolean createRoom(int capacity){
         roomManager.createRoom(capacity);
         eventGateway.write(eventManager);
@@ -152,6 +217,14 @@ public class EventController {
     }
 
 
+    /**
+     * returns type an event
+     * @param eventId id of the event
+     * @return 0 if event doesnt exist
+     *         1 if its a party
+     *         2 if its a SingleSpeaker event
+     *         3 if its a MultiSpeaker event
+     */
     public int findType(int eventId) {
         if (eventManager.isParty(eventId))
             return 1;
@@ -164,7 +237,17 @@ public class EventController {
     }
 
 
-
+    /**
+     * Edits a Party event if information is suitable
+     * @param eventId id of the event
+     * @param EventName Name of event
+     * @param capacity capacity of event
+     * @param date date of event
+     * @param room room id of event
+     * @param duration duration of event
+     * @param vip vip status of event
+     * @return status of process, 0 is a success
+     */
     public int editParty(int eventId, String EventName, int capacity,
                          Date date, int room, int duration, boolean vip) {
 
@@ -181,6 +264,18 @@ public class EventController {
     }
 
 
+    /**
+     * Edits a Single Speaker event if information is suitable
+     * @param eventId id of the event
+     * @param EventName Name of event
+     * @param capacity capacity of event
+     * @param date date of event
+     * @param room room id of event
+     * @param duration duration of event
+     * @param vip vip status of event
+     * @param speaker speaker at the event
+     * @return status of process, 0 is a success
+     */
     public int editSingleSpeaker(int eventId, String EventName, int capacity,
                          Date date, int room, int duration, boolean vip,
                                  int speaker) {
@@ -198,6 +293,18 @@ public class EventController {
     }
 
 
+    /**
+     * Edits a Multi-Speaker event if information is suitable
+     * @param eventId id of the event
+     * @param EventName Name of event
+     * @param capacity capacity of event
+     * @param date date of event
+     * @param room room id of event
+     * @param duration duration of event
+     * @param vip vip status of event
+     * @param speakers list of speakers at the event
+     * @return status of process, 0 is a success
+     */
     public int editMultiSpeaker(int eventId, String EventName, int capacity,
                                 Date date, int room, int duration, boolean vip,
                                 ArrayList<Integer> speakers) {
