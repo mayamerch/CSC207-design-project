@@ -301,19 +301,42 @@ public class EventManager implements Serializable {
 
 
     /**
-     * Checks if an event is included in the list of events and removes it if it does. Returns true if it was removed
-     * and false if not found.
+     * Checks if an event is included in the list of events and removes it if it does (also removes it from other lists).
+     * Returns true if it was removed and false if not found.
      * @param eventID The ID of the event to be deleted
      * @return        True if event was deleted, false if not found
      */
     public boolean cancelEvent(int eventID) {
+        boolean status = false;
         for (int i = 0; i < eventList.size(); i++) {
             if (eventList.get(i).getEventId() == eventID) {
                 eventList.remove(i);
-                return true;
+                status = true;
             }
         }
-        return false;
+
+        if (!status)
+            return false;
+
+        for (int i = 0; i < partyList.size(); i++) {
+            if (partyList.get(i).getEventId() == eventID) {
+                partyList.remove(i);
+            }
+        }
+
+        for (int i = 0; i < singleSpeakerList.size(); i++) {
+            if (singleSpeakerList.get(i).getEventId() == eventID) {
+                singleSpeakerList.remove(i);
+            }
+        }
+
+        for (int i = 0; i < multiSpeakerList.size(); i++) {
+            if (multiSpeakerList.get(i).getEventId() == eventID) {
+                multiSpeakerList.remove(i);
+            }
+        }
+
+        return true;
     }
 
 

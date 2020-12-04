@@ -1,14 +1,9 @@
 package EventPackage.EventGUI.UserMenus;
 
-import EventPackage.EventEntities.Event;
-import EventPackage.EventGUI.AttendEventView;
-import EventPackage.EventGUI.CancelAttendView;
+import EventPackage.EventGUI.*;
 import EventPackage.EventGUI.Creators.CreateEventView;
 import EventPackage.EventGUI.Creators.CreateRoomView;
-import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.Reschedule.RescheduleEventView;
-import EventPackage.EventGUI.RoomView;
-import EventPackage.EventOuterLayer.EventController;
 import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
@@ -26,6 +21,7 @@ public class OrganizerEventView extends JFrame{
     private JPanel mainPanel;
     private JButton cancelAttend;
     private JLabel title;
+    private JButton cancelEvents;
     private EventPresenter eventPresenter;
 
     /**
@@ -160,6 +156,21 @@ public class OrganizerEventView extends JFrame{
                 cancelAttendView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 cancelAttendView.pack();
                 cancelAttendView.setVisible(true);
+            }
+        });
+
+        cancelEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e button is pressed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CancelEventView cancelEventView = new CancelEventView(eventPresenter);
+                cancelEventView.setContentPane(cancelEventView.getMainPanel());
+                cancelEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                cancelEventView.pack();
+                cancelEventView.setVisible(true);
             }
         });
     }

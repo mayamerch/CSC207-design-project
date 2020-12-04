@@ -47,7 +47,7 @@ public class CancelAttendView extends JFrame {
                 int status = eventPresenter.cancelAttend(choice);
 
                 EventMessagePresenter eventMessagePresenter = new EventMessagePresenter();
-                eventMessagePresenter.CancelEventMessage(status);
+                eventMessagePresenter.CancelAttendEventMessage(status);
             }
         });
     }

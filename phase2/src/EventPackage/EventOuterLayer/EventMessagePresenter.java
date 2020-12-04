@@ -5,7 +5,7 @@ import javax.swing.*;
 public class EventMessagePresenter {
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for creating rooms
+     * Creates a dialog box telling you the result of creating rooms
      * @param status responsible for deciding which message is printed
      */
     public void CreateRoomMessage(boolean status) {
@@ -24,7 +24,7 @@ public class EventMessagePresenter {
 
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for creating Multi-Speaker Events
+     * Creates a dialog box telling you the result of creating Multi-Speaker Events
      * @param status responsible for deciding which message is printed
      */
     public void MultiSpeakerCreatorMessage(int status) {
@@ -63,7 +63,7 @@ public class EventMessagePresenter {
     }
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for creating Party Events
+     * Creates a dialog box telling you the result of creating Party Events
      * @param status responsible for deciding which message is printed
      */
     public void PartyCreatorMessage(int status) {
@@ -102,7 +102,7 @@ public class EventMessagePresenter {
     }
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for creating Single Speaker Events
+     * Creates a dialog box telling you the result of creating Single Speaker Events
      * @param status responsible for deciding which message is printed
      */
     public void SingleSpeakerCreatorMessage(int status) {
@@ -141,7 +141,7 @@ public class EventMessagePresenter {
     }
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for editing Multi-Speaker Events
+     * Creates a dialog box telling you the result of editing Multi-Speaker Events
      * @param status responsible for deciding which message is printed
      */
     public void editMultiMessage(int status) {
@@ -174,7 +174,7 @@ public class EventMessagePresenter {
     }
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for editing Single Speaker Events
+     * Creates a dialog box telling you the result of editing Single Speaker Events
      * @param status responsible for deciding which message is printed
      */
     public void editSingleMessage(int status) {
@@ -207,7 +207,7 @@ public class EventMessagePresenter {
     }
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for editing Party Events
+     * Creates a dialog box telling you the result of editing Party Events
      * @param status responsible for deciding which message is printed
      */
     public void editPartyMessage(int status) {
@@ -240,7 +240,7 @@ public class EventMessagePresenter {
     }
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for choosing an event to reschedule
+     * Creates a dialog box telling you the result of choosing an event to reschedule
      * @param status responsible for deciding which message is printed
      */
     public void rescheduleEventMessage(int status) {
@@ -257,7 +257,7 @@ public class EventMessagePresenter {
     }
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for attending an event
+     * Creates a dialog box telling you the result for attending an event
      * @param status responsible for deciding which message is printed
      */
     public void AttendEventMessage(boolean status) {
@@ -273,10 +273,10 @@ public class EventMessagePresenter {
 
 
     /**
-     * Creates a dialog box telling you the result of a process in a Gui for stopping attending of an evebt
+     * Creates a dialog box telling you the result for stopping attending of an event
      * @param status responsible for deciding which message is printed
      */
-    public void CancelEventMessage(int status) {
+    public void CancelAttendEventMessage(int status) {
         if (status == -2)
             JOptionPane.showMessageDialog(null,
                     "Sorry please check the format of the information inputted as it caused an error.",
@@ -297,8 +297,25 @@ public class EventMessagePresenter {
         else
             JOptionPane.showMessageDialog(null,
                     "You are no longer enrolling in the Event",
-                    "Process was unsuccessful",
+                    "Process was successful",
                     JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Creates a dialog box telling you the result of canceling an event
+     * @param status responsible for deciding which message is printed
+     */
+    public void CancelEventMessage(boolean status) {
+        if (status)
+            JOptionPane.showMessageDialog(null,
+                    "The Event is canceled",
+                    "Process was unsuccessful",
+                    JOptionPane.PLAIN_MESSAGE);
+        else
+            JOptionPane.showMessageDialog(null,
+                    "The Event you entered doesn't exist",
+                    "Process was unsuccessful",
+                    JOptionPane.ERROR_MESSAGE);
+
+    }
 }

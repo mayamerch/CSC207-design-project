@@ -324,4 +324,16 @@ public class EventController {
         else
             return -1;
     }
+
+    /**
+     * Cancels an event if it exists
+     * @param eventId id of the event
+     * @return true if it was deleted, false otherwise
+     */
+    public boolean cancelEvent(int eventId) {
+        boolean status = eventManager.cancelEvent(eventId);
+        eventGateway.write(eventManager);
+        roomGateway.write(roomManager);
+        return status;
+    }
 }

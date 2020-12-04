@@ -710,4 +710,23 @@ public class EventPresenter {
         else
             return "None";
     }
+
+
+    /**
+     * transforms the input to a suitable type and calls eventController to cancel an event
+     * @param eventId id of the event in string notation
+     * @return true if it was cancelled, false otherwise
+     */
+    public boolean cancelEvent(String eventId) {
+        int id;
+
+        try {
+            id = Integer.parseInt(eventId);
+        }
+        catch (Exception e) {
+            return false;
+        }
+
+        return eventController.cancelEvent(id);
+    }
 }
