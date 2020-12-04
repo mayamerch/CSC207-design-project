@@ -44,10 +44,18 @@ public class PartyCreator extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * Create a GUI responsible for creating a Party Event.
+     * @param eventPresenter1 The EventPresenter used in this view
+     */
     public PartyCreator(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         seeRooms.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RoomView roomView = new RoomView(eventPresenter.getRooms());
@@ -60,6 +68,10 @@ public class PartyCreator extends JFrame {
 
 
         seeEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
@@ -72,6 +84,10 @@ public class PartyCreator extends JFrame {
 
 
         createButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();

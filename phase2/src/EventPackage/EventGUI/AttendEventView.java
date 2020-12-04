@@ -29,10 +29,18 @@ public class AttendEventView extends JFrame{
         return mainPanel;
     }
 
+    /**
+     * GUI responsible for giving an Attendee the ability to attend events
+     * @param eventPresenter1 EventPresenter to be used in this view
+     */
     public AttendEventView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         okButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String choice = eventId.getText();

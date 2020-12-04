@@ -49,12 +49,20 @@ public class MultiSpeakerCreator extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * Create a GUI responsible for creating a Multi-Speaker Event.
+     * @param eventPresenter1 The EventPresenter used in this view
+     */
     public MultiSpeakerCreator(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         existingIds.setText(eventPresenter.getSpeakerIds());
 
         seeRooms.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RoomView roomView = new RoomView(eventPresenter.getRooms());
@@ -67,6 +75,10 @@ public class MultiSpeakerCreator extends JFrame {
 
 
         seeEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
@@ -79,6 +91,10 @@ public class MultiSpeakerCreator extends JFrame {
 
 
         createButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();

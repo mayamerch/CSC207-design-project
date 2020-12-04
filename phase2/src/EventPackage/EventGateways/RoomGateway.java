@@ -9,6 +9,10 @@ public class RoomGateway {
     private File fileDataRoom;
     private RoomManager roomManager;
 
+
+    /**
+     * Create a RoomGateway and loads in the RoomManager
+     */
     public RoomGateway()   {
         this.fileDataRoom = new File("RoomData.ser");
         try  {
@@ -22,9 +26,7 @@ public class RoomGateway {
     }
 
     /**
-     * Tries to read data from a .ser file.
-     * Prints to console on exception
-     * @return Returns the the RoomManager serialized in file
+     * Reads data from a .ser and creates a RoomManager from it and stores it
      */
     public void read() {
         try {
@@ -46,7 +48,7 @@ public class RoomGateway {
     /**
      * Tries to serialize an RoomManager to file specified in constructor.
      * Prints to console on exception
-     * @param roomManager An EventManager object
+     * @param roomManager A RoomManager object
      */
     public void write(RoomManager roomManager) {
 
@@ -63,7 +65,7 @@ public class RoomGateway {
 
     /**
      * Updates current RoomManager and returns it
-     * @return Returns an instance of an EventManager
+     * @return Returns an instance of an RoomManager
      */
 
     public RoomManager getRoomManager() {

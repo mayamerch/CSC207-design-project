@@ -50,11 +50,19 @@ public class SingleSpeakerCreator extends JFrame {
     }
 
 
+    /**
+     * Create a GUI responsible for creating a Single Speaker Event.
+     * @param eventPresenter1 The EventPresenter used in this view
+     */
     public SingleSpeakerCreator(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
         existingIds.setText(eventPresenter.getSpeakerIds());
 
         seeRooms.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RoomView roomView = new RoomView(eventPresenter.getRooms());
@@ -67,6 +75,10 @@ public class SingleSpeakerCreator extends JFrame {
 
 
         seeEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
@@ -79,6 +91,10 @@ public class SingleSpeakerCreator extends JFrame {
 
 
         createButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();

@@ -25,10 +25,18 @@ public class SpeakerEventView extends JFrame{
         return mainPanel;
     }
 
+    /**
+     * GUI responsible for giving option in regards to what an Speaker can do with events
+     * @param eventPresenter1 EventPresenter to be used in this view
+     */
     public SpeakerEventView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         seeEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
@@ -40,6 +48,10 @@ public class SpeakerEventView extends JFrame{
         });
 
         seeMyEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getEventsSpeakingAt(), "My Events");
@@ -51,6 +63,10 @@ public class SpeakerEventView extends JFrame{
         });
 
         seeRooms.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RoomView roomView = new RoomView(eventPresenter.getRooms());

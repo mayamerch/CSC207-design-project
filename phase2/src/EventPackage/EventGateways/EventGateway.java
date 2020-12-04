@@ -28,9 +28,7 @@ public class EventGateway {
     }
 
     /**
-     * Tries to read and return data from a text file.
-     * Prints to console on exception
-     * @return Returns the the EventManager serialized in file
+     * Reads data from a .ser and creates an EventManager from it and stores it
      */
     public void read() {
         try {
@@ -68,11 +66,12 @@ public class EventGateway {
     }
 
     /**
-     * Updates current EventManager and returns it
+     * returns the current EventManger
      * @return Returns an instance of an EventManager
      */
 
     public EventManager getEventManager() {
+        read();
         return this.eventManager;
     }
 }

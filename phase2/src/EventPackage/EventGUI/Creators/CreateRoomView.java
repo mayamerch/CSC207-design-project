@@ -30,10 +30,18 @@ public class CreateRoomView extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * Create a GUI responsible for Creating rooms
+     * @param eventPresenter1 EventPresenter used in this GUI
+     */
     public CreateRoomView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         seeRooms.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RoomView roomView = new RoomView(eventPresenter.getRooms());
@@ -46,6 +54,10 @@ public class CreateRoomView extends JFrame {
 
 
         createButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String roomCapacity = capacityInput.getText();

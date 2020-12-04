@@ -20,6 +20,11 @@ public class EventsView extends JFrame{
         return mainPanel;
     }
 
+    /**
+     * GUI responsible for presenting events in a table format
+     * @param eventsInfo Info about the events to be presented
+     * @param title title of this table
+     */
     public EventsView(String[][] eventsInfo, String title) {
         titleParam = title;
         this.eventsInfo = eventsInfo;

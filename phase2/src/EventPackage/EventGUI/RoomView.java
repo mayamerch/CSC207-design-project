@@ -18,6 +18,10 @@ public class RoomView extends JFrame{
         return mainPanel;
     }
 
+    /**
+     * Gui that presents rooms in a table format
+     * @param roomsInfo Info about the rooms
+     */
     public RoomView(String[][] roomsInfo) {
         this.roomsInfo = roomsInfo;
     }

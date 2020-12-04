@@ -29,10 +29,18 @@ public class CancelAttendView extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * GUI responsible for giving an Attendee the ability to stop attending events
+     * @param eventPresenter1 EventPresenter to be used in this view
+     */
     public CancelAttendView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         okButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String choice = eventId.getText();

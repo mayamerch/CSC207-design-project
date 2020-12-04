@@ -31,10 +31,18 @@ public class AttendeeEventView extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * GUI responsible for giving option in regards to what an Attendee can do with events
+     * @param eventPresenter1 EventPresenter to be used in this view
+     */
     public AttendeeEventView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         seeEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
@@ -46,6 +54,10 @@ public class AttendeeEventView extends JFrame {
         });
 
         seeMyEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getEventsAttending(), "My Events");
@@ -57,6 +69,10 @@ public class AttendeeEventView extends JFrame {
         });
 
         attendNewEvent.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 AttendEventView attendView = new AttendEventView(eventPresenter);
@@ -68,6 +84,10 @@ public class AttendeeEventView extends JFrame {
         });
 
         cancelAttend.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 CancelAttendView cancelAttendView = new CancelAttendView(eventPresenter);
@@ -79,6 +99,10 @@ public class AttendeeEventView extends JFrame {
         });
 
         seeRooms.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RoomView roomView = new RoomView(eventPresenter.getRooms());

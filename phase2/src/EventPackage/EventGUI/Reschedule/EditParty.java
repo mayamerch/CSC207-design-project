@@ -56,6 +56,11 @@ public class EditParty extends JFrame {
         return mainPanel;
     }
 
+    /**
+     * Create a GUI responsible for editing a Party Event.
+     * @param eventPresenter1 The EventPresenter used in this view
+     * @param currEventId the id of the event to be edited
+     */
     public EditParty(EventPresenter eventPresenter1, String currEventId) {
         eventPresenter = eventPresenter1;
 
@@ -72,6 +77,10 @@ public class EditParty extends JFrame {
         currVIP.setText(eventInfo[5]);
 
         seeRooms.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RoomView roomView = new RoomView(eventPresenter.getRooms());
@@ -84,6 +93,10 @@ public class EditParty extends JFrame {
 
 
         seeEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
@@ -96,6 +109,10 @@ public class EditParty extends JFrame {
 
 
         createButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();

@@ -25,10 +25,18 @@ public class CreateEventView extends JFrame{
     }
 
 
+    /**
+     * Create a GUI responsible for choosing which event to create.
+     * @param eventPresenter1 The EventPresenter used in this view
+     */
     public CreateEventView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         partyButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 PartyCreator partyCreator = new PartyCreator(eventPresenter);
@@ -42,6 +50,10 @@ public class CreateEventView extends JFrame{
 
 
         singleSpeakerButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 SingleSpeakerCreator singleSpeakerCreator = new SingleSpeakerCreator(eventPresenter);
@@ -55,6 +67,10 @@ public class CreateEventView extends JFrame{
 
 
         multiSpeakerButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 MultiSpeakerCreator multiSpeakerCreator = new MultiSpeakerCreator(eventPresenter);
@@ -65,5 +81,6 @@ public class CreateEventView extends JFrame{
                 setVisible(false);
             }
         });
+
     }
 }

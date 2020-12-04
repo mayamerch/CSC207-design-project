@@ -29,10 +29,19 @@ public class RescheduleEventView extends JFrame {
         return mainPanel;
     }
 
+
+    /**
+     * Create a GUI responsible for choosing an event to edit.
+     * @param eventPresenter1 The EventPresenter used in this view
+     */
     public RescheduleEventView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         next.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String EventID = eventId.getText();

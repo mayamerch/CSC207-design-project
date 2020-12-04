@@ -36,10 +36,18 @@ public class OrganizerEventView extends JFrame{
         return mainPanel;
     }
 
+    /**
+     * GUI responsible for giving option in regards to what an Organizer can do with events
+     * @param eventPresenter1 EventPresenter to be used in this view
+     */
     public OrganizerEventView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
         seeEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
@@ -51,6 +59,10 @@ public class OrganizerEventView extends JFrame{
         });
 
         seeMyEvents.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventsView eventsView = new EventsView(eventPresenter.getEventsAttending(), "My Events");
@@ -62,6 +74,10 @@ public class OrganizerEventView extends JFrame{
         });
 
         attendNewEvent.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 AttendEventView attendView = new AttendEventView(eventPresenter);
@@ -73,6 +89,10 @@ public class OrganizerEventView extends JFrame{
         });
 
         seeRooms.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RoomView roomView = new RoomView(eventPresenter.getRooms());
@@ -84,6 +104,10 @@ public class OrganizerEventView extends JFrame{
         });
 
         createEvent.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreateEventView createEventView = new CreateEventView(eventPresenter);
@@ -95,6 +119,10 @@ public class OrganizerEventView extends JFrame{
         });
 
         createRoom.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreateRoomView createRoomView = new CreateRoomView(eventPresenter);
@@ -106,6 +134,10 @@ public class OrganizerEventView extends JFrame{
         });
 
         editEvent.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 RescheduleEventView rescheduleEventView = new RescheduleEventView(eventPresenter);
@@ -117,6 +149,10 @@ public class OrganizerEventView extends JFrame{
         });
 
         cancelAttend.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 CancelAttendView cancelAttendView = new CancelAttendView(eventPresenter);
