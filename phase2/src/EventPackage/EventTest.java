@@ -3,6 +3,7 @@ package EventPackage;
 import EventPackage.EventGUI.UserMenus.AttendeeEventView;
 import EventPackage.EventGUI.UserMenus.OrganizerEventView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -44,8 +45,9 @@ public class EventTest {
         SpeakerIds.add(2);
 
         EventController ec = new EventController(0, true, SpeakerIds);
+        EventPresenter ep = new EventPresenter(ec);
 
-        OrganizerEventView or = new OrganizerEventView(ec);
+        OrganizerEventView or = new OrganizerEventView(ep);
         or.setContentPane(or.getMainPanel());
         or.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         or.pack();
