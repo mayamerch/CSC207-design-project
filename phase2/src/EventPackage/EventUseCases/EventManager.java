@@ -21,7 +21,9 @@ public class EventManager implements Serializable {
     private int nextID;
 
 
-
+    /**
+     * Creates an instance of EventManger with no events
+     */
     public EventManager() {
         this.eventList = new ArrayList<>();
         this.partyList = new ArrayList<>();

@@ -4,6 +4,10 @@ import javax.swing.*;
 
 public class EventMessagePresenter {
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for creating rooms
+     * @param status responsible for deciding which message is printed
+     */
     public void CreateRoomMessage(boolean status) {
         if (!status)
             JOptionPane.showMessageDialog(null,
@@ -19,6 +23,10 @@ public class EventMessagePresenter {
     }
 
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for creating Multi-Speaker Events
+     * @param status responsible for deciding which message is printed
+     */
     public void MultiSpeakerCreatorMessage(int status) {
         if (status == -2)
             JOptionPane.showMessageDialog(null,
@@ -54,6 +62,10 @@ public class EventMessagePresenter {
                     JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for creating Party Events
+     * @param status responsible for deciding which message is printed
+     */
     public void PartyCreatorMessage(int status) {
         if (status == -2)
             JOptionPane.showMessageDialog(null,
@@ -89,6 +101,10 @@ public class EventMessagePresenter {
                     JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for creating Single Speaker Events
+     * @param status responsible for deciding which message is printed
+     */
     public void SingleSpeakerCreatorMessage(int status) {
         if (status == -2)
             JOptionPane.showMessageDialog(null,
@@ -124,6 +140,10 @@ public class EventMessagePresenter {
                     JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for editing Multi-Speaker Events
+     * @param status responsible for deciding which message is printed
+     */
     public void editMultiMessage(int status) {
         if (status == -2)
             JOptionPane.showMessageDialog(null,
@@ -153,6 +173,10 @@ public class EventMessagePresenter {
                     JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for editing Single Speaker Events
+     * @param status responsible for deciding which message is printed
+     */
     public void editSingleMessage(int status) {
         if (status == -2)
             JOptionPane.showMessageDialog(null,
@@ -182,6 +206,10 @@ public class EventMessagePresenter {
                     JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for editing Party Events
+     * @param status responsible for deciding which message is printed
+     */
     public void editPartyMessage(int status) {
         if (status == -2)
             JOptionPane.showMessageDialog(null,
@@ -211,6 +239,10 @@ public class EventMessagePresenter {
                     JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for choosing an event to reschedule
+     * @param status responsible for deciding which message is printed
+     */
     public void rescheduleEventMessage(int status) {
         if (status == -1)
             JOptionPane.showMessageDialog(null,
@@ -224,6 +256,10 @@ public class EventMessagePresenter {
                     JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for attending an event
+     * @param status responsible for deciding which message is printed
+     */
     public void AttendEventMessage(boolean status) {
         if (status)
             JOptionPane.showMessageDialog(null,
@@ -236,6 +272,10 @@ public class EventMessagePresenter {
     }
 
 
+    /**
+     * Creates a dialog box telling you the result of a process in a Gui for stopping attending of an evebt
+     * @param status responsible for deciding which message is printed
+     */
     public void CancelEventMessage(int status) {
         if (status == -2)
             JOptionPane.showMessageDialog(null,

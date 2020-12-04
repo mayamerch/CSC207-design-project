@@ -14,16 +14,30 @@ public class EventPresenter {
 
     private EventController eventController;
 
+    /**
+     * Creates an EventPresenter
+     * @param eventController EventController stored and used in this EventPresenter
+     */
     public EventPresenter(EventController eventController) {
         this.eventController = eventController;
     }
 
 
+    /**
+     * Returns all the speaker ids found in eventController in string form
+     * @return speaker ids in string form
+     */
     public String getSpeakerIds() {
         return String.valueOf(eventController.getSpeakerList());
     }
 
 
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * add an attendee to an event
+     * @param eventId String representing id of an event
+     * @return status of the process that occurred in EventController
+     */
     public boolean signUp(String eventId) {
         int id;
 
@@ -38,6 +52,10 @@ public class EventPresenter {
     }
 
 
+    /**
+     * return all the information about all the events
+     * @return an array of strings that represent all the information of all the events
+     */
     public String[][] getAllEvents() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -63,6 +81,10 @@ public class EventPresenter {
         return data;
     }
 
+    /**
+     * return all the information about all the event the current user is attending
+     * @return an array of strings that represent all the information of all the events user is attending
+     */
     public String[][] getEventsAttending() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -89,7 +111,10 @@ public class EventPresenter {
         return data;
     }
 
-
+    /**
+     * return all the information about all the event the current user is speaking at
+     * @return an array of strings that represent all the information of all the events user is speaking at
+     */
     public String[][] getEventsSpeakingAt() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -116,6 +141,10 @@ public class EventPresenter {
         return data;
     }
 
+    /**
+     * return all the information about all the event the current user can attend
+     * @return an array of strings that represent all the information of all the events user can attend
+     */
     public String[][] getAvailEvents() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -143,7 +172,10 @@ public class EventPresenter {
         return data;
     }
 
-
+    /**
+     * return all the information about all the rooms
+     * @return an array of strings that represent all the information of all the rooms
+     */
     public String[][] getRooms() {
         RoomManager roomManager = eventController.getRoomManager();
 
@@ -161,6 +193,18 @@ public class EventPresenter {
     }
 
 
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * create a party event
+     * The parameters are all in string form
+     * @param EventName Name of the event
+     * @param EventCapacity capacity of the event
+     * @param EventDate Date of the event
+     * @param EventRoom Room id of the event
+     * @param EventDuration duration of the event
+     * @param EventVIP VIP status of the event
+     * @return status of the process
+     */
     public int createParty(String EventName, String EventCapacity, String EventDate, String EventRoom,
                            String EventDuration, String EventVIP) {
 
@@ -187,6 +231,19 @@ public class EventPresenter {
     }
 
 
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * create a Single Speaker event
+     * The parameters are all in string form
+     * @param EventName Name of the event
+     * @param EventCapacity capacity of the event
+     * @param EventDate Date of the event
+     * @param EventRoom Room id of the event
+     * @param EventDuration duration of the event
+     * @param EventVIP VIP status of the event
+     * @param EventSpeaker Speaker at this event
+     * @return status of the process
+     */
     public int createSingleSpeakerEvent(String EventName, String EventCapacity, String EventDate, String EventRoom,
                                         String EventDuration, String EventVIP, String EventSpeaker) {
 
@@ -213,6 +270,20 @@ public class EventPresenter {
         return eventController.createSingleSpeakerEvent(EventName, capacity, date, room, duration, vip, speaker);
     }
 
+
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * create a Multi Speaker event
+     * The parameters are all in string form
+     * @param EventName Name of the event
+     * @param EventCapacity capacity of the event
+     * @param EventDate Date of the event
+     * @param EventRoom Room id of the event
+     * @param EventDuration duration of the event
+     * @param EventVIP VIP status of the event
+     * @param EventSpeaker List of Speakers at this event
+     * @return status of the process
+     */
     public int createMultiSpeakerEvent(String EventName, String EventCapacity, String EventDate, String EventRoom,
                                        String EventDuration, String EventVIP, String[] EventSpeaker) {
 
@@ -241,6 +312,12 @@ public class EventPresenter {
 
     }
 
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * stop user from attending an event
+     * @param eventId String representing id of an event
+     * @return status of the process that occurred in EventController
+     */
     public int cancelAttend(String eventId) {
         int id;
         try {
@@ -254,6 +331,14 @@ public class EventPresenter {
     }
 
 
+
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * creates a room
+     * The parameters are all in string form
+     * @param RoomCapacity capacity of the room
+     * @return status of the process
+     */
     public boolean createRoom(String RoomCapacity){
         int capacity;
 
@@ -267,6 +352,16 @@ public class EventPresenter {
         return eventController.createRoom(capacity);
     }
 
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * get the type of the event
+     * The parameters are all in string form
+     * @param EventId Id of the Event
+     * @return -1 if there was a problem with information
+     *          0
+     *          1
+     *          2
+     */
     public int findType(String EventId) {
         int eventId;
 
@@ -280,6 +375,11 @@ public class EventPresenter {
         return eventController.findType(eventId);
     }
 
+    /**
+     * Returns information about a specific Party Event
+     * @param EventId Id of the Event
+     * @return information about the party
+     */
     public String[] getPartyInfo(String EventId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         String[] eventInfo = new String[6];
@@ -300,6 +400,11 @@ public class EventPresenter {
     }
 
 
+    /**
+     * Returns information about a specific Single Speaker Event
+     * @param EventId Id of the Event
+     * @return information about the Single Speaker Event
+     */
     public String[] getSingleSpeakerInfo(String EventId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         String[] eventInfo = new String[7];
@@ -321,6 +426,11 @@ public class EventPresenter {
     }
 
 
+    /**
+     * Returns information about a specific Multi-Speaker Event
+     * @param EventId Id of the Event
+     * @return information about the Multi-Speaker Event
+     */
     public String[] getMultiSpeakerInfo(String EventId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         String[] eventInfo = new String[7];
@@ -341,6 +451,22 @@ public class EventPresenter {
         return eventInfo;
     }
 
+
+
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * edit a Party event
+     * The parameters are all in string form
+     * @param EventId Id of the Event
+     * @param EventName Name of the event
+     * @param EventCapacity capacity of the event
+     * @param EventDate Day of the event
+     * @param EventTime Time of the Event
+     * @param EventRoom Room id of the event
+     * @param EventDuration duration of the event
+     * @param EventVIP VIP status of the event
+     * @return status of the process
+     */
     public int editParty(String EventId, String EventName, String EventCapacity,
                          String EventDate, String EventTime, String EventRoom, String EventDuration, String EventVIP) {
 
@@ -402,7 +528,21 @@ public class EventPresenter {
     }
 
 
-
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * edit a Single Speaker event
+     * The parameters are all in string form
+     * @param EventId Id of the Event
+     * @param EventName Name of the event
+     * @param EventCapacity capacity of the event
+     * @param EventDate Day of the event
+     * @param EventTime Time of the Event
+     * @param EventRoom Room id of the event
+     * @param EventDuration duration of the event
+     * @param EventVIP VIP status of the event
+     * @param EventSpeaker Speaker at this event
+     * @return status of the process
+     */
     public int editSingleSpeaker(String EventId, String EventName, String EventCapacity,
                                  String EventDate, String EventTime, String EventRoom, String EventDuration, String EventVIP,
                                  String EventSpeaker) {
@@ -471,6 +611,21 @@ public class EventPresenter {
     }
 
 
+    /**
+     * Takes in information and transforms it into a suitable type then calls its respective method in EventController to
+     * edit a Multi-Speaker event
+     * The parameters are all in string form
+     * @param EventId Id of the Event
+     * @param EventName Name of the event
+     * @param EventCapacity capacity of the event
+     * @param EventDate Day of the event
+     * @param EventTime Time of the Event
+     * @param EventRoom Room id of the event
+     * @param EventDuration duration of the event
+     * @param EventVIP VIP status of the event
+     * @param EventSpeakers List of Speakers at this event
+     * @return status of the process
+     */
     public int editMultiSpeaker(String EventId, String EventName, String EventCapacity,
                                 String EventDate, String EventTime, String EventRoom, String EventDuration, String EventVIP,
                                 String EventSpeakers) {
@@ -491,12 +646,12 @@ public class EventPresenter {
         ArrayList<Integer> speakers = new ArrayList<>();
         EventManager eventManager = eventController.getEventManager();
         MultiSpeakerEvent event = (MultiSpeakerEvent) eventManager.getEvent(eventId);
+
         String name;
         if (EventName.equals(""))
             name = event.getEventName();
         else
             name = EventName;
-
 
         try {
             if (EventCapacity.equals(""))
@@ -508,12 +663,10 @@ public class EventPresenter {
                 day = dateFormat.format(event.getEventDate());
             else
                 day = EventDate;
-
             if (EventDate.equals("-"))
                 time = timeFormat.format(event.getEventDate());
             else
                 time = EventTime;
-
             date = sdf.parse(day + "-" + time);
 
             if (EventCapacity.equals(""))
@@ -528,22 +681,22 @@ public class EventPresenter {
 
             if (EventSpeakers.equals(""))
                 speakers = event.getEventSpeakers();
-            else
-                for (String num: Speakers) {
+            else {
+                for (String num : Speakers) {
                     speaker = Integer.parseInt(num);
                     if (!speakers.contains(speaker))
                         speakers.add(speaker);
                 }
-
+            }
             vip = Boolean.parseBoolean(EventVIP);
         }
         catch (Exception e) {
             return -2;
         }
-
         return eventController.editMultiSpeaker(eventId, name, capacity, date, room, duration, vip, speakers);
 
     }
+
 
     private String getSpeakerString(int eventId) {
         EventManager eventManager = eventController.getEventManager();
