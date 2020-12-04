@@ -1,6 +1,7 @@
 package EventPackage.EventGUI;
 
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventMessagePresenter;
 import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
@@ -37,28 +38,8 @@ public class CancelAttendView extends JFrame {
                 String choice = eventId.getText();
                 int status = eventPresenter.cancelAttend(choice);
 
-                if (status == -2)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry please check the format of the information inputted as it caused an error.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-                else if (status == -1)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry the event you entered doesn't exist.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == 0)
-                    JOptionPane.showMessageDialog(null,
-                            "You aren't enrolled in the event entered",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else
-                    JOptionPane.showMessageDialog(null,
-                            "You are no longer enrolling in the Event",
-                            "Process was unsuccessful",
-                            JOptionPane.PLAIN_MESSAGE);
+                EventMessagePresenter eventMessagePresenter = new EventMessagePresenter();
+                eventMessagePresenter.CancelEventMessage(status);
             }
         });
     }

@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Reschedule;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventMessagePresenter;
 import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
@@ -112,32 +113,8 @@ public class EditSingleSpeaker extends JFrame {
                 int status = eventPresenter.editSingleSpeaker(currEventId, eventName, eventCapacity, eventDate,
                         eventTime, eventRoom, eventDuration, eventVIP, eventSpeaker);
 
-                if (status == -2)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry please check the format of the information inputted as it caused an error.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == -1)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be edited" +
-                                    " due to new information overlapping with another event.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == -4)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be created" +
-                                    " as the room or speaker don't exist.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-
-                else
-                    JOptionPane.showMessageDialog(null,
-                            "Your Event was edited successfully.",
-                            "Process was successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                EventMessagePresenter eventMessagePresenter = new EventMessagePresenter();
+                eventMessagePresenter.editSingleMessage(status);
 
 
                 String[] eventInfo = eventPresenter.getSingleSpeakerInfo(currEventId);

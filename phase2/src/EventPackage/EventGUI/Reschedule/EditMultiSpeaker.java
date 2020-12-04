@@ -2,7 +2,7 @@ package EventPackage.EventGUI.Reschedule;
 
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
-import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventMessagePresenter;
 import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
@@ -48,7 +48,7 @@ public class EditMultiSpeaker extends JFrame {
     private JLabel label1;
     private JFormattedTextField timeInput;
     private JLabel currTime;
-    private EventPresenter eventController;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -59,11 +59,11 @@ public class EditMultiSpeaker extends JFrame {
     }
 
     public EditMultiSpeaker(EventPresenter eventPresenter1, String currEventId) {
-        eventController = eventPresenter1;
+        eventPresenter = eventPresenter1;
 
         currID.setText(currEventId);
 
-        String[] eventInfo = eventController.getMultiSpeakerInfo(currEventId);
+        String[] eventInfo = eventPresenter.getMultiSpeakerInfo(currEventId);
 
         currName.setText(eventInfo[0]);
         currCapacity.setText(eventInfo[1]);
@@ -77,7 +77,7 @@ public class EditMultiSpeaker extends JFrame {
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -89,7 +89,7 @@ public class EditMultiSpeaker extends JFrame {
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
+                EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -110,35 +110,11 @@ public class EditMultiSpeaker extends JFrame {
                 String eventVIP = (String) booleanSelector.getSelectedItem();
                 String eventSpeaker = speakersInput.getText();
 
-                int status = eventController.editMultiSpeaker(currEventId, eventName, eventCapacity, eventDate,
+                int status = eventPresenter.editMultiSpeaker(currEventId, eventName, eventCapacity, eventDate,
                         eventTime, eventRoom, eventDuration, eventVIP, eventSpeaker);
 
-                if (status == -2)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry please check the format of the information inputted as it caused an error.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == -1)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be edited" +
-                                    " due to new information overlapping with another event.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == -4)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be created" +
-                                    " as the room or one of the speakers don't exist.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-
-                else
-                    JOptionPane.showMessageDialog(null,
-                            "Your Event was edited successfully.",
-                            "Process was successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                EventMessagePresenter eventMessagePresenter = new EventMessagePresenter();
+                eventMessagePresenter.editMultiMessage(status);
             }
         });
     }

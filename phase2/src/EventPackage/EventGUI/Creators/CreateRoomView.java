@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Creators;
 
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventMessagePresenter;
 import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
@@ -50,18 +51,8 @@ public class CreateRoomView extends JFrame {
                 String roomCapacity = capacityInput.getText();
 
                 boolean status = eventPresenter.createRoom(roomCapacity);
-
-                if (!status)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry please check the format of the information inputted as it caused an error.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else
-                    JOptionPane.showMessageDialog(null,
-                            "Your Room was created successfully.",
-                            "Process was successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                EventMessagePresenter eventMessagePresenter = new EventMessagePresenter();
+                eventMessagePresenter.CreateRoomMessage(status);
             }
         });
     }

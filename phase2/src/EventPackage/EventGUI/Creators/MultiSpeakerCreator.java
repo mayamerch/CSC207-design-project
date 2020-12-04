@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Creators;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventMessagePresenter;
 import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
@@ -87,38 +88,8 @@ public class MultiSpeakerCreator extends JFrame {
                 int status = eventPresenter.createMultiSpeakerEvent(eventName, eventCapacity, eventDate,
                         eventRoom, eventDuration, eventVIP, speakers);
 
-                if (status == -2)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry please check the format of the information inputted as it caused an error.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == -1)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be created" +
-                                    " due to overlap with another event.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == -3)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be created" +
-                                    " due to its capacity exceeding the capacity of its room.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else if (status == -4)
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry this event couldn't be created" +
-                                    " as at least one of the speakers or the room don't exist.",
-                            "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
-
-                else
-                    JOptionPane.showMessageDialog(null,
-                            "Your Event was created successfully.",
-                            "Process was successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                EventMessagePresenter eventMessagePresenter = new EventMessagePresenter();
+                eventMessagePresenter.MultiSpeakerCreatorMessage(status);
             }
         });
 

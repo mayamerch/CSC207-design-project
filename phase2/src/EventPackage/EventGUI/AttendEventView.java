@@ -1,6 +1,7 @@
 package EventPackage.EventGUI;
 
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventMessagePresenter;
 import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
@@ -37,14 +38,8 @@ public class AttendEventView extends JFrame{
                 String choice = eventId.getText();
                 boolean status = eventPresenter.signUp(choice);
 
-                if (status)
-                    JOptionPane.showMessageDialog(null,
-                            "You have successfully been enrolled in the event", "Process was successful",
-                            JOptionPane.PLAIN_MESSAGE);
-                else
-                    JOptionPane.showMessageDialog(null,
-                            "The Event you have entered is not available", "Process was unsuccessful",
-                            JOptionPane.ERROR_MESSAGE);
+                EventMessagePresenter eventMessagePresenter = new EventMessagePresenter();
+                eventMessagePresenter.AttendEventMessage(status);
             }
         });
     }
