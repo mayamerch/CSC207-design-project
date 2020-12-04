@@ -352,6 +352,11 @@ public class EventPresenter {
         boolean vip;
         EventManager eventManager = eventController.getEventManager();
         Party event = (Party) eventManager.getEvent(eventId);
+        String name;
+        if (EventName.equals(""))
+            name = event.getEventName();
+        else
+            name = EventName;
 
         try {
             if (EventCapacity.equals(""))
@@ -411,6 +416,11 @@ public class EventPresenter {
         int speaker;
         EventManager eventManager = eventController.getEventManager();
         SingleSpeakerEvent event = (SingleSpeakerEvent) eventManager.getEvent(eventId);
+        String name;
+        if (EventName.equals(""))
+            name = event.getEventName();
+        else
+            name = EventName;
 
         try {
             if (EventCapacity.equals(""))
@@ -476,6 +486,12 @@ public class EventPresenter {
         ArrayList<Integer> speakers = new ArrayList<>();
         EventManager eventManager = eventController.getEventManager();
         MultiSpeakerEvent event = (MultiSpeakerEvent) eventManager.getEvent(eventId);
+        String name;
+        if (EventName.equals(""))
+            name = event.getEventName();
+        else
+            name = EventName;
+
 
         try {
             if (EventCapacity.equals(""))
@@ -520,7 +536,7 @@ public class EventPresenter {
             return -2;
         }
 
-        return eventController.editMultiSpeaker(eventId, EventName, capacity, date, room, duration, vip, speakers);
+        return eventController.editMultiSpeaker(eventId, name, capacity, date, room, duration, vip, speakers);
 
     }
 
