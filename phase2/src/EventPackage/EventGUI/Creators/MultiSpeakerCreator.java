@@ -124,8 +124,12 @@ public class MultiSpeakerCreator extends JFrame {
     }
 
     private void createUIComponents() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateInput = new JFormattedTextField(dateFormat);
+
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        timeInput = new JFormattedTextField(timeFormat);
+
         String[] choices = new String[] {"true", "false"};
         booleanSelector = new JComboBox<>(choices);
         booleanSelector.setSelectedIndex(1);
