@@ -1,6 +1,7 @@
 package EventPackage.EventGUI;
 
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,9 +15,9 @@ public class CancelAttendView extends JFrame {
     private JTable eventTable;
     private JScrollPane scrollPane;
     private JLabel info;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
     private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-            "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
+            "Event Date", "Event Time", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
     private String[][] eventsInfo;
 
     /**
@@ -27,14 +28,14 @@ public class CancelAttendView extends JFrame {
         return mainPanel;
     }
 
-    public CancelAttendView(EventController eventController1) {
-        eventController = eventController1;
+    public CancelAttendView(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String choice = eventId.getText();
-                int status = eventController.cancelAttend(choice);
+                int status = eventPresenter.cancelAttend(choice);
 
                 if (status == -2)
                     JOptionPane.showMessageDialog(null,
@@ -63,7 +64,7 @@ public class CancelAttendView extends JFrame {
     }
 
     private void createUIComponents() {
-        eventsInfo = eventController.getEventsAttending();
+        eventsInfo = eventPresenter.getEventsAttending();
         eventTable = new JTable(eventsInfo, header);
         scrollPane = new JScrollPane(eventTable);
         title = new JLabel();

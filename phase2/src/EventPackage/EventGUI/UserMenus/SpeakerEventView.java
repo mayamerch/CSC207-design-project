@@ -3,6 +3,7 @@ package EventPackage.EventGUI.UserMenus;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,7 @@ public class SpeakerEventView extends JFrame{
     private JButton seeMyEvents;
     private JLabel title;
     private JButton seeRooms;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -24,13 +25,13 @@ public class SpeakerEventView extends JFrame{
         return mainPanel;
     }
 
-    public SpeakerEventView(EventController eventController1) {
-        eventController = eventController1;
+    public SpeakerEventView(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
+                EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -41,7 +42,7 @@ public class SpeakerEventView extends JFrame{
         seeMyEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getEventsSpeakingAt(), "My Events");
+                EventsView eventsView = new EventsView(eventPresenter.getEventsSpeakingAt(), "My Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -52,7 +53,7 @@ public class SpeakerEventView extends JFrame{
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();

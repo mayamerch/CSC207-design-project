@@ -3,13 +3,13 @@ package EventPackage.EventGUI.Reschedule;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 
 public class EditSingleSpeaker extends JFrame {
     private JPanel mainPanel;
@@ -49,10 +49,7 @@ public class EditSingleSpeaker extends JFrame {
     private JLabel label1;
     private JLabel currTime;
     private JFormattedTextField timeInput;
-    private EventController eventController;
-    private String IdParam;
-    private String[] eventInfo;
-    private HashMap<String, EventController> hashMap;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -62,12 +59,11 @@ public class EditSingleSpeaker extends JFrame {
         return mainPanel;
     }
 
-    public EditSingleSpeaker(EventController eventController1, String currEventId) {
-        eventController = eventController1;
-        IdParam = currEventId;
-        eventInfo = eventController.getSingleSpeakerInfo(currEventId);
+    public EditSingleSpeaker(EventPresenter eventPresenter1, String currEventId) {
+        eventPresenter = eventPresenter1;
+        String[] eventInfo = eventPresenter.getSingleSpeakerInfo(currEventId);
 
-        currID.setText(IdParam);
+        currID.setText(currEventId);
         currName.setText(eventInfo[0]);
         currCapacity.setText(eventInfo[1]);
         currDate.setText(eventInfo[2].substring(0, 10));
@@ -80,7 +76,7 @@ public class EditSingleSpeaker extends JFrame {
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -92,7 +88,7 @@ public class EditSingleSpeaker extends JFrame {
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
+                EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -106,14 +102,15 @@ public class EditSingleSpeaker extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();
                 String eventCapacity = capacityInput.getText();
-                String eventDate = dateInput.getText() + "-" + timeInput.getText();
+                String eventDate = dateInput.getText();
+                String eventTime = timeInput.getText();
                 String eventRoom = roomInput.getText();
                 String eventDuration = durationInput.getText();
                 String eventVIP = (String) booleanSelector.getSelectedItem();
                 String eventSpeaker = speakerInput.getText();
 
-                int status = eventController.editSingleSpeaker(currEventId, eventName, eventCapacity, eventDate,
-                        eventRoom, eventDuration, eventVIP, eventSpeaker);
+                int status = eventPresenter.editSingleSpeaker(currEventId, eventName, eventCapacity, eventDate,
+                        eventTime, eventRoom, eventDuration, eventVIP, eventSpeaker);
 
                 if (status == -2)
                     JOptionPane.showMessageDialog(null,
@@ -143,7 +140,7 @@ public class EditSingleSpeaker extends JFrame {
                             JOptionPane.PLAIN_MESSAGE);
 
 
-                eventInfo = eventController.getSingleSpeakerInfo(currEventId);
+                String[] eventInfo = eventPresenter.getSingleSpeakerInfo(currEventId);
 
                 currName.setText(eventInfo[0]);
                 currCapacity.setText(eventInfo[1]);

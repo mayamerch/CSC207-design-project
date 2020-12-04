@@ -1,6 +1,7 @@
 package EventPackage.EventGUI;
 
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,9 +15,9 @@ public class AttendEventView extends JFrame{
     private JButton okButton;
     private JLabel title;
     private JScrollPane scrollPane;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
     private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-            "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
+            "Event Date", "Event Time", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
     private String[][] eventsInfo;
 
     /**
@@ -27,14 +28,14 @@ public class AttendEventView extends JFrame{
         return mainPanel;
     }
 
-    public AttendEventView(EventController eventController1) {
-        eventController = eventController1;
+    public AttendEventView(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String choice = eventId.getText();
-                boolean status = eventController.signUp(choice);
+                boolean status = eventPresenter.signUp(choice);
 
                 if (status)
                     JOptionPane.showMessageDialog(null,
@@ -49,7 +50,7 @@ public class AttendEventView extends JFrame{
     }
 
     private void createUIComponents() {
-        eventsInfo = eventController.getAvailEvents();
+        eventsInfo = eventPresenter.getAvailEvents();
         eventInfo = new JTable(eventsInfo, header);
         scrollPane = new JScrollPane(eventInfo);
         title = new JLabel();

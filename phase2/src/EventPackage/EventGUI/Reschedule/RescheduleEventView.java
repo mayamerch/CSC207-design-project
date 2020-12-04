@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Reschedule;
 import EventPackage.EventEntities.SingleSpeakerEvent;
 import EventPackage.EventGUI.Creators.PartyCreator;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,10 +18,10 @@ public class RescheduleEventView extends JFrame {
     private JTable eventInfo;
     private JButton next;
     private JScrollPane scrollPane;
-    private EventController eventController;
+    private EventPresenter eventController;
     private String[][] eventsInfo;
     private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-            "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event"};
+            "Event Date", "Event Time", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event"};
 
     /**
      * returns the Main JPanel of this JFrame
@@ -30,8 +31,8 @@ public class RescheduleEventView extends JFrame {
         return mainPanel;
     }
 
-    public RescheduleEventView(EventController eventController1) {
-        eventController = eventController1;
+    public RescheduleEventView(EventPresenter eventPresenter1) {
+        eventController = eventPresenter1;
 
         next.addActionListener(new ActionListener() {
             @Override

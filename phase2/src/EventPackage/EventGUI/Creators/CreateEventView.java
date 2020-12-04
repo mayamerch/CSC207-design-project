@@ -1,6 +1,7 @@
 package EventPackage.EventGUI.Creators;
 
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,7 @@ public class CreateEventView extends JFrame{
     private JButton singleSpeakerButton;
     private JButton multiSpeakerButton;
     private JLabel choose;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -24,13 +25,13 @@ public class CreateEventView extends JFrame{
     }
 
 
-    public CreateEventView(EventController eventController1) {
-        eventController = eventController1;
+    public CreateEventView(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         partyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PartyCreator partyCreator = new PartyCreator(eventController);
+                PartyCreator partyCreator = new PartyCreator(eventPresenter);
                 partyCreator.setContentPane(partyCreator.getMainPanel());
                 partyCreator.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 partyCreator.pack();
@@ -43,7 +44,7 @@ public class CreateEventView extends JFrame{
         singleSpeakerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SingleSpeakerCreator singleSpeakerCreator = new SingleSpeakerCreator(eventController);
+                SingleSpeakerCreator singleSpeakerCreator = new SingleSpeakerCreator(eventPresenter);
                 singleSpeakerCreator.setContentPane(singleSpeakerCreator.getMainPanel());
                 singleSpeakerCreator.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 singleSpeakerCreator.pack();
@@ -56,7 +57,7 @@ public class CreateEventView extends JFrame{
         multiSpeakerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MultiSpeakerCreator multiSpeakerCreator = new MultiSpeakerCreator(eventController);
+                MultiSpeakerCreator multiSpeakerCreator = new MultiSpeakerCreator(eventPresenter);
                 multiSpeakerCreator.setContentPane(multiSpeakerCreator.getMainPanel());
                 multiSpeakerCreator.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 multiSpeakerCreator.pack();

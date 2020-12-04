@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Reschedule;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -44,8 +45,7 @@ public class EditParty extends JFrame {
     private JLabel info3;
     private JFormattedTextField timeInput;
     private JLabel currTime;
-    private EventController eventController;
-    private String IdParam;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -55,13 +55,12 @@ public class EditParty extends JFrame {
         return mainPanel;
     }
 
-    public EditParty(EventController eventController1, String currEventId) {
-        eventController = eventController1;
-        IdParam = currEventId;
+    public EditParty(EventPresenter eventPresenter1, String currEventId) {
+        eventPresenter = eventPresenter1;
 
-        currID.setText(IdParam);
+        currID.setText(currEventId);
 
-        String[] eventInfo = eventController.getPartyInfo(IdParam);
+        String[] eventInfo = eventPresenter.getPartyInfo(currEventId);
 
         currName.setText(eventInfo[0]);
         currCapacity.setText(eventInfo[1]);
@@ -74,7 +73,7 @@ public class EditParty extends JFrame {
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -86,7 +85,7 @@ public class EditParty extends JFrame {
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
+                EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -100,12 +99,13 @@ public class EditParty extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();
                 String eventCapacity = capacityInput.getText();
-                String eventDate = dateInput.getText() + "-" + timeInput.getText();
+                String eventDate = dateInput.getText();
+                String eventTime = timeInput.getText();
                 String eventRoom = roomInput.getText();
                 String eventDuration = durationInput.getText();
                 String eventVIP = (String) booleanSelector.getSelectedItem();
 
-                int status = eventController.editParty(currEventId, eventName, eventCapacity, eventDate,
+                int status = eventPresenter.editParty(currEventId, eventName, eventCapacity, eventDate, eventTime,
                         eventRoom, eventDuration, eventVIP);
 
                 if (status == -2)
@@ -135,7 +135,7 @@ public class EditParty extends JFrame {
                             "Process was successful",
                             JOptionPane.PLAIN_MESSAGE);
 
-                String[] eventInfo = eventController.getPartyInfo(IdParam);
+                String[] eventInfo = eventPresenter.getPartyInfo(currEventId);
 
                 currName.setText(eventInfo[0]);
                 currCapacity.setText(eventInfo[1]);

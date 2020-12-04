@@ -1,5 +1,6 @@
 package EventPackage.EventGUI.UserMenus;
 
+import EventPackage.EventEntities.Event;
 import EventPackage.EventGUI.AttendEventView;
 import EventPackage.EventGUI.CancelAttendView;
 import EventPackage.EventGUI.Creators.CreateEventView;
@@ -8,6 +9,7 @@ import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.Reschedule.RescheduleEventView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +26,7 @@ public class OrganizerEventView extends JFrame{
     private JPanel mainPanel;
     private JButton cancelAttend;
     private JLabel title;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -34,13 +36,13 @@ public class OrganizerEventView extends JFrame{
         return mainPanel;
     }
 
-    public OrganizerEventView(EventController eventController1) {
-        eventController = eventController1;
+    public OrganizerEventView(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
+                EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -51,7 +53,7 @@ public class OrganizerEventView extends JFrame{
         seeMyEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getEventsAttending(), "My Events");
+                EventsView eventsView = new EventsView(eventPresenter.getEventsAttending(), "My Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -62,7 +64,7 @@ public class OrganizerEventView extends JFrame{
         attendNewEvent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttendEventView attendView = new AttendEventView(eventController);
+                AttendEventView attendView = new AttendEventView(eventPresenter);
                 attendView.setContentPane(attendView.getMainPanel());
                 attendView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 attendView.pack();
@@ -73,7 +75,7 @@ public class OrganizerEventView extends JFrame{
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -84,7 +86,7 @@ public class OrganizerEventView extends JFrame{
         createEvent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateEventView createEventView = new CreateEventView(eventController);
+                CreateEventView createEventView = new CreateEventView(eventPresenter);
                 createEventView.setContentPane(createEventView.getMainPanel());
                 createEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 createEventView.pack();
@@ -95,7 +97,7 @@ public class OrganizerEventView extends JFrame{
         createRoom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateRoomView createRoomView = new CreateRoomView(eventController);
+                CreateRoomView createRoomView = new CreateRoomView(eventPresenter);
                 createRoomView.setContentPane(createRoomView.getMainPanel());
                 createRoomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 createRoomView.pack();
@@ -106,7 +108,7 @@ public class OrganizerEventView extends JFrame{
         editEvent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RescheduleEventView rescheduleEventView = new RescheduleEventView(eventController);
+                RescheduleEventView rescheduleEventView = new RescheduleEventView(eventPresenter);
                 rescheduleEventView.setContentPane(rescheduleEventView.getMainPanel());
                 rescheduleEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 rescheduleEventView.pack();
@@ -117,7 +119,7 @@ public class OrganizerEventView extends JFrame{
         cancelAttend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CancelAttendView cancelAttendView = new CancelAttendView(eventController);
+                CancelAttendView cancelAttendView = new CancelAttendView(eventPresenter);
                 cancelAttendView.setContentPane(cancelAttendView.getMainPanel());
                 cancelAttendView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 cancelAttendView.pack();

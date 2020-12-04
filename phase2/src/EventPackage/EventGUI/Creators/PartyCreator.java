@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Creators;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -32,7 +33,7 @@ public class PartyCreator extends JFrame {
     private JLabel info2;
     private JLabel label1;
     private JFormattedTextField timeInput;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -42,13 +43,13 @@ public class PartyCreator extends JFrame {
         return mainPanel;
     }
 
-    public PartyCreator(EventController eventController1) {
-        eventController = eventController1;
+    public PartyCreator(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -60,7 +61,7 @@ public class PartyCreator extends JFrame {
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
+                EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -79,7 +80,7 @@ public class PartyCreator extends JFrame {
                 String eventDuration = durationInput.getText();
                 String eventVIP = String.valueOf(booleanSelector.getSelectedItem());
 
-                int status = eventController.createParty(eventName, eventCapacity, eventDate,
+                int status = eventPresenter.createParty(eventName, eventCapacity, eventDate,
                         eventRoom, eventDuration, eventVIP);
 
                 if (status == -2)

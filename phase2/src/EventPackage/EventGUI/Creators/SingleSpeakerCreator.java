@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Creators;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,7 +36,7 @@ public class SingleSpeakerCreator extends JFrame {
     private JLabel label1;
     private JFormattedTextField timeInput;
     private JLabel info3;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -46,13 +47,13 @@ public class SingleSpeakerCreator extends JFrame {
     }
 
 
-    public SingleSpeakerCreator(EventController eventController1) {
-        eventController = eventController1;
+    public SingleSpeakerCreator(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -64,7 +65,7 @@ public class SingleSpeakerCreator extends JFrame {
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
+                EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -84,7 +85,7 @@ public class SingleSpeakerCreator extends JFrame {
                 String eventVIP = (String) booleanSelector.getSelectedItem();
                 String speaker = speakerInput.getText();
 
-                int status = eventController.createSingleSpeakerEvent(eventName, eventCapacity, eventDate,
+                int status = eventPresenter.createSingleSpeakerEvent(eventName, eventCapacity, eventDate,
                         eventRoom, eventDuration, eventVIP, speaker);
 
                 if (status == -2)

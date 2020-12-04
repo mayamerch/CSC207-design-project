@@ -8,7 +8,7 @@ public class EventsView extends JFrame{
     private JTable eventInfo;
     private JScrollPane scrollPane;
     private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-            "Event Date", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
+            "Event Date", "Event Time", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
     private String[][] eventsInfo;
     private String titleParam;
 

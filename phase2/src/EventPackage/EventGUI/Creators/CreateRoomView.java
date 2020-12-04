@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Creators;
 
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ public class CreateRoomView extends JFrame {
     private JButton createButton;
     private JLabel enterInfo;
     private JLabel inputInfo;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -28,13 +29,13 @@ public class CreateRoomView extends JFrame {
         return mainPanel;
     }
 
-    public CreateRoomView(EventController eventController1) {
-        eventController = eventController1;
+    public CreateRoomView(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -48,7 +49,7 @@ public class CreateRoomView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String roomCapacity = capacityInput.getText();
 
-                boolean status = eventController.createRoom(roomCapacity);
+                boolean status = eventPresenter.createRoom(roomCapacity);
 
                 if (!status)
                     JOptionPane.showMessageDialog(null,

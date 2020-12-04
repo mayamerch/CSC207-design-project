@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Reschedule;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -47,9 +48,7 @@ public class EditMultiSpeaker extends JFrame {
     private JLabel label1;
     private JFormattedTextField timeInput;
     private JLabel currTime;
-    private String IdParam;
-
-    private EventController eventController;
+    private EventPresenter eventController;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -59,13 +58,12 @@ public class EditMultiSpeaker extends JFrame {
         return mainPanel;
     }
 
-    public EditMultiSpeaker(EventController eventController1, String currEventId) {
-        eventController = eventController1;
-        IdParam = currEventId;
+    public EditMultiSpeaker(EventPresenter eventPresenter1, String currEventId) {
+        eventController = eventPresenter1;
 
-        currID.setText(IdParam);
+        currID.setText(currEventId);
 
-        String[] eventInfo = eventController.getMultiSpeakerInfo(IdParam);
+        String[] eventInfo = eventController.getMultiSpeakerInfo(currEventId);
 
         currName.setText(eventInfo[0]);
         currCapacity.setText(eventInfo[1]);
@@ -105,14 +103,15 @@ public class EditMultiSpeaker extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();
                 String eventCapacity = capacityInput.getText();
-                String eventDate = dateInput.getText() + "-" + timeInput.getText();
+                String eventDate = dateInput.getText();
+                String eventTime = timeInput.getText();
                 String eventRoom = roomInput.getText();
                 String eventDuration = durationInput.getText();
                 String eventVIP = (String) booleanSelector.getSelectedItem();
                 String eventSpeaker = speakersInput.getText();
 
                 int status = eventController.editMultiSpeaker(currEventId, eventName, eventCapacity, eventDate,
-                        eventRoom, eventDuration, eventVIP, eventSpeaker);
+                        eventTime, eventRoom, eventDuration, eventVIP, eventSpeaker);
 
                 if (status == -2)
                     JOptionPane.showMessageDialog(null,

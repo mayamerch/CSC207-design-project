@@ -3,6 +3,7 @@ package EventPackage.EventGUI.Creators;
 import EventPackage.EventGUI.EventsView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,7 +36,7 @@ public class MultiSpeakerCreator extends JFrame {
     private JLabel info4;
     private JLabel label1;
     private JFormattedTextField timeInput;
-    private EventController eventController;
+    private EventPresenter eventPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -45,13 +46,13 @@ public class MultiSpeakerCreator extends JFrame {
         return mainPanel;
     }
 
-    public MultiSpeakerCreator(EventController eventController1) {
-        eventController = eventController1;
+    public MultiSpeakerCreator(EventPresenter eventPresenter1) {
+        eventPresenter = eventPresenter1;
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomView roomView = new RoomView(eventController.getRooms());
+                RoomView roomView = new RoomView(eventPresenter.getRooms());
                 roomView.setContentPane(roomView.getMainPanel());
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
@@ -63,7 +64,7 @@ public class MultiSpeakerCreator extends JFrame {
         seeEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsView eventsView = new EventsView(eventController.getAllEvents(), "All the Events");
+                EventsView eventsView = new EventsView(eventPresenter.getAllEvents(), "All the Events");
                 eventsView.setContentPane(eventsView.getMainPanel());
                 eventsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 eventsView.pack();
@@ -83,7 +84,7 @@ public class MultiSpeakerCreator extends JFrame {
                 String eventVIP = (String) booleanSelector.getSelectedItem();
                 String[] speakers = speakersInput.getText().split(",");
 
-                int status = eventController.createMultiSpeakerEvent(eventName, eventCapacity, eventDate,
+                int status = eventPresenter.createMultiSpeakerEvent(eventName, eventCapacity, eventDate,
                         eventRoom, eventDuration, eventVIP, speakers);
 
                 if (status == -2)
