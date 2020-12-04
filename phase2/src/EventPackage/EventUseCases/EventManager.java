@@ -259,7 +259,7 @@ public class EventManager implements Serializable {
     public ArrayList<Event> availEvents(int userID, boolean userVIP) {
         ArrayList<Event> availEventList = new ArrayList<Event>();
         for (Event event: this.eventList) {
-            if (!event.enrolled(userID) && event.getVIPStatus() == userVIP
+            if (!event.enrolled(userID) && (event.getVIPStatus() == userVIP || event.getVIPStatus() == false)
                     && event.getEventAttendees().size() <= event.getEventCapacity()){
                 availEventList.add(event);
             }
