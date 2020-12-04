@@ -37,6 +37,8 @@ public class MultiSpeakerCreator extends JFrame {
     private JLabel info4;
     private JLabel label1;
     private JFormattedTextField timeInput;
+    private JLabel speakerInfo;
+    private JLabel existingIds;
     private EventPresenter eventPresenter;
 
     /**
@@ -49,6 +51,8 @@ public class MultiSpeakerCreator extends JFrame {
 
     public MultiSpeakerCreator(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
+
+        existingIds.setText(eventPresenter.getSpeakerIds());
 
         seeRooms.addActionListener(new ActionListener() {
             @Override

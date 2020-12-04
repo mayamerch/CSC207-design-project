@@ -235,6 +235,22 @@
               <text value="Please enter date in the format, yyyy-MM-dd, and enter time in the format, HH:mm"/>
             </properties>
           </component>
+          <component id="bdaef" class="javax.swing.JLabel" binding="speakerInfo">
+            <constraints>
+              <grid row="14" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="All Speaker IDs:"/>
+            </properties>
+          </component>
+          <component id="903b8" class="javax.swing.JLabel" binding="existingIds">
+            <constraints>
+              <grid row="14" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Label"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

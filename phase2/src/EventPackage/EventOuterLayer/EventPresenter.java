@@ -19,6 +19,11 @@ public class EventPresenter {
     }
 
 
+    public String getSpeakerIds() {
+        return String.valueOf(eventController.getSpeakerList());
+    }
+
+
     public boolean signUp(String eventId) {
         int id;
 

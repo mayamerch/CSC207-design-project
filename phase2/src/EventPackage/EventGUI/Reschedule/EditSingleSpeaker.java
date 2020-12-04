@@ -50,6 +50,8 @@ public class EditSingleSpeaker extends JFrame {
     private JLabel label1;
     private JLabel currTime;
     private JFormattedTextField timeInput;
+    private JLabel speakerInfo;
+    private JLabel existingIds;
     private EventPresenter eventPresenter;
 
     /**
@@ -73,6 +75,7 @@ public class EditSingleSpeaker extends JFrame {
         currDuration.setText(eventInfo[4]);
         currVIP.setText(eventInfo[5]);
         currSpeaker.setText(eventInfo[6]);
+        existingIds.setText(eventPresenter.getSpeakerIds());
 
         seeRooms.addActionListener(new ActionListener() {
             @Override

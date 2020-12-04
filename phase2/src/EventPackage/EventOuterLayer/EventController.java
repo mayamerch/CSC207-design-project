@@ -40,6 +40,10 @@ public class EventController {
     }
 
 
+    public ArrayList<Integer> getSpeakerList() {
+        return speakerList;
+    }
+
     public RoomManager getRoomManager() {
         return roomManager;
     }

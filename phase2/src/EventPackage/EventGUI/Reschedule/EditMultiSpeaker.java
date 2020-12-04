@@ -48,6 +48,8 @@ public class EditMultiSpeaker extends JFrame {
     private JLabel label1;
     private JFormattedTextField timeInput;
     private JLabel currTime;
+    private JLabel speakerInfo;
+    private JLabel existingIds;
     private EventPresenter eventPresenter;
 
     /**
@@ -73,6 +75,7 @@ public class EditMultiSpeaker extends JFrame {
         currDuration.setText(eventInfo[4]);
         currVIP.setText(eventInfo[5]);
         currSpeakers.setText(eventInfo[6]);
+        existingIds.setText(eventPresenter.getSpeakerIds());
 
         seeRooms.addActionListener(new ActionListener() {
             @Override
