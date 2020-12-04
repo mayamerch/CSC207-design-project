@@ -5,6 +5,7 @@ import EventPackage.EventGUI.UserMenus.AttendeeEventView;
 import EventPackage.EventGUI.UserMenus.OrganizerEventView;
 import EventPackage.EventGUI.UserMenus.SpeakerEventView;
 import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventOuterLayer.EventPresenter;
 import UserPackage.User;
 import UserPackage.UserController;
 import UserPackage.UserType;
@@ -57,9 +58,10 @@ public class MainMenuView extends JFrame{
                 }
                 UserType userType = userController.getUserType();
                 EventController eventController = new EventController(userid, userVip, speakerIds);
+                EventPresenter eventPresenter = new EventPresenter(eventController);
 
                 if (userType == UserType.ATTENDEE) {
-                    AttendeeEventView attendeeEventView = new AttendeeEventView(eventController);
+                    AttendeeEventView attendeeEventView = new AttendeeEventView(eventPresenter);
                     attendeeEventView.setContentPane(attendeeEventView.getMainPanel());
                     attendeeEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     attendeeEventView.pack();
@@ -67,7 +69,7 @@ public class MainMenuView extends JFrame{
                 }
 
                 else if (userType == UserType.ORGANIZER) {
-                    OrganizerEventView organizerEventView = new OrganizerEventView(eventController);
+                    OrganizerEventView organizerEventView = new OrganizerEventView(eventPresenter);
                     organizerEventView.setContentPane(organizerEventView.getMainPanel());
                     organizerEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     organizerEventView.pack();
@@ -75,7 +77,7 @@ public class MainMenuView extends JFrame{
                 }
 
                 else {
-                    SpeakerEventView speakerEventView = new SpeakerEventView(eventController);
+                    SpeakerEventView speakerEventView = new SpeakerEventView(eventPresenter);
                     speakerEventView.setContentPane(speakerEventView.getMainPanel());
                     speakerEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     speakerEventView.pack();
