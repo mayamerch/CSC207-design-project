@@ -30,7 +30,6 @@ public class EditMultiSpeaker extends JFrame {
     private JButton createButton;
     private JLabel info1;
     private JLabel info2;
-    private JLabel info3;
     private JLabel info4;
     private JLabel info5;
     private JLabel currName;

@@ -32,9 +32,9 @@ public class MultiSpeakerCreator extends JFrame {
     private JLabel speakers;
     private JLabel info1;
     private JLabel info2;
-    private JLabel info3;
     private JLabel info4;
     private JLabel label1;
+    private JFormattedTextField timeInput;
     private EventController eventController;
 
     /**
@@ -77,7 +77,7 @@ public class MultiSpeakerCreator extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String eventName = nameInput.getText();
                 String eventCapacity = capacityInput.getText();
-                String eventDate = dateInput.getText();
+                String eventDate = dateInput.getText() + "-" + timeInput.getText();;
                 String eventRoom = roomInput.getText();
                 String eventDuration = durationInput.getText();
                 String eventVIP = (String) booleanSelector.getSelectedItem();
