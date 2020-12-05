@@ -13,8 +13,8 @@ public class EventProgramSorter {
     private final EventManager eventManager;
     private final UserManager userManager;
 
-    private SimpleDateFormat dateFormatter;
-    private SimpleDateFormat dayFormatter;
+    private SimpleDateFormat dateFormatter; //TODO: remove if not needed
+    private SimpleDateFormat dayFormatter; //TODO: remove if not needed
     private SimpleDateFormat timeFormatter;
 
 
@@ -31,22 +31,41 @@ public class EventProgramSorter {
 
     }
 
+    /**
+     * returns a HashMap of all data to export to the Conference Program for all Events in the conference.
+     * @return HashMap where key is Date and value is ArrayList of String[] which represents data for a single event
+     */
     public HashMap<Date, ArrayList<String[]>> getAllEventsForProgram() {
         ArrayList<Event> events = eventManager.getEventList();
         return this.generateEventInfo(events);
     }
 
+    /**
+     * returns a HashMap of all data to export to the Conference Program for events attended by user
+     * @param myUserID userID for the current user logged in
+     * @return HashMap where key is Date and value is ArrayList of String[] which represents data for a single event
+     */
     public HashMap<Date, ArrayList<String[]>> getEventsUserAttendingForProgram(int myUserID) {
         ArrayList<Event> events = eventManager.myEvents(myUserID);
         return this.generateEventInfo(events);
     }
 
+    /**
+     * returns a HashMap of all data to export to the Conference Program for events user can signup for
+     * @param myUserID userID for current user logged in
+     * @return HashMap where key is Date and value is ArrayList of String[] which represents data for a single event
+     */
     public HashMap<Date, ArrayList<String[]>> getEventsUserSignupForProgram(int myUserID){
         boolean statusVIP = userManager.getUserByID(myUserID).getVIP();
         ArrayList<Event> events = eventManager.availEvents(myUserID, statusVIP);
         return this.generateEventInfo(events);
     }
 
+    /**
+     * returns a HashMap of all data to export to the Conference Program for all events of one type.
+     * @param type the EventType to export all events for
+     * @return HashMap where key is Date and value is ArrayList of String[] which represents data for a single event
+     */
     public HashMap<Date, ArrayList<String[]>> getEventsByTypeForProgram(EventType type){
         ArrayList<Event> events = null;
         if (type == EventType.PARTY){
@@ -64,6 +83,11 @@ public class EventProgramSorter {
         return this.generateEventInfo(events);
     }
 
+    /**
+     *
+     * @param events an ArrayList of the Events to export to the conference program
+     * @return HashMap where key is Date and value is ArrayList of String[] which represents data for a single event
+     */
     private HashMap<Date, ArrayList<String[]>> generateEventInfo(ArrayList<Event> events){
 
         //copy constructor for shallow copy
@@ -74,28 +98,33 @@ public class EventProgramSorter {
         StringBuilder eventsFormatted = new StringBuilder();
 
         // Hashmap to group the events that occur on the same day
-        HashMap<Date, ArrayList<Event>> eventsForDay = groupEventsByDay(sortedEvents);
+        HashMap<Date, ArrayList<Event>> eventsByDayHashmap = groupEventsByDay(sortedEvents);
 
-        // Sort days in the hashmap
-        ArrayList<Date> eventDaysInOrder = getEventDaysInOrder(eventsForDay);
+        // Sort dates in the hashmap
+        ArrayList<Date> eventDaysInOrder = getEventDatesInOrder(eventsByDayHashmap);
 
         // for return
         // key is dayFormatted string
         // value is ArrayList of String[] to rep data for events
-        HashMap<Date, ArrayList<String[]>> eventInfo = new HashMap<>();
+        HashMap<Date, ArrayList<String[]>> eventInfoHashmap = new HashMap<>();
 
         // iterate through the days, get all events on date...
         // build Strings representing the data we need for eventsOnDay
         for (Date date : eventDaysInOrder){
-            ArrayList<Event> eventsOnDay = eventsForDay.get(date);
-            eventInfo.put(date, generateEventInfoForDay(eventsOnDay));
+            ArrayList<Event> eventsOnDay = eventsByDayHashmap.get(date);
+            eventInfoHashmap.put(date, generateEventInfoForDay(eventsOnDay));
         }
 
-        return eventInfo;
+        return eventInfoHashmap;
         // returns Hashmap of key: DAY,  value: ArrayList of String[] that rep data for a single event
         // each String[] has [time, eventName, speakerName, eventRoom]
     }
 
+    /**
+     *
+     * @param events ArrayList of Events on one day in the conference
+     * @return ArrayList of String[] that represents data for events the parameter event
+     */
     private ArrayList<String[]> generateEventInfoForDay(ArrayList<Event> events){
         ArrayList<String[]> info = new ArrayList<>();
         for (Event event : events){
@@ -104,6 +133,11 @@ public class EventProgramSorter {
         return info;
     }
 
+    /**
+     * return an array of String that represents all information for the event for export to html program
+     * @param event an event to extract information from for export
+     * @return String[] where [0] string representation of time, [1] eventName,[2] speakerName, [3] room
+     */
     private String[] generateEventInfoForEvent(Event event){
         Date eventDate = event.getEventDate();
         String time = timeFormatter.format(eventDate);
@@ -113,6 +147,11 @@ public class EventProgramSorter {
         return new String[]{time, eventName, speakerName, eventRoom};
     }
 
+    /**
+     * Get string representation of the speaker names for the event.
+     * @param event an event to extract information from for export
+     * @return String of speaker names for the event. If there are no speakers, returns empty string.
+     */
     private String getSpeakerString(Event event){
         int eventID = event.getEventId();
         String speakerName;
@@ -134,33 +173,38 @@ public class EventProgramSorter {
         return speakerName;
     }
 
+    /**
+     * Group events into Hashmap by Date.
+     * @param events ArrayList of events to export to our program
+     * @return Hashmap where key is a Date during the conference and value is ArrayList of Events on that Date
+     */
     private HashMap<Date, ArrayList<Event>> groupEventsByDay(ArrayList<Event> events){
-        HashMap<Date, ArrayList<Event>> eventsForDay = new HashMap<>();
+        HashMap<Date, ArrayList<Event>> eventsByDay = new HashMap<>();
         for(Event event : events){
             Date date = event.getEventDate();
-            if(!eventsForDay.containsKey(date)){
+            if(!eventsByDay.containsKey(date)){
                 // we haven't seen this day before. So make a new array list and insert this day into the hashmap
                 ArrayList<Event> newEventsForDay = new ArrayList<>();
                 newEventsForDay.add(event);
-                eventsForDay.put(date, newEventsForDay);
+                eventsByDay.put(date, newEventsForDay);
             }else{
                 // we have seen this day before, so append to the arraylist at this day.
-                ArrayList<Event> existingEvents = eventsForDay.get(date);
+                ArrayList<Event> existingEvents = eventsByDay.get(date);
                 existingEvents.add(event);
-                eventsForDay.put(date, existingEvents);
+                eventsByDay.put(date, existingEvents);
             }
         }
-        return eventsForDay;
+        return eventsByDay;
     }
 
 
-
-    private ArrayList<Date> getEventDaysInOrder(HashMap<Date, ArrayList<Event>> eventsForDay){
-//        for (HashMap.Entry<String, ArrayList<Event>> eventsOnDay : eventsForDay.entrySet()){
-//            Date dateOfEventOnThisDay = eventsOnDay.getValue().get(0).getEventDate();
-//            eventDatesInOrder.add(dateOfEventOnThisDay);
-//        }
-        ArrayList<Date> eventDatesInOrder = new ArrayList<>(eventsForDay.keySet());
+    /**
+     * 
+     * @param eventsByDay Hashmap where key is a Date and value is ArrayList of events for that Date
+     * @return ordered ArrayList of the Dates for the conference
+     */
+    private ArrayList<Date> getEventDatesInOrder(HashMap<Date, ArrayList<Event>> eventsByDay){
+        ArrayList<Date> eventDatesInOrder = new ArrayList<>(eventsByDay.keySet());
         Collections.sort(eventDatesInOrder);
         return eventDatesInOrder;
     }
