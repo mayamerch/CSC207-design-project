@@ -13,20 +13,28 @@ import java.util.*;
 
 public class EventProgramExporter {
     private final String eventExportFileName = "events.html";
-    private EventProgramSorter sorter;
+    private final EventProgramSorter sorter;
+
+    private final SimpleDateFormat dayFormatter;
 
     private String mainHtmlTemplate;
     private String dateHeaderTemplate;
     private String eventTemplate;
 
+
     public EventProgramExporter(EventProgramSorter sorter){
         this.sorter = sorter;
+
+        // ex: Friday November 27
+        dayFormatter = new SimpleDateFormat("EEEE MMMM dd");
+
         String exportTemplatePath = "src/EventPackage/templates/exportTemplate.txt";
         mainHtmlTemplate = readTemplate(exportTemplatePath);
         String dateHeaderTemplatePath = "src/EventPackage/templates/dateHeaderTemplate.txt";
         dateHeaderTemplate = readTemplate(dateHeaderTemplatePath);
         String eventTemplatePath = "src/EventPackage/templates/eventTemplate.txt";
         eventTemplate = readTemplate(eventTemplatePath);
+
     }
 
     private String readTemplate(String path){
@@ -41,15 +49,54 @@ public class EventProgramExporter {
     }
 
     //this one is for all Events!!
-    public void exportEventProgram(){
-        //eventInfo = sorter.sortedAllEvents();
+    public void exportAllEventsProgram(){
+        HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getAllEventsForProgram();
         createExportFileIfExists();
         // write contents of html based on import from sorter
-        //String contents = generateContents(eventInfo);
-        //writeFileContents(contents);
+        String contents = generateFileContents(eventInfo);
+        writeFileContents(contents);
     }
 
+    private String generateFileContents(HashMap<Date, ArrayList<String[]>> eventInfo){
+        String eventContent = generateExportForEvents(eventInfo);
+        // Note: The only string substitution we perform for the main HTML template are the events
+        return String.format(mainHtmlTemplate, eventContent);
+    }
 
+    private String generateExportForEvents(HashMap<Date, ArrayList<String[]>> eventInfo){
+        StringBuilder eventsFormatted = new StringBuilder();
+        ArrayList<Date> eventDaysInOrder = new ArrayList<>(eventInfo.keySet());
+        Collections.sort(eventDaysInOrder);
+        // iterate by sorted dates to print itinerary
+        for (Date date : eventDaysInOrder){
+            String dayString = dayFormatter.format(date); // ex: Friday November 27
+            eventInfo.get(date);
+            ArrayList<String[]> eventsOnDayInfo = eventInfo.get(date);
+            eventsFormatted.append(generateEventsFormattedForDay(eventTemplate, dayString, eventsOnDayInfo));
+        }
+
+        return eventsFormatted.toString();
+    }
+
+    private String generateEventsFormattedForDay(String eventTemplate, String dayString, ArrayList<String[]> eventsOnDayInfo){
+        // format the header for this day
+        String eventsHeaderFormatted = String.format(dateHeaderTemplate, dayString);
+
+        //format events for this day
+        StringBuilder eventsFormatted = new StringBuilder();
+        for(String[] info : eventsOnDayInfo){
+            String time = info[0];
+            String eventName = info[1];
+            String speakerName = info[2];
+            String eventRoom = info[3];
+            eventsFormatted.append(String.format(eventTemplate, time, eventName, speakerName, eventRoom));
+
+            // add a space to separate this event and the next event
+            // eventsFormatted += "<hr class='hr-slim'>";
+            eventsFormatted.append("<br>");
+        }
+        return eventsHeaderFormatted + eventsFormatted.toString();
+    }
 
     private void createExportFileIfExists(){
         File exportFile = new File(eventExportFileName);
@@ -77,7 +124,6 @@ public class EventProgramExporter {
             e.printStackTrace();
         }
     }
-
 
 
 }

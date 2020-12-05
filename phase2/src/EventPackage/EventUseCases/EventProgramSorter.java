@@ -13,9 +13,9 @@ public class EventProgramSorter {
     private final EventManager eventManager;
     private final UserManager userManager;
 
-    private final SimpleDateFormat dateFormatter;
-    private final SimpleDateFormat dayFormatter;
-    private final SimpleDateFormat timeFormatter;
+    private SimpleDateFormat dateFormatter;
+    private SimpleDateFormat dayFormatter;
+    private SimpleDateFormat timeFormatter;
 
 
     public EventProgramSorter(EventManager em, UserManager um){
@@ -31,40 +31,40 @@ public class EventProgramSorter {
 
     }
 
-    public HashMap<String, ArrayList<String[]>> getAllEventsForProgram() {
+    public HashMap<Date, ArrayList<String[]>> getAllEventsForProgram() {
         ArrayList<Event> events = eventManager.getEventList();
         return this.eventInfo(events);
     }
 
-    public HashMap<String, ArrayList<String[]>> getEventsUserAttendingForProgram(int myUserID) {
-        ArrayList<Event> events = eventManager.myEvents(myUserID);
-        return this.eventInfo(events);
-    }
+//    public HashMap<String, ArrayList<String[]>> getEventsUserAttendingForProgram(int myUserID) {
+//        ArrayList<Event> events = eventManager.myEvents(myUserID);
+//        return this.eventInfo(events);
+//    }
+//
+//    public HashMap<String, ArrayList<String[]>> getEventsUserSignupForProgram(int myUserID){
+//        boolean statusVIP = userManager.getUserByID(myUserID).getVIP();
+//        ArrayList<Event> events = eventManager.availEvents(myUserID, statusVIP);
+//        return this.eventInfo(events);
+//    }
+//
+//    public HashMap<String, ArrayList<String[]>> getEventsByTypeForProgram(EventType type){
+//        ArrayList<Event> events = null;
+//        if (type == EventType.PARTY){
+//            events = new ArrayList<>(eventManager.getPartyList());
+//        } else if (type == EventType.MULTISPEAKER){
+//            events = new ArrayList<>(eventManager.getMultiSpeakerList());
+//        } else if (type == EventType.SINGLESPEAKER){
+//            events = new ArrayList<>(eventManager.getSingleSpeakerList());
+//        }
+//        return this.eventInfo(events);
+//    }
+//
+//    public HashMap<String, ArrayList<String[]>> getEventsBySpeakerForProgram(int speakerID){
+//        ArrayList<Event> events = eventManager.speakingAt(speakerID);
+//        return this.eventInfo(events);
+//    }
 
-    public HashMap<String, ArrayList<String[]>> getEventsUserSignupForProgram(int myUserID){
-        boolean statusVIP = userManager.getUserByID(myUserID).getVIP();
-        ArrayList<Event> events = eventManager.availEvents(myUserID, statusVIP);
-        return this.eventInfo(events);
-    }
-
-    public HashMap<String, ArrayList<String[]>> getEventsByTypeForProgram(EventType type){
-        ArrayList<Event> events = null;
-        if (type == EventType.PARTY){
-            events = new ArrayList<>(eventManager.getPartyList());
-        } else if (type == EventType.MULTISPEAKER){
-            events = new ArrayList<>(eventManager.getMultiSpeakerList());
-        } else if (type == EventType.SINGLESPEAKER){
-            events = new ArrayList<>(eventManager.getSingleSpeakerList());
-        }
-        return this.eventInfo(events);
-    }
-
-    public HashMap<String, ArrayList<String[]>> getEventsBySpeakerForProgram(int speakerID){
-        ArrayList<Event> events = eventManager.speakingAt(speakerID);
-        return this.eventInfo(events);
-    }
-
-    private HashMap<String, ArrayList<String[]>> eventInfo(ArrayList<Event> events){
+    private HashMap<Date, ArrayList<String[]>> eventInfo(ArrayList<Event> events){
         //copy constructor for shallow copy
         ArrayList<Event> sortedEvents = new ArrayList<>(events);
         Collections.sort(sortedEvents);
@@ -76,7 +76,7 @@ public class EventProgramSorter {
         return dateFormatter.format(date);
     }
 
-    private HashMap<String, ArrayList<String[]>> generateEventInfo(ArrayList<Event> events){
+    private HashMap<Date, ArrayList<String[]>> generateEventInfo(ArrayList<Event> events){
         StringBuilder eventsFormatted = new StringBuilder();
 
         // This hashmap is used to group the events that occur on the same day
@@ -90,14 +90,14 @@ public class EventProgramSorter {
         // for return
         // key is dayFormatted string
         // value is ArrayList of String[] to rep data for events
-        HashMap<String, ArrayList<String[]>> eventInfo = new HashMap<>();
+        HashMap<Date, ArrayList<String[]>> eventInfo = new HashMap<>();
 
         // with this sorted array, we can iterate through the days
         // build Strings representing the data we need for each day and for each event
         for (Date date : eventDaysInOrder){
             String dateIdentifier = dayFormatter.format(date); // ex: Friday November 27
             ArrayList<Event> eventsOnDay = eventsForDay.get(dateIdentifier); // eventsOnDay for one day only
-            eventInfo.put(dateIdentifier, generateEventInfoForDay(eventsOnDay));
+            eventInfo.put(date, generateEventInfoForDay(eventsOnDay));
             //eventsFormatted += String.format(eventTemplate, time, eventName, speakerName.toString(), eventRoom);
         }
 
@@ -144,48 +144,6 @@ public class EventProgramSorter {
         return speakerName;
     }
 
-/*    private String generateEventsFormattedForDay(String eventTemplate, ArrayList<Event> events){
-        // format the header for this day
-        Date day = events.get(0).getEventDate();
-        String dateIdentifier = dayFormatter.format(day);
-        String eventsHeaderFormatted = String.format(dateHeaderTemplate, dateIdentifier);
-
-        // now format all the events for this day
-        String eventsFormatted = "";
-        for(int i = 0; i < events.size(); i++){
-            Event event = events.get(i);
-            String eventName = event.getEventName();
-            //int eventID = event.getEventId();
-           *//* if (eventManager.isMultiSpeakerEvent(eventID)){
-                ArrayList<Integer> speakers = ((MultiSpeakerEvent)event).getEventSpeakers();
-            } else if (eventManager.isSingleSpeakerEvent(eventID)) {
-                speakerName = "";
-            } else { // it's a party
-                speakerName = "";
-            }*//*
-
-            ArrayList<Integer> speakerIDs = eventManager.getSpeakerIDs(event);
-            StringBuilder speakerName = new StringBuilder();
-            for (int ID: speakerIDs){
-                speakerName.append(userManager.getUserByID(ID).getUsername());
-            }
-            //= userManager.getUserByID(userID).getUsername();
-            Date eventDate = event.getEventDate();
-            String time = timeFormatter.format(eventDate);
-            String eventRoom = Integer.toString(event.getEventRoom());
-
-            eventsFormatted += String.format(eventTemplate, time, eventName, speakerName.toString(), eventRoom);
-
-            // add a space to separate this event and the next event
-            if(i < events.size() - 1){
-                // eventsFormatted += "<hr class='hr-slim'>";
-                eventsFormatted += "<br>";
-            }
-        }
-        return eventsHeaderFormatted + eventsFormatted;
-    }*/
-
-
     private HashMap<String, ArrayList<Event>> groupEventsByDay(ArrayList<Event> events){
         HashMap<String, ArrayList<Event>> eventsForDay = new HashMap();
         for(Event event : events){
@@ -220,5 +178,7 @@ public class EventProgramSorter {
         Collections.sort(eventDatesInOrder);
         return eventDatesInOrder;
     }
+
+    //TODO: find bug for dates hashmap keys, write JavaDoc to ensure helper methods return what is intended
 
 }
