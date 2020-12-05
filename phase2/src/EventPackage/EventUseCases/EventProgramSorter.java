@@ -3,7 +3,6 @@ package EventPackage.EventUseCases;
 import EventPackage.EventEntities.*;
 import UserPackage.UserManager;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +10,12 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class EventProgramSorter {
-    private EventManager eventManager;
-    private UserManager userManager;
+    private final EventManager eventManager;
+    private final UserManager userManager;
 
-    private SimpleDateFormat dateFormatter;
-    private SimpleDateFormat dayFormatter;
-    private SimpleDateFormat timeFormatter;
+    private final SimpleDateFormat dateFormatter;
+    private final SimpleDateFormat dayFormatter;
+    private final SimpleDateFormat timeFormatter;
 
 
     public EventProgramSorter(EventManager em, UserManager um){
@@ -32,11 +31,39 @@ public class EventProgramSorter {
 
     }
 
-    private ArrayList<String[]> eventsToString(ArrayList<Event> events){
-        ArrayList<Event> sortedEvents = new ArrayList(events);
+    public HashMap<String, ArrayList<String[]>> getAllEventsForProgram() {
+        ArrayList<Event> events = eventManager.getEventList();
+        return this.eventInfo(events);
+    }
+
+    public HashMap<String, ArrayList<String[]>> getEventsForUserForProgram(int userID) {
+        ArrayList<Event> events = eventManager.myEvents(userID);
+        return this.eventInfo(events);
+    }
+
+    public HashMap<String, ArrayList<String[]>> getEventsByTypeForProgram(EventType type){
+        //TODO: export a program based on the type of Event (Party, MultiSpeaker, SingleSpeaker)
+        ArrayList<Event> events = null;
+        if (type == EventType.PARTY){
+            events = new ArrayList<>(eventManager.getPartyList());
+        } else if (type == EventType.MULTISPEAKER){
+            events = new ArrayList<>(eventManager.getMultiSpeakerList());
+        } else if (type == EventType.SINGLESPEAKER){
+            events = new ArrayList<>(eventManager.getSingleSpeakerList());
+        }
+        return this.eventInfo(events);
+    }
+
+    public HashMap<String, ArrayList<String[]>> getEventsByRoomForProgram(int roomNumber){
+        //TODO: export a program based on the room of the Event
+    }
+
+    private HashMap<String, ArrayList<String[]>> eventInfo(ArrayList<Event> events){
+        //copy constructor for shallow copy
+        ArrayList<Event> sortedEvents = new ArrayList<>(events);
         Collections.sort(sortedEvents);
         // Call generateEventInfo on sortedEvents
-        return new ArrayList<>();
+        return generateEventInfo(sortedEvents);
     }
 
     private String getDateIdentifier(Date date){
@@ -188,41 +215,4 @@ public class EventProgramSorter {
         return eventDatesInOrder;
     }
 
-    public void exportAllEvents() {
-        ArrayList<Event> events = eventManager.getEventList();
-
-        //exportEvents(events);
-    }
-
-    public void exportEventsForUser(int userID) {
-        // TODO: export program based on what the user signed up for
-        //ArrayList<Event> events = eventManager.myEvents(userID);
-        //exportEvents(events);
-    }
-
-    public void exportEventsByDay(int day) {
-        // TODO: export a program based on Day of the Conference (Day 1, Day 2, Day 3 of the conference)
-        //ArrayList<Event> events = eventManager.getEventsForDay();
-        //exportEvents(events);
-    }
-
-    public void exportEventsBySpeaker(int speakerID){
-        // TODO: export a program based on a search for a specific speaker
-        //ArrayList<Event> events = eventManager.speakingAt(speakerID);
-        //exportEvents(events);
-    }
-
-    public void exportEventsByType(char EventType){
-        //TODO: export a program based on the type of Event (Party, MultiSpeaker, SingleSpeaker)
-        //ArrayList<Party> events = eventManager.getPartyList();
-        //ArrayList<Event> events = eventManager.getMultiSpeakerList();
-        //ArrayList<Event> events = eventManager.getSingleSpeakerList();
-        //exportEvents(events);
-    }
-
-    public void exportEventsByRoom(int roomNumber){
-        //TODO: export a program based on the room of the Event
-    }
-
-    // this class should return ArrayList<String[]> to the EventsProgramExporter
 }

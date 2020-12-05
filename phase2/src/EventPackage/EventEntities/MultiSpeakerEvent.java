@@ -1,12 +1,11 @@
 package EventPackage.EventEntities;
 
 
-import EventPackage.EventEntities.Event;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MultiSpeakerEvent extends Event implements SpeakerEvent {
+public class MultiSpeakerEvent extends Event implements Serializable, Comparable<Event>, SpeakerEvent{
 
     private ArrayList<Integer> eventSpeakers;
 
