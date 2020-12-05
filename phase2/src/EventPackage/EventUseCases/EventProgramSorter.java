@@ -36,13 +36,18 @@ public class EventProgramSorter {
         return this.eventInfo(events);
     }
 
-    public HashMap<String, ArrayList<String[]>> getEventsForUserForProgram(int userID) {
-        ArrayList<Event> events = eventManager.myEvents(userID);
+    public HashMap<String, ArrayList<String[]>> getEventsUserAttendingForProgram(int myUserID) {
+        ArrayList<Event> events = eventManager.myEvents(myUserID);
+        return this.eventInfo(events);
+    }
+
+    public HashMap<String, ArrayList<String[]>> getEventsUserSignupForProgram(int myUserID){
+        boolean statusVIP = userManager.getUserByID(myUserID).getVIP();
+        ArrayList<Event> events = eventManager.availEvents(myUserID, statusVIP);
         return this.eventInfo(events);
     }
 
     public HashMap<String, ArrayList<String[]>> getEventsByTypeForProgram(EventType type){
-        //TODO: export a program based on the type of Event (Party, MultiSpeaker, SingleSpeaker)
         ArrayList<Event> events = null;
         if (type == EventType.PARTY){
             events = new ArrayList<>(eventManager.getPartyList());
@@ -54,8 +59,9 @@ public class EventProgramSorter {
         return this.eventInfo(events);
     }
 
-    public HashMap<String, ArrayList<String[]>> getEventsByRoomForProgram(int roomNumber){
-        //TODO: export a program based on the room of the Event
+    public HashMap<String, ArrayList<String[]>> getEventsBySpeakerForProgram(int speakerID){
+        ArrayList<Event> events = eventManager.speakingAt(speakerID);
+        return this.eventInfo(events);
     }
 
     private HashMap<String, ArrayList<String[]>> eventInfo(ArrayList<Event> events){
