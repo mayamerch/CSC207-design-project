@@ -144,9 +144,6 @@ public class EventManager implements Serializable {
         return nextID - 1;
     }
 
-
-
-
     private boolean speakerCompare(int eventId, Date eventDate, int eventDuration, int eventSpeaker) {
         for (SingleSpeakerEvent event: singleSpeakerList) {
             if (event.getEventId() != eventId &&event.getEventSpeaker() == eventSpeaker)
@@ -618,7 +615,7 @@ public class EventManager implements Serializable {
 
     /**
      * For usage in EventsProgramExporter
-     * @return ArrayList of SpeakerIds
+     * @return ArrayList of SpeakerIds for Event e
      */
     public ArrayList<Integer> getSpeakerIDs(Event e){
 

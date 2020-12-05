@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Event implements Comparable<Event>, Serializable {
-    private int eventId;
+    private final int eventId;
     private String eventName;
     private Date eventDate;
     private int eventRoom;

@@ -1,7 +1,8 @@
-package EventPackage;
+package EventPackage.EventOuterLayer;
 
 import EventPackage.EventEntities.Event;
 import EventPackage.EventEntities.MultiSpeakerEvent;
+import EventPackage.EventEntities.Party;
 import EventPackage.EventEntities.SpeakerEvent;
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.UserManager;
@@ -15,7 +16,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class EventsProgramExporter {
+public class ObsoleteExporter {
     private final String eventExportFileName = "events.html";
 
     private EventManager eventManager;
@@ -29,9 +30,9 @@ public class EventsProgramExporter {
     private SimpleDateFormat dayFormatter;
     private SimpleDateFormat timeFormatter;
 
-    public EventsProgramExporter(EventManager em, UserManager um){
-        eventManager = em;
-        userManager = um;
+    public ObsoleteExporter(EventManager em, UserManager um){
+        eventManager = em; //to sorter
+        userManager = um; // to sorter
         String exportTemplatePath = "src/EventPackage/templates/exportTemplate.txt";
         mainHtmlTemplate = readTemplate(exportTemplatePath);
         String dateHeaderTemplatePath = "src/EventPackage/templates/dateHeaderTemplate.txt";
@@ -40,11 +41,11 @@ public class EventsProgramExporter {
         eventTemplate = readTemplate(eventTemplatePath);
 
         // ex: 10/08/2020
-        dateFormatter = new SimpleDateFormat("dd/M/yyyy");
+        dateFormatter = new SimpleDateFormat("dd/M/yyyy"); // to sorter
         // ex: Friday November 27
-        dayFormatter = new SimpleDateFormat("EEEE MMMM dd");
+        dayFormatter = new SimpleDateFormat("EEEE MMMM dd"); // to sorter
         // ex: 10:00am - 10:30am
-        timeFormatter = new SimpleDateFormat("hh:mma - hh:mma");
+        timeFormatter = new SimpleDateFormat("hh:mma - hh:mma"); // to sorter
     }
 
     public void exportAllEvents() {
@@ -54,8 +55,8 @@ public class EventsProgramExporter {
 
     public void exportEventsForUser(int userID) {
         // TODO: export program based on what the user signed up for
-        //ArrayList<Event> events = eventManager.myEvents(userID)
-        //exportEvents(events);
+        ArrayList<Event> events = eventManager.myEvents(userID);
+        exportEvents(events);
     }
 
     public void exportEventsByDay(int day) {
@@ -66,15 +67,15 @@ public class EventsProgramExporter {
 
     public void exportEventsBySpeaker(int speakerID){
         // TODO: export a program based on a search for a specific speaker
-        //ArrayList<Event> events = eventManager.speakingAt();
-        //exportEvents(events);
+        ArrayList<Event> events = eventManager.speakingAt(speakerID);
+        exportEvents(events);
     }
 
     public void exportEventsByType(char EventType){
         //TODO: export a program based on the type of Event (Party, MultiSpeaker, SingleSpeaker)
-        //ArrayList<Event> events = eventManager.getAllParties();
-        //ArrayList<Event> events = eventManager.getAllMultiSpeakerEvents();
-        //ArrayList<Event> events = eventManager.getAllSingleSpeakerEvents();
+        //ArrayList<Party> events = eventManager.getPartyList();
+        //ArrayList<Event> events = eventManager.getMultiSpeakerList();
+        //ArrayList<Event> events = eventManager.getSingleSpeakerList();
         //exportEvents(events);
     }
 
@@ -84,7 +85,7 @@ public class EventsProgramExporter {
 
     public void exportEvents(ArrayList<Event> events){
         // sort the events by startDate
-        // TODO: ask Adam to sort by startDate???
+        // TODO: copy of ArrayList, sort
         // if I sort the events param does it sort the ArrayList within EventManager and mess it up
         ArrayList<Event> sortedEvents = new ArrayList(events);
         Collections.sort(sortedEvents);
