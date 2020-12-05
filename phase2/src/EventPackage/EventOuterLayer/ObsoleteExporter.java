@@ -145,7 +145,6 @@ public class ObsoleteExporter {
         return dateFormatter.format(date);
     }
 
-
     // This function returns a sorted ArrayList of date objects where each date object is on a separate day
     private ArrayList<Date> getEventDaysInOrder(HashMap<String, ArrayList<Event>> eventsForDay){
         ArrayList<Date> eventDatesInOrder = new ArrayList();

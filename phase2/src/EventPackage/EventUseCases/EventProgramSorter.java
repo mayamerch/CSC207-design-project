@@ -5,6 +5,9 @@ import UserPackage.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 
 public class EventProgramSorter {
     private EventManager eventManager;
@@ -28,8 +31,74 @@ public class EventProgramSorter {
 
     }
 
+    private ArrayList<String[]> eventsToString(ArrayList<Event> events){
+        ArrayList<Event> sortedEvents = new ArrayList(events);
+        Collections.sort(sortedEvents);
+
+    }
+
+    private String generateExportForEvents(ArrayList<Event> events){
+        StringBuilder eventsFormatted = new StringBuilder();
+
+        // This hashmap is used to group the events that occur on the same day
+        // The key is an identifier that represents a day.
+        // The value is an array of all events on that day.
+        HashMap<String, ArrayList<Event>> eventsForDay = groupEventsByDay(events);
+
+        // Now sort all of the days in the hashmap
+        ArrayList<Date> eventDaysInOrder = getEventDaysInOrder(eventsForDay);
+
+        // with this sorted array, we can iterate through the days
+        // build Strings representing the data we need for each day and for each event
+        for (Date date : eventDaysInOrder){
+            String dateIdentifier = getDateIdentifier(date);
+            ArrayList<Event> eventsOnDay = eventsForDay.get(dateIdentifier);
+            eventsFormatted.append(generateEventsFormattedForDay(eventTemplate, eventsOnDay));
+        }
+
+        return eventsFormatted.toString();
+    }
+
+    private HashMap<String, ArrayList<Event>> groupEventsByDay(ArrayList<Event> events){
+        HashMap<String, ArrayList<Event>> eventsForDay = new HashMap();
+        for(Event event : events){
+            String dateIdentifier = getDateIdentifier(event.getEventDate());
+            if(!eventsForDay.containsKey(dateIdentifier)){
+                // we haven't seen this day before. So make a new array list and insert this day into the hashmap
+                ArrayList<Event> newEventsForDay = new ArrayList<>();
+                newEventsForDay.add(event);
+                eventsForDay.put(dateIdentifier, newEventsForDay);
+            }else{
+                // we have seen this day before, so append to the arraylist at this day.
+                ArrayList<Event> existingEvents = eventsForDay.get(dateIdentifier);
+                existingEvents.add(event);
+                eventsForDay.put(dateIdentifier, existingEvents);
+            }
+        }
+        return eventsForDay;
+    }
+
+    private String getDateIdentifier(Date date){
+        return dateFormatter.format(date);
+    }
+
+    private ArrayList<Date> getEventDaysInOrder(HashMap<String, ArrayList<Event>> eventsForDay){
+        ArrayList<Date> eventDatesInOrder = new ArrayList();
+        // first loop through all the events for each day
+        for (HashMap.Entry<String, ArrayList<Event>> eventsOnDay : eventsForDay.entrySet()){
+            // then get the date of one event for that day
+            Date dateOfEventOnThisDay = eventsOnDay.getValue().get(0).getEventDate();
+            // add this date to our arrayList
+            eventDatesInOrder.add(dateOfEventOnThisDay);
+        }
+        // now sort the arrayList to order the eventDays
+        Collections.sort(eventDatesInOrder);
+        return eventDatesInOrder;
+    }
+
     public void exportAllEvents() {
-        //ArrayList<Event> events = eventManager.getEventList();
+        ArrayList<Event> events = eventManager.getEventList();
+
         //exportEvents(events);
     }
 
