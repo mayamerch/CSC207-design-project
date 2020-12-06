@@ -115,12 +115,19 @@ public class UserTest {
         UserManager userManager = new UserManager();
         userManager.createAccount("user1", "user1", UserType.ORGANIZER);
         int userID = userManager.getUserIDByUsername("user1");
+        User user1 = userManager.getUserByID(userID);
         userManager.changeVIP(userID,true);
-        boolean VIPStatus = userManager.getUserByID(userID).getVIP();
+        boolean VIPStatus = user1.getVIP();
         assertTrue("User not made VIP", VIPStatus);
+        userManager.changeVIP(userID,true);
+        boolean VIPStatus3 = userManager.changeVIP(userID, true);
+        assertFalse("Does not return false properly", VIPStatus3);
         userManager.changeVIP(userID,false);
-        boolean VIPStatus2 = userManager.getUserByID(userID).getVIP();
+        boolean VIPStatus2 = user1.getVIP();
         assertFalse("user VIP not removed", VIPStatus2);
+        userManager.changeVIP(userID,false);
+        boolean VIPStatus4 = userManager.changeVIP(userID, false);
+        assertFalse("Does not return false properly", VIPStatus4);
     }
 
     // ======================= Controller Tests ===========================
@@ -191,6 +198,23 @@ public class UserTest {
         boolean accountCreated2 = userController1.createUser("user3", "user3", UserType.SPEAKER);
         assertFalse("Creates Speaker when not Logged in", accountCreated2);
     }
+    @Test(timeout = 50)
+    // remember to change this test if creating account permissions are changed
+    public void testCreateUserLoggedInAsAttendee(){
+        UserManager userManager = new UserManager();
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        UserController userController1 = new UserController(userManager);
+        userController1.createUser("user2", "user2", UserType.ATTENDEE);
+        int attendeeListSize = userController1.getUserManager().getAttendeeList().size();
+        assertEquals("doesn't add attendee properly", 1, attendeeListSize);
+        int userMapSize = userController1.getUserManager().getUserMap().size();
+        assertEquals("doesn't add attendee properly", 2, userMapSize);
+        userController1.userLogin("user2", "user2");
+        boolean accountCreated = userController1.createUser("user3", "user3", UserType.ORGANIZER);
+        assertFalse("Creates Organiser as Attendee", accountCreated);
+        boolean accountCreated2 = userController1.createUser("user3", "user3", UserType.SPEAKER);
+        assertFalse("Creates Speaker as Attendee", accountCreated2);
+    }
     // ====================== Presenter Tests =====================
     @Test(timeout = 50)
     public void testPresenterSendAndAcceptFriendRequest(){
@@ -256,10 +280,6 @@ public class UserTest {
         presenter.acceptFriendRequest("user12");
         int size4 = user1.getFriendsList().size();
         assertEquals("repeat friends added", 6, size4);
-
-
-
-
     }
 
 
