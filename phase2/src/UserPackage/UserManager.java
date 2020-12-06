@@ -176,9 +176,6 @@ public class UserManager implements Serializable {
         return -1;
     }
 
-    public User getUserByUsername(String username){
-        return getUserByID(getUserIDByUsername(username));
-    }
 
     /**
      * Takes in the ID of the current user and the ID of the user to be added as a friend then
@@ -223,6 +220,12 @@ public class UserManager implements Serializable {
         // check if currentUser already has sent a friend request to potential friend
         for (int x: friend.getFriendRequestList()){
             if (x == userID){
+                return false;
+            }
+        }
+        // Check if friend already sent a friend request to you
+        for (int x: currentUser.getFriendRequestList()) {
+            if (x == friendID) {
                 return false;
             }
         }
