@@ -1,6 +1,10 @@
 package MessagePackage;
 
+import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.MultiSpeakerEvent;
+import EventPackage.EventEntities.SpeakerEvent;
 import EventPackage.EventUseCases.EventManager;
+import UserPackage.User;
 import UserPackage.UserManager;
 import UserPackage.UserType;
 
@@ -57,6 +61,7 @@ public class ChatroomController {
      * @param senderUserID the userID of the person creating the Chatroom
      */
     public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID){
+        User sender = userManager.getUserByID(senderUserID);
         Chatroom c = new Chatroom(userlist);
         if (chats.contains(c)) {
             return false;
@@ -67,8 +72,21 @@ public class ChatroomController {
             }
         }
         for(int user: userlist){
-            if(!userManager.getUserByID(senderUserID).getFriendsList().contains(user) ||
-                    !userManager.getUserByID(user).getFriendsList().contains(senderUserID)){ // if someone is not a friend of the sender
+            User recipient = userManager.getUserByID(user);
+
+            if(sender.getType() == UserType.ORGANIZER){
+                return true; // organizers can message everyone
+            }
+
+            else if(sender.getType() == UserType.SPEAKER){
+                for(Event e: eventManager.speakingAt(senderUserID)){
+                    if(e.getEventAttendees().contains(user)){
+                        return true; // speakers can message people at their events
+                    }
+                }
+            }
+
+            else if(!sender.getFriendsList().contains(user) || !recipient.getFriendsList().contains(senderUserID)){ // if someone is not a friend of the sender
                 return false; // can't send message to someone who isn't your friend
             }
         }
