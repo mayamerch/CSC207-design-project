@@ -134,9 +134,14 @@ public class BroadcastController {
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
      */
-    public void sendBroadcastInAllSpeakerEvents(Speaker speaker, String message){
-        for(int eventID: speaker.getTalksList()){
-            sendBroadcast(speaker.getUserID(), eventID, message);
+    public void sendBroadcastInAllSpeakerEvents(Speaker speaker, String message) {
+        if(speaker.getTalksList().size() == 0){
+            System.out.println("You are not speaking at any events!");
+        }
+        else {
+            for(int eventID: speaker.getTalksList()){
+                sendBroadcast(speaker.getUserID(), eventID, message);
+            }
         }
     }
 

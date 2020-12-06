@@ -3,8 +3,10 @@ package MessagePackage.MessageGUI;
 import javax.swing.*;
 
 public class AttendeeMessageMenu {
-    private JButton viewConversations;
-    private JButton viewBroadcasts;
+    private JButton checkMessages;
+    private JButton sendMessages;
+    private JButton checkBroadcasts;
     private JLabel title;
     private JButton newButton;
+
 }
