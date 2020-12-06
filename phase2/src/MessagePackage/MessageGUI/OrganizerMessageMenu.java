@@ -8,7 +8,5 @@ public class OrganizerMessageMenu {
     private JButton checkBroadcasts;
     private JButton messageSpeakers;
     private JButton messageAttendees;
-    private JLabel title;
-    private JButton newButton;
-    private JButton sendMessageToAllButton;
+    private JLabel OrganizerMenu;
 }

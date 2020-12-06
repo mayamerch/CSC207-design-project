@@ -8,7 +8,6 @@ public class SpeakerMessageMenu {
     private JButton checkBroadcasts;
     private JButton broadcastOneEvent;
     private JButton broadcastAllEvents;
-    private JLabel title;
-    private JButton newButton;
-    private JButton sendBroadcastToAllButton;
+    private JLabel SpeakerMenu;
+    private JButton broadcastEvent;
 }
