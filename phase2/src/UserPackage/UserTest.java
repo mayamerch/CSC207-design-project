@@ -85,5 +85,16 @@ public class UserTest {
         assertEquals("user not added in friend\n", 1, user2.getFriendsList().size());
         assertFalse("Can send friend request to friend", userManager.sendFriendRequest(1, 2));
     }
+    @Test(timeout = 50)
+    public void testSendFriendRequestToFriendRequestList(){
+        UserManager userManager = new UserManager();
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        userManager.createAccount("user2", "User2",UserType.ATTENDEE);
+        User user1 = userManager.getUserByID(1);
+        User user2 = userManager.getUserByID(2);
+        userManager.sendFriendRequest("user1", "user2");
+        assertFalse("Can send friend request to person who has already sent you one",
+                userManager.sendFriendRequest("user2", "user1"));
+    }
 
 }
