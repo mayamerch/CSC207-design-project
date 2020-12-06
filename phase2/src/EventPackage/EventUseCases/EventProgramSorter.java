@@ -78,6 +78,11 @@ public class EventProgramSorter {
         return this.generateEventInfo(events);
     }
 
+    /**
+     * returns a HashMap of all data to export to the Conference Program for all events with a specific speaker
+     * @param speakerID the speaker for current speaker we are looking for
+     * @return HashMap where key is Date and value is ArrayList of String[] which represents data
+     */
     public HashMap<Date, ArrayList<String[]>> getEventsBySpeakerForProgram(int speakerID){
         ArrayList<Event> events = eventManager.speakingAt(speakerID);
         return this.generateEventInfo(events);

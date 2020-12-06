@@ -1,6 +1,6 @@
 package EventPackage.EventOuterLayer;
 
-import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.EventType;
 import EventPackage.EventUseCases.EventProgramSorter;
 import java.io.File;
 import java.io.IOException;
@@ -48,9 +48,57 @@ public class EventProgramExporter {
         }
     }
 
-    //this one is for all Events!!
     public void exportAllEventsProgram(){
         HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getAllEventsForProgram();
+        createExportFileIfExists();
+        // write contents of html based on import from sorter
+        String contents = generateFileContents(eventInfo);
+        writeFileContents(contents);
+    }
+
+    public void exportEventsUserAttendingProgram(int userID){
+        HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsUserAttendingForProgram(userID);
+        createExportFileIfExists();
+        // write contents of html based on import from sorter
+        String contents = generateFileContents(eventInfo);
+        writeFileContents(contents);
+    }
+
+    public void exportEventsToSignupProgram(int userID){
+        HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsUserSignupForProgram(userID);
+        createExportFileIfExists();
+        // write contents of html based on import from sorter
+        String contents = generateFileContents(eventInfo);
+        writeFileContents(contents);
+    }
+
+    public void exportPartyEventsProgram(){
+        HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsByTypeForProgram(EventType.PARTY);
+        createExportFileIfExists();
+        // write contents of html based on import from sorter
+        String contents = generateFileContents(eventInfo);
+        writeFileContents(contents);
+    }
+
+    public void exportMultiSpeakerEventsProgram(){
+        HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsByTypeForProgram(EventType.MULTISPEAKER);
+        createExportFileIfExists();
+        // write contents of html based on import from sorter
+        String contents = generateFileContents(eventInfo);
+        writeFileContents(contents);
+    }
+
+    public void exportSingleSpeakerEventsProgram(){
+        HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsByTypeForProgram(EventType.SINGLESPEAKER);
+        createExportFileIfExists();
+        // write contents of html based on import from sorter
+        String contents = generateFileContents(eventInfo);
+        writeFileContents(contents);
+
+    }
+
+    public void exportEventsBySpeakerProgram(int speakerID){
+        HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsBySpeakerForProgram(speakerID);
         createExportFileIfExists();
         // write contents of html based on import from sorter
         String contents = generateFileContents(eventInfo);

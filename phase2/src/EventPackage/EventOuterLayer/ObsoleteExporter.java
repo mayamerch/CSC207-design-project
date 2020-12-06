@@ -53,36 +53,6 @@ public class ObsoleteExporter {
         exportEvents(events);
     }
 
-    public void exportEventsForUser(int userID) {
-        // TODO: export program based on what the user signed up for
-        ArrayList<Event> events = eventManager.myEvents(userID);
-        exportEvents(events);
-    }
-
-    public void exportEventsByDay(int day) {
-        // TODO: export a program based on Day of the Conference (Day 1, Day 2, Day 3 of the conference)
-        //ArrayList<Event> events = eventManager.getEventsForDay();
-        //exportEvents(events);
-    }
-
-    public void exportEventsBySpeaker(int speakerID){
-        // TODO: export a program based on a search for a specific speaker
-        ArrayList<Event> events = eventManager.speakingAt(speakerID);
-        exportEvents(events);
-    }
-
-    public void exportEventsByType(char EventType){
-        //TODO: export a program based on the type of Event (Party, MultiSpeaker, SingleSpeaker)
-        //ArrayList<Party> events = eventManager.getPartyList();
-        //ArrayList<Event> events = eventManager.getMultiSpeakerList();
-        //ArrayList<Event> events = eventManager.getSingleSpeakerList();
-        //exportEvents(events);
-    }
-
-    public void exportEventsByRoom(int roomNumber){
-        //TODO: export a program based on the room of the Event
-    }
-
     public void exportEvents(ArrayList<Event> events){
         // sort the events by startDate
         // TODO: copy of ArrayList, sort

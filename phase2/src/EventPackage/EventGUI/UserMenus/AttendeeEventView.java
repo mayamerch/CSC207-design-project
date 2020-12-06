@@ -1,10 +1,6 @@
 package EventPackage.EventGUI.UserMenus;
 
-import EventPackage.EventGUI.AttendEventView;
-import EventPackage.EventGUI.CancelAttendView;
-import EventPackage.EventGUI.EventsView;
-import EventPackage.EventGUI.RoomView;
-import EventPackage.EventOuterLayer.EventController;
+import EventPackage.EventGUI.*;
 import EventPackage.EventOuterLayer.EventPresenter;
 
 import javax.swing.*;
@@ -21,6 +17,7 @@ public class AttendeeEventView extends JFrame {
     private JButton seeRooms;
     private JButton cancelAttend;
     private JLabel title;
+    private JButton exportHTMLProgram;
     private EventPresenter eventPresenter;
 
     /**
@@ -110,6 +107,22 @@ public class AttendeeEventView extends JFrame {
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
                 roomView.setVisible(true);
+            }
+        });
+
+        exportHTMLProgram.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ExportProgramView programMenu = new ExportProgramView();
+                programMenu.setContentPane(programMenu.getMainPanel());
+                programMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                programMenu.pack();
+                programMenu.setVisible(true);
+
             }
         });
     }
