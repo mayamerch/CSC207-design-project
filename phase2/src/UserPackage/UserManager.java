@@ -149,9 +149,12 @@ public class UserManager implements Serializable {
      * @param userID: ID of the user we want to find
      * @param newBoolean the new VIP status, boolean
      */
-    public void changeVIP(int userID, boolean newBoolean){
+    public boolean changeVIP(int userID, boolean newBoolean){
+        if (checkVIP(userID) == newBoolean){
+            return false;}
         User user = getUserByID(userID);
         user.setVIP(newBoolean);
+        return true;
     }
     /**
      * Takes in an UserID and checks the VIP status

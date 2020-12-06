@@ -29,6 +29,7 @@ public class UserController {
     }
     // for testing
     public UserController(UserManager userManager){
+        this.currentUserID = -1;
         this.userManager = userManager;
         this.userGateway = new UserGateway();
     }
@@ -49,9 +50,8 @@ public class UserController {
     public boolean userLogin(String username, String password){
         //if you need the old version of userLogin that returned UserType, use getUserType() instead
         this.currentUserID = userManager.validateLogin(username, password);  //-1 if user does not log in successfully
-        if (currentUserID >= 0)
-            return true;    //returns true only if user logs in successfully
-        return false;       //false if user gets password or username wrong
+        return currentUserID >= 0;    //returns true only if user logs in successfully
+//false if user gets password or username wrong
     }
 
     /**
@@ -83,11 +83,33 @@ public class UserController {
             return null;
         }
     }*/
-
+    /**
+     * Takes in an UserID and checks the VIP status
+     * @return true if user is VIP
+     */
     public boolean checkUserVIP(int userID){
         return getUserManager().checkVIP(userID);
     }
-
+    /**
+     * Takes in an UserID and changes the VIP status
+     * @param userID: ID of the user we want to change status of
+     * @param newVIPStatus the new VIP status, boolean
+     */
+    public boolean changeUserVIP(int userID, boolean newVIPStatus){
+        if (getUserType() != UserType.ORGANIZER){
+            return false;
+        }
+        return userManager.changeVIP(userID, newVIPStatus);
+    }
+    /**
+     * Takes in an UserID and changes the VIP status
+     * @param username: username of the user we want to change status of
+     * @param newVIPStatus the new VIP status, boolean
+     */
+    public boolean changeUserVIP(String username, boolean newVIPStatus){
+        int userID = userManager.getUserIDByUsername(username);
+        return userManager.changeVIP(userID, newVIPStatus);
+    }
     /**
      * Checks if a userID that is entered into the system belongs to an actual user.
      * @return the integer that the User entered
@@ -143,53 +165,72 @@ public class UserController {
      * The User was successfully created or not. Cannot create a speaker unless an Organiser is
      * currently Logged in
      */
-    public boolean createUser(){
-        System.out.println("Enter Username of new User");
-        String username = scanner.nextLine();
-        System.out.println("Enter Password for new User");
-        String password = scanner.nextLine();
-        System.out.println("Enter The type of the User you want to create\n 1. Organizer \n 2. Attendee \n 3.Speaker");
-        String userType = scanner.nextLine();
-        switch(userType){
-            case "1":
-                if (userManager.createAccount(username, password, UserType.ORGANIZER)){
-                    System.out.println("User successfully created");
-                    userGateway.saveUserMap(userManager.getUserMap());
-                    return true;
-                }
-                else{System.out.println("The Username must be unique.");
-                return false;}
-            case "2":
-                if (validateNotLoggedIn() || userManager.getUserByID(currentUserID).getType() != UserType.ORGANIZER){
-                    System.out.println("You need to be logged in as an Organizer to do this");
-                    return false;
-                }
-                if (userManager.createAccount(username, password, UserType.ATTENDEE)){
-                    System.out.println("User successfully created");
-                    userGateway.saveUserMap(userManager.getUserMap());
-                    return true;
-                }
-                else{System.out.println("The Username must be unique.");
-                return false;}
-            case "3":
-                if (validateNotLoggedIn() || userManager.getUserByID(currentUserID).getType() != UserType.ORGANIZER){
-                    System.out.println("You need to be logged in as an Organizer to do this");
-                    return false;
-                }
-                if (userManager.createAccount(username, password, UserType.SPEAKER)){
-                    System.out.println("User successfully created");
-                    userGateway.saveUserMap(userManager.getUserMap());
-                    return true;
-                }
-                else{System.out.println("The Username must be unique.");
-                return false;}
-                }
-        System.out.println("That is not a valid option for type");
+    public boolean createUser(String username, String password, UserType userType) {
+        // userType provided by the presenter
+        // No need to check login if creating Attendee
+        if (userType == UserType.ATTENDEE) {
+            return userManager.createAccount(username, password, UserType.ATTENDEE);
+        }
+        // shouldnt make account if not logged in
+        if (validateNotLoggedIn()){return false;}
+        UserType currentUserType = getUserType();
+        // Speakers and Organisers can only be created by organisers
+        if (currentUserType != UserType.ORGANIZER) {
+            return false;
+        }
+        switch (userType) {
+            case ORGANIZER:
+                return userManager.createAccount(username, password, UserType.ORGANIZER);
+            case SPEAKER:
+                return userManager.createAccount(username, password, UserType.SPEAKER);
+        }
         return false;
     }
-    public boolean createUser(String username, String password, UserType userType){
-        return userManager.createAccount(username, password, userType);
-    }
+//             // Old implementation
+//        System.out.println("Enter Username of new User");
+//        String username = scanner.nextLine();
+//        System.out.println("Enter Password for new User");
+//        String password = scanner.nextLine();
+//        System.out.println("Enter The type of the User you want to create\n 1. Organizer \n 2. Attendee \n 3.Speaker");
+//        String userType = scanner.nextLine();
+//        switch(userType){
+//            case "1":
+//                if (userManager.createAccount(username, password, UserType.ORGANIZER)){
+//                    System.out.println("User successfully created");
+//                    userGateway.saveUserMap(userManager.getUserMap());
+//                    return true;
+//                }
+//                else{System.out.println("The Username must be unique.");
+//                return false;}
+//            case "2":
+//                if (validateNotLoggedIn() || userManager.getUserByID(currentUserID).getType() != UserType.ORGANIZER){
+//                    System.out.println("You need to be logged in as an Organizer to do this");
+//                    return false;
+//                }
+//                if (userManager.createAccount(username, password, UserType.ATTENDEE)){
+//                    System.out.println("User successfully created");
+//                    userGateway.saveUserMap(userManager.getUserMap());
+//                    return true;
+//                }
+//                else{System.out.println("The Username must be unique.");
+//                return false;}
+//            case "3":
+//                if (validateNotLoggedIn() || userManager.getUserByID(currentUserID).getType() != UserType.ORGANIZER){
+//                    System.out.println("You need to be logged in as an Organizer to do this");
+//                    return false;
+//                }
+//                if (userManager.createAccount(username, password, UserType.SPEAKER)){
+//                    System.out.println("User successfully created");
+//                    userGateway.saveUserMap(userManager.getUserMap());
+//                    return true;
+//                }
+//                else{System.out.println("The Username must be unique.");
+//                return false;}
+//                }
+//        System.out.println("That is not a valid option for type");
+//        return false;
+//    }
+
     /**
      * Returns true or false based on whether a valid user is currently logged into the controller
      */

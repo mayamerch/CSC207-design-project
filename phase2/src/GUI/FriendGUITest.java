@@ -43,8 +43,7 @@ public class FriendGUITest {
             userManager.sendFriendRequest(i, 1);
         }
         // Use the current user controller's user manager to make a new user controller in the presenter
-        Presenter presenter = new Presenter();
-        presenter.setUserController(userController.getUserManager());
+        Presenter presenter = new Presenter(userController.getUserManager());
         presenter.userLogin("user1", "user1");
         JFrame frame = new FriendRequestMenuView(presenter);
         frame.setVisible(true);
