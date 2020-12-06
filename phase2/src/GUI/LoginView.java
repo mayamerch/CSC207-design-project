@@ -13,6 +13,7 @@ public class LoginView extends JFrame{
     private JLabel passwordLabel;
     private JPasswordField passwordTextField;
     private JButton enterButton;
+    private JButton createAccountButton;
     private Presenter presenter;
 
 

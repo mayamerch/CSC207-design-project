@@ -33,8 +33,7 @@ public class RunPresenter {
             userManager.createAccount("user" + i, "user"+i, UserType.ATTENDEE);
             userManager.sendFriendRequest(i, 1);
         }
-        Presenter presenter = new Presenter();
-        presenter.setUserController(userController.getUserManager());
+        Presenter presenter = new Presenter(userController.getUserManager());
         // make a new user controller using the user manager from the old userController
         LoginView loginView = new LoginView(presenter);
         while (userController.validateNotLoggedIn()) {

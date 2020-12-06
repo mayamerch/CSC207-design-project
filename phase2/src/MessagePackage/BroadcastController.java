@@ -12,17 +12,17 @@ import java.util.ArrayList;
 
 public class BroadcastController {
     private ArrayList<Broadcast> broadcasts;
-    private EventManager em;
-    private UserManager um;
+    private EventManager eventManager;
+    private UserManager userManager;
     private BroadcastGateway gateway;
 
     /**
      * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
      */
-    public BroadcastController(EventManager em, UserManager um) {
-        this.em = em;
-        this.um = um;
-        this.gateway = new BroadcastGateway(em);
+    public BroadcastController(EventManager eventManager, UserManager userManager) {
+        this.eventManager = eventManager;
+        this.userManager = userManager;
+        this.gateway = new BroadcastGateway(eventManager);
         try {
             this.broadcasts = gateway.makeBroadcasts();
         } catch (FileNotFoundException f) {
@@ -31,8 +31,8 @@ public class BroadcastController {
 
     }
 
-    public UserManager getUm() {
-        return um;
+    public UserManager getUserManager() {
+        return userManager;
     }
 
     /**
@@ -57,14 +57,14 @@ public class BroadcastController {
      */
     public boolean canCreateNewBroadCast(int senderUserID, int eventID) {
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        if(!(um.getUserByID(senderUserID).getType() == UserType.ORGANIZER ||
-                um.getUserByID(senderUserID).getType() == UserType.SPEAKER)){
+        if(!(userManager.getUserByID(senderUserID).getType() == UserType.ORGANIZER ||
+                userManager.getUserByID(senderUserID).getType() == UserType.SPEAKER)){
             throw new Error("You are not able to send a broadcast.");
         }
         else{
             broadcasters.add(senderUserID);
         }
-        Broadcast b = new Broadcast(broadcasters, eventID, em);
+        Broadcast b = new Broadcast(broadcasters, eventID, eventManager);
         return !broadcasts.contains(b); // return whether it exists or not
     }
 
@@ -78,7 +78,7 @@ public class BroadcastController {
         broadcasters.add(senderUserID);
 
         if(canCreateNewBroadCast(senderUserID, eventID)){
-            Broadcast b = new Broadcast(broadcasters, eventID, em);
+            Broadcast b = new Broadcast(broadcasters, eventID, eventManager);
             broadcasts.add(b);
             return b;
         }
@@ -94,8 +94,8 @@ public class BroadcastController {
      */
     // TODO: remove this method (changed to a chat)
     public void broadcastConference(int organizerUserID, String message){
-        if(um.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
-            for (Event e : em.getEventList()) {
+        if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
+            for (Event e : eventManager.getEventList()) {
                 sendBroadcast(organizerUserID, e.getEventId(), message);
             }
         }
@@ -114,7 +114,7 @@ public class BroadcastController {
         broadcasters.add(senderUserID);
         Broadcast b = createNewBroadcast(senderUserID, eventID);
 
-        if(!em.getEventList().contains(em.getEvent(eventID))){
+        if(!eventManager.getEventList().contains(eventManager.getEvent(eventID))){
             throw new Error("This event does not exist.");
         }
 
@@ -134,10 +134,14 @@ public class BroadcastController {
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
      */
-    public void sendBroadcastInAllSpeakerEvents(Speaker speaker, String message){
-        for(int eventID: speaker.getTalksList()){
-            sendBroadcast(speaker.getUserID(), eventID, message);
-            //createNewBroadcast(speaker.getUserID(), eventID);
+    public void sendBroadcastInAllSpeakerEvents(Speaker speaker, String message) {
+        if(speaker.getTalksList().size() == 0){
+            System.out.println("You are not speaking at any events!");
+        }
+        else {
+            for(int eventID: speaker.getTalksList()){
+                sendBroadcast(speaker.getUserID(), eventID, message);
+            }
         }
     }
 
