@@ -1,4 +1,4 @@
-package MessagePackage;
+package MessagePackage.MessageGUI;
 
 import javax.swing.*;
 

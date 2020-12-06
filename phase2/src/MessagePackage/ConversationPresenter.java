@@ -128,7 +128,7 @@ public class ConversationPresenter { // User.java to get friends
                     while(!kb.nextLine().equals("DONE")){
                         speakerAllEventsBroadcast = kb.nextLine();
                     }
-                    bc.sendBroadcastInAllSpeakerEvents((Speaker)bc.getUm().getUserByID(currID), speakerAllEventsBroadcast);
+                    bc.sendBroadcastInAllSpeakerEvents((Speaker)bc.getUserManager().getUserByID(currID), speakerAllEventsBroadcast);
                     bc.saveBroadcasts();
                     option = -1;
                     break;
