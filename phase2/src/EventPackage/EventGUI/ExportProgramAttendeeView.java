@@ -10,6 +10,7 @@ public class ExportProgramAttendeeView extends JFrame{
     private JButton exportAllEventsButton;
     private JButton exportMultiSpeakerEventsButton;
     private JButton exportSingleSpeakerEventsButton;
+    private JLabel title;
     private JPanel mainPanel;
 
     /**
