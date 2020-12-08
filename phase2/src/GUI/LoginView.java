@@ -30,10 +30,20 @@ public class LoginView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 boolean loggedIn;
                 loggedIn = login();
-                if (loggedIn)
+                if (loggedIn){
                     loginLabel.setText("Logged in");
+                    setVisible(false);
+                    new MainMenuView(presenter);
+                }
                 else
                     loginLabel.setText("login failed");
+            }
+        });
+        createAccountButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new CreateAccountMenuView(presenter);
             }
         });
     }

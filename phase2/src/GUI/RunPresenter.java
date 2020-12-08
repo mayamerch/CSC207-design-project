@@ -41,7 +41,7 @@ public class RunPresenter {
         }
         loginView.setVisible(false);
         loginView.dispose();
-        MainMenuView mainMenuView = new MainMenuView(userController);
+        MainMenuView mainMenuView = new MainMenuView(presenter);
         mainMenuView.setVisible(true);
     }
 }

@@ -11,8 +11,8 @@ import java.util.List;
 // import MessagePackage.ChatroomController;
 
 public class Presenter {
-    UserController userController;
-    UserPresenter userPresenter;
+    private UserController userController;
+    private UserPresenter userPresenter;
 
     public Presenter(){
         this.userController = new UserController();
@@ -24,6 +24,7 @@ public class Presenter {
         this.userController = new UserController(userManager);
         this.userPresenter = new UserPresenter(userController.getUserManager());
     }
+    public UserController getUserController(){return this.userController;}
 
     public boolean userLogin(String username, String password){
         return userController.userLogin(username, password);

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class MainMenuView extends JFrame{
     private JPanel mainMenuPanel;
     private JButton logoutButton;
-    private JButton somethingSomethingButton;
+    private JButton friendsButton;
     private JButton eventsButton;
     private JButton messagesButton;
     private JLabel loggedInAsLabel;
@@ -26,8 +26,9 @@ public class MainMenuView extends JFrame{
     private JButton exitButton;
 
     private UserController userController;
+    private Presenter presenter;
 
-    public MainMenuView(UserController userController) {
+    public MainMenuView(Presenter presenter) {
         //this code is super incomplete
         //need something that keeps track of decisions made in the menu
         //so that the "super controller" knows where to go next
@@ -35,7 +36,8 @@ public class MainMenuView extends JFrame{
         //also, we don't need to pass a user controller, feel free to
         //to remove userController stuff
         super();
-        this.userController = userController;
+        this.userController = presenter.getUserController();
+        this.presenter = presenter;
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainMenuPanel);
@@ -44,7 +46,10 @@ public class MainMenuView extends JFrame{
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 userController.logOut();
+                setVisible(false);
+                new LoginView(presenter);
             }
         });
         eventsButton.addActionListener(new ActionListener() {
@@ -85,5 +90,18 @@ public class MainMenuView extends JFrame{
                 }
             }
         });
+        friendsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkLoggedIn()){
+                    setVisible(false);
+                    new FriendRequestMenuView(presenter);
+                }
+
+            }
+        });
+    }
+    private boolean checkLoggedIn(){
+        return !presenter.checkNotLoggedIn();
     }
 }

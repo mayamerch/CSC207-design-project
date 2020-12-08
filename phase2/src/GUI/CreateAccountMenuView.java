@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CreateAccountMenuView {
+public class CreateAccountMenuView extends JFrame {
     private JTextField usernameField;
     private JTextField passwordField;
     private JButton createSpeakerButton;
@@ -45,6 +45,13 @@ public class CreateAccountMenuView {
                     accountCreationLabel.setText("Speaker successfully created");
                 }
                 else{accountCreationLabel.setText("Need a Unique Username or Need to be an Organizer");}
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new LoginView(presenter);
             }
         });
     }
