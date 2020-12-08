@@ -111,12 +111,12 @@ public class Presenter {
             return userController.changeUserVIP(username, newVIPStatus);
         }
 
-     // message package
+        // message package
         public boolean displayMessages(){
             return true;
         }
 
-        public boolean sendMessage(){
+        public boolean sendMessages(){
             return true;
         }
 

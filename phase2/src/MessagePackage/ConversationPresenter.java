@@ -117,7 +117,7 @@ public class ConversationPresenter { // User.java to get friends
 
                     System.out.println("Enter the ID of the event you want to broadcast to:");
                     int speakerEventID = kb.nextInt();
-                    bc.sendBroadcast(currID, speakerEventID, speakerBroadcast);
+                    bc.sendBroadcastToEvent(currID, speakerEventID, speakerBroadcast);
                     bc.saveBroadcasts();
                     option = -1;
                     break;
@@ -140,8 +140,10 @@ public class ConversationPresenter { // User.java to get friends
                     while(!kb.nextLine().equals("DONE")){
                         messageToSpeakers = kb.nextLine();
                     }
-                    cc.messageAllSpeakers(currID, messageToSpeakers);
-                    cc.saveChats();
+                    bc.sendBroadcastToSpeakers(currID, messageToSpeakers);
+                    bc.saveBroadcasts();
+                    //cc.messageAllSpeakers(currID, messageToSpeakers);
+                    //cc.saveChats();
                     option = -1;
                     break;
 
@@ -151,8 +153,10 @@ public class ConversationPresenter { // User.java to get friends
                     while(!kb.nextLine().equals("DONE")){
                         messageToAttendees = kb.nextLine();
                     }
-                    cc.messageAllAttendees(currID, messageToAttendees);
-                    cc.saveChats();
+                    bc.sendBroadcastToAttendees(currID, messageToAttendees);
+                    bc.saveBroadcasts();
+                    //cc.messageAllAttendees(currID, messageToAttendees);
+                    //cc.saveChats();
                     option = -1;
                     break;
 
