@@ -28,7 +28,10 @@ public class UserController {
             // Add something so if this fails it calls on the no argument constructor
         }
     }
-    // for testing
+    /**
+     * Constructs a new UserController object based on an existing UserManager. For testing
+     * @param userManager the UserManager that the controller will use
+     */
     public UserController(UserManager userManager){
         this.currentUserID = -1;
         this.userManager = userManager;
@@ -37,7 +40,7 @@ public class UserController {
 
     /**
      * Returns the userManager attribute of the User Controller
-     * @return userManager, the UserManager Attribute of the controler
+     * @return userManager, the UserManager Attribute of the controller
      */
     public UserManager getUserManager() {
         return userManager;
@@ -46,19 +49,21 @@ public class UserController {
     /**
      * Logs in the User based on the Username and Password entered by the User
      * if logs in, sets currentUserId to the id of the user logged in
-     * @return the type of the User that logged in, character
+     * @param username the proposed username of the user, String
+     * @param password  the proposed password of the user, String
+     * @return true if the user logged in successfully
      */
     public boolean userLogin(String username, String password){
         //if you need the old version of userLogin that returned UserType, use getUserType() instead
         this.currentUserID = userManager.validateLogin(username, password);  //-1 if user does not log in successfully
         return currentUserID >= 0;    //returns true only if user logs in successfully
-//false if user gets password or username wrong
+        //false if user gets password or username wrong
     }
 
     /**
      * Logs in the User based on the Username and Password entered by the User,
      * this specifically handles the user input
-     * @return the type of the User that logged in, character
+     * @return true or false based on sucessful login, boolean
      */
     public boolean userLogin(){
         // pls work
@@ -71,30 +76,19 @@ public class UserController {
         return userLogin(username, password);
     }
 
-
-    /*public UserType userLogin(String username, String password) {
-        int potentialID = userManager.validateLogin(username, password);
-        if (potentialID >= 0 ) {
-            currentUserId = potentialID;
-            System.out.println("Login Successful");
-            System.out.println("Your ID is " + currentUserId);
-            return userManager.getUserByID(currentUserId).getType();
-        } else {
-            System.out.println("Invalid username or password");
-            return null;
-        }
-    }*/
     /**
      * Takes in an UserID and checks the VIP status
+     * @param userID the ID of the user whose status will be checked, int
      * @return true if user is VIP
      */
     public boolean checkUserVIP(int userID){
         return getUserManager().checkVIP(userID);
     }
     /**
-     * Takes in an UserID and changes the VIP status
-     * @param userID: ID of the user we want to change status of
+     * Takes in an UserID and changes the VIP status to newVIPStatus
+     * @param userID: ID of the user we want to change status of, int
      * @param newVIPStatus the new VIP status, boolean
+     * @return true if the VIP status was changed, false if the status was already newVIPStatus
      */
     public boolean changeUserVIP(int userID, boolean newVIPStatus){
         if (getUserType() != UserType.ORGANIZER){
@@ -103,9 +97,10 @@ public class UserController {
         return userManager.changeVIP(userID, newVIPStatus);
     }
     /**
-     * Takes in an UserID and changes the VIP status
-     * @param username: username of the user we want to change status of
+     * Takes in an UserName rather than ID and changes the VIP status to newVIPStatus
+     * @param username: username of the user we want to change status of, String
      * @param newVIPStatus the new VIP status, boolean
+     * @return true if the VIP status was changed, false if the status was already newVIPStatus
      */
     public boolean changeUserVIP(String username, boolean newVIPStatus){
         int userID = userManager.getUserIDByUsername(username);
@@ -133,7 +128,7 @@ public class UserController {
     // This has to be a seperate function because you would validate the ID by converting
     // the username to a userId sucessfully
     /**
-     * Checks if a usernamethat is entered into the system belongs to an actual user.
+     * Checks if a username that is entered into the system belongs to an actual user.
      * @return the username that the User entered, String
      */
     public String validateUsernameInput(){
@@ -165,6 +160,10 @@ public class UserController {
      * Creates a new User Object with the right input of Username. returns true or false based on if
      * The User was successfully created or not. Cannot create a speaker unless an Organiser is
      * currently Logged in
+     * @param username the username of the new User, String
+     * @param password the pasword of the new user, String
+     * @param userType the type of the new User, UserType object
+     * @return  True if the user was successfully created, false if it was not created
      */
     public boolean createUser(String username, String password, UserType userType) {
         // userType provided by the presenter
@@ -187,65 +186,36 @@ public class UserController {
         }
         return false;
     }
-//             // Old implementation
-//        System.out.println("Enter Username of new User");
-//        String username = scanner.nextLine();
-//        System.out.println("Enter Password for new User");
-//        String password = scanner.nextLine();
-//        System.out.println("Enter The type of the User you want to create\n 1. Organizer \n 2. Attendee \n 3.Speaker");
-//        String userType = scanner.nextLine();
-//        switch(userType){
-//            case "1":
-//                if (userManager.createAccount(username, password, UserType.ORGANIZER)){
-//                    System.out.println("User successfully created");
-//                    userGateway.saveUserMap(userManager.getUserMap());
-//                    return true;
-//                }
-//                else{System.out.println("The Username must be unique.");
-//                return false;}
-//            case "2":
-//                if (validateNotLoggedIn() || userManager.getUserByID(currentUserID).getType() != UserType.ORGANIZER){
-//                    System.out.println("You need to be logged in as an Organizer to do this");
-//                    return false;
-//                }
-//                if (userManager.createAccount(username, password, UserType.ATTENDEE)){
-//                    System.out.println("User successfully created");
-//                    userGateway.saveUserMap(userManager.getUserMap());
-//                    return true;
-//                }
-//                else{System.out.println("The Username must be unique.");
-//                return false;}
-//            case "3":
-//                if (validateNotLoggedIn() || userManager.getUserByID(currentUserID).getType() != UserType.ORGANIZER){
-//                    System.out.println("You need to be logged in as an Organizer to do this");
-//                    return false;
-//                }
-//                if (userManager.createAccount(username, password, UserType.SPEAKER)){
-//                    System.out.println("User successfully created");
-//                    userGateway.saveUserMap(userManager.getUserMap());
-//                    return true;
-//                }
-//                else{System.out.println("The Username must be unique.");
-//                return false;}
-//                }
-//        System.out.println("That is not a valid option for type");
-//        return false;
-//    }
 
     /**
      * Returns true or false based on whether a valid user is currently logged into the controller
+     * @return  true if the user is not logged in while this controller is being used
      */
     public boolean validateNotLoggedIn(){
         return userManager.getUserByID(currentUserID) == null;
     }
 
+    /**
+     * Returns the ID of the user who is logged in and is using the UserController or -1 if not logged in
+     * @return  the currentUserID attribute, int
+     */
     public int getCurrentUserId(){
         return currentUserID;
     }
-
+    /**
+     * Calls on UserManager to send a friend request based on Username
+     * @param friendUsername UserName of friend you send request to, String
+     * @return true if the friend request was sent successfully, false if not
+     */
     public boolean sendFriendRequest(String friendUsername){
         return userManager.sendFriendRequest(currentUserID, friendUsername);
     }
+
+    /**
+     * Calls on UserManager to send a friend request based on Username
+     * @param friendID ID of friend you send request to, int
+     * @return true if the friend request was sent successfully, false if not
+     */
     public boolean sendFriendRequest(int friendID){
         return userManager.sendFriendRequest(currentUserID, friendID);
     }
@@ -287,10 +257,19 @@ public class UserController {
             }
         }
     }
-
+    /**
+     * Accepts a Friend request from the Current user's List of friend requests based on username.
+     * @param friendUsername : Username of friend whose request will be accepted, String
+     * @return true when the friend request is successfully accepted.
+     */
     public boolean acceptFriendRequest(String friendUsername){
         return userManager.acceptFriendRequest(currentUserID, friendUsername);
     }
+    /**
+     * Accepts a Friend request from the Current user's List of friend requests based on ID.
+     * @param friendID : ID of friend whose request will be accepted, int
+     * @return true when the friend request is successfully accepted.
+     */
     public boolean acceptFriendRequest(int friendID){
         return userManager.acceptFriendRequest(currentUserID, friendID);
     }
@@ -341,7 +320,7 @@ public class UserController {
 
     /**
      * Returns the char type associated with the current user
-     * @return getType() of current user
+     * @return getType() of current user, UserType
      */
     public UserType getUserType() {
         if (currentUserID >= 0)
@@ -349,36 +328,20 @@ public class UserController {
         else
             return null;
     }
-    /**
-     * Returns the ID of current user if logged in
-     * @return true or false based on logged in or not
-     */
-    public boolean printYourID(){
-        if (!validateNotLoggedIn()){
-            System.out.println(currentUserID);
-            return true;
-        }
-        return false;
-    }
 
     /**
-     * Returns the list containing all Speaker
+     * Returns the list containing all Speakers from the UserManager
      * @return A LinkedList with all Speakers
      */
     public LinkedList<User> getSpeakerList() {
         return userManager.getSpeakerList();
     }
 
-    public void setUserVIP(){
-        System.out.println("Enter the ID of user you want to add");
-        int userID = validateUserIDInput();
-        System.out.println("Enter the new VIP status of this User \n 1. VIP = True \n 2. VIP = False");
-        int userChoice = scanner.nextInt();
-        getUserManager().changeVIP(userID, userChoice == 1);
-        // 1 to set to true, anything else to set to false
-    }
-
     //gets friends list of logged on user, might need to account for no logged on user
+    /**
+     * Interacts with UserManager to return a list of IDs which are the friends of the logged in User.
+     * @return The list of Friend Ids, List of integers
+     **/
     public List<Integer> getFriendsList(){
         return userManager.getUserByID(currentUserID).getFriendsList();
     }
@@ -408,34 +371,5 @@ public class UserController {
         User currUser = userManager.getUserByID(currentUserID);
         return currUser.getUsername();
     }
-    /**
-     * Interacts with user and asks for input for which user related action the user would like to take then performs
-     * actions related to events based on that input.
-     * @param currentUserId The id of the user its interacting with
-     **/
-    /*public void run(int currentUserId){
-        Scanner reader = new Scanner(System.in);
-        Scanner reader2 = new Scanner(System.in);
-
-        up.printMenu();
-        String UserInput = reader2.nextLine();
-
-        while(!UserInput.equals("0")){
-            switch (UserInput){
-                case "1":
-                    up.printList(userManager.getUserByID(currentUserId).getFriendsList());
-                    UserInput="0";
-                    break;
-                case "2":
-                    up.printList(userManager.getUserByID(currentUserId).getFriendRequestList());
-                    UserInput="0";
-                    break;
-                default:
-                    System.out.println("Try again");
-                    up.printMenu();
-                    break;
-            }
-        }
-    }*/
 
 }

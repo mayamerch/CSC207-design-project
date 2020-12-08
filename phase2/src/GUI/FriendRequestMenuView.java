@@ -49,7 +49,7 @@ public class FriendRequestMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // check for login first, on left side of if statement
-                if (checkLoggedIn() && acceptFriendRequest()){
+                if (acceptFriendRequest()){
                     FriendLabel.setText("You have now added each other as friends");
                 }
                 else{FriendLabel.setText("This person has not sent you a request");}
@@ -58,7 +58,7 @@ public class FriendRequestMenuView extends JFrame{
         sendFriendRequestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (checkLoggedIn() && sendFriendRequest()){
+                if (sendFriendRequest()){
                     FriendLabel.setText("Friend Request Sent");
                 }
                 else{FriendLabel.setText("Invalid Username");}
@@ -74,27 +74,23 @@ public class FriendRequestMenuView extends JFrame{
         });
     }
 
-    public void displayUserList(List<String> userList){
+    private void displayUserList(List<String> userList){
         DefaultListModel<String> friendDisplay = new DefaultListModel();
         for (String x: userList){
             friendDisplay.addElement(x);
         }
         list1.setModel(friendDisplay);
     }
-    public boolean sendFriendRequest(){
+    private boolean sendFriendRequest(){
         String username = userNameTextField.getText();
         return presenter.sendFriendRequest(username);
     }
-    public boolean acceptFriendRequest(){
+    private boolean acceptFriendRequest(){
         String username = userNameTextField.getText();
         return presenter.acceptFriendRequest(username);
     }
-    public boolean checkLoggedIn(){
+    private boolean checkLoggedIn(){
         return !presenter.checkNotLoggedIn();
     }
 
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
 }

@@ -62,7 +62,7 @@ public class CreateAccountMenuView extends JFrame {
             }
         });
     }
-    public boolean createAccount(String userType){
+    private boolean createAccount(String userType){
         String username = usernameField.getText();
         String password = passwordField.getText();
         return presenter.createAccount(username, password, userType);

@@ -54,7 +54,7 @@ public class LoginView extends JFrame{
 
     //might not need this if the constructor works
 
-    public boolean login(){
+    private boolean login(){
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         return presenter.userLogin(username, password);

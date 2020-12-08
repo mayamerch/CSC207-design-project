@@ -42,10 +42,10 @@ public class VIPMenuView extends JFrame {
             }
             });
     }
-    public boolean makeVIP(String userInput){
+    private boolean makeVIP(String userInput){
         return presenter.changeVIP(userInput, true);
         }
-    public boolean removeVIP(String userInput){
+    private boolean removeVIP(String userInput){
         return presenter.changeVIP(userInput, false);
     }
 }

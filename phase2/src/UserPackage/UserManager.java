@@ -22,6 +22,7 @@ public class UserManager implements Serializable {
     /**
      * Creates a UserManager with an existing Linked list of Users and a user factory, and sets UsersCreated
      * and sets the UserHashMap, AttendeeList, OrganiserList and SpeakerList accordingly
+     * @param map the hashmap of UserID keys and User values
      */
     public UserManager(Map<Integer,User> map){
         userMap = map;
@@ -49,6 +50,7 @@ public class UserManager implements Serializable {
      * @param newUsername: The username of the new account, String
      * @param newPassword : The password of the new account, String
      * @param usertype: a character specifying the type of user to be created
+     * @return returns true if the account was created successfully, false if not
      */
     public boolean createAccount(String newUsername, String newPassword, UserType usertype){
         if(!Character.isLetter(newUsername.charAt(0)))
@@ -79,12 +81,20 @@ public class UserManager implements Serializable {
         return false;
     }
     //used to check if the user is what it's expected to be
+    /**
+     * Validates Username and Password of User whose ID is id after account creation (not Login)
+     * @param username: the proposed username of the user, String
+     * @param password : the proposed password of the user, String
+     * @param id: The ID of the User whose information you are trying to access, int
+     * @return true username and password match the username and password of the user with ID id
+     */
     private boolean checkUserInfo(int id, String username, String password){
         return getUserByID(id).getUsername().equals(username) && getUserByID(id).getPassword().equals(password);
     }
     /**
-     * Checks the userList to see if any user already has this username, returning true or false
+     * Checks the userMap to see if any user already has this username, returning true or false
      * @param username: The username of the new account, String
+     * @return true if the username has not been used yet
      */
     private boolean checkUnusedUsername(String username){
         for (User x: userMap.values()){
@@ -101,10 +111,18 @@ public class UserManager implements Serializable {
      * @param username: The String entered as username of the account,
      * @param password : The String entered as the password of the account,
      * @param user: an instance of User the person is trying to log into
+     * @return true if the information matches that of the User user
      */
-    public boolean validateLogin(User user, String username, String password){
+    private boolean validateLogin(User user, String username, String password){
         return ((user.getUsername().equalsIgnoreCase(username)) && (user.getPassword().equals(password)));
     }
+    /**
+     * Takes a possible username and password combination and check to see if they match
+     * the username and password stored any the instance of user
+     * @param username: The String entered as username of the account,
+     * @param password : The String entered as the password of the account,
+     * @return true if the information matches that of any User
+     */
     public int validateLogin(String username, String password){
         for (User x : userMap.values()){
             if (validateLogin(x, username, password))
@@ -146,7 +164,7 @@ public class UserManager implements Serializable {
     }
     /**
      * Takes in an UserID and changes the VIP status
-     * @param userID: ID of the user we want to find
+     * @param userID: ID of the user whose VIP status we want to change
      * @param newBoolean the new VIP status, boolean
      */
     public boolean changeVIP(int userID, boolean newBoolean){
@@ -158,6 +176,7 @@ public class UserManager implements Serializable {
     }
     /**
      * Takes in an UserID and checks the VIP status
+     * @param userID the ID of the user whose VIP status we want to check
      * @return true if user is VIP
      */
     public boolean checkVIP(int userID){
@@ -181,12 +200,12 @@ public class UserManager implements Serializable {
 
 
     /**
-     * Takes in the ID of the current user and the ID of the user to be added as a friend then
+     * Helper method. Takes in the ID of the current user and the ID of the user to be added as a friend then
      * modifies both user's friend lists accordingly
      * @param userID: ID of current user, integer
      * @param friendID: ID of friend to be added, integer
      */
-    private boolean addFriend(int userID, int friendID){
+    private void addFriend(int userID, int friendID){
         User currentUser, friend;
         currentUser = getUserByID(userID);
         friend = getUserByID(friendID);
@@ -196,15 +215,18 @@ public class UserManager implements Serializable {
         currentUser.addFriend(friend.getUserID());
         friend.addFriend(currentUser.getUserID());
 
-        //returns true if currentUser has successfully added someone to friendsList
-        return currentUser.getFriendsList().size() > currentUserFriendListSizeBeforeAdding;
+        // in past, returned true if currentUser has successfully added someone to friendsList
+        // return currentUser.getFriendsList().size() > currentUserFriendListSizeBeforeAdding;
     }
     /**
      * Takes in the ID of the current user and the ID of the user to be added as a friend then
      * sends a friend request and modifies the friend's friend request list to include the ID
      * of the current User. Returns true if successful.
+     * It will not send a friend request to a user of the same ID, someone in the User's friends
+     * or friend requests List, or if the user has already sent a friend request to this person
      * @param userID: ID of current user, integer
      * @param friendID: ID of friend to be added, integer
+     * @return  true if friend request successfully sent
      */
     public boolean sendFriendRequest(int userID, int friendID){
         User friend;
@@ -235,12 +257,27 @@ public class UserManager implements Serializable {
         friend.addFriendRequest(userID);
         return true;
     }
-
+    /**
+     * Takes in the ID of the current user and the Username of the user to be added as a friend then
+     * sends a friend request and modifies the friend's friend request list to include the ID
+     * of the current User. Returns true if successful.
+     * @param userID: ID of current user, integer
+     * @param friendUsername: Username of friend to be added, String
+     * @return  true if friend request successfully sent
+     */
     public boolean sendFriendRequest(int userID, String friendUsername){
         return sendFriendRequest(userID, getUserIDByUsername(friendUsername));
     }
 
     //this method will likely not ever get used, just based on how being logged on works
+    /**
+     * Takes in the Username of the current user and the Username of the user to be added as a friend then
+     * sends a friend request and modifies the friend's friend request list to include the ID
+     * of the current User. Returns true if successful.
+     * @param username: username of current user, String
+     * @param friendUsername: Username of friend to be added, String
+     * @return  true if friend request successfully sent
+     */
     public boolean sendFriendRequest(String username, String friendUsername){
         return sendFriendRequest(getUserIDByUsername(username), getUserIDByUsername(friendUsername));
     }
@@ -250,6 +287,7 @@ public class UserManager implements Serializable {
      * accepts the friend request from the user whose ID is friend ID. Returns True if successful
      * @param userID: ID of current user, integer
      * @param friendID: ID of friend to be added, integer
+     * @return if friend request accepted successfully, false if User with friendID not in request list
      */
     public boolean acceptFriendRequest(int userID, int friendID){
         User currentUser = getUserByID(userID);
@@ -265,25 +303,30 @@ public class UserManager implements Serializable {
         return false;
         // This means the friend is not in the friend request list
     }
-
+    /**
+     * Takes in the userID of the current user and the username of the user to be added as a friend then
+     * accepts the friend request from the user whose Username is friendUsername. Returns True if successful
+     * @param userID: ID of current user, integer
+     * @param friendUsername: Username of friend to be added, String
+     * @return if friend request accepted successfully, false if User with friendID not in request list
+     */
     public boolean acceptFriendRequest(int userID, String friendUsername){
         int friendID = getUserIDByUsername(friendUsername);
         return acceptFriendRequest(userID, friendID);
     }
 
     //this method will likely not ever get used, just based on how being logged on works
+    /**
+     * Takes in the username of the current user and the username of the user to be added as a friend then
+     * accepts the friend request from the user whose Username is friendUsername. Returns True if successful
+     * @param username: Username of current user, String
+     * @param friendUsername: Username of friend to be added, String
+     * @return if friend request accepted successfully, false if User with friendID not in request list
+     */
     public boolean acceptFriendRequest(String username, String friendUsername){
         int userID = getUserIDByUsername(username);
         int friendID = getUserIDByUsername(friendUsername);
         return acceptFriendRequest(userID, friendID);
-    }
-
-
-    public List<Integer> getFriendsListOfUser(int userID){
-        return getUserByID(userID).getFriendsList();
-    }
-    public List<Integer> getFriendRequestListOfUser(int userID){
-        return getUserByID(userID).getFriendRequestList();
     }
 
     /**
