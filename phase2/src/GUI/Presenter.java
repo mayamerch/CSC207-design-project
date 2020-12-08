@@ -1,6 +1,9 @@
 package GUI;
 
 import EventPackage.EventOuterLayer.EventPresenter;
+import MessagePackage.BroadcastController;
+import MessagePackage.ChatroomController;
+import MessagePackage.ConversationPresenter;
 import UserPackage.UserController;
 import EventPackage.EventOuterLayer.EventController;
 import UserPackage.UserManager;
@@ -16,10 +19,17 @@ public class Presenter {
     private UserPresenter userPresenter;
     private EventController eventController;
     private EventPresenter eventPresenter;
+    private BroadcastController broadcastController;
+    private ChatroomController chatroomController;
+    private ConversationPresenter conversationPresenter;
+
 
     public Presenter(){
         this.userController = new UserController();
         this.userPresenter = new UserPresenter(userController.getUserManager());
+        this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
+        this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
+        this.conversationPresenter = new ConversationPresenter();
     }
 
     // for testing purposes
@@ -100,5 +110,19 @@ public class Presenter {
                 return userController.changeUserVIP(userID, newVIPStatus);}
             return userController.changeUserVIP(username, newVIPStatus);
         }
+
+     // message package
+        public boolean displayMessages(){
+            return true;
+        }
+
+        public boolean sendMessage(){
+            return true;
+        }
+
+        public boolean sendBroadcasts(){
+            return true;
+        }
+
 
 }
