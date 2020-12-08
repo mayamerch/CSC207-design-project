@@ -25,6 +25,14 @@ public class Broadcast implements Conversation, Serializable {
         this.eventManager = eventManager;
     }
 
+
+    /**
+     * Create a broadcast from an Organizer to a specific group of people (Speakers or Attendees), rather than to an Event
+     * @param senderUserID the ID of the Organizer sending the broadcast
+     * @param recipients a list of all Users being broadcasted to
+     */
+    public Broadcast(int senderUserID, ArrayList<Integer> recipients){}
+
     /**
      * Create a broadcast from existing saved broadcast (from BroadcastDataFile)
      * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast

@@ -78,17 +78,31 @@ public class ChatroomController {
                 return true; // organizers can message everyone
             }
 
+            /*
             else if(sender.getType() == UserType.SPEAKER){
                 for(Event e: eventManager.speakingAt(senderUserID)){
                     if(e.getEventAttendees().contains(user)){
                         return true; // speakers can message people at their events
                     }
                 }
-            }
+            }*/
 
             else if(!sender.getFriendsList().contains(user) || !recipient.getFriendsList().contains(senderUserID)){ // if someone is not a friend of the sender
                 return false; // can't send message to someone who isn't your friend
             }
+
+        // TODO: checks that everyone is friends with everyone else?
+        /*for(int i = 0; i < userlist.size(); i++){
+            for(int j = 0; j < userlist.size(); j++){
+                User user1 = userManager.getUserByID(userlist.get(i));
+                User user2 = userManager.getUserByID(userlist.get(j));
+                if(i !=j && (!user1.getFriendsList().contains(user2) || !user2.getFriendsList().contains(user1))){
+                    return false;
+                }
+            }
+        }
+        */
+
         }
         return true;
     }
@@ -166,11 +180,9 @@ public class ChatroomController {
         return s.toString();
     }
 
-    /**
-     * Sends a chat to all Speakers at the conference
-     * @param organizerUserID the ID of the Organizer sending the chat
-     * @param message the message being sent as a chat
-     */
+
+// TODO: changed these into a Broadcast so delete:
+/*
     public void messageAllSpeakers(int organizerUserID, String message){
         ArrayList<Integer> speakers = eventManager.getAllSpeakers();
         for(int speaker: speakers){
@@ -185,11 +197,7 @@ public class ChatroomController {
         }
     }
 
-    /**
-     * Sends a chat to everyone at the conference
-     * @param organizerUserID the ID of the Organizer sending the chat
-     * @param message the message being sent as a chat
-     */
+
     public void messageAllAttendees(int organizerUserID, String message){
         ArrayList<Integer> attendees = eventManager.getAllAttendees();
         // TODO: how to make all organizers friends with everyone:
@@ -203,7 +211,7 @@ public class ChatroomController {
         else{
             throw new Error("Only organizers can send messages to all attendees.");
         }
-    }
+    }*/
 
 }
 

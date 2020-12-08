@@ -88,28 +88,16 @@ public class BroadcastController {
     }
 
     /**
-     * Sends a broadcast to everyone participating in the entire conference
-     * @param organizerUserID the organizer who will be sending the broadcast
-     * @param message the message to be broadcasted to the conference
-     */
-    // TODO: remove this method (changed to a chat)
-    public void broadcastConference(int organizerUserID, String message){
-        if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
-            for (Event e : eventManager.getEventList()) {
-                sendBroadcast(organizerUserID, e.getEventId(), message);
-            }
-        }
-        else{
-            throw new Error("Only organizers can broadcast to the entire conference.");
-        }
-    }
-
-    /**
-     * Sends a message in an existing Broadcast, or creates a new one if it doesn't exist
+     * Sends a message in an existing Broadcast to an Event, or creates a new one if it doesn't exist
      * @param senderUserID the ID of the user who is sending the broadcast
      * @param eventID the ID of the event at which all the attendees are receiving the broadcast
+     * @param message the message being broadcasted to the Event
      */
-    public void sendBroadcast(int senderUserID, int eventID, String message){
+    public void sendBroadcastToEvent(int senderUserID, int eventID, String message){
+        if(userManager.getUserByID(senderUserID).getType() == UserType.ATTENDEE){
+            throw new Error("Attendees cannot send broadcasts");
+        }
+
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         broadcasters.add(senderUserID);
         Broadcast b = createNewBroadcast(senderUserID, eventID);
@@ -131,6 +119,53 @@ public class BroadcastController {
     }
 
     /**
+     * Sends a message in an existing Broadcast to all Attendees, or creates a new one if it doesn't exist
+     * @param organizerUserID the ID of the user who is sending the broadcast
+     * @param message the message being broadcasted to all Attendees
+     */
+    public void sendBroadcastToAttendees(int organizerUserID, String message){
+        if(!(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER)){
+            throw new Error("Only Organizers can Broadcast to Attendees");
+        }
+
+        Broadcast b = new Broadcast(organizerUserID, eventManager.getAllAttendees());
+        for(Broadcast broadcast: broadcasts){
+            if(broadcast.equals(b)){
+                broadcast.sendMessage(message, organizerUserID);
+                System.out.println("Your broadcast has been sent.");
+                return;
+            }
+        }
+        b.sendMessage(message, organizerUserID);
+        broadcasts.add(b);
+        System.out.println("Your broadcast has been sent.");
+    }
+
+    /**
+     * Sends a message in an existing Broadcast to all Speakers, or creates a new one if it doesn't exist
+     * @param organizerUserID the ID of the user who is sending the broadcast
+     * @param message the message being broadcasted to all Speakers
+     */
+    public void sendBroadcastToSpeakers(int organizerUserID, String message){
+        if(!(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER)){
+            throw new Error("Only Organizers can Broadcast to Speakers");
+        }
+
+        Broadcast b = new Broadcast(organizerUserID, eventManager.getAllSpeakers());
+        for(Broadcast broadcast: broadcasts){
+            if(broadcast.equals(b)){
+                broadcast.sendMessage(message, organizerUserID);
+                System.out.println("Your broadcast has been sent.");
+                return;
+            }
+        }
+        b.sendMessage(message, organizerUserID);
+        broadcasts.add(b);
+        System.out.println("Your broadcast has been sent.");
+    }
+
+
+    /**
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
      */
@@ -140,7 +175,7 @@ public class BroadcastController {
         }
         else {
             for(int eventID: speaker.getTalksList()){
-                sendBroadcast(speaker.getUserID(), eventID, message);
+                sendBroadcastToEvent(speaker.getUserID(), eventID, message);
             }
         }
     }
@@ -185,4 +220,19 @@ public class BroadcastController {
         }
         return s.toString();
     }
+
+
+    /*
+    // TODO: remove this method (changed to broadcastAllAttendees method)
+    public void broadcastConference(int organizerUserID, String message){
+        if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
+            for (Event e : eventManager.getEventList()) {
+                sendBroadcast(organizerUserID, e.getEventId(), message);
+            }
+        }
+        else{
+            throw new Error("Only organizers can broadcast to the entire conference.");
+        }
+    }
+    */
 }
