@@ -216,7 +216,7 @@ public class UserTest {
         assertFalse("Creates Speaker as Attendee", accountCreated2);
     }
     // ====================== Presenter Tests =====================
-    @Test(timeout = 50)
+    @Test(timeout = 70)
     public void testPresenterSendAndAcceptFriendRequest(){
         UserManager userManager = new UserManager();
         userManager.createAccount("user1", "user1", UserType.ORGANIZER);
