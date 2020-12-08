@@ -399,6 +399,16 @@ public class UserController {
     }
 
     /**
+     * Returns username of currently logged in user
+     * @return Username of current userID of empty string if no one is logged in
+     */
+    public String getUsername() {
+        if (currentUserID == 0)
+            return "";
+        User currUser = userManager.getUserByID(currentUserID);
+        return currUser.getUsername();
+    }
+    /**
      * Interacts with user and asks for input for which user related action the user would like to take then performs
      * actions related to events based on that input.
      * @param currentUserId The id of the user its interacting with

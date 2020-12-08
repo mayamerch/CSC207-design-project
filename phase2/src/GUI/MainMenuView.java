@@ -42,6 +42,7 @@ public class MainMenuView extends JFrame{
         this.pack();
 
         this.userController = presenter.getUserController();
+        this.usernameIDLabel.setText(userController.getUsername() + "<" + userController.getCurrentUserId() + ">");
         this.presenter = presenter;
         this.eventPresenter = presenter.getEventPresenter();
 
@@ -61,25 +62,16 @@ public class MainMenuView extends JFrame{
                 UserType userType = userController.getUserType();
                 if (userType == UserType.ATTENDEE) {
                     AttendeeEventView attendeeEventView = new AttendeeEventView(eventPresenter);
-                    attendeeEventView.setContentPane(attendeeEventView.getMainPanel());
-                    attendeeEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    attendeeEventView.pack();
                     attendeeEventView.setVisible(true);
                 }
 
                 else if (userType == UserType.ORGANIZER) {
                     OrganizerEventView organizerEventView = new OrganizerEventView(eventPresenter);
-                    organizerEventView.setContentPane(organizerEventView.getMainPanel());
-                    organizerEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    organizerEventView.pack();
                     organizerEventView.setVisible(true);
                 }
 
                 else {
                     SpeakerEventView speakerEventView = new SpeakerEventView(eventPresenter);
-                    speakerEventView.setContentPane(speakerEventView.getMainPanel());
-                    speakerEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    speakerEventView.pack();
                     speakerEventView.setVisible(true);
                 }
             }

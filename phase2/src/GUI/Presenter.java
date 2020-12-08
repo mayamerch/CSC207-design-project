@@ -6,7 +6,6 @@ import EventPackage.EventOuterLayer.EventController;
 import UserPackage.UserManager;
 import UserPackage.UserPresenter;
 import UserPackage.UserType;
-import MessagePackage.*;
 
 import java.util.List;
 // import MessagePackage.BroadcastController;
@@ -17,21 +16,10 @@ public class Presenter {
     private UserPresenter userPresenter;
     private EventController eventController;
     private EventPresenter eventPresenter;
-    private BroadcastController broadcastController;
-    private ChatroomController chatroomController;
-    private ConversationPresenter conversationPresenter;
 
     public Presenter(){
         this.userController = new UserController();
         this.userPresenter = new UserPresenter(userController.getUserManager());
-
-        int userID = userController.getCurrentUserId();
-        this.eventController = new EventController(userID, userController.checkUserVIP(userID), userController.getSpeakerIds());
-        this.eventPresenter = new EventPresenter(eventController);
-
-        this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
-        this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
-        this.conversationPresenter = new ConversationPresenter();
     }
 
     // for testing purposes
@@ -43,7 +31,17 @@ public class Presenter {
     public EventPresenter getEventPresenter(){return this.eventPresenter;}
 
     public boolean userLogin(String username, String password){
-        return userController.userLogin(username, password);
+        boolean login = userController.userLogin(username, password);
+        if (login){
+            instantiateEventControllerAndPresenter(userController.getCurrentUserId());
+            return true;
+        }
+        return false;
+    }
+    private void instantiateEventControllerAndPresenter(int userID){
+        this.eventController = new EventController(userID, userController.checkUserVIP(userID),
+                userController.getSpeakerIds());
+        this.eventPresenter = new EventPresenter(eventController);
     }
     public void userLogOut(){ userController.logOut();}
     public boolean sendFriendRequest(String username){
@@ -102,20 +100,5 @@ public class Presenter {
                 return userController.changeUserVIP(userID, newVIPStatus);}
             return userController.changeUserVIP(username, newVIPStatus);
         }
-
-
-        // message package
-        public boolean displayMessages(){
-            return true;
-        }
-
-        public boolean sendMessage(){
-            return true;
-        }
-
-        public boolean sendBroadcasts(){
-            return true;
-        }
-
 
 }
