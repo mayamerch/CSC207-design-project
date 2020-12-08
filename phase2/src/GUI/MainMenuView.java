@@ -42,6 +42,7 @@ public class MainMenuView extends JFrame{
         this.pack();
 
         this.userController = presenter.getUserController();
+        this.usernameIDLabel.setText(userController.getUsername() + "<" + userController.getCurrentUserId() + ">");
         this.presenter = presenter;
         this.eventPresenter = presenter.getEventPresenter();
 
