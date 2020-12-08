@@ -37,6 +37,11 @@ public class OrganizerEventView extends JFrame{
      * @param eventPresenter1 EventPresenter to be used in this view
      */
     public OrganizerEventView(EventPresenter eventPresenter1) {
+        super();
+        this.setContentPane(getMainPanel());
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.pack();
+
         eventPresenter = eventPresenter1;
 
         seeEvents.addActionListener(new ActionListener() {

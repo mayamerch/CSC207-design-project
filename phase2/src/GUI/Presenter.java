@@ -20,10 +20,6 @@ public class Presenter {
     public Presenter(){
         this.userController = new UserController();
         this.userPresenter = new UserPresenter(userController.getUserManager());
-        int userID = userController.getCurrentUserId();
-        this.eventController = new EventController(userID, userController.checkUserVIP(userID),
-                userController.getSpeakerIds());
-        this.eventPresenter = new EventPresenter(eventController);
     }
 
     // for testing purposes
@@ -35,7 +31,17 @@ public class Presenter {
     public EventPresenter getEventPresenter(){return this.eventPresenter;}
 
     public boolean userLogin(String username, String password){
-        return userController.userLogin(username, password);
+        boolean login = userController.userLogin(username, password);
+        if (login){
+            instantiateEventControllerAndPresenter(userController.getCurrentUserId());
+            return true;
+        }
+        return false;
+    }
+    private void instantiateEventControllerAndPresenter(int userID){
+        this.eventController = new EventController(userID, userController.checkUserVIP(userID),
+                userController.getSpeakerIds());
+        this.eventPresenter = new EventPresenter(eventController);
     }
     public void userLogOut(){ userController.logOut();}
     public boolean sendFriendRequest(String username){
