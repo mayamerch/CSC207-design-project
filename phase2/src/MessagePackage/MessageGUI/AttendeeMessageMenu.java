@@ -25,29 +25,27 @@ public class AttendeeMessageMenu extends JFrame {
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(presenter.()){
-                    displayUserList(presenter.displayFriendList());}
-                else{FriendLabel.setText("Need to be logged in");}
+                setVisible(true);
             }
         });
 
         sendMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisible(true);
             }
         });
 
         checkBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisible(true);
             }
         });
 
+    }
 
-        public void showMessages(){
-            for(){
-            }
-            setModel();
-        }
+    public void showMessages(){
+
     }
 }

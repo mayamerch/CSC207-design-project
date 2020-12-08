@@ -193,16 +193,18 @@ public class Presenter {
     }
 
         // message package
-        public boolean displayMessages(){
-            return true;
+        public void displayMessages(){
+            int userID = 5;//Integer.parseInt(username);
+            conversationPresenter.printChats(chatroomController, userID);
         }
 
-        public boolean sendMessages(){
-            return true;
+        public void sendMessages(){
+            //conversationPresenter;
         }
 
-        public boolean sendBroadcasts(){
-            return true;
+        public void sendBroadcasts(){
+            int userID = 5;//Integer.parseInt(username);
+            conversationPresenter.printBroadcasts(broadcastController, userID);
         }
 
 
