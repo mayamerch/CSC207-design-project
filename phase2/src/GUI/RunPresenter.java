@@ -36,12 +36,13 @@ public class RunPresenter {
         Presenter presenter = new Presenter(userController.getUserManager());
         // make a new user controller using the user manager from the old userController
         LoginView loginView = new LoginView(presenter);
-        while (userController.validateNotLoggedIn()) {
-            loginView.setVisible(true);
-        }
-        loginView.setVisible(false);
-        loginView.dispose();
-        MainMenuView mainMenuView = new MainMenuView(presenter);
-        mainMenuView.setVisible(true);
+        loginView.setVisible(true);
+//        while (userController.validateNotLoggedIn()) {
+//            loginView.setVisible(true);
+//        }
+//        loginView.setVisible(false);
+//        loginView.dispose();
+//        MainMenuView mainMenuView = new MainMenuView(presenter);
+//        mainMenuView.setVisible(true);
     }
 }

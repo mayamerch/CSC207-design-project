@@ -27,6 +27,7 @@ public class MainMenuView extends JFrame{
 
     private UserController userController;
     private Presenter presenter;
+    private EventPresenter eventPresenter;
 
     public MainMenuView(Presenter presenter) {
         //this code is super incomplete
@@ -36,12 +37,13 @@ public class MainMenuView extends JFrame{
         //also, we don't need to pass a user controller, feel free to
         //to remove userController stuff
         super();
-        this.userController = presenter.getUserController();
-        this.presenter = presenter;
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainMenuPanel);
         this.pack();
+
+        this.userController = presenter.getUserController();
+        this.presenter = presenter;
+        this.eventPresenter = presenter.getEventPresenter();
 
         logoutButton.addActionListener(new ActionListener() {
             @Override
@@ -49,22 +51,14 @@ public class MainMenuView extends JFrame{
 
                 userController.logOut();
                 setVisible(false);
-                new LoginView(presenter);
+                LoginView loginView = new LoginView(presenter);
+                loginView.setVisible(true);
             }
         });
         eventsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int userid = userController.getCurrentUserId();
-                boolean userVip = userController.getUserManager().getUserByID(userid).getVIP();
-                ArrayList<Integer> speakerIds = new ArrayList<>();
-                for (User user: userController.getSpeakerList()) {
-                    speakerIds.add(user.getUserID());
-                }
                 UserType userType = userController.getUserType();
-                EventController eventController = new EventController(userid, userVip, speakerIds);
-                EventPresenter eventPresenter = new EventPresenter(eventController);
-
                 if (userType == UserType.ATTENDEE) {
                     AttendeeEventView attendeeEventView = new AttendeeEventView(eventPresenter);
                     attendeeEventView.setContentPane(attendeeEventView.getMainPanel());
@@ -95,7 +89,8 @@ public class MainMenuView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if (checkLoggedIn()){
                     setVisible(false);
-                    new FriendRequestMenuView(presenter);
+                    FriendRequestMenuView friendRequestMenuView = new FriendRequestMenuView(presenter);
+                    friendRequestMenuView.setVisible(true);
                 }
 
             }

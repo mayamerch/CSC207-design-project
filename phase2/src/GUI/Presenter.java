@@ -1,5 +1,6 @@
 package GUI;
 
+import EventPackage.EventOuterLayer.EventPresenter;
 import UserPackage.UserController;
 import EventPackage.EventOuterLayer.EventController;
 import UserPackage.UserManager;
@@ -13,10 +14,16 @@ import java.util.List;
 public class Presenter {
     private UserController userController;
     private UserPresenter userPresenter;
+    private EventController eventController;
+    private EventPresenter eventPresenter;
 
     public Presenter(){
         this.userController = new UserController();
         this.userPresenter = new UserPresenter(userController.getUserManager());
+        int userID = userController.getCurrentUserId();
+        this.eventController = new EventController(userID, userController.checkUserVIP(userID),
+                userController.getSpeakerIds());
+        this.eventPresenter = new EventPresenter(eventController);
     }
 
     // for testing purposes
@@ -25,6 +32,7 @@ public class Presenter {
         this.userPresenter = new UserPresenter(userController.getUserManager());
     }
     public UserController getUserController(){return this.userController;}
+    public EventPresenter getEventPresenter(){return this.eventPresenter;}
 
     public boolean userLogin(String username, String password){
         return userController.userLogin(username, password);

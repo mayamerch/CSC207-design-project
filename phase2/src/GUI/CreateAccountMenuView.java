@@ -15,10 +15,16 @@ public class CreateAccountMenuView extends JFrame {
     private JLabel usernameLabel;
     private JLabel passwordLabel;
     private JLabel conditionLabel;
+    private JPanel createAccountPanel;
 
     private Presenter presenter;
 
     public CreateAccountMenuView(Presenter presenter) {
+        super();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(createAccountPanel);
+        this.pack();
+
         this.presenter = presenter;
         createAttendeeButton.addActionListener(new ActionListener() {
             @Override
@@ -51,7 +57,8 @@ public class CreateAccountMenuView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new LoginView(presenter);
+                LoginView loginView = new LoginView(presenter);
+                loginView.setVisible(true);
             }
         });
     }

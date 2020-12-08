@@ -20,10 +20,11 @@ public class LoginView extends JFrame{
 
     public LoginView(Presenter presenter) {
         super();
-        this.presenter = presenter;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(loginPanel);
         this.pack();
+
+        this.presenter = presenter;
 
         enterButton.addActionListener(new ActionListener() {
             @Override
@@ -33,7 +34,9 @@ public class LoginView extends JFrame{
                 if (loggedIn){
                     loginLabel.setText("Logged in");
                     setVisible(false);
-                    new MainMenuView(presenter);
+                    MainMenuView mainMenuView = new MainMenuView(presenter);
+                    mainMenuView.setVisible(true);
+
                 }
                 else
                     loginLabel.setText("login failed");
@@ -43,7 +46,8 @@ public class LoginView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new CreateAccountMenuView(presenter);
+                CreateAccountMenuView createAccountMenuView = new CreateAccountMenuView(presenter);
+                createAccountMenuView.setVisible(true);
             }
         });
     }

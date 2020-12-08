@@ -1,5 +1,6 @@
 package UserPackage;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -383,6 +384,18 @@ public class UserController {
     }
     public List<Integer> getFriendRequestList(){
         return userManager.getUserByID(currentUserID).getFriendRequestList();
+    }
+    /**
+     * Interacts with UserManager to return a list of speaker IDs from a list of Speakers.
+     * @return The list of Speaker Ids, ArrayList
+     **/
+    public ArrayList<Integer> getSpeakerIds(){
+        LinkedList<User> speakerList = userManager.getSpeakerList();
+        ArrayList<Integer> speakerIds = new ArrayList<>();
+        for (User user: speakerList) {
+            speakerIds.add(user.getUserID());
+        }
+        return speakerIds;
     }
 
     /**
