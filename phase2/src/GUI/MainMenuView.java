@@ -6,6 +6,7 @@ import EventPackage.EventGUI.UserMenus.OrganizerEventView;
 import EventPackage.EventGUI.UserMenus.SpeakerEventView;
 import EventPackage.EventOuterLayer.EventController;
 import EventPackage.EventOuterLayer.EventPresenter;
+import EventPackage.EventOuterLayer.EventProgramPresenter;
 import MessagePackage.MessageGUI.AttendeeMessageMenu;
 import MessagePackage.MessageGUI.OrganizerMessageMenu;
 import MessagePackage.MessageGUI.SpeakerMessageMenu;
@@ -67,18 +68,19 @@ public class MainMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserType userType = userController.getUserType();
+                EventProgramPresenter programPresenter = presenter.getProgramPresenter();
                 if (userType == UserType.ATTENDEE) {
-                    AttendeeEventView attendeeEventView = new AttendeeEventView(eventPresenter);
+                    AttendeeEventView attendeeEventView = new AttendeeEventView(eventPresenter, programPresenter);
                     attendeeEventView.setVisible(true);
                 }
 
                 else if (userType == UserType.ORGANIZER) {
-                    OrganizerEventView organizerEventView = new OrganizerEventView(eventPresenter);
+                    OrganizerEventView organizerEventView = new OrganizerEventView(eventPresenter,programPresenter);
                     organizerEventView.setVisible(true);
                 }
 
                 else {
-                    SpeakerEventView speakerEventView = new SpeakerEventView(eventPresenter);
+                    SpeakerEventView speakerEventView = new SpeakerEventView(eventPresenter,programPresenter);
                     speakerEventView.setVisible(true);
                 }
             }

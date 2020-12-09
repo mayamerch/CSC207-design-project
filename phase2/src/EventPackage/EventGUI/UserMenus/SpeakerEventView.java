@@ -1,9 +1,12 @@
 package EventPackage.EventGUI.UserMenus;
 
+import EventPackage.EventEntities.Event;
 import EventPackage.EventGUI.EventsView;
+import EventPackage.EventGUI.ExportProgramView;
 import EventPackage.EventGUI.RoomView;
 import EventPackage.EventOuterLayer.EventController;
 import EventPackage.EventOuterLayer.EventPresenter;
+import EventPackage.EventOuterLayer.EventProgramPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +18,9 @@ public class SpeakerEventView extends JFrame{
     private JButton seeMyEvents;
     private JLabel title;
     private JButton seeRooms;
+    private JButton exportHTMLProgram;
     private EventPresenter eventPresenter;
+    private EventProgramPresenter programPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -29,13 +34,14 @@ public class SpeakerEventView extends JFrame{
      * GUI responsible for giving option in regards to what an Speaker can do with events
      * @param eventPresenter1 EventPresenter to be used in this view
      */
-    public SpeakerEventView(EventPresenter eventPresenter1) {
+    public SpeakerEventView(EventPresenter eventPresenter1, EventProgramPresenter programPresenter) {
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
 
-        eventPresenter = eventPresenter1;
+        this.eventPresenter = eventPresenter1;
+        this.programPresenter = programPresenter;
 
         seeEvents.addActionListener(new ActionListener() {
             /**
@@ -79,6 +85,22 @@ public class SpeakerEventView extends JFrame{
                 roomView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 roomView.pack();
                 roomView.setVisible(true);
+            }
+        });
+
+        exportHTMLProgram.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ExportProgramView programMenu = new ExportProgramView(programPresenter);
+                programMenu.setContentPane(programMenu.getMainPanel());
+                programMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                programMenu.pack();
+                programMenu.setVisible(true);
+
             }
         });
     }

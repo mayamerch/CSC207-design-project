@@ -4,6 +4,8 @@ import EventPackage.EventGUI.UserMenus.AttendeeEventView;
 import EventPackage.EventGUI.UserMenus.OrganizerEventView;
 import EventPackage.EventOuterLayer.EventController;
 import EventPackage.EventOuterLayer.EventPresenter;
+import EventPackage.EventOuterLayer.EventProgramExporter;
+import EventPackage.EventUseCases.EventProgramSorter;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -38,20 +40,26 @@ public class EventTest {
 
 */
 
-        ArrayList<Integer> SpeakerIds = new ArrayList<>(); //Contains sample Id of speakers
+//        ArrayList<Integer> SpeakerIds = new ArrayList<>(); //Contains sample Id of speakers
+//
+//        // More Statement adding Ids of speakers acn be added
+//        SpeakerIds.add(1);
+//        SpeakerIds.add(2);
+//
+//        EventController ec = new EventController(0, true, SpeakerIds);
+//        EventPresenter ep = new EventPresenter(ec);
+//
+//        OrganizerEventView or = new OrganizerEventView(ep);
+//        or.setContentPane(or.getMainPanel());
+//        or.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        or.pack();
+//        or.setVisible(true);
 
-        // More Statement adding Ids of speakers acn be added
-        SpeakerIds.add(1);
-        SpeakerIds.add(2);
-
-        EventController ec = new EventController(0, true, SpeakerIds);
-        EventPresenter ep = new EventPresenter(ec);
-
-        OrganizerEventView or = new OrganizerEventView(ep);
-        or.setContentPane(or.getMainPanel());
-        or.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        or.pack();
-        or.setVisible(true);
+//        AttendeeEventView attendeeView = new AttendeeEventView(ep);
+//        attendeeView.setContentPane(attendeeView.getMainPanel());
+//        attendeeView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        attendeeView.pack();
+//        attendeeView.setVisible(true);
 
     }
 }

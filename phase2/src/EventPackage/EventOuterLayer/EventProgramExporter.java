@@ -1,10 +1,15 @@
 package EventPackage.EventOuterLayer;
 
 import EventPackage.EventEntities.EventType;
+import EventPackage.EventUseCases.EventManager;
 import EventPackage.EventUseCases.EventProgramSorter;
+import UserPackage.UserManager;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,8 +27,8 @@ public class EventProgramExporter {
     private String eventTemplate;
 
 
-    public EventProgramExporter(EventProgramSorter sorter){
-        this.sorter = sorter;
+    public EventProgramExporter(UserManager userManager, EventManager eventManager){
+        this.sorter = new EventProgramSorter(eventManager, userManager);
 
         // ex: Friday November 27
         dayFormatter = new SimpleDateFormat("EEEE MMMM dd");
@@ -46,6 +51,11 @@ public class EventProgramExporter {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public void openHTMLFile() throws IOException {
+        File file = new File(eventExportFileName);
+        Desktop.getDesktop().open(file);
     }
 
     public void exportAllEventsProgram(){

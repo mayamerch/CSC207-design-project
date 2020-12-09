@@ -5,6 +5,7 @@ import EventPackage.EventGUI.Creators.CreateEventView;
 import EventPackage.EventGUI.Creators.CreateRoomView;
 import EventPackage.EventGUI.Reschedule.RescheduleEventView;
 import EventPackage.EventOuterLayer.EventPresenter;
+import EventPackage.EventOuterLayer.EventProgramPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +23,9 @@ public class OrganizerEventView extends JFrame{
     private JButton cancelAttend;
     private JLabel title;
     private JButton cancelEvents;
+    private JButton exportHTMLProgram;
     private EventPresenter eventPresenter;
+    private EventProgramPresenter programPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -36,13 +39,14 @@ public class OrganizerEventView extends JFrame{
      * GUI responsible for giving option in regards to what an Organizer can do with events
      * @param eventPresenter1 EventPresenter to be used in this view
      */
-    public OrganizerEventView(EventPresenter eventPresenter1) {
+    public OrganizerEventView(EventPresenter eventPresenter1, EventProgramPresenter programPresenter) {
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
 
         eventPresenter = eventPresenter1;
+        this.programPresenter = programPresenter;
 
         seeEvents.addActionListener(new ActionListener() {
             /**
@@ -176,6 +180,22 @@ public class OrganizerEventView extends JFrame{
                 cancelEventView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 cancelEventView.pack();
                 cancelEventView.setVisible(true);
+            }
+        });
+
+        exportHTMLProgram.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ExportProgramView programMenu = new ExportProgramView(programPresenter);
+                programMenu.setContentPane(programMenu.getMainPanel());
+                programMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                programMenu.pack();
+                programMenu.setVisible(true);
+
             }
         });
     }

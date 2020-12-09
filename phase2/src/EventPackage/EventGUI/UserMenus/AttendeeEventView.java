@@ -2,6 +2,7 @@ package EventPackage.EventGUI.UserMenus;
 
 import EventPackage.EventGUI.*;
 import EventPackage.EventOuterLayer.EventPresenter;
+import EventPackage.EventOuterLayer.EventProgramPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,7 @@ public class AttendeeEventView extends JFrame {
     private JLabel title;
     private JButton exportHTMLProgram;
     private EventPresenter eventPresenter;
+    private EventProgramPresenter programPresenter;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -32,12 +34,13 @@ public class AttendeeEventView extends JFrame {
      * GUI responsible for giving option in regards to what an Attendee can do with events
      * @param eventPresenter1 EventPresenter to be used in this view
      */
-    public AttendeeEventView(EventPresenter eventPresenter1) {
+    public AttendeeEventView(EventPresenter eventPresenter1, EventProgramPresenter eventProgramPresenter) {
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
         eventPresenter = eventPresenter1;
+        programPresenter = eventProgramPresenter;
 
         seeEvents.addActionListener(new ActionListener() {
             /**
@@ -121,7 +124,7 @@ public class AttendeeEventView extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExportProgramView programMenu = new ExportProgramView();
+                ExportProgramView programMenu = new ExportProgramView(programPresenter);
                 programMenu.setContentPane(programMenu.getMainPanel());
                 programMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 programMenu.pack();

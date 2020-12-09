@@ -1,6 +1,7 @@
 package GUI;
 
 import EventPackage.EventOuterLayer.EventPresenter;
+import EventPackage.EventOuterLayer.EventProgramPresenter;
 import MessagePackage.BroadcastController;
 import MessagePackage.ChatroomController;
 import MessagePackage.ConversationPresenter;
@@ -22,6 +23,7 @@ public class Presenter {
     private UserPresenter userPresenter;
     private EventController eventController;
     private EventPresenter eventPresenter;
+    private EventProgramPresenter programPresenter;
     private BroadcastController broadcastController;
     private ChatroomController chatroomController;
     private ConversationPresenter conversationPresenter;
@@ -35,6 +37,8 @@ public class Presenter {
         this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
         this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
         this.conversationPresenter = new ConversationPresenter();
+        this.programPresenter = new EventProgramPresenter(userController.getUserManager(),
+                eventController.getEventManager(),userController.getCurrentUserId(),userController.getUserType());
     }
 
     // for testing purposes
@@ -46,6 +50,14 @@ public class Presenter {
         this.userController = new UserController(userManager);
         this.userPresenter = new UserPresenter(userController.getUserManager());
     }
+    /**
+     * Getter for the EventProgramPresenter attribute of the Presenter
+     * @return the programPresenter attribute of the Presenter
+     */
+    public EventProgramPresenter getProgramPresenter(){
+        return this.programPresenter;
+    }
+
     /**
      * Getter for the UserController attribute of the Presenter
      * @return the UserController attribute of the Presenter
