@@ -78,7 +78,7 @@ public class Presenter {
     public boolean userLogin(String username, String password){
         boolean login = userController.userLogin(username, password);
         if (login){
-            instantiateEventControllerAndPresenter(userController.getCurrentUserId());
+            instantiateEvent(userController.getCurrentUserId());
             return true;
         }
         return false;
@@ -87,10 +87,12 @@ public class Presenter {
      * A helper method to instantiate the EventController and EventPresenter Upon Login
      * @param userID, int
      */
-    private void instantiateEventControllerAndPresenter(int userID){
+    private void instantiateEvent(int userID){
         this.eventController = new EventController(userID, userController.checkUserVIP(userID),
                 userController.getSpeakerIds());
         this.eventPresenter = new EventPresenter(eventController);
+        this.programPresenter = new EventProgramPresenter(userController.getUserManager(),
+                eventController.getEventManager(),userController.getCurrentUserId(),userController.getUserType());
     }
     /**
      * Logs the User out of the program
