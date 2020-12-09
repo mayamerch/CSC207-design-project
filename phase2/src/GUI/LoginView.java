@@ -17,7 +17,10 @@ public class LoginView extends JFrame{
     private Presenter presenter;
 
 
-
+    /**
+     * GUI Menu to Login or go to Create Account menu
+     * @param presenter Presenter to be used in this view
+     */
     public LoginView(Presenter presenter) {
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -19,6 +19,10 @@ public class CreateAccountMenuView extends JFrame {
 
     private Presenter presenter;
 
+    /**
+     * GUI Menu to create accounts
+     * @param presenter Presenter to be used in this view
+     */
     public CreateAccountMenuView(Presenter presenter) {
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

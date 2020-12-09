@@ -29,6 +29,10 @@ public class MainMenuView extends JFrame{
     private Presenter presenter;
     private EventPresenter eventPresenter;
 
+    /**
+     * GUI Menu to access the Events Menu, Friends Menu or Messages Menu after logging in
+     * @param presenter Presenter to be used in this view
+     */
     public MainMenuView(Presenter presenter) {
         //this code is super incomplete
         //need something that keeps track of decisions made in the menu
