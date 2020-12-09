@@ -52,7 +52,9 @@ public class MainMenuView extends JFrame{
         this.userController = presenter.getUserController();
         this.usernameIDLabel.setText(userController.getUsername() + "<" + userController.getCurrentUserId() + ">");
         this.presenter = presenter;
-        this.eventPresenter = presenter.getEventPresenter();
+        int currUserId = userController.getCurrentUserId();
+        EventController eventController = new EventController(currUserId, userController.checkUserVIP(currUserId), userController.getSpeakerIds());
+        this.eventPresenter = new EventPresenter(eventController);
 
         logoutButton.addActionListener(new ActionListener() {
             @Override
@@ -68,7 +70,8 @@ public class MainMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserType userType = userController.getUserType();
-                EventProgramPresenter programPresenter = presenter.getProgramPresenter();
+                EventProgramPresenter programPresenter = new EventProgramPresenter(userController.getUserManager(),
+                        eventController.getEventManager(), currUserId, userType);
                 if (userType == UserType.ATTENDEE) {
                     AttendeeEventView attendeeEventView = new AttendeeEventView(eventPresenter, programPresenter);
                     attendeeEventView.setVisible(true);
