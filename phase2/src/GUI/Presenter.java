@@ -10,8 +10,12 @@ import UserPackage.UserManager;
 import UserPackage.UserPresenter;
 import UserPackage.UserType;
 
+import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master
 
 public class Presenter {
     private UserController userController;
@@ -190,20 +194,18 @@ public class Presenter {
         return userController.changeUserVIP(username, newVIPStatus);
     }
 
-        // message package
-        public void displayMessages(){
-            int userID = 5;//Integer.parseInt(username);
-            conversationPresenter.printChats(chatroomController, userID);
-        }
 
-        public void sendMessages(){
-            //conversationPresenter;
-        }
+    public void displayMessages(int userID){
+        System.out.println(chatroomController.myChats(userID));
+    }
 
-        public void sendBroadcasts(){
-            int userID = 5;//Integer.parseInt(username);
-            conversationPresenter.printBroadcasts(broadcastController, userID);
-        }
+    public boolean sendMessages(ArrayList<Integer> recipients, int userID, String message){
+        return chatroomController.sendChat(recipients, userID, message);
+    }
+
+    public void sendBroadcasts(int userID){
+        System.out.println(broadcastController.myBroadcasts(userID));
+    }
 
 
 }
