@@ -204,6 +204,12 @@ public class Presenter {
             return userController.changeUserVIP(userID, newVIPStatus);}
         return userController.changeUserVIP(username, newVIPStatus);
     }
+    /**
+     * Saves the Map of Users in the UserManager within the UserController
+     */
+    public void saveUserMap(){
+        userController.saveUserMap();
+    }
 
     /**
      * Takes in an UserID and prints all messages for that User

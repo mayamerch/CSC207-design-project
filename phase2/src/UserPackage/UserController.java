@@ -153,7 +153,7 @@ public class UserController {
      * Accesses the gateway to save the List of Users contained within the UserManager attribute of this
      * Controller
      */
-    public void saveUserList(){
+    public void saveUserMap(){
         userGateway.saveUserMap(getUserManager().getUserMap());
     }
     /**
@@ -360,7 +360,10 @@ public class UserController {
         }
         return speakerIds;
     }
-
+    /**
+     * Interacts with UserManager to return a list of User IDs excluding friend requests and friends
+     * @return The list of User Ids that don't include friends or people who sent you a friend request
+     **/
     public List<Integer> getNotFriendsNotRequests(){
         if (validateNotLoggedIn()) {return null;}
         List<Integer> friendRequestList = getFriendRequestList();
