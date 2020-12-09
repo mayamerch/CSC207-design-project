@@ -361,6 +361,17 @@ public class UserController {
         return speakerIds;
     }
 
+    public List<Integer> getNotFriendsNotRequests(){
+        if (validateNotLoggedIn()) {return null;}
+        List<Integer> friendRequestList = getFriendRequestList();
+        List<Integer> friendsList = getFriendsList();
+        List<Integer> bothList = new ArrayList<>();
+        bothList.addAll(friendsList);
+        bothList.addAll(friendRequestList);
+        bothList.add(currentUserID);
+        return userManager.excludeUsers(bothList);
+    }
+
     /**
      * Returns username of currently logged in user
      * @return Username of current userID of empty string if no one is logged in

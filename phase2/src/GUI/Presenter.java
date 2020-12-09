@@ -124,6 +124,7 @@ public class Presenter {
      * @return true or false based on if the friend request was successfully accepted and friend added.
      */
     public boolean acceptFriendRequest(String userInput){
+        if (userInput.length() == 0) {return false;}
         if (Character.isDigit(userInput.charAt(0))){
             // ID has been entered
             int userID = Integer.parseInt(userInput);
@@ -132,25 +133,11 @@ public class Presenter {
         return userController.acceptFriendRequest(userInput);
     }
     /**
-     * Helper Method. Returns the friends list of the current User
-     * @return List of integers containing the IDs of the User's friends .
-     */
-    private List<Integer> getFriendsList(){
-        return userController.getFriendsList();
-    }
-    /**
-     * Helper method. Returns the friend requests list of the current User
-     * @return List of integers containing the IDs of the User's incoming friend requests.
-     */
-    private List<Integer> getFriendRequestList(){
-        return userController.getFriendRequestList();
-    }
-    /**
      * Returns the incoming friend requests list of the current User in a format with Usernames and ID in brackets
      * @return List of Strings containing the Usernames and IDs of the User's incoming friends requests.
      */
     public List<String> displayFriendRequestList(){
-        List<Integer> friendRequestList = getFriendRequestList();
+        List<Integer> friendRequestList = userController.getFriendRequestList();
         return userPresenter.userIDListToString(friendRequestList);
     }
     /**
@@ -158,8 +145,12 @@ public class Presenter {
      * @return List of Strings containing the Usernames and IDs of the User's friends.
      */
     public List<String> displayFriendList(){
-        List<Integer> friendList = getFriendsList();
+        List<Integer> friendList = userController.getFriendsList();
         return userPresenter.userIDListToString(friendList);
+    }
+    public List<String> displayNotFriendsOrRequests(){
+        List<Integer> excludeList = userController.getNotFriendsNotRequests();
+        return userPresenter.userIDListToString(excludeList);
     }
     /**
      * Checks if the User is logged in with a valid account

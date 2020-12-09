@@ -329,6 +329,14 @@ public class UserManager implements Serializable {
         return acceptFriendRequest(userID, friendID);
     }
 
+    public List<Integer> excludeUsers(List<Integer> listOfIDs){
+        Set<Integer> totalSet = userMap.keySet();
+        // make a copy of the Set of keys in List form so it doesnt remove values from KeySet
+        List<Integer> totalList = new ArrayList<>(totalSet);
+        totalList.removeAll(listOfIDs);
+        return new ArrayList<>(totalList);
+    }
+
     /**
      * Takes in a Map of users and creates Linked Lists of Users, one for Organisers, Speakers
      * and Attendees
