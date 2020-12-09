@@ -98,17 +98,16 @@ public class MainMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserType userType = userController.getUserType();
-                if (userType == UserType.ATTENDEE) {
+                if(userType == UserType.ATTENDEE){
                     AttendeeMessageMenu attendeeMessageMenu = new AttendeeMessageMenu(presenter);
                     attendeeMessageMenu.setVisible(true);
                 }
-
-                else if (userType == UserType.ORGANIZER) {
+                else if(userType == UserType.ORGANIZER){
                     OrganizerMessageMenu organizerMessageMenu = new OrganizerMessageMenu(presenter);
                     organizerMessageMenu.setVisible(true);
                 }
 
-                else {
+                else if(userType == UserType.SPEAKER){
                     SpeakerMessageMenu speakerMessageMenu = new SpeakerMessageMenu(presenter);
                     speakerMessageMenu.setVisible(true);
                 }

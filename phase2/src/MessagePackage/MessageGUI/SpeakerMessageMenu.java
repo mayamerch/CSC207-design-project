@@ -14,17 +14,19 @@ public class SpeakerMessageMenu extends JFrame {
     private JButton broadcastAllEvents;
     private JLabel SpeakerMenu;
     private Presenter presenter;
+    private JPanel jPanel;
 
     public SpeakerMessageMenu(Presenter presenter){
         super();
         this.presenter = presenter;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setContentPane();
+        this.setContentPane(jPanel);
         this.pack();
 
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 setVisible(true);
             }
         });
