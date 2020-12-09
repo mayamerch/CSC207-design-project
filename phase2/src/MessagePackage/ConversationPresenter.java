@@ -16,6 +16,9 @@ public class ConversationPresenter { // User.java to get friends
         System.out.println(bc.myBroadcasts(userID));
     }
 
+    public void sendChats(){
+    }
+
     public int printSpeakerOptions(){
         Scanner kb = new Scanner(System.in);
         System.out.println("Manage Conversations\n"+

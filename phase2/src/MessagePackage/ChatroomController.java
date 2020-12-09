@@ -130,20 +130,21 @@ public class ChatroomController {
      * @param senderUserID the ID of the user who is sending the broadcast
      * @param message content of the message you are sending
      */
-    public void sendChat(ArrayList<Integer> userlist, int senderUserID, String message){
+    public boolean sendChat(ArrayList<Integer> userlist, int senderUserID, String message){
         Chatroom c = createNewChatRoom(userlist, senderUserID);
 
         for(Chatroom chatroom: chats){
             if(chatroom.equals(c)){
                 c.sendMessage(message, senderUserID);
                 System.out.println("Your message has been sent.");
-                return;
+                return true;
             }
         }
         c = createNewChatRoom(userlist, senderUserID);
         c.sendMessage(message, senderUserID);
         chats.add(c);
         System.out.println("Your message has been sent.");
+        return true;
     }
 
     /**
