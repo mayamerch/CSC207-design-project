@@ -45,6 +45,14 @@ public class VIPMenuView extends JFrame {
                 else{statusLabel.setText("User is not VIP. No change needed");}
             }
             });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                UserMenuView userMenuView = new UserMenuView(presenter);
+                userMenuView.setVisible(true);
+            }
+        });
     }
     private boolean makeVIP(String userInput){
         return presenter.changeVIP(userInput, true);

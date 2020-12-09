@@ -72,8 +72,8 @@ public class FriendRequestMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
             setVisible(false);
-            MainMenuView mainMenuView = new MainMenuView(presenter);
-            mainMenuView.setVisible(true);
+            UserMenuView userMenuView = new UserMenuView(presenter);
+            userMenuView.setVisible(true);
             }
         });
     }

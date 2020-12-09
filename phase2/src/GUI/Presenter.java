@@ -84,6 +84,14 @@ public class Presenter {
         return false;
     }
     /**
+     * Calls on User Controller to return type of user currently using controller
+     * @return UserType of user who is logged in or Null if not logged in
+     */
+    public UserType getUserType(){
+        if (checkNotLoggedIn()){return null;}
+        return userController.getUserType();
+    }
+    /**
      * A helper method to instantiate the EventController and EventPresenter Upon Login
      * @param userID, int
      */
