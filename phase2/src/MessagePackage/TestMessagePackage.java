@@ -46,7 +46,7 @@ public class TestMessagePackage {
         userList.add(1);
         userList.add(2);
         cc.sendChat(userList, 1, "user1 to user2");
-        bc.sendBroadcast(3, 1, "testing the presenter");
+        bc.sendBroadcastToEvent(3, 1, "testing the presenter");
         int currID = 1;
 
         ConversationPresenter conversationPresenter = new ConversationPresenter();

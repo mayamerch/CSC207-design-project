@@ -6,6 +6,9 @@ import EventPackage.EventGUI.UserMenus.OrganizerEventView;
 import EventPackage.EventGUI.UserMenus.SpeakerEventView;
 import EventPackage.EventOuterLayer.EventController;
 import EventPackage.EventOuterLayer.EventPresenter;
+import MessagePackage.MessageGUI.AttendeeMessageMenu;
+import MessagePackage.MessageGUI.OrganizerMessageMenu;
+import MessagePackage.MessageGUI.SpeakerMessageMenu;
 import UserPackage.User;
 import UserPackage.UserController;
 import UserPackage.UserType;
@@ -87,6 +90,27 @@ public class MainMenuView extends JFrame{
                     setVisible(false);
                     FriendRequestMenuView friendRequestMenuView = new FriendRequestMenuView(presenter);
                     friendRequestMenuView.setVisible(true);
+                }
+
+            }
+        });
+        messagesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserType userType = userController.getUserType();
+                if (userType == UserType.ATTENDEE) {
+                    AttendeeMessageMenu attendeeMessageMenu = new AttendeeMessageMenu(presenter);
+                    attendeeMessageMenu.setVisible(true);
+                }
+
+                else if (userType == UserType.ORGANIZER) {
+                    OrganizerMessageMenu organizerMessageMenu = new OrganizerMessageMenu(presenter);
+                    organizerMessageMenu.setVisible(true);
+                }
+
+                else {
+                    SpeakerMessageMenu speakerMessageMenu = new SpeakerMessageMenu(presenter);
+                    speakerMessageMenu.setVisible(true);
                 }
 
             }

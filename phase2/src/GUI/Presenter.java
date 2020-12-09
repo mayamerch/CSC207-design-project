@@ -12,10 +12,10 @@ import UserPackage.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-=======
+//<<<<<<<
+//=======
 
->>>>>>> origin/master
+//>>>>>>> origin/master
 
 public class Presenter {
     private UserController userController;
@@ -194,7 +194,10 @@ public class Presenter {
         return userController.changeUserVIP(username, newVIPStatus);
     }
 
-
+    /**
+     * Takes in an UserID and prints all messages for that User
+     * @param userID the ID of the user trying to view their messages
+     */
     public void displayMessages(int userID){
         System.out.println(chatroomController.myChats(userID));
     }
