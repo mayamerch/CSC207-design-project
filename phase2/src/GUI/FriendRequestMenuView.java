@@ -22,6 +22,10 @@ public class FriendRequestMenuView extends JFrame{
     private Presenter presenter;
     public int choice;
 
+    /**
+     * GUI Menu to send and accept friend requests, and see yoru friends list and friend request list
+     * @param presenter Presenter to be used in this view
+     */
     public FriendRequestMenuView(Presenter presenter){
         super();
         this.presenter = presenter;

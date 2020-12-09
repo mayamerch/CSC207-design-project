@@ -11,8 +11,6 @@ import UserPackage.UserPresenter;
 import UserPackage.UserType;
 
 import java.util.List;
-// import MessagePackage.BroadcastController;
-// import MessagePackage.ChatroomController;
 
 
 public class Presenter {

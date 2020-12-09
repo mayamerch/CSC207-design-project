@@ -15,6 +15,10 @@ public class VIPMenuView extends JFrame {
 
     private Presenter presenter;
 
+    /**
+     * GUI Menu Make a user VIP or not VIP if you are an organiser
+     * @param presenter Presenter to be used in this view
+     */
     public VIPMenuView(Presenter presenter) {
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -8,12 +8,22 @@ public class UserPresenter {
 
     private UserManager userManager;
 
+    /**
+     * Creates a UserPresenter
+     * @param userManager The Usermanager that the presenter will reference in its methods
+     */
     public UserPresenter(UserManager userManager){
         this.userManager = userManager;
     }
 
     //returns a LinkedList of strings formatted as follows: "username (userID)"
-    public LinkedList<String> userListToString(Collection<User> userCollection){
+    /**
+     * Takes a List of User objects and outputs a list of strings where each element is a User's
+     * Username and ID
+     * @param userCollection the List of User objects
+     * @return List of Strings, each one being a User's username and ID
+     */
+    private LinkedList<String> userListToString(Collection<User> userCollection){
         LinkedList<String> list = new LinkedList<>();
         for(User x: userCollection){
             list.add(x.getUsername() + " (" + x.getUserID() + ")");
@@ -32,6 +42,12 @@ public class UserPresenter {
 
     //returns a LinkedList of strings formatted as follows: "username (userID)"
     //uses userListToString() and userIDListToUserList() as a helper method
+    /**
+     * Takes a List of UserIDs and outputs a list of strings where each element is a User's
+     * Username and ID
+     * @param userIDCollection the List of UserIDs, List of Integers
+     * @return List of Strings, each String being a User's username and ID
+     */
     public LinkedList<String> userIDListToString(Collection<Integer> userIDCollection) {
         return userListToString(userIDListToUserList(userIDCollection));
     }
