@@ -8,9 +8,9 @@ public class RunPresenter {
     public static void main(String[] args) {
         UserManager userManager = new UserManager();
 
-        userManager.createAccount("user1", "user1", UserType.ATTENDEE);
-        userManager.createAccount("user2", "user2", UserType.ATTENDEE);
-        userManager.createAccount("user3", "user3", UserType.ATTENDEE);
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        userManager.createAccount("user2", "user2", UserType.SPEAKER);
+        userManager.createAccount("user3", "user3", UserType.SPEAKER);
         userManager.createAccount("user4", "user4", UserType.ATTENDEE);
         userManager.createAccount("user5", "user5", UserType.ATTENDEE);
         UserController userController = new UserController(userManager);
