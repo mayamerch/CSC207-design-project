@@ -31,35 +31,35 @@ public class ExportProgramView extends JFrame{
         exportAllEventsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExportProgramView.this.programPresenter.openAllEventsProgram();
+                programPresenter.openAllEventsProgram();
             }
         });
 
         exportMyEventsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExportProgramView.this.programPresenter.openMyEventsProgram();
+                programPresenter.openMyEventsProgram();
             }
         });
 
         exportPartyEventsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExportProgramView.this.programPresenter.openPartyEventsProgram();
+                programPresenter.openPartyEventsProgram();
             }
         });
 
         exportMultiSpeakerEventsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExportProgramView.this.programPresenter.openMultiSpeakerEventsProgram();
+                programPresenter.openMultiSpeakerEventsProgram();
             }
         });
 
         exportSingleSpeakerEventsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExportProgramView.this.programPresenter.openSingleSpeakerEventsProgram();
+                programPresenter.openSingleSpeakerEventsProgram();
             }
         });
     }
