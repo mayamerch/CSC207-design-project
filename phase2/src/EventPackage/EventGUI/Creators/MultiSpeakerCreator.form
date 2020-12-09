@@ -31,7 +31,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="Create a Single Speaker Event"/>
+              <text value="Create a Multi Speaker Event"/>
             </properties>
           </component>
           <component id="84cb0" class="javax.swing.JLabel" binding="capacity">
