@@ -34,11 +34,6 @@ public class Presenter {
     public Presenter(){
         this.userController = new UserController();
         this.userPresenter = new UserPresenter(userController.getUserManager());
-        this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
-        this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
-        this.conversationPresenter = new ConversationPresenter();
-        this.programPresenter = new EventProgramPresenter(userController.getUserManager(),
-                eventController.getEventManager(),userController.getCurrentUserId(),userController.getUserType());
     }
 
     // for testing purposes
@@ -78,7 +73,7 @@ public class Presenter {
     public boolean userLogin(String username, String password){
         boolean login = userController.userLogin(username, password);
         if (login){
-            instantiateEvent(userController.getCurrentUserId());
+            instantiateEventAndMessages(userController.getCurrentUserId());
             return true;
         }
         return false;
@@ -92,15 +87,18 @@ public class Presenter {
         return userController.getUserType();
     }
     /**
-     * A helper method to instantiate the EventController and EventPresenter Upon Login
+     * A helper method to instantiate the EventController and EventPresenter and Message Controllers Upon Login
      * @param userID, int
      */
-    private void instantiateEvent(int userID){
+    private void instantiateEventAndMessages(int userID){
         this.eventController = new EventController(userID, userController.checkUserVIP(userID),
                 userController.getSpeakerIds());
         this.eventPresenter = new EventPresenter(eventController);
         this.programPresenter = new EventProgramPresenter(userController.getUserManager(),
                 eventController.getEventManager(),userController.getCurrentUserId(),userController.getUserType());
+        this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
+        this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
+        this.conversationPresenter = new ConversationPresenter();
     }
     /**
      * Logs the User out of the program
