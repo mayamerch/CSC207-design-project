@@ -1,10 +1,13 @@
 package MessagePackage.MessageGUI;
 
+import GUI.Presenter;
+import UserPackage.User;
+
 import javax.swing.*;
 
 public class ViewFriendsForm extends JFrame{
     private JTextArea friendListArea;
-    private JLabel label;
+    private JLabel yourFriends;
     private JPanel mainPanel;
 
     public JPanel getMainPanel() {
@@ -15,9 +18,13 @@ public class ViewFriendsForm extends JFrame{
          this.setContentPane(getMainPanel());
          this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
          this.pack();
+         Presenter presenter = new Presenter();
 
-         //TODO: add ids to textarea
-         friendListArea.append("Display friends usernames and IDs here");
+         friendListArea.append("Your friends:");
+         for(int friend: presenter.getUserController().getFriendsList()){
+             User your_friend = presenter.getUserController().getUserManager().getUserByID(friend);
+             friendListArea.append(your_friend.getUsername());
+         }
 
      }
 }

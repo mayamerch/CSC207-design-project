@@ -28,7 +28,6 @@ public class AttendeeMessageMenu extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
 
-        //TODO: make user object from presenter and pass on
         int userID = presenter.getUserController().getCurrentUserId();
 
         checkMessages.addActionListener(new ActionListener() {
@@ -46,7 +45,7 @@ public class AttendeeMessageMenu extends JFrame {
         sendMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttendeeSendMessages attendeeSendMessages = new AttendeeSendMessages();
+                AttendeeSendMessages attendeeSendMessages = new AttendeeSendMessages(presenter);
                 attendeeSendMessages.setContentPane(attendeeSendMessages.getMainPanel());
                 attendeeSendMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 attendeeSendMessages.pack();

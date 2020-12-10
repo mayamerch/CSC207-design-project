@@ -1,5 +1,7 @@
 package MessagePackage.MessageGUI;
 
+import GUI.Presenter;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,11 +17,14 @@ public class AttendeeSendMessages extends JFrame{
         return mainPanel;
     }
 
-    public AttendeeSendMessages(){
+    public AttendeeSendMessages(Presenter presenter){
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
+
+
+        int userID = presenter.getUserController().getCurrentUserId();
 
         viewFriends.addActionListener(new ActionListener() {
             @Override

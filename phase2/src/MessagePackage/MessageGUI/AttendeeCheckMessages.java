@@ -27,11 +27,11 @@ public class AttendeeCheckMessages extends JFrame{
         this.pack();
 
         ChatroomController chatroomController = presenter.getChatroomController();
+        int userID = presenter.getUserController().getCurrentUserId();
 
         viewFriends.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: pass in user to viewFriendsForm
                 ViewFriendsForm viewFriendsForm = new ViewFriendsForm();
                 viewFriendsForm.setContentPane(viewFriendsForm.getMainPanel());
                 viewFriendsForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -44,9 +44,12 @@ public class AttendeeCheckMessages extends JFrame{
         showMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userID = enterID.getText();
-
+                //String userID = enterID.getText();
                 //TODO: get messages from userID and current user and display in textarea
+                Presenter presenter = new Presenter();
+                ChatroomController chatroomController = presenter.getChatroomController();
+                int userID = presenter.getUserController().getCurrentUserId();
+                messageArea.setText(chatroomController.myChats(userID));
             }
         });
 
