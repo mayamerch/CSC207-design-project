@@ -45,6 +45,11 @@ public class AttendeeMessageMenu extends JFrame {
         sendMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AttendeeSendMessages attendeeSendMessages = new AttendeeSendMessages();
+                attendeeSendMessages.setContentPane(attendeeSendMessages.getMainPanel());
+                attendeeSendMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                attendeeSendMessages.pack();
+                attendeeSendMessages.setVisible(true);
                 setVisible(true);
             }
         });
