@@ -19,11 +19,7 @@ public class EventProgramPresenter {
 
     public void openAllEventsProgram(){
         eventProgramExporter.exportAllEventsProgram();
-        try {
-            eventProgramExporter.openHTMLFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        eventProgramExporter.openHTMLFile();
     }
 
     public void openMyEventsProgram(){
@@ -34,38 +30,22 @@ public class EventProgramPresenter {
             eventProgramExporter.exportEventsUserAttendingProgram(currentUserID);
         }
 
-        try {
-            eventProgramExporter.openHTMLFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        eventProgramExporter.openHTMLFile();
     }
 
     public void openPartyEventsProgram(){
         eventProgramExporter.exportPartyEventsProgram();
-        try {
-            eventProgramExporter.openHTMLFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        eventProgramExporter.openHTMLFile();
     }
 
     public void openMultiSpeakerEventsProgram(){
         eventProgramExporter.exportMultiSpeakerEventsProgram();
-        try {
-            eventProgramExporter.openHTMLFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        eventProgramExporter.openHTMLFile();
     }
 
     public void openSingleSpeakerEventsProgram(){
         eventProgramExporter.exportSingleSpeakerEventsProgram();
-        try {
-            eventProgramExporter.openHTMLFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        eventProgramExporter.openHTMLFile();
     }
 
 
