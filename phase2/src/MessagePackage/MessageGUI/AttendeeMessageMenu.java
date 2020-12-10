@@ -63,6 +63,7 @@ public class AttendeeMessageMenu extends JFrame {
                 attendeeCheckBroadcasts.pack();
                 attendeeCheckBroadcasts.setVisible(true);
                 setVisible(true);
+
             }
         });
 
