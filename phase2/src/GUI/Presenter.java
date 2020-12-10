@@ -53,6 +53,18 @@ public class Presenter {
         return this.programPresenter;
     }
 
+    public ChatroomController getChatroomController() {
+        return chatroomController;
+    }
+
+    public BroadcastController getBroadcastController() {
+        return broadcastController;
+    }
+
+    public ConversationPresenter getConversationPresenter() {
+        return conversationPresenter;
+    }
+
     /**
      * Getter for the UserController attribute of the Presenter
      * @return the UserController attribute of the Presenter

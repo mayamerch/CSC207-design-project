@@ -1,6 +1,7 @@
 package MessagePackage.MessageGUI;
 
 import GUI.Presenter;
+import MessagePackage.ChatroomController;
 import UserPackage.UserController;
 
 import javax.swing.*;
@@ -19,11 +20,13 @@ public class AttendeeCheckMessages extends JFrame{
         return mainPanel;
     }
 
-    public AttendeeCheckMessages() {
+    public AttendeeCheckMessages(Presenter presenter) {
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
+
+        ChatroomController chatroomController = presenter.getChatroomController();
 
         viewFriends.addActionListener(new ActionListener() {
             @Override
@@ -42,6 +45,7 @@ public class AttendeeCheckMessages extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userID = enterID.getText();
+
                 //TODO: get messages from userID and current user and display in textarea
             }
         });

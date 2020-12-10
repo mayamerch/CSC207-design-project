@@ -29,11 +29,12 @@ public class AttendeeMessageMenu extends JFrame {
         this.pack();
 
         //TODO: make user object from presenter and pass on
+        int userID = presenter.getUserController().getCurrentUserId();
 
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttendeeCheckMessages attendeeCheckMessages = new AttendeeCheckMessages();
+                AttendeeCheckMessages attendeeCheckMessages = new AttendeeCheckMessages(presenter);
                 attendeeCheckMessages.setContentPane(attendeeCheckMessages.getMainPanel());
                 attendeeCheckMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 attendeeCheckMessages.pack();
@@ -57,6 +58,11 @@ public class AttendeeMessageMenu extends JFrame {
         checkBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AttendeeCheckBroadcasts attendeeCheckBroadcasts = new AttendeeCheckBroadcasts();
+                attendeeCheckBroadcasts.setContentPane(attendeeCheckBroadcasts.getMainPanel());
+                attendeeCheckBroadcasts.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                attendeeCheckBroadcasts.pack();
+                attendeeCheckBroadcasts.setVisible(true);
                 setVisible(true);
             }
         });

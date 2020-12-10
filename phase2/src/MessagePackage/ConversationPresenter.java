@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//presenter.getusercontroller.getuserID
+
 public class ConversationPresenter { // User.java to get friends
 
     public void printChats(ChatroomController cc, int userID){
