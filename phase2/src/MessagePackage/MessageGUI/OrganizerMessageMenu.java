@@ -28,15 +28,16 @@ public class OrganizerMessageMenu extends JFrame {
         this.pack();
 
         //TODO: make organizer object from presenter and pass on
+        int userID = presenter.getUserController().getCurrentUserId();
 
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OrganizerCheckMessages organizerCheckMessages = new OrganizerCheckMessages();
-                organizerCheckMessages.setContentPane(organizerCheckMessages.getMainPanel());
-                organizerCheckMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                organizerCheckMessages.pack();
-                organizerCheckMessages.setVisible(true);
+                MessageWindow messageWindow = new MessageWindow(presenter);
+                messageWindow.setContentPane(messageWindow.getMainPanel());
+                messageWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                messageWindow.pack();
+                messageWindow.setVisible(true);
                 setVisible(true);
             }
         });

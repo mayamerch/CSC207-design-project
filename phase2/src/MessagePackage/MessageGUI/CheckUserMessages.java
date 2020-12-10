@@ -45,7 +45,7 @@ public class CheckUserMessages extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //String userID = enterID.getText();
-                //TODO: get messages from userID and current user and display in textarea
+                //TODO: (done) get messages from userID and current user and display in textarea
                 Presenter presenter = new Presenter();
                 ChatroomController chatroomController = presenter.getChatroomController();
                 int userID = presenter.getUserController().getCurrentUserId();

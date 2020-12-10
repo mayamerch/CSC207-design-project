@@ -5,7 +5,7 @@ import MessagePackage.ChatroomController;
 
 import javax.swing.*;
 
-public class OrganizerCheckMessages extends JFrame{
+public class MessageWindow extends JFrame{
     private JTextArea messageArea;
     private JPanel mainPanel;
 
@@ -13,14 +13,18 @@ public class OrganizerCheckMessages extends JFrame{
         return mainPanel;
     }
 
-    public OrganizerCheckMessages(){
+    public MessageWindow(Presenter presenter){
         super();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(getMainPanel());
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
-        Presenter presenter = new Presenter();
+
         ChatroomController chatroomController = presenter.getChatroomController();
         int userID = presenter.getUserController().getCurrentUserId();
+        //super();
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setContentPane(getMainPanel());
+        //this.pack();
         messageArea.setText(chatroomController.myChats(userID));
     }
 }
