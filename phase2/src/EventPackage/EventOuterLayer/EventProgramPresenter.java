@@ -41,15 +41,6 @@ public class EventProgramPresenter {
         }
     }
 
-//    public void openEventsToSignupProgram(){
-//        eventProgramExporter.exportEventsToSignupProgram(currentUserID);
-//        try {
-//            eventProgramExporter.openHTMLFile();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public void openPartyEventsProgram(){
         eventProgramExporter.exportPartyEventsProgram();
         try {
@@ -77,13 +68,5 @@ public class EventProgramPresenter {
         }
     }
 
-//    public void openEventsBySpeakerProgram(){
-//        // only run this if the user signed in is a speaker!
-//        eventProgramExporter.exportEventsBySpeakerProgram(currentUserID);
-//        try {
-//            eventProgramExporter.openHTMLFile();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
 }

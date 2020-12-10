@@ -13,20 +13,17 @@ import java.util.concurrent.TimeUnit;
 public class EventProgramSorter {
     private final EventManager eventManager;
     private final UserManager userManager;
-
-    private SimpleDateFormat dateFormatter; //TODO: remove if not needed
-    private SimpleDateFormat dayFormatter; //TODO: remove if not needed
     private SimpleDateFormat timeFormatter;
 
+    /**
+     * create an instance of EventProgramSorter which compiles event information for the html export in string format
+     * @param eventManager EventManager which has information on all events
+     * @param userManager UserManager which has information on all users
+     */
+    public EventProgramSorter(EventManager eventManager, UserManager userManager){
+        this.eventManager = eventManager;
+        this.userManager = userManager;
 
-    public EventProgramSorter(EventManager em, UserManager um){
-        this.eventManager = em;
-        this.userManager = um;
-
-        // ex: 10/08/2020
-        dateFormatter = new SimpleDateFormat("dd/M/yyyy");
-        // ex: Friday November 27
-        dayFormatter = new SimpleDateFormat("EEEE MMMM dd");
         // ex: 10:00am - 10:30am
         timeFormatter = new SimpleDateFormat("hh:mma");
 
@@ -51,16 +48,6 @@ public class EventProgramSorter {
         return this.generateEventInfo(events);
     }
 
-    /**
-     * returns a HashMap of all data to export to the Conference Program for events user can signup for
-     * @param myUserID userID for current user logged in
-     * @return HashMap where key is Date and value is ArrayList of String[] which represents data for a single event
-     */
-    public HashMap<Date, ArrayList<String[]>> getEventsUserSignupForProgram(int myUserID){
-        boolean statusVIP = userManager.getUserByID(myUserID).getVIP();
-        ArrayList<Event> events = eventManager.availEvents(myUserID, statusVIP);
-        return this.generateEventInfo(events);
-    }
 
     /**
      * returns a HashMap of all data to export to the Conference Program for all events of one type.
@@ -95,34 +82,21 @@ public class EventProgramSorter {
      * @return HashMap where key is Date and value is ArrayList of String[] which represents data for a single event
      */
     private HashMap<Date, ArrayList<String[]>> generateEventInfo(ArrayList<Event> events){
-
         //copy constructor for shallow copy
         ArrayList<Event> sortedEvents = new ArrayList<>(events);
-        //sort shallow copy by date
         Collections.sort(sortedEvents);
 
-        StringBuilder eventsFormatted = new StringBuilder();
-
-        // Hashmap to group the events that occur on the same day
         HashMap<Date, ArrayList<Event>> eventsByDayHashmap = groupEventsByDay(sortedEvents);
 
-        // Sort dates in the hashmap
         ArrayList<Date> eventDaysInOrder = getEventDatesInOrder(eventsByDayHashmap);
 
-        // for return
-        // key is dayFormatted string
-        // value is ArrayList of String[] to rep data for events
         HashMap<Date, ArrayList<String[]>> eventInfoHashmap = new HashMap<>();
 
-        // iterate through the days, get all events on date...
-        // build Strings representing the data we need for eventsOnDay
         for (Date date : eventDaysInOrder){
             ArrayList<Event> eventsOnDay = eventsByDayHashmap.get(date);
             eventInfoHashmap.put(date, generateEventInfoForDay(eventsOnDay));
         }
         return eventInfoHashmap;
-        // returns Hashmap of key: DAY,  value: ArrayList of String[] that rep data for a single event
-        // each String[] has [time, eventName, speakerName, eventRoom]
     }
 
     /**
@@ -215,6 +189,4 @@ public class EventProgramSorter {
         Collections.sort(eventDatesInOrder);
         return eventDatesInOrder;
     }
-
-    // want to return a hashmap where the key is Date not String
 }

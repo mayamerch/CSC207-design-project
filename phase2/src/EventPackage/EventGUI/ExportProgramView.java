@@ -1,7 +1,7 @@
 package EventPackage.EventGUI;
 
 import EventPackage.EventOuterLayer.EventProgramPresenter;
-import UserPackage.UserType;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -29,6 +29,10 @@ public class ExportProgramView extends JFrame{
         this.programPresenter = programPresenter;
 
         exportAllEventsButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 programPresenter.openAllEventsProgram();
@@ -36,6 +40,10 @@ public class ExportProgramView extends JFrame{
         });
 
         exportMyEventsButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 programPresenter.openMyEventsProgram();
@@ -43,6 +51,10 @@ public class ExportProgramView extends JFrame{
         });
 
         exportPartyEventsButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 programPresenter.openPartyEventsProgram();
@@ -50,6 +62,10 @@ public class ExportProgramView extends JFrame{
         });
 
         exportMultiSpeakerEventsButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 programPresenter.openMultiSpeakerEventsProgram();
@@ -57,6 +73,10 @@ public class ExportProgramView extends JFrame{
         });
 
         exportSingleSpeakerEventsButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             * @param e Button is pressed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 programPresenter.openSingleSpeakerEventsProgram();

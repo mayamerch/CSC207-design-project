@@ -9,7 +9,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.net.URI;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,7 +26,11 @@ public class EventProgramExporter {
     private String dateHeaderTemplate;
     private String eventTemplate;
 
-
+    /**
+     * create an instance of EventProgramExporter which writes the html file for the conference program
+     * @param userManager UserManager required for instantiating EventProgramSorter
+     * @param eventManager EventManager required for instantiating EventProgramSorter
+     */
     public EventProgramExporter(UserManager userManager, EventManager eventManager){
         this.sorter = new EventProgramSorter(eventManager, userManager);
 
@@ -39,9 +43,13 @@ public class EventProgramExporter {
         dateHeaderTemplate = readTemplate(dateHeaderTemplatePath);
         String eventTemplatePath = "src/EventPackage/templates/eventTemplate.txt";
         eventTemplate = readTemplate(eventTemplatePath);
-
     }
 
+    /**
+     * read in a .txt file as a String
+     * @param path path to .txt file
+     * @return String of contents of .txt file
+     */
     private String readTemplate(String path){
         try{
             byte[] encoded = Files.readAllBytes(Paths.get(path));
@@ -53,74 +61,98 @@ public class EventProgramExporter {
         }
     }
 
-    public void openHTMLFile() throws IOException {
+    /**
+     * open events.html in preferred Desktop browser
+     */
+    public void openHTMLFile(){
         File file = new File(eventExportFileName);
-        Desktop.getDesktop().open(file);
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            System.out.println("Error: could not locate events.html");
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * write events.html to include all Events in the conference
+     */
     public void exportAllEventsProgram(){
         HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getAllEventsForProgram();
         createExportFileIfExists();
-        // write contents of html based on import from sorter
         String contents = generateFileContents(eventInfo);
         writeFileContents(contents);
     }
 
+    /**
+     * write events.html to include all Events that the given user is attending in the conference
+     * @param userID userID of the current user
+     */
     public void exportEventsUserAttendingProgram(int userID){
         HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsUserAttendingForProgram(userID);
         createExportFileIfExists();
-        // write contents of html based on import from sorter
         String contents = generateFileContents(eventInfo);
         writeFileContents(contents);
     }
 
-    public void exportEventsToSignupProgram(int userID){
-        HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsUserSignupForProgram(userID);
-        createExportFileIfExists();
-        // write contents of html based on import from sorter
-        String contents = generateFileContents(eventInfo);
-        writeFileContents(contents);
-    }
-
+    /**
+     * write events.html to include all Party Events in the conference
+     */
     public void exportPartyEventsProgram(){
         HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsByTypeForProgram(EventType.PARTY);
         createExportFileIfExists();
-        // write contents of html based on import from sorter
         String contents = generateFileContents(eventInfo);
         writeFileContents(contents);
     }
 
+    /**
+     * write events.html to include all MultiSpeaker Events in the conference
+     */
     public void exportMultiSpeakerEventsProgram(){
         HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsByTypeForProgram(EventType.MULTISPEAKER);
         createExportFileIfExists();
-        // write contents of html based on import from sorter
         String contents = generateFileContents(eventInfo);
         writeFileContents(contents);
     }
 
+    /**
+     * write events.html to include all SingleSpeaker Events in the conference
+     */
     public void exportSingleSpeakerEventsProgram(){
         HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsByTypeForProgram(EventType.SINGLESPEAKER);
         createExportFileIfExists();
-        // write contents of html based on import from sorter
         String contents = generateFileContents(eventInfo);
         writeFileContents(contents);
 
     }
 
+    /**
+     * write events.html to include all Events in the conference that the given Speaker is speaking at
+     * @param speakerID userID of the current Speaker user who is logged in
+     */
     public void exportEventsBySpeakerProgram(int speakerID){
         HashMap<Date, ArrayList<String[]>> eventInfo = sorter.getEventsBySpeakerForProgram(speakerID);
         createExportFileIfExists();
-        // write contents of html based on import from sorter
         String contents = generateFileContents(eventInfo);
         writeFileContents(contents);
     }
 
+    /**
+     * creates a String that includes the mainHtmlTemplate and the rest of the events html export
+     * @param eventInfo Hashmap of event data organized by date
+     * @return string for the entire html file to write
+     */
     private String generateFileContents(HashMap<Date, ArrayList<String[]>> eventInfo){
         String eventContent = generateExportForEvents(eventInfo);
         // Note: The only string substitution we perform for the main HTML template are the events
         return String.format(mainHtmlTemplate, eventContent);
     }
 
+    /**
+     * creates a String for html file that includes all the events and event date headers
+     * @param eventInfo Hashmap of event data organized by date
+     * @return string for the html file that includes just events and event date headers
+     */
     private String generateExportForEvents(HashMap<Date, ArrayList<String[]>> eventInfo){
         StringBuilder eventsFormatted = new StringBuilder();
         ArrayList<Date> eventDaysInOrder = new ArrayList<>(eventInfo.keySet());
@@ -129,7 +161,6 @@ public class EventProgramExporter {
         for (Date date : eventDaysInOrder){
             String dayString = dayFormatter.format(date); // ex: Friday November 27
             eventInfo.get(date);
-            //TODO: see if changes WORK!
             ArrayList<String[]> eventsOnDayInfo = eventInfo.get(date);
             String eventsHeaderFormatted = String.format(dateHeaderTemplate, dayString);
             eventsFormatted.append(eventsHeaderFormatted);
@@ -140,7 +171,12 @@ public class EventProgramExporter {
         return eventsFormatted.toString();
     }
 
-    //TODO: see if changes work!!
+    /**
+     * create string of html for the events on a day with the date header and the event info
+     * @param eventTemplate html template for an event, requires string substitution
+     * @param eventsOnDayInfo ArrayList of String[] that represents event information for string substitution
+     * @return String of html for an event with a date header
+     */
     private String generateEventsFormattedForDay(String eventTemplate, ArrayList<String[]> eventsOnDayInfo){
         // format the header for this day
         //String eventsHeaderFormatted = String.format(dateHeaderTemplate, dayString);
@@ -163,6 +199,9 @@ public class EventProgramExporter {
         return eventsFormatted.toString();
     }
 
+    /**
+     * create a html file for export
+     */
     private void createExportFileIfExists(){
         File exportFile = new File(eventExportFileName);
         if (!exportFile.exists()){
@@ -176,6 +215,10 @@ public class EventProgramExporter {
         }
     }
 
+    /**
+     * opens events.html to overwrite it with new content for the current requested export
+     * @param contents String to be written to events.html
+     */
     private void writeFileContents(String contents){
         FileWriter fw;
         try{
