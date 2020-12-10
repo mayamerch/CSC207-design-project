@@ -129,31 +129,38 @@ public class EventProgramExporter {
         for (Date date : eventDaysInOrder){
             String dayString = dayFormatter.format(date); // ex: Friday November 27
             eventInfo.get(date);
+            //TODO: see if changes WORK!
             ArrayList<String[]> eventsOnDayInfo = eventInfo.get(date);
-            eventsFormatted.append(generateEventsFormattedForDay(eventTemplate, dayString, eventsOnDayInfo));
+            String eventsHeaderFormatted = String.format(dateHeaderTemplate, dayString);
+            eventsFormatted.append(eventsHeaderFormatted);
+            String eventsFormattedForDay = generateEventsFormattedForDay(eventTemplate, eventsOnDayInfo);
+            eventsFormatted.append(eventsFormattedForDay);
         }
 
         return eventsFormatted.toString();
     }
 
-    private String generateEventsFormattedForDay(String eventTemplate, String dayString, ArrayList<String[]> eventsOnDayInfo){
+    //TODO: see if changes work!!
+    private String generateEventsFormattedForDay(String eventTemplate, ArrayList<String[]> eventsOnDayInfo){
         // format the header for this day
-        String eventsHeaderFormatted = String.format(dateHeaderTemplate, dayString);
+        //String eventsHeaderFormatted = String.format(dateHeaderTemplate, dayString);
 
         //format events for this day
         StringBuilder eventsFormatted = new StringBuilder();
         for(String[] info : eventsOnDayInfo){
-            String time = info[0];
-            String eventName = info[1];
-            String speakerName = info[2];
-            String eventRoom = info[3];
-            eventsFormatted.append(String.format(eventTemplate, time, eventName, speakerName, eventRoom));
+            String startTime = info[0];
+            String endTime = info[1];
+            String eventName = info[2];
+            String speakerName = info[3];
+            String eventRoom = info[4];
+            eventsFormatted.append(String.format(eventTemplate, startTime, endTime, eventName, speakerName, eventRoom));
 
             // add a space to separate this event and the next event
             // eventsFormatted += "<hr class='hr-slim'>";
             eventsFormatted.append("<br>");
         }
-        return eventsHeaderFormatted + eventsFormatted.toString();
+        //return eventsHeaderFormatted + eventsFormatted.toString();
+        return eventsFormatted.toString();
     }
 
     private void createExportFileIfExists(){

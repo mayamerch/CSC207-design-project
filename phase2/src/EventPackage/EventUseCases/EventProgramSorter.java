@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class EventProgramSorter {
     private final EventManager eventManager;
@@ -27,7 +28,7 @@ public class EventProgramSorter {
         // ex: Friday November 27
         dayFormatter = new SimpleDateFormat("EEEE MMMM dd");
         // ex: 10:00am - 10:30am
-        timeFormatter = new SimpleDateFormat("hh:mma - hh:mma");
+        timeFormatter = new SimpleDateFormat("hh:mma");
 
     }
 
@@ -119,7 +120,6 @@ public class EventProgramSorter {
             ArrayList<Event> eventsOnDay = eventsByDayHashmap.get(date);
             eventInfoHashmap.put(date, generateEventInfoForDay(eventsOnDay));
         }
-
         return eventInfoHashmap;
         // returns Hashmap of key: DAY,  value: ArrayList of String[] that rep data for a single event
         // each String[] has [time, eventName, speakerName, eventRoom]
@@ -141,15 +141,19 @@ public class EventProgramSorter {
     /**
      * return an array of String that represents all information for the event for export to html program
      * @param event an event to extract information from for export
-     * @return String[] where [0] string representation of time, [1] eventName,[2] speakerName, [3] room
+     * @return String[] an array of strings for event information
      */
     private String[] generateEventInfoForEvent(Event event){
         Date eventDate = event.getEventDate();
-        String time = timeFormatter.format(eventDate);
+        int duration = event.getEventDuration();
+        //TODO: check if this works
+        Date endDate = new Date(eventDate.getTime() + TimeUnit.HOURS.toMillis(duration));
+        String startTime = timeFormatter.format(eventDate);
+        String endTime = timeFormatter.format(endDate);
         String eventName = event.getEventName();
         String speakerName = getSpeakerString(event);
         String eventRoom = Integer.toString(event.getEventRoom());
-        return new String[]{time, eventName, speakerName, eventRoom};
+        return new String[]{startTime, endTime, eventName, speakerName, eventRoom};
     }
 
     /**
@@ -187,16 +191,14 @@ public class EventProgramSorter {
         HashMap<Date, ArrayList<Event>> eventsByDay = new HashMap<>();
         for(Event event : events){
             Date date = event.getEventDate();
-            if(!eventsByDay.containsKey(date)){
-                // we haven't seen this day before. So make a new array list and insert this day into the hashmap
-                ArrayList<Event> newEventsForDay = new ArrayList<>();
-                newEventsForDay.add(event);
-                eventsByDay.put(date, newEventsForDay);
-            }else{
-                // we have seen this day before, so append to the arraylist at this day.
+            if(eventsByDay.containsKey(date)){
                 ArrayList<Event> existingEvents = eventsByDay.get(date);
                 existingEvents.add(event);
                 eventsByDay.put(date, existingEvents);
+            }else{
+                ArrayList<Event> newEventsForDay = new ArrayList<>();
+                newEventsForDay.add(event);
+                eventsByDay.put(date, newEventsForDay);
             }
         }
         return eventsByDay;

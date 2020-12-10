@@ -1,6 +1,6 @@
 <div class="event__body">
     <div class="event__time">
-    %s
+    %s - %s
     </div>
     <div class="event__name">
     %s
