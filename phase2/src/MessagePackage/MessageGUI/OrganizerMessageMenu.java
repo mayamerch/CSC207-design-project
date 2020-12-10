@@ -13,14 +13,21 @@ public class OrganizerMessageMenu extends JFrame {
     private JButton messageSpeakers;
     private JButton messageAttendees;
     private JLabel OrganizerMenu;
+    private JPanel mainPanel;
     private Presenter presenter;
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 
     public OrganizerMessageMenu(Presenter presenter){
         super();
         this.presenter = presenter;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setContentPane();
+        this.setContentPane(getMainPanel());
         this.pack();
+
+        //TODO: make organizer object from presenter and pass on
 
         checkMessages.addActionListener(new ActionListener() {
             @Override
