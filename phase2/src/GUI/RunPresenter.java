@@ -1,4 +1,6 @@
 package GUI;
+import MessagePackage.MessageGUI.AttendeeCheckMessages;
+import MessagePackage.MessageGUI.AttendeeMessageMenu;
 import UserPackage.UserController;
 import UserPackage.UserManager;
 import UserPackage.UserType;
@@ -35,8 +37,13 @@ public class RunPresenter {
         }
         Presenter presenter = new Presenter(userController.getUserManager());
         // make a new user controller using the user manager from the old userController
-        LoginView loginView = new LoginView(presenter);
-        loginView.setVisible(true);
+
+
+        //LoginView loginView = new LoginView(presenter);
+        //loginView.setVisible(true);
+        AttendeeCheckMessages attendeeCheckMessages = new AttendeeCheckMessages();
+        attendeeCheckMessages.setVisible(true);
+
 //        while (userController.validateNotLoggedIn()) {
 //            loginView.setVisible(true);
 //        }

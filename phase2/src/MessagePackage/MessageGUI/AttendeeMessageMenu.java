@@ -1,8 +1,11 @@
 package MessagePackage.MessageGUI;
 
+import EventPackage.EventGUI.EventsView;
 import GUI.MainMenuView;
 import GUI.Presenter;
 import MessagePackage.Message;
+import UserPackage.User;
+import UserPackage.UserController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,18 +16,28 @@ public class AttendeeMessageMenu extends JFrame {
     private JButton checkMessages;
     private JButton checkBroadcasts;
     private JLabel AttendeeMenu;
-    private Presenter presenter;
+    private JPanel mainPanel;
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 
     public AttendeeMessageMenu(Presenter presenter){
         super();
-        this.presenter = presenter;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setContentPane();
+        this.setContentPane(getMainPanel());
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
+
+        //TODO: make user object from presenter and pass on
 
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AttendeeCheckMessages attendeeCheckMessages = new AttendeeCheckMessages();
+                attendeeCheckMessages.setContentPane(attendeeCheckMessages.getMainPanel());
+                attendeeCheckMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                attendeeCheckMessages.pack();
+                attendeeCheckMessages.setVisible(true);
                 setVisible(true);
             }
         });
@@ -32,6 +45,11 @@ public class AttendeeMessageMenu extends JFrame {
         sendMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AttendeeSendMessages attendeeSendMessages = new AttendeeSendMessages();
+                attendeeSendMessages.setContentPane(attendeeSendMessages.getMainPanel());
+                attendeeSendMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                attendeeSendMessages.pack();
+                attendeeSendMessages.setVisible(true);
                 setVisible(true);
             }
         });

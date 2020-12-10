@@ -34,11 +34,6 @@ public class Presenter {
     public Presenter(){
         this.userController = new UserController();
         this.userPresenter = new UserPresenter(userController.getUserManager());
-        this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
-        this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
-        this.conversationPresenter = new ConversationPresenter();
-        this.programPresenter = new EventProgramPresenter(userController.getUserManager(),
-                eventController.getEventManager(),userController.getCurrentUserId(),userController.getUserType());
     }
 
     // for testing purposes
@@ -78,21 +73,32 @@ public class Presenter {
     public boolean userLogin(String username, String password){
         boolean login = userController.userLogin(username, password);
         if (login){
-            instantiateEvent(userController.getCurrentUserId());
+            instantiateEventAndMessages(userController.getCurrentUserId());
             return true;
         }
         return false;
     }
     /**
-     * A helper method to instantiate the EventController and EventPresenter Upon Login
+     * Calls on User Controller to return type of user currently using controller
+     * @return UserType of user who is logged in or Null if not logged in
+     */
+    public UserType getUserType(){
+        if (checkNotLoggedIn()){return null;}
+        return userController.getUserType();
+    }
+    /**
+     * A helper method to instantiate the EventController and EventPresenter and Message Controllers Upon Login
      * @param userID, int
      */
-    private void instantiateEvent(int userID){
+    private void instantiateEventAndMessages(int userID){
         this.eventController = new EventController(userID, userController.checkUserVIP(userID),
                 userController.getSpeakerIds());
         this.eventPresenter = new EventPresenter(eventController);
         this.programPresenter = new EventProgramPresenter(userController.getUserManager(),
                 eventController.getEventManager(),userController.getCurrentUserId(),userController.getUserType());
+        this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
+        this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
+        this.conversationPresenter = new ConversationPresenter();
     }
     /**
      * Logs the User out of the program
@@ -124,6 +130,7 @@ public class Presenter {
      * @return true or false based on if the friend request was successfully accepted and friend added.
      */
     public boolean acceptFriendRequest(String userInput){
+        if (userInput.length() == 0) {return false;}
         if (Character.isDigit(userInput.charAt(0))){
             // ID has been entered
             int userID = Integer.parseInt(userInput);
@@ -132,25 +139,11 @@ public class Presenter {
         return userController.acceptFriendRequest(userInput);
     }
     /**
-     * Helper Method. Returns the friends list of the current User
-     * @return List of integers containing the IDs of the User's friends .
-     */
-    private List<Integer> getFriendsList(){
-        return userController.getFriendsList();
-    }
-    /**
-     * Helper method. Returns the friend requests list of the current User
-     * @return List of integers containing the IDs of the User's incoming friend requests.
-     */
-    private List<Integer> getFriendRequestList(){
-        return userController.getFriendRequestList();
-    }
-    /**
      * Returns the incoming friend requests list of the current User in a format with Usernames and ID in brackets
      * @return List of Strings containing the Usernames and IDs of the User's incoming friends requests.
      */
     public List<String> displayFriendRequestList(){
-        List<Integer> friendRequestList = getFriendRequestList();
+        List<Integer> friendRequestList = userController.getFriendRequestList();
         return userPresenter.userIDListToString(friendRequestList);
     }
     /**
@@ -158,8 +151,12 @@ public class Presenter {
      * @return List of Strings containing the Usernames and IDs of the User's friends.
      */
     public List<String> displayFriendList(){
-        List<Integer> friendList = getFriendsList();
+        List<Integer> friendList = userController.getFriendsList();
         return userPresenter.userIDListToString(friendList);
+    }
+    public List<String> displayNotFriendsOrRequests(){
+        List<Integer> excludeList = userController.getNotFriendsNotRequests();
+        return userPresenter.userIDListToString(excludeList);
     }
     /**
      * Checks if the User is logged in with a valid account
@@ -206,6 +203,12 @@ public class Presenter {
             int userID = Integer.parseInt(username);
             return userController.changeUserVIP(userID, newVIPStatus);}
         return userController.changeUserVIP(username, newVIPStatus);
+    }
+    /**
+     * Saves the Map of Users in the UserManager within the UserController
+     */
+    public void saveUserMap(){
+        userController.saveUserMap();
     }
 
     /**

@@ -61,8 +61,8 @@ public class CreateAccountMenuView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                LoginView loginView = new LoginView(presenter);
-                loginView.setVisible(true);
+                UserMenuView userMenuView = new UserMenuView(presenter);
+                userMenuView.setVisible(true);
             }
         });
     }
