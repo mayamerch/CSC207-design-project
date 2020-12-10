@@ -1,17 +1,13 @@
 package MessagePackage.MessageGUI;
 
-import GUI.Presenter;
-import UserPackage.UserController;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
-public class AttendeeCheckMessages extends JFrame{
-    private JTextArea messageArea;
-    private JButton showMessages;
+public class AttendeeSendMessages extends JFrame{
     private JPanel mainPanel;
+    private JTextArea messageArea;
+    private JButton sendMessage;
     private JTextField enterID;
     private JButton viewFriends;
 
@@ -19,7 +15,7 @@ public class AttendeeCheckMessages extends JFrame{
         return mainPanel;
     }
 
-    public AttendeeCheckMessages() {
+    public AttendeeSendMessages(){
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -38,15 +34,14 @@ public class AttendeeCheckMessages extends JFrame{
             }
         });
 
-        showMessages.addActionListener(new ActionListener() {
+        sendMessage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userID = enterID.getText();
-                //TODO: get messages from userID and current user and display in textarea
+                String message = messageArea.getText();
+                String sendTo = enterID.getText();
+                //TODO: send this message to the sendId
             }
         });
 
-
     }
-
 }

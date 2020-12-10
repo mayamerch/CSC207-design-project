@@ -27,12 +27,13 @@ public class AttendeeMessageMenu extends JFrame {
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
-        UserController loggedInUserController = presenter.getUserController();
+
+        //TODO: make user object from presenter and pass on
 
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttendeeCheckMessages attendeeCheckMessages = new AttendeeCheckMessages(loggedInUserController);
+                AttendeeCheckMessages attendeeCheckMessages = new AttendeeCheckMessages();
                 attendeeCheckMessages.setContentPane(attendeeCheckMessages.getMainPanel());
                 attendeeCheckMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 attendeeCheckMessages.pack();
