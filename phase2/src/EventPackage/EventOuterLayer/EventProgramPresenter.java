@@ -4,7 +4,6 @@ import EventPackage.EventUseCases.EventManager;
 import UserPackage.UserManager;
 import UserPackage.UserType;
 
-import java.io.IOException;
 
 public class EventProgramPresenter {
     private EventProgramExporter eventProgramExporter;
