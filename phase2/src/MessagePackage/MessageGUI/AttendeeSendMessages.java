@@ -1,8 +1,11 @@
 package MessagePackage.MessageGUI;
 
+import GUI.Presenter;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class AttendeeSendMessages extends JFrame{
     private JPanel mainPanel;
@@ -15,11 +18,14 @@ public class AttendeeSendMessages extends JFrame{
         return mainPanel;
     }
 
-    public AttendeeSendMessages(){
+    public AttendeeSendMessages(Presenter presenter){
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
+
+
+        int userID = presenter.getUserController().getCurrentUserId();
 
         viewFriends.addActionListener(new ActionListener() {
             @Override
@@ -39,7 +45,9 @@ public class AttendeeSendMessages extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String message = messageArea.getText();
                 String sendTo = enterID.getText();
-                //TODO: send this message to the sendId
+                ArrayList<Integer> userlist = new ArrayList<>();
+                userlist.add(Integer.parseInt(sendTo));
+                presenter.getChatroomController().sendChat(userlist, userID, message);
             }
         });
 

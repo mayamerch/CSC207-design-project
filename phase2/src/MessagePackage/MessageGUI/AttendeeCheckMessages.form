@@ -57,6 +57,7 @@
           </grid>
         </constraints>
         <properties>
+          <editable value="true"/>
           <text value="Enter User ID"/>
         </properties>
       </component>

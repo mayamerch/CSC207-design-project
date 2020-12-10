@@ -60,7 +60,7 @@ public class ChatroomController {
      * @param userlist a list of all users within the chat
      * @param senderUserID the userID of the person creating the Chatroom
      */
-    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID){
+    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID){ //ArrayList<Integer> userlist
         User sender = userManager.getUserByID(senderUserID);
         Chatroom c = new Chatroom(userlist);
         if (chats.contains(c)) {

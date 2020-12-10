@@ -8,12 +8,12 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="ca412" class="javax.swing.JLabel" binding="label">
+      <component id="ca412" class="javax.swing.JLabel" binding="yourFriends">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Added Friends"/>
+          <text value="Your friends"/>
         </properties>
       </component>
       <component id="239ea" class="javax.swing.JTextArea" binding="friendListArea">
