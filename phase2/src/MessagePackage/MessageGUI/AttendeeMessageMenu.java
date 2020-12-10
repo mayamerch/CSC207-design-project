@@ -33,11 +33,11 @@ public class AttendeeMessageMenu extends JFrame {
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttendeeCheckMessages attendeeCheckMessages = new AttendeeCheckMessages(presenter);
-                attendeeCheckMessages.setContentPane(attendeeCheckMessages.getMainPanel());
-                attendeeCheckMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                attendeeCheckMessages.pack();
-                attendeeCheckMessages.setVisible(true);
+                CheckUserMessages checkUserMessages = new CheckUserMessages(presenter);
+                checkUserMessages.setContentPane(checkUserMessages.getMainPanel());
+                checkUserMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                checkUserMessages.pack();
+                checkUserMessages.setVisible(true);
                 setVisible(true);
             }
         });

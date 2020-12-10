@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class AttendeeCheckMessages extends JFrame{
+public class CheckUserMessages extends JFrame{
     private JTextArea messageArea;
     private JButton showMessages;
     private JPanel mainPanel;
@@ -20,7 +20,7 @@ public class AttendeeCheckMessages extends JFrame{
         return mainPanel;
     }
 
-    public AttendeeCheckMessages(Presenter presenter) {
+    public CheckUserMessages(Presenter presenter) {
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

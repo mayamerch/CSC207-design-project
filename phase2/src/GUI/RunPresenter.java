@@ -1,6 +1,4 @@
 package GUI;
-import MessagePackage.MessageGUI.AttendeeCheckMessages;
-import MessagePackage.MessageGUI.AttendeeMessageMenu;
 import UserPackage.UserController;
 import UserPackage.UserManager;
 import UserPackage.UserType;
