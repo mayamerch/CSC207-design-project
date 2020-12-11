@@ -20,6 +20,11 @@ public class BroadcastGateway {
             this.broadcastDataFile = new File("src/MessagePackage/BroadcastDataFile.ser");
         else
             this.broadcastDataFile = new File("src/MessagePackage/BroadcastDataFile.txt");
+        try {
+            broadcastDataFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveBroadcastsObject(ArrayList<Broadcast> broadcasts) {
@@ -35,7 +40,7 @@ public class BroadcastGateway {
         }
     }
     public ArrayList<Broadcast> readBroadcastsObject(){
-        ArrayList<Broadcast> broadcasts = null;
+        ArrayList<Broadcast> broadcasts = new ArrayList<>();
         try {
             FileInputStream fileIn = new FileInputStream(this.broadcastDataFile);
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -43,15 +48,13 @@ public class BroadcastGateway {
             in.close();
             fileIn.close();
             return broadcasts;
-        } catch (FileNotFoundException f) {
-            return null;
-        } catch (IOException i) {
-            i.printStackTrace();
-            return null;
+        } catch (IOException f) {
+            f.printStackTrace();
+            return broadcasts;
         } catch (ClassNotFoundException c) {
             System.out.println("List class not found");
             c.printStackTrace();
-            return null;
+            return broadcasts;
         }
     }
 
