@@ -89,64 +89,59 @@ public class ChatroomController {
                 }
             }*/
 
-            else if (!sender.getFriendsList().contains(user) || !recipient.getFriendsList().contains(senderUserID)) { // if someone is not a friend of the sender
+            else if (!recipient.getFriendsList().contains(senderUserID)) { // if someone is not a friend of the sender
                 return false; // can't send message to someone who isn't your friend
             }
-
-            // TODO: checks that everyone is friends with everyone else?
-        /*for(int i = 0; i < userlist.size(); i++){
-            for(int j = 0; j < userlist.size(); j++){
-                User user1 = userManager.getUserByID(userlist.get(i));
-                User user2 = userManager.getUserByID(userlist.get(j));
-                if(i !=j && (!user1.getFriendsList().contains(user2) || !user2.getFriendsList().contains(user1))){
-                    return false;
-                }
-            }
-        }
-        */
-
         }
         return true;
     }
 
     /**
-     * Creates and returns a new Chatroom, if possible. Raises an Error if not.
+     * Creates and returns a new Chatroom, if possible. Returns a null Chatroom if not.
      *
      * @param userlist     a list of all users within the chat
      * @param senderUserID the userID of the person creating the Chatroom
      */
     public Chatroom createNewChatRoom(ArrayList<Integer> userlist, int senderUserID) {
         if (canCreateNewChatRoom(userlist, senderUserID)) {
-            Chatroom c = new Chatroom(userlist);
-            chats.add(c);
-            return c;
+            Chatroom created = new Chatroom(userlist);
+            chats.add(created);
+            return created;
         } else {
-            throw new Error("This Chatroom cannot be created.");
+            throw new Error("This Chatroom cannot be created");
         }
     }
 
 
     /**
      * Sends a message in an existing Chat, or creates a new one if it doesn't exist
-     *
-     * @param userlist     of everyone you are sending the message to
+     * @param userlist of everyone you are sending the message to
      * @param senderUserID the ID of the user who is sending the broadcast
-     * @param message      content of the message you are sending
+     * @param message content of the message you are sending
      */
     public boolean sendChat(ArrayList<Integer> userlist, int senderUserID, String message) {
         Chatroom c = createNewChatRoom(userlist, senderUserID);
+        //if(c.getUserList().size() == 0 || c.getUserList() == null){
+        //    return false;
+        //}
+
+        for(int user: userlist){
+            User sender = userManager.getUserByID(senderUserID);
+            User receiver = userManager.getUserByID(user);
+            if(!receiver.getFriendsList().contains(senderUserID)){
+                return false; // can't send a chat to someone who's not your friend
+            }
+        }
 
         for (Chatroom chatroom : chats) {
             if (chatroom.equals(c)) {
-                c.sendMessage(message, senderUserID);
-                System.out.println("Your message has been sent.");
+                chatroom.sendMessage(message, senderUserID);
                 return true;
             }
         }
-        c = createNewChatRoom(userlist, senderUserID);
+
         c.sendMessage(message, senderUserID);
         chats.add(c);
-        System.out.println("Your message has been sent.");
         return true;
     }
 

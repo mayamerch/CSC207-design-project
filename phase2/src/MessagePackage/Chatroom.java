@@ -31,7 +31,9 @@ public class Chatroom implements Conversation, Serializable {
         this.messages = messages;
     }
 
-    //public MessageQueue getMessageQueue(){return messageQueue;}
+    public ArrayList<Integer> getUserList() {
+        return userList;
+    }
 
     @Override
     public void sendMessage(String messageStr, int senderUserID){

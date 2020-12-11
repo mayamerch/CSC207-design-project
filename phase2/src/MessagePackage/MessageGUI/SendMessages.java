@@ -32,10 +32,17 @@ public class SendMessages extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String message = messageArea.getText();
                 String sendTo = enterID.getText();
-                ArrayList<Integer> userlist = new ArrayList<>();
+
+                ArrayList<Integer> userlist = new ArrayList<Integer>();
                 userlist.add(Integer.parseInt(sendTo));
-                presenter.getChatroomController().sendChat(userlist, userID, message);
-                messageArea.setText("Message Sent!");
+
+                //messageArea.setText(presenter.getChatroomController().sendChat(userlist, userID, message));
+                if(presenter.getChatroomController().sendChat(userlist, userID, message)){
+                    messageArea.setText("Message Sent!");
+                }
+                else{
+                    messageArea.setText("You are not friends with User " + sendTo + ". Failed to send.");
+                }
                 setVisible(true);
             }
         });

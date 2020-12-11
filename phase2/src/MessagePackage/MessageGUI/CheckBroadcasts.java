@@ -28,14 +28,6 @@ public class CheckBroadcasts extends JFrame{
 
         int userID = presenter.getUserController().getCurrentUserId();
 
-        /*showAllBroadcasts.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO: get all Broadcasts and show in messageArea
-                messageArea.append(presenter.getBroadcastController().myBroadcasts(userID));
-            }
-        });*/
-
         showAllBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,12 +35,11 @@ public class CheckBroadcasts extends JFrame{
             }
         });
 
-
         showBroadcastForID.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int eventId = Integer.parseInt(enterID.getText());
-                messageArea.append(presenter.getBroadcastController().returnBroadcastforEventID(eventId));
+                messageArea.setText(presenter.getBroadcastController().returnBroadcastforEventID(eventId));
             }
         });
 

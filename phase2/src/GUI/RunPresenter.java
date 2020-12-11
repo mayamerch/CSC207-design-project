@@ -32,6 +32,7 @@ public class RunPresenter {
         userController.acceptFriendRequest("user1"); // accept user 1 from user3
         userController.logOut();
         userController.userLogin("user4", "user4");
+        userController.sendFriendRequest("user4");
         userController.acceptFriendRequest("user4"); // accept user 1 from user4
         userController.sendFriendRequest("user1");
         userController.logOut();

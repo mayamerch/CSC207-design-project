@@ -225,6 +225,9 @@ public class BroadcastController {
      */
     public String myBroadcasts(int userID){
         StringBuilder s = new StringBuilder("");
+        if (returnBroadcastsforUserID(userID).size() == 0) {
+            return "You have no broadcasts!";
+        }
         for (Broadcast b: returnBroadcastsforUserID(userID)){
             s.append(b.format());
             s.append("\n------\n") ;
@@ -245,18 +248,4 @@ public class BroadcastController {
         return s.toString();
     }
 
-
-    /*
-    // TODO: remove this method (changed to broadcastAllAttendees method)
-    public void broadcastConference(int organizerUserID, String message){
-        if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
-            for (Event e : eventManager.getEventList()) {
-                sendBroadcast(organizerUserID, e.getEventId(), message);
-            }
-        }
-        else{
-            throw new Error("Only organizers can broadcast to the entire conference.");
-        }
-    }
-    */
 }

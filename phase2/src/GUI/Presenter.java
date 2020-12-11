@@ -233,8 +233,8 @@ public class Presenter {
         System.out.println(chatroomController.myChats(userID));
     }
 
-    public boolean sendMessages(ArrayList<Integer> recipients, int userID, String message){
-        return chatroomController.sendChat(recipients, userID, message);
+    public void sendMessages(ArrayList<Integer> recipients, int userID, String message){
+        //return chatroomController.sendChat(recipients, userID, message);
     }
 
     public void sendBroadcasts(int userID){
