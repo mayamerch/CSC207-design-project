@@ -33,11 +33,11 @@ public class OrganizerMessageMenu extends JFrame {
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MessageWindow messageWindow = new MessageWindow(presenter);
-                messageWindow.setContentPane(messageWindow.getMainPanel());
-                messageWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                messageWindow.pack();
-                messageWindow.setVisible(true);
+                CheckMessages checkUserMessages = new CheckMessages(presenter);
+                checkUserMessages.setContentPane(checkUserMessages.getMainPanel());
+                checkUserMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                checkUserMessages.pack();
+                checkUserMessages.setVisible(true);
                 setVisible(false);
             }
         });
