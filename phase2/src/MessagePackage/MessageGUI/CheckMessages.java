@@ -2,18 +2,17 @@ package MessagePackage.MessageGUI;
 
 import GUI.Presenter;
 import MessagePackage.ChatroomController;
-import UserPackage.UserController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class CheckMessages extends JFrame{
     private JTextArea messageArea;
-    private JButton showMessages;
+    private JButton showAllMessages;
     private JPanel mainPanel;
     private JTextField enterID;
+    private JButton showMessagesFromUserButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -28,7 +27,7 @@ public class CheckMessages extends JFrame{
         ChatroomController chatroomController = presenter.getChatroomController();
         int userID = presenter.getUserController().getCurrentUserId();
 
-        showMessages.addActionListener(new ActionListener() {
+        showAllMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String myChats = chatroomController.myChats(userID);
@@ -36,6 +35,14 @@ public class CheckMessages extends JFrame{
             }
         });
 
+        showMessagesFromUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int senderID = Integer.parseInt(enterID.getText());
+                String chatsFromUser = chatroomController.getChatsFromUser(userID, senderID);
+                messageArea.setText(chatsFromUser);
+            }
+        });
 
     }
 

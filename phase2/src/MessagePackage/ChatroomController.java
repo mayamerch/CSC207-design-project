@@ -64,7 +64,7 @@ public class ChatroomController {
      */
     public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID) { //ArrayList<Integer> userlist
         User sender = userManager.getUserByID(senderUserID);
-        Chatroom c = new Chatroom(userlist);
+        Chatroom c = new Chatroom(senderUserID, userlist);
         if (chats.contains(c)) {
             return false;
         }
@@ -103,7 +103,7 @@ public class ChatroomController {
      * @param senderUserID the userID of the person creating the Chatroom
      */
     public Chatroom createNewChatRoom(ArrayList<Integer> userlist, int senderUserID) {
-        Chatroom create = new Chatroom(userlist);
+        Chatroom create = new Chatroom(senderUserID, userlist);
         if (canCreateNewChatRoom(userlist, senderUserID)) {
             chats.add(create);
         }
@@ -164,6 +164,23 @@ public class ChatroomController {
         for (Chatroom c : returnChatsforUserID(userID)) {
             s.append(c.format());
             s.append("\n------\n");
+        }
+        return s.toString();
+    }
+
+    public String getChatsFromUser(int myID, int senderID){
+        StringBuilder s = new StringBuilder("");
+        if (returnChatsforUserID(myID).size() == 0) {
+            return "You have no messages from User " + senderID + "!";
+        }
+        for(Chatroom chatroom: returnChatsforUserID(myID)){
+            if(chatroom.getSenderID() == senderID){
+                s.append(chatroom.format());
+                s.append("\n------\n");
+            }
+        }
+        if (s.equals("")) {
+            return "You have no messages from User " + senderID + "!";
         }
         return s.toString();
     }

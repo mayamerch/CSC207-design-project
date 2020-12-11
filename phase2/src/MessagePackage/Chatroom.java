@@ -6,18 +6,19 @@ import java.util.ArrayList;
 public class Chatroom implements Conversation, Serializable {
 
     private ArrayList<Integer> userList;
-    //private MessageQueue messageQueue;
     private ArrayList<Message> messages;
+    private int senderID;
     //enum status {ACCEPTED, PENDING, REJECTED}
     //private status myStatus;
 
     /**
      * Creates a new chatroom between two or more users in userList
      * @param userList a list of all users one can message
+     * @param senderID the ID of the user sending this message
      */
-    public Chatroom(ArrayList<Integer> userList){
+    public Chatroom(int senderID, ArrayList<Integer> userList){
         this.userList = userList;
-        //this.messageQueue = new MessageQueue();
+        this.senderID = senderID;
         this.messages = new ArrayList<Message>();
     }
 
@@ -33,6 +34,10 @@ public class Chatroom implements Conversation, Serializable {
 
     public ArrayList<Integer> getUserList() {
         return userList;
+    }
+
+    public int getSenderID() {
+        return senderID;
     }
 
     @Override
