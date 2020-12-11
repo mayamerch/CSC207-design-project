@@ -31,7 +31,6 @@ public class AttendeeMessageMenu extends JFrame {
         checkMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: get rid of checkusermessages? to simplify?
                 CheckMessages checkUserMessages = new CheckMessages(presenter);
                 checkUserMessages.setContentPane(checkUserMessages.getMainPanel());
                 checkUserMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -39,6 +38,7 @@ public class AttendeeMessageMenu extends JFrame {
                 checkUserMessages.setVisible(true);
                 setVisible(false);
 
+                //TODO: get rid of this?
                 /*MessageWindow messageWindow = new MessageWindow(presenter);
                 messageWindow.setContentPane(messageWindow.getMainPanel());
                 messageWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

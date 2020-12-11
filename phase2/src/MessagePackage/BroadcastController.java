@@ -23,6 +23,7 @@ public class BroadcastController {
         this.eventManager = eventManager;
         this.userManager = userManager;
         this.gateway = new BroadcastGateway(eventManager);
+        this.broadcasts = new ArrayList<>();
         try {
             this.broadcasts = gateway.makeBroadcasts();
         } catch (FileNotFoundException e) {
@@ -205,12 +206,15 @@ public class BroadcastController {
      * @param eventID the ID of the event whose Broadcasts you are looking for
      */
     public String returnBroadcastforEventID(int eventID) {
+        if(broadcasts.size() == 0){
+            return "No Broadcasts for Event " + eventID + "!\n";
+        }
         for(Broadcast b: broadcasts){
             if(b.getEventID() == eventID){
                 return b.format();
             }
         }
-        return "No Broadcasts for Event " + eventID + "\n";
+        return "No Broadcasts for Event " + eventID + "!\n";
     }
 
     /**
@@ -219,6 +223,9 @@ public class BroadcastController {
      */
     public ArrayList<Broadcast> returnBroadcastsforUserID(int userID){
         ArrayList<Broadcast> myBroadcasts = new ArrayList<>();
+        if(broadcasts.size() == 0){
+            return myBroadcasts;
+        }
         for(Broadcast c: broadcasts){
             if (c.canRead(userID)){
                 myBroadcasts.add(c);

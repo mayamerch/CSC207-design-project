@@ -13,6 +13,7 @@ public class CheckMessages extends JFrame{
     private JPanel mainPanel;
     private JTextField enterID;
     private JButton showMessagesFromUserButton;
+    private JButton backButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -41,6 +42,15 @@ public class CheckMessages extends JFrame{
                 int senderID = Integer.parseInt(enterID.getText());
                 String chatsFromUser = chatroomController.getChatsFromUser(userID, senderID);
                 messageArea.setText(chatsFromUser);
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AttendeeMessageMenu attendeeMessageMenu = new AttendeeMessageMenu(presenter);
+                attendeeMessageMenu.setVisible(true);
+                setVisible(false);
             }
         });
 

@@ -102,12 +102,13 @@ public class ChatroomController {
      * @param userlist     a list of all users within the chat
      * @param senderUserID the userID of the person creating the Chatroom
      */
-    public Chatroom createNewChatRoom(ArrayList<Integer> userlist, int senderUserID) {
+    public Chatroom createNewChatRoom(ArrayList<Integer> userlist, int senderUserID) throws ArrayIndexOutOfBoundsException {
         Chatroom create = new Chatroom(senderUserID, userlist);
         if (canCreateNewChatRoom(userlist, senderUserID)) {
             chats.add(create);
+            return create;
         }
-        return create;
+        throw new NullPointerException();
     }
 
 
@@ -119,26 +120,31 @@ public class ChatroomController {
      * @param message content of the message you are sending
      */
     public boolean sendChat(ArrayList<Integer> userlist, int senderUserID, String message) {
-        Chatroom c = createNewChatRoom(userlist, senderUserID);
+        try{
+            Chatroom c = createNewChatRoom(userlist, senderUserID);
 
-        for(int user: userlist){
-            User sender = userManager.getUserByID(senderUserID);
-            User receiver = userManager.getUserByID(user);
-            if(!receiver.getFriendsList().contains(senderUserID)){
-                return false; // can't send a chat to someone who's not your friend
+            for(int user: userlist){
+                User sender = userManager.getUserByID(senderUserID);
+                User receiver = userManager.getUserByID(user);
+                if(!receiver.getFriendsList().contains(senderUserID)){
+                    return false; // can't send a chat to someone who's not your friend
+                }
             }
-        }
 
-        for (Chatroom chatroom : chats) {
-            if (chatroom.equals(c)) {
-                chatroom.sendMessage(message, senderUserID);
-                return true;
+            for (Chatroom chatroom : chats) {
+                if (chatroom.equals(c)) {
+                    chatroom.sendMessage(message, senderUserID);
+                    return true;
+                }
             }
-        }
 
-        c.sendMessage(message, senderUserID);
-        chats.add(c);
-        return true;
+            c.sendMessage(message, senderUserID);
+            chats.add(c);
+            return true;
+        }
+        catch(NullPointerException n){
+            return false;
+        }
     }
 
     /**

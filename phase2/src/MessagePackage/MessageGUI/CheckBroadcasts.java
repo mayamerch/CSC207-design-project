@@ -3,6 +3,7 @@ package MessagePackage.MessageGUI;
 import GUI.Presenter;
 import MessagePackage.BroadcastController;
 import MessagePackage.ChatroomController;
+import UserPackage.UserType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ public class CheckBroadcasts extends JFrame{
     private JButton showAllBroadcasts;
     private JTextField enterID;
     private JButton showBroadcastForID;
+    private JButton backButton;
     private JButton viewEvents;
 
     public JPanel getMainPanel() {
@@ -42,6 +44,28 @@ public class CheckBroadcasts extends JFrame{
                 messageArea.setText(presenter.getBroadcastController().returnBroadcastforEventID(eventId));
             }
         });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(presenter.getUserController().getUserType() == UserType.ATTENDEE){
+                    AttendeeMessageMenu attendeeMessageMenu = new AttendeeMessageMenu(presenter);
+                    attendeeMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
+                else if(presenter.getUserController().getUserType() == UserType.SPEAKER){
+                    SpeakerMessageMenu speakerMessageMenu = new SpeakerMessageMenu(presenter);
+                    speakerMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
+                else if(presenter.getUserController().getUserType() == UserType.ORGANIZER){
+                    OrganizerMessageMenu organizerMessageMenu = new OrganizerMessageMenu(presenter);
+                    organizerMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
+            }
+        });
+
 
     }
 }

@@ -1,6 +1,7 @@
 package MessagePackage.MessageGUI;
 
 import GUI.Presenter;
+import UserPackage.UserType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ public class SendMessages extends JFrame{
     private JTextArea messageArea;
     private JButton sendMessage;
     private JTextField enterID;
+    private JButton backButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -38,7 +40,7 @@ public class SendMessages extends JFrame{
                 userlist.add(Integer.parseInt(sendTo));
 
                 //messageArea.setText(presenter.getChatroomController().sendChat(userlist, userID, message));
-                if(presenter.sendMessages(userlist, userID, message)){
+                if(presenter.getChatroomController().sendChat(userlist, userID, message)){
                     messageArea.setText("Message Sent!");
                     presenter.saveChats();
                 }
@@ -49,5 +51,25 @@ public class SendMessages extends JFrame{
             }
         });
 
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(presenter.getUserController().getUserType() == UserType.ATTENDEE){
+                    AttendeeMessageMenu attendeeMessageMenu = new AttendeeMessageMenu(presenter);
+                    attendeeMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
+                else if(presenter.getUserController().getUserType() == UserType.SPEAKER){
+                    SpeakerMessageMenu speakerMessageMenu = new SpeakerMessageMenu(presenter);
+                    speakerMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
+                else if(presenter.getUserController().getUserType() == UserType.ORGANIZER){
+                    OrganizerMessageMenu organizerMessageMenu = new OrganizerMessageMenu(presenter);
+                    organizerMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
+            }
+        });
     }
 }
