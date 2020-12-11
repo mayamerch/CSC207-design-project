@@ -98,15 +98,18 @@ public class MainMenuView extends JFrame{
                 UserType userType = presenter.getUserType();
                 if(userType == UserType.ATTENDEE){
                     AttendeeMessageMenu attendeeMessageMenu = new AttendeeMessageMenu(presenter);
+                    attendeeMessageMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     attendeeMessageMenu.setVisible(true);
                 }
                 else if(userType == UserType.ORGANIZER){
                     OrganizerMessageMenu organizerMessageMenu = new OrganizerMessageMenu(presenter);
+                    organizerMessageMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     organizerMessageMenu.setVisible(true);
                 }
 
                 else if(userType == UserType.SPEAKER){
                     SpeakerMessageMenu speakerMessageMenu = new SpeakerMessageMenu(presenter);
+                    speakerMessageMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     speakerMessageMenu.setVisible(true);
                 }
 
