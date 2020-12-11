@@ -48,6 +48,9 @@ public class LoginView extends JFrame{
         createAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                CreateAttendeeMenuView createAttendeeMenuView = new CreateAttendeeMenuView(presenter);
+                createAttendeeMenuView.setVisible(true);
             }
         });
     }
