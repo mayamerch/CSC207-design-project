@@ -30,7 +30,7 @@ public class SpeakerBroadcastOneEvent extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 int eventID = Integer.parseInt(enterEventID.getText());
                 String broadcastMessage = messageArea.getText();
-                messageArea.setText(presenter.getBroadcastController().sendBroadcastToEvent(userID, eventID, broadcastMessage));
+                messageArea.setText(presenter.sendBroadcastToEvent(userID, eventID, broadcastMessage));
             }
         });
     }

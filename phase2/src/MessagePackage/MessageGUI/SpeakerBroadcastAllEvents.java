@@ -32,7 +32,7 @@ public class SpeakerBroadcastAllEvents extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String broadcastMessage = messageArea.getText();
-                messageArea.setText(presenter.getBroadcastController().sendBroadcastInAllSpeakerEvents((Speaker)speaker, broadcastMessage));
+                messageArea.setText(presenter.sendBroadcastInAllSpeakerEvents((Speaker)speaker, broadcastMessage));
             }
         });
     }
