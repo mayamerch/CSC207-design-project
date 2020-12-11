@@ -54,6 +54,7 @@ public class MainMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                presenter.saveUserMap();
                 presenter.userLogOut();
                 setVisible(false);
                 LoginView loginView = new LoginView(presenter);
