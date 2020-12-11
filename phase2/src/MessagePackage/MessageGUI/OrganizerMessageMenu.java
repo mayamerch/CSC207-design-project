@@ -15,6 +15,7 @@ public class OrganizerMessageMenu extends JFrame {
     private JButton messageAttendees;
     private JLabel OrganizerMenu;
     private JPanel mainPanel;
+    private JButton backButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -84,6 +85,13 @@ public class OrganizerMessageMenu extends JFrame {
                 messageAttendees.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 messageAttendees.pack();
                 messageAttendees.setVisible(true);
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
             }
         });
 

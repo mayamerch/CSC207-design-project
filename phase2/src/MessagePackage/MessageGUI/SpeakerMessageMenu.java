@@ -14,6 +14,7 @@ public class SpeakerMessageMenu extends JFrame {
     private JButton broadcastAllEvents;
     private JLabel SpeakerMenu;
     private JPanel mainPanel;
+    private JButton backButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -79,6 +80,13 @@ public class SpeakerMessageMenu extends JFrame {
                 allEvents.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 allEvents.pack();
                 allEvents.setVisible(true);
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
             }
         });
 

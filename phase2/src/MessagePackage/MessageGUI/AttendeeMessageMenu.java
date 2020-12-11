@@ -1,6 +1,8 @@
 package MessagePackage.MessageGUI;
 
+import GUI.MainMenuView;
 import GUI.Presenter;
+import GUI.UserMenuView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +14,7 @@ public class AttendeeMessageMenu extends JFrame {
     private JButton checkBroadcasts;
     private JLabel AttendeeMenu;
     private JPanel mainPanel;
+    private JButton backButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -29,19 +32,19 @@ public class AttendeeMessageMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO: get rid of checkusermessages? to simplify?
-                /*CheckMessages checkUserMessages = new CheckMessages(presenter);
+                CheckMessages checkUserMessages = new CheckMessages(presenter);
                 checkUserMessages.setContentPane(checkUserMessages.getMainPanel());
                 checkUserMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 checkUserMessages.pack();
                 checkUserMessages.setVisible(true);
-                setVisible(true);*/
+                setVisible(false);
 
-                MessageWindow messageWindow = new MessageWindow(presenter);
+                /*MessageWindow messageWindow = new MessageWindow(presenter);
                 messageWindow.setContentPane(messageWindow.getMainPanel());
                 messageWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 messageWindow.pack();
                 messageWindow.setVisible(true);
-                setVisible(false); // the attendee menu
+                setVisible(false); // the attendee menu*/
             }
         });
 
@@ -67,6 +70,13 @@ public class AttendeeMessageMenu extends JFrame {
                 attendeeCheckBroadcasts.setVisible(true);
                 setVisible(false); // the attendee menu
 
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
             }
         });
 
