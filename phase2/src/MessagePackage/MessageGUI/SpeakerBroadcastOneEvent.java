@@ -8,10 +8,11 @@ import java.awt.event.ActionListener;
 
 public class SpeakerBroadcastOneEvent extends JFrame{
     private JTextArea messageArea;
-    private JButton viewEventsButton;
     private JButton sendBroadcastButton;
     private JTextField enterEventID;
     private JPanel mainPanel;
+    private JTextField enterBroadcastTextField;
+    private JTextArea broadcastMessage;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -32,10 +33,12 @@ public class SpeakerBroadcastOneEvent extends JFrame{
                 String broadcastMessage = messageArea.getText();
                 //TODO: send broadcast to event with eventID
                 presenter.getBroadcastController().sendBroadcastToEvent(userID, eventID, broadcastMessage);
+                messageArea.append("Broadcast sent.");
             }
         });
 
-        viewEventsButton.addActionListener(new ActionListener() {
+        //TODO: can we get rid of this?
+        /*viewEventsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ViewEventsForm viewEventsForm = new ViewEventsForm();
@@ -45,7 +48,7 @@ public class SpeakerBroadcastOneEvent extends JFrame{
                 viewEventsForm.setVisible(true);
                 setVisible(true);
             }
-        });
+        });*/
 
     }
 

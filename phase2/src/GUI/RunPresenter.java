@@ -6,11 +6,13 @@ import UserPackage.UserManager;
 import UserPackage.UserType;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RunPresenter {
 
     public static void main(String[] args) {
         UserManager userManager = new UserManager();
+        EventManager eventManager = new EventManager();
 
         userManager.createAccount("user1", "user1", UserType.ORGANIZER);
         userManager.createAccount("user2", "user2", UserType.SPEAKER);
@@ -40,6 +42,9 @@ public class RunPresenter {
         }
         Presenter presenter = new Presenter(userController.getUserManager());
         // make a new user controller using the user manager from the old userController
+
+        Date date = new Date();
+        eventManager.createSingleSpeakerEvent("test event", 10, date, 1, 60, false, 2);
 
         LoginView loginView = new LoginView(presenter);
         loginView.setVisible(true);

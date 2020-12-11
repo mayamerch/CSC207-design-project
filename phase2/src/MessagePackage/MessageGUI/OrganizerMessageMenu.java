@@ -9,12 +9,11 @@ import java.awt.event.ActionListener;
 public class OrganizerMessageMenu extends JFrame {
     private JButton checkMessages;
     private JButton sendMessages;
-    private JButton sendBroadcasts;
+    private JButton checkBroadcasts;
     private JButton messageSpeakers;
     private JButton messageAttendees;
     private JLabel OrganizerMenu;
     private JPanel mainPanel;
-    private Presenter presenter;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -22,9 +21,8 @@ public class OrganizerMessageMenu extends JFrame {
 
     public OrganizerMessageMenu(Presenter presenter){
         super();
-        this.presenter = presenter;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(getMainPanel());
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
         //TODO: make organizer object from presenter and pass on
@@ -38,35 +36,53 @@ public class OrganizerMessageMenu extends JFrame {
                 messageWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 messageWindow.pack();
                 messageWindow.setVisible(true);
-                setVisible(true);
+                setVisible(false);
             }
         });
 
         sendMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(true);
+                SendMessages sendMessages = new SendMessages(presenter);
+                sendMessages.setContentPane(sendMessages.getMainPanel());
+                sendMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                sendMessages.pack();
+                sendMessages.setVisible(true);
+                setVisible(false); // the attendee menu
             }
         });
 
-        sendBroadcasts.addActionListener(new ActionListener() {
+        checkBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(true);
+                CheckBroadcasts attendeeCheckBroadcasts = new CheckBroadcasts();
+                attendeeCheckBroadcasts.setContentPane(attendeeCheckBroadcasts.getMainPanel());
+                attendeeCheckBroadcasts.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                attendeeCheckBroadcasts.pack();
+                attendeeCheckBroadcasts.setVisible(true);
+
             }
         });
 
         messageSpeakers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(true);
+                SendMessageToAllSpeakers messageSpeakers = new SendMessageToAllSpeakers(presenter);
+                messageSpeakers.setContentPane(messageSpeakers.getMainPanel());
+                messageSpeakers.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                messageSpeakers.pack();
+                messageSpeakers.setVisible(true);
             }
         });
 
         messageAttendees.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(true);
+                SendMessageToAllAttendees messageAttendees = new SendMessageToAllAttendees(presenter);
+                messageAttendees.setContentPane(messageAttendees.getMainPanel());
+                messageAttendees.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                messageAttendees.pack();
+                messageAttendees.setVisible(true);
             }
         });
 
