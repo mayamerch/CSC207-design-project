@@ -16,11 +16,11 @@ public class RunPresenter {
         EventManager eventManager = new EventManager();
 
         userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        UserController userController = new UserController(userManager);
         userManager.createAccount("user2", "user2", UserType.SPEAKER);
         userManager.createAccount("user3", "user3", UserType.SPEAKER);
         userManager.createAccount("user4", "user4", UserType.ATTENDEE);
         userManager.createAccount("user5", "user5", UserType.ATTENDEE);
-        UserController userController = new UserController(userManager);
         userController.userLogin("user1", "user1");
         userController.sendFriendRequest("user2");  // sent request to user2
         userController.sendFriendRequest("user3"); //
@@ -36,6 +36,7 @@ public class RunPresenter {
         userController.acceptFriendRequest("user4"); // accept user 1 from user4
         userController.sendFriendRequest("user1");
         userController.logOut();
+
         //new FriendMenuView(userController);
         // making a bunch of users to test scroll on friend request
         for (int i=6; i< 30; i++){

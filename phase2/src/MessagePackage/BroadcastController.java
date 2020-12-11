@@ -3,6 +3,7 @@ package MessagePackage;
 import EventPackage.EventEntities.Event;
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.Speaker;
+import UserPackage.User;
 import UserPackage.UserManager;
 import UserPackage.UserType;
 
@@ -141,11 +142,15 @@ public class BroadcastController {
         else{
             broadcasters.add(organizerUserID);
         }
-        if(eventManager.getAllAttendees().size() == 0){
+        if(userManager.getAttendeeList().size() == 0){
             return "There are no Attendees!";
         }
+        ArrayList<Integer> attendees = new ArrayList<Integer>();
+        for(User user: userManager.getAttendeeList()){
+            attendees.add(user.getUserID());
+        }
 
-        Broadcast b = new Broadcast(broadcasters, eventManager.getAllAttendees(), userManager);
+        Broadcast b = new Broadcast(broadcasters, attendees, userManager);
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){
                 broadcast.sendMessage(message, organizerUserID);
@@ -171,11 +176,15 @@ public class BroadcastController {
             broadcasters.add(organizerUserID);
         }
 
-        if(eventManager.getAllSpeakers().size() == 0){
+        if(userManager.getSpeakerList().size() == 0){
             return "There are no Speakers!";
         }
+        ArrayList<Integer> speakers = new ArrayList<Integer>();
+        for(User user: userManager.getSpeakerList()){
+            speakers.add(user.getUserID());
+        }
 
-        Broadcast b = new Broadcast(broadcasters, eventManager.getAllSpeakers(), userManager);
+        Broadcast b = new Broadcast(broadcasters, speakers, userManager);
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){
                 broadcast.sendMessage(message, organizerUserID);
