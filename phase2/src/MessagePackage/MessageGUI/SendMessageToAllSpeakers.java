@@ -10,6 +10,7 @@ public class SendMessageToAllSpeakers extends JFrame{
     private JTextArea messageArea;
     private JButton sendMessagesButton;
     private JPanel mainPanel;
+    private JButton backButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -29,6 +30,15 @@ public class SendMessageToAllSpeakers extends JFrame{
                 String message = messageArea.getText();
                 presenter.sendBroadcastToSpeakers(userID, message);
                 messageArea.setText("Broadcast sent to all Speakers!");
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrganizerMessageMenu organizerMessageMenu = new OrganizerMessageMenu(presenter);
+                organizerMessageMenu.setVisible(true);
+                setVisible(false);
             }
         });
     }
