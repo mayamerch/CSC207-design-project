@@ -14,6 +14,7 @@ public class SpeakerBroadcastAllEvents extends JFrame{
     private JButton sendBroadcastButton;
     private JPanel mainPanel;
     private JLabel EnterBroadcastMessage;
+    private JButton backButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -33,6 +34,15 @@ public class SpeakerBroadcastAllEvents extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String broadcastMessage = messageArea.getText();
                 messageArea.setText(presenter.sendBroadcastInAllSpeakerEvents((Speaker)speaker, broadcastMessage));
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SpeakerMessageMenu speakerMessageMenu = new SpeakerMessageMenu(presenter);
+                speakerMessageMenu.setVisible(true);
+                setVisible(false);
             }
         });
     }

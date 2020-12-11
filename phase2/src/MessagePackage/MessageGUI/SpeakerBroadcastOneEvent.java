@@ -12,6 +12,7 @@ public class SpeakerBroadcastOneEvent extends JFrame{
     private JTextField enterEventID;
     private JPanel mainPanel;
     private JTextField enterBroadcastTextField;
+    private JButton backButton;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -31,6 +32,15 @@ public class SpeakerBroadcastOneEvent extends JFrame{
                 int eventID = Integer.parseInt(enterEventID.getText());
                 String broadcastMessage = messageArea.getText();
                 messageArea.setText(presenter.sendBroadcastToEvent(userID, eventID, broadcastMessage));
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SpeakerMessageMenu speakerMessageMenu = new SpeakerMessageMenu(presenter);
+                speakerMessageMenu.setVisible(true);
+                setVisible(false);
             }
         });
     }

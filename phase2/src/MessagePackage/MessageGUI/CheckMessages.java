@@ -2,6 +2,7 @@ package MessagePackage.MessageGUI;
 
 import GUI.Presenter;
 import MessagePackage.ChatroomController;
+import UserPackage.UserType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -48,9 +49,21 @@ public class CheckMessages extends JFrame{
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttendeeMessageMenu attendeeMessageMenu = new AttendeeMessageMenu(presenter);
-                attendeeMessageMenu.setVisible(true);
-                setVisible(false);
+                if(presenter.getUserController().getUserType() == UserType.ATTENDEE){
+                    AttendeeMessageMenu attendeeMessageMenu = new AttendeeMessageMenu(presenter);
+                    attendeeMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
+                else if(presenter.getUserController().getUserType() == UserType.SPEAKER){
+                    SpeakerMessageMenu speakerMessageMenu = new SpeakerMessageMenu(presenter);
+                    speakerMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
+                else if(presenter.getUserController().getUserType() == UserType.ORGANIZER){
+                    OrganizerMessageMenu organizerMessageMenu = new OrganizerMessageMenu(presenter);
+                    organizerMessageMenu.setVisible(true);
+                    setVisible(false);
+                }
             }
         });
 
