@@ -1,5 +1,6 @@
 package GUI;
 import EventPackage.EventUseCases.EventManager;
+import MessagePackage.BroadcastController;
 import MessagePackage.ChatroomController;
 import UserPackage.UserController;
 import UserPackage.UserManager;
@@ -45,6 +46,9 @@ public class RunPresenter {
 
         Date date = new Date();
         eventManager.createSingleSpeakerEvent("test event", 10, date, 1, 60, false, 2);
+
+        //BroadcastController bc = presenter.getBroadcastController();
+        //bc.sendBroadcastToAttendees(1, "test broadcast");
 
         LoginView loginView = new LoginView(presenter);
         loginView.setVisible(true);

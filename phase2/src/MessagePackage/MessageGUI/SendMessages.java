@@ -35,9 +35,8 @@ public class SendMessages extends JFrame{
                 ArrayList<Integer> userlist = new ArrayList<>();
                 userlist.add(Integer.parseInt(sendTo));
                 presenter.getChatroomController().sendChat(userlist, userID, message);
-                //messageArea.append("Message Sent!");
-                System.out.println("Message Sent!");
-                setVisible(false);
+                messageArea.setText("Message Sent!");
+                setVisible(true);
             }
         });
 

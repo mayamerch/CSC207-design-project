@@ -64,7 +64,7 @@ public class BroadcastController {
         else{
             broadcasters.add(senderUserID);
         }
-        Broadcast b = new Broadcast(broadcasters, eventID, eventManager);
+        Broadcast b = new Broadcast(broadcasters, eventID, eventManager, userManager);
         return !broadcasts.contains(b); // return whether it exists or not
     }
 
@@ -78,7 +78,7 @@ public class BroadcastController {
         broadcasters.add(senderUserID);
 
         if(canCreateNewBroadCast(senderUserID, eventID)){
-            Broadcast b = new Broadcast(broadcasters, eventID, eventManager);
+            Broadcast b = new Broadcast(broadcasters, eventID, eventManager, userManager);
             broadcasts.add(b);
             return b;
         }
@@ -125,11 +125,15 @@ public class BroadcastController {
      * @param message the message being broadcasted to all Attendees
      */
     public void sendBroadcastToAttendees(int organizerUserID, String message){
+        ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         if(!(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER)){
             throw new Error("Only Organizers can Broadcast to Attendees");
         }
+        else{
+            broadcasters.add(organizerUserID);
+        }
 
-        Broadcast b = new Broadcast(organizerUserID, eventManager.getAllAttendees());
+        Broadcast b = new Broadcast(broadcasters, eventManager.getAllAttendees(), userManager);
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){
                 broadcast.sendMessage(message, organizerUserID);
@@ -148,11 +152,15 @@ public class BroadcastController {
      * @param message the message being broadcasted to all Speakers
      */
     public void sendBroadcastToSpeakers(int organizerUserID, String message){
+        ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         if(!(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER)){
             throw new Error("Only Organizers can Broadcast to Speakers");
         }
+        else{
+            broadcasters.add(organizerUserID);
+        }
 
-        Broadcast b = new Broadcast(organizerUserID, eventManager.getAllSpeakers());
+        Broadcast b = new Broadcast(broadcasters, eventManager.getAllSpeakers(), userManager);
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){
                 broadcast.sendMessage(message, organizerUserID);
@@ -193,7 +201,7 @@ public class BroadcastController {
                 return b.format();
             }
         }
-        return "No Broadcasts for Event " + eventID;
+        return "No Broadcasts for Event " + eventID + "\n";
     }
 
     /**

@@ -1,7 +1,12 @@
 package MessagePackage;
 
 import EventPackage.EventUseCases.EventManager;
+import UserPackage.Speaker;
+import UserPackage.User;
+import UserPackage.UserManager;
+import UserPackage.UserType;
 
+import javax.jws.soap.SOAPBinding;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,6 +16,9 @@ public class Broadcast implements Conversation, Serializable {
     private int eventID;
     private EventManager eventManager;
     private ArrayList<Message> messages;
+    private UserManager userManager;
+    private int senderID;
+    private ArrayList<Integer> recipients;
 
     /**
      * Create a broadcast by someone in ArrayList broadcasters, identified by userID
@@ -18,19 +26,35 @@ public class Broadcast implements Conversation, Serializable {
      * @param eventID the ID of the event of which the attendees are being broadcasted to
      * @param eventManager an eventManager to manage the event that is being broadcasted to
      */
-    public Broadcast(ArrayList<Integer> broadcasters, int eventID, EventManager eventManager){
+    public Broadcast(ArrayList<Integer> broadcasters, int eventID, EventManager eventManager, UserManager userManager){
         this.broadcasters = broadcasters;
         this.messages = new ArrayList<Message>();
         this.eventID = eventID;
         this.eventManager = eventManager;
+        this.userManager = userManager;
+
+        for(User organizer: userManager.getOrganizerList()){
+            if(!broadcasters.contains(organizer.getUserID())){
+                this.broadcasters.add(organizer.getUserID());
+            }
+        }
+        for(User speaker: userManager.getSpeakerList()){
+            if(!broadcasters.contains(speaker.getUserID())){
+                this.broadcasters.add(speaker.getUserID());
+            }
+        }
     }
 
     /**
      * Create a broadcast from an Organizer to a specific group of people (Speakers or Attendees), rather than to an Event
-     * @param senderUserID the ID of the Organizer sending the broadcast
+     * @param broadcasters a list of userIDs of every Organizer or Speaker able to broadcast
      * @param recipients a list of all Users being broadcasted to
      */
-    public Broadcast(int senderUserID, ArrayList<Integer> recipients){}
+    public Broadcast(ArrayList<Integer> broadcasters, ArrayList<Integer> recipients, UserManager userManager){
+        this.recipients = recipients;
+        this.userManager = userManager;
+        this.broadcasters = broadcasters;
+    }
 
     /**
      * Create a broadcast from existing saved broadcast (from BroadcastDataFile)
@@ -53,9 +77,19 @@ public class Broadcast implements Conversation, Serializable {
 
     @Override
     public void sendMessage(String messageStr, int senderUserID) {
-        if(broadcasters.contains(senderUserID)){
-            this.messages.add(new Message(messageStr, senderUserID));
+        User sender = userManager.getUserByID(senderUserID);
+        if(broadcasters == null  || broadcasters.size() == 0){
+            throw new Error("You are not able to Broadcast!");
         }
+        if(!broadcasters.contains(senderUserID)){
+            if(sender.getType() == UserType.ORGANIZER || sender.getType() == UserType.SPEAKER){
+                broadcasters.add(senderUserID);
+                this.messages.add(new Message(messageStr, senderUserID));
+            }
+        }
+        /*else{
+            this.messages.add(new Message(messageStr, senderUserID));
+        }*/
     }
 
     /**

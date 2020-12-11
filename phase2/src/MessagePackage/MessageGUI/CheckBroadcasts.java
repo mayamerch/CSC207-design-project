@@ -21,41 +21,28 @@ public class CheckBroadcasts extends JFrame{
     }
 
     public CheckBroadcasts(Presenter presenter){
-        //TODO: pass user object here
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
 
-        BroadcastController broadcastController = presenter.getBroadcastController();
         int userID = presenter.getUserController().getCurrentUserId();
 
-        showAllBroadcasts.addActionListener(new ActionListener() {
+        /*showAllBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: get all Broadcasts and show in messageArea
                 messageArea.append(presenter.getBroadcastController().myBroadcasts(userID));
             }
-        });
+        });*/
 
         showAllBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageArea.setText(broadcastController.myBroadcasts(userID));
+                messageArea.setText(presenter.getBroadcastController().myBroadcasts(userID));
             }
         });
 
-        viewEvents.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewEventsForm viewEventsForm = new ViewEventsForm();
-                viewEventsForm.setContentPane(viewEventsForm.getMainPanel());
-                viewEventsForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                viewEventsForm.pack();
-                viewEventsForm.setVisible(true);
-                setVisible(true);
-            }
-        });
 
         showBroadcastForID.addActionListener(new ActionListener() {
             @Override

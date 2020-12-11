@@ -49,6 +49,7 @@ public class ChatroomController {
 
     /**
      * saves chats to ChatroomDataFile. Should be executed before program exits.
+     *
      * @throws IOException if writing to file was unsuccessful
      */
     public void saveChats() throws IOException {
@@ -57,10 +58,11 @@ public class ChatroomController {
 
     /**
      * Returns true if a Chatroom does not already exist
-     * @param userlist a list of all users within the chat
+     *
+     * @param userlist     a list of all users within the chat
      * @param senderUserID the userID of the person creating the Chatroom
      */
-    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID){ //ArrayList<Integer> userlist
+    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID) { //ArrayList<Integer> userlist
         User sender = userManager.getUserByID(senderUserID);
         Chatroom c = new Chatroom(userlist);
         if (chats.contains(c)) {
@@ -71,10 +73,10 @@ public class ChatroomController {
                 return false;
             }
         }
-        for(int user: userlist){
+        for (int user : userlist) {
             User recipient = userManager.getUserByID(user);
 
-            if(sender.getType() == UserType.ORGANIZER){
+            if (sender.getType() == UserType.ORGANIZER) {
                 return true; // organizers can message everyone
             }
 
@@ -87,11 +89,11 @@ public class ChatroomController {
                 }
             }*/
 
-            else if(!sender.getFriendsList().contains(user) || !recipient.getFriendsList().contains(senderUserID)){ // if someone is not a friend of the sender
+            else if (!sender.getFriendsList().contains(user) || !recipient.getFriendsList().contains(senderUserID)) { // if someone is not a friend of the sender
                 return false; // can't send message to someone who isn't your friend
             }
 
-        // TODO: checks that everyone is friends with everyone else?
+            // TODO: checks that everyone is friends with everyone else?
         /*for(int i = 0; i < userlist.size(); i++){
             for(int j = 0; j < userlist.size(); j++){
                 User user1 = userManager.getUserByID(userlist.get(i));
@@ -109,16 +111,16 @@ public class ChatroomController {
 
     /**
      * Creates and returns a new Chatroom, if possible. Raises an Error if not.
-     * @param userlist a list of all users within the chat
+     *
+     * @param userlist     a list of all users within the chat
      * @param senderUserID the userID of the person creating the Chatroom
      */
     public Chatroom createNewChatRoom(ArrayList<Integer> userlist, int senderUserID) {
-        if(canCreateNewChatRoom(userlist, senderUserID)){
+        if (canCreateNewChatRoom(userlist, senderUserID)) {
             Chatroom c = new Chatroom(userlist);
             chats.add(c);
             return c;
-        }
-        else {
+        } else {
             throw new Error("This Chatroom cannot be created.");
         }
     }
@@ -126,15 +128,16 @@ public class ChatroomController {
 
     /**
      * Sends a message in an existing Chat, or creates a new one if it doesn't exist
-     * @param userlist of everyone you are sending the message to
+     *
+     * @param userlist     of everyone you are sending the message to
      * @param senderUserID the ID of the user who is sending the broadcast
-     * @param message content of the message you are sending
+     * @param message      content of the message you are sending
      */
-    public boolean sendChat(ArrayList<Integer> userlist, int senderUserID, String message){
+    public boolean sendChat(ArrayList<Integer> userlist, int senderUserID, String message) {
         Chatroom c = createNewChatRoom(userlist, senderUserID);
 
-        for(Chatroom chatroom: chats){
-            if(chatroom.equals(c)){
+        for (Chatroom chatroom : chats) {
+            if (chatroom.equals(c)) {
                 c.sendMessage(message, senderUserID);
                 System.out.println("Your message has been sent.");
                 return true;
@@ -149,84 +152,42 @@ public class ChatroomController {
 
     /**
      * Returns all chats for a given userID
+     *
      * @param userID identifies user given this userID and returns the Chatrooms they can read
      */
-    public ArrayList<Chatroom> returnChatsforUserID(int userID){
+    public ArrayList<Chatroom> returnChatsforUserID(int userID) {
         ArrayList<Chatroom> myChats = new ArrayList<>();
-        for(Chatroom c: chats){
-            if (c.canRead(userID)){
+        for (Chatroom c : chats) {
+            if (c.canRead(userID)) {
                 myChats.add(c);
             }
         }
         return myChats;
     }
 
-    public String myChats(int userID){
+    public String myChats(int userID) {
         StringBuilder s = new StringBuilder("");
-        for (Chatroom c: returnChatsforUserID(userID)){
+        if (returnChatsforUserID(userID).size() == 0) {
+            return "You have no messages!";
+        }
+        for (Chatroom c : returnChatsforUserID(userID)) {
             s.append(c.format());
-            s.append("\n------\n") ;
+            s.append("\n------\n");
         }
         return s.toString();
     }
 
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder s = new StringBuilder("");
-        for (Chatroom c: this.chats){
+        for (Chatroom c : this.chats) {
             s.append(c.toString());
-            s.append("\n\n") ;
+            s.append("\n\n");
         }
         return s.toString();
     }
-
-
-// TODO: changed these into a Broadcast so delete:
-/*
-    public void messageAllSpeakers(int organizerUserID, String message){
-        ArrayList<Integer> speakers = eventManager.getAllSpeakers();
-        for(int speaker: speakers){
-            userManager.getUserByID(speaker).addFriend(organizerUserID);
-            userManager.getUserByID(organizerUserID).addFriend(speaker);
-        }
-        if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
-            sendChat(speakers, organizerUserID, message);
-        }
-        else{
-            throw new Error("Only organizers can send messages to all speakers.");
-        }
-    }
-
-
-    public void messageAllAttendees(int organizerUserID, String message){
-        ArrayList<Integer> attendees = eventManager.getAllAttendees();
-        // TODO: how to make all organizers friends with everyone:
-        for(int attendee: attendees){
-            userManager.getUserByID(attendee).addFriend(organizerUserID);
-            userManager.getUserByID(organizerUserID).addFriend(attendee);
-        }
-        if(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER) {
-            sendChat(attendees, organizerUserID, message);
-        }
-        else{
-            throw new Error("Only organizers can send messages to all attendees.");
-        }
-    }*/
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

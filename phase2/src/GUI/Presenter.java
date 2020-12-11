@@ -56,11 +56,11 @@ public class Presenter {
     }
 
     public ChatroomController getChatroomController() {
-        return chatroomController;
+        return this.chatroomController;
     }
 
     public BroadcastController getBroadcastController() {
-        return broadcastController;
+        return this.broadcastController;
     }
 
     public ConversationPresenter getConversationPresenter() {

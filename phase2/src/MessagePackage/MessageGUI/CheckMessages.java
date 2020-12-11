@@ -31,7 +31,8 @@ public class CheckMessages extends JFrame{
         showMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageArea.setText(chatroomController.myChats(userID));
+                String myChats = chatroomController.myChats(userID);
+                messageArea.setText(myChats);
             }
         });
 
