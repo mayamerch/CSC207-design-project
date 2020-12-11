@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="MessagePackage.MessageGUI.AttendeeSendMessages">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="MessagePackage.MessageGUI.CheckBroadcasts">
   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="535" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="9f7a1" binding="mainPanel" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="675ce" binding="mainPanel" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
@@ -19,22 +19,22 @@
         <properties/>
         <border type="none"/>
         <children>
-          <hspacer id="5d55c">
+          <hspacer id="f967b">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
           </hspacer>
-          <vspacer id="7d2db">
+          <vspacer id="8839d">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <hspacer id="4aa48">
+          <hspacer id="4741a">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
           </hspacer>
-          <component id="a094c" class="javax.swing.JTextArea" binding="messageArea">
+          <component id="5243d" class="javax.swing.JTextArea" binding="messageArea">
             <constraints>
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
@@ -42,40 +42,43 @@
             </constraints>
             <properties/>
           </component>
-          <component id="20298" class="javax.swing.JButton" binding="sendMessage">
+          <component id="95243" class="javax.swing.JButton" binding="showAllBroadcasts">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Send Messages"/>
+              <text value="Show All Broadcasts"/>
             </properties>
           </component>
-          <hspacer id="b0530">
-            <constraints>
-              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </hspacer>
-          <vspacer id="11693">
+          <vspacer id="1c072">
             <constraints>
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="72fad" class="javax.swing.JTextField" binding="enterID">
+          <component id="d32" class="javax.swing.JTextField" binding="enterID">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
             <properties>
-              <text value="Enter User ID"/>
+              <text value="Enter Event ID"/>
             </properties>
           </component>
-          <component id="488f5" class="javax.swing.JButton" binding="viewFriends">
+          <component id="2686f" class="javax.swing.JButton" binding="showBroadcastForID">
             <constraints>
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="View Friend List"/>
+              <text value="Show Broadcast for Event"/>
+            </properties>
+          </component>
+          <component id="fb45b" class="javax.swing.JButton" binding="viewEvents">
+            <constraints>
+              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Show Registered Events"/>
             </properties>
           </component>
         </children>

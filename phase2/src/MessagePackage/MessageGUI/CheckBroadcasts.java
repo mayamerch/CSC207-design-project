@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AttendeeCheckBroadcasts extends JFrame{
+public class CheckBroadcasts extends JFrame{
     private JPanel mainPanel;
     private JTextArea messageArea;
     private JButton showAllBroadcasts;
@@ -16,7 +16,7 @@ public class AttendeeCheckBroadcasts extends JFrame{
         return mainPanel;
     }
 
-    public AttendeeCheckBroadcasts(){
+    public CheckBroadcasts(){
         //TODO: pass user object here
         super();
         this.setContentPane(getMainPanel());

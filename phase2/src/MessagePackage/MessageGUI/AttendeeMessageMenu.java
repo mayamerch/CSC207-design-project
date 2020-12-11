@@ -1,11 +1,6 @@
 package MessagePackage.MessageGUI;
 
-import EventPackage.EventGUI.EventsView;
-import GUI.MainMenuView;
 import GUI.Presenter;
-import MessagePackage.Message;
-import UserPackage.User;
-import UserPackage.UserController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -34,7 +29,7 @@ public class AttendeeMessageMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO: get rid of checkusermessages? to simplify?
-                /*CheckUserMessages checkUserMessages = new CheckUserMessages(presenter);
+                /*CheckMessages checkUserMessages = new CheckMessages(presenter);
                 checkUserMessages.setContentPane(checkUserMessages.getMainPanel());
                 checkUserMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 checkUserMessages.pack();
@@ -53,31 +48,29 @@ public class AttendeeMessageMenu extends JFrame {
         sendMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttendeeSendMessages attendeeSendMessages = new AttendeeSendMessages(presenter);
-                attendeeSendMessages.setContentPane(attendeeSendMessages.getMainPanel());
-                attendeeSendMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                attendeeSendMessages.pack();
-                attendeeSendMessages.setVisible(true);
-                setVisible(true);
+                SendMessages sendMessages = new SendMessages(presenter);
+                sendMessages.setContentPane(sendMessages.getMainPanel());
+                sendMessages.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                sendMessages.pack();
+                sendMessages.setVisible(true);
+                setVisible(false); // the attendee menu
             }
         });
 
         checkBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AttendeeCheckBroadcasts attendeeCheckBroadcasts = new AttendeeCheckBroadcasts();
+                CheckBroadcasts attendeeCheckBroadcasts = new CheckBroadcasts();
                 attendeeCheckBroadcasts.setContentPane(attendeeCheckBroadcasts.getMainPanel());
                 attendeeCheckBroadcasts.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 attendeeCheckBroadcasts.pack();
                 attendeeCheckBroadcasts.setVisible(true);
-                setVisible(true);
+                setVisible(false); // the attendee menu
 
             }
         });
 
     }
 
-    public void showMessages(){
-
-    }
+    public void showMessages(){ }
 }

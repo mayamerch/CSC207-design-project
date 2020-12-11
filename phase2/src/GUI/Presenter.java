@@ -34,6 +34,8 @@ public class Presenter {
     public Presenter(){
         this.userController = new UserController();
         this.userPresenter = new UserPresenter(userController.getUserManager());
+        this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
+        this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
     }
 
     // for testing purposes

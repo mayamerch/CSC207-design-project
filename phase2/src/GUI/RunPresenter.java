@@ -1,7 +1,11 @@
 package GUI;
+import EventPackage.EventUseCases.EventManager;
+import MessagePackage.ChatroomController;
 import UserPackage.UserController;
 import UserPackage.UserManager;
 import UserPackage.UserType;
+
+import java.util.ArrayList;
 
 public class RunPresenter {
 
@@ -25,6 +29,7 @@ public class RunPresenter {
         userController.acceptFriendRequest("user1"); // accept user 1 from user3
         userController.logOut();
         userController.userLogin("user4", "user4");
+        userController.acceptFriendRequest("user4"); // accept user 1 from user4
         userController.sendFriendRequest("user1");
         userController.logOut();
         //new FriendMenuView(userController);
