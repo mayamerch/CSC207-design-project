@@ -11,6 +11,7 @@ import UserPackage.UserManager;
 import UserPackage.UserPresenter;
 import UserPackage.UserType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 //<<<<<<<
@@ -231,8 +232,16 @@ public class Presenter {
         System.out.println(chatroomController.myChats(userID));
     }
 
-    public void sendMessages(ArrayList<Integer> recipients, int userID, String message){
-        //return chatroomController.sendChat(recipients, userID, message);
+    public boolean sendMessages(ArrayList<Integer> recipients, int userID, String message){
+        return chatroomController.sendChat(recipients, userID, message);
+    }
+
+    public void saveChats() {
+        try {
+            this.chatroomController.saveChats();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendBroadcasts(int userID){

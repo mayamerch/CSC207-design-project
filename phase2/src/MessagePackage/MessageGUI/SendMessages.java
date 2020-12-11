@@ -5,6 +5,7 @@ import GUI.Presenter;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SendMessages extends JFrame{
@@ -37,8 +38,9 @@ public class SendMessages extends JFrame{
                 userlist.add(Integer.parseInt(sendTo));
 
                 //messageArea.setText(presenter.getChatroomController().sendChat(userlist, userID, message));
-                if(presenter.getChatroomController().sendChat(userlist, userID, message)){
+                if(presenter.sendMessages(userlist, userID, message)){
                     messageArea.setText("Message Sent!");
+                    presenter.saveChats();
                 }
                 else{
                     messageArea.setText("You are not friends with User " + sendTo + ". Failed to send.");
