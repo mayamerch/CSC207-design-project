@@ -13,7 +13,7 @@
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Send Broadcast to Event with the Following ID"/>
+          <text value="Enter Event ID to Broadcast to:"/>
         </properties>
       </component>
       <vspacer id="4995f">
@@ -36,7 +36,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="Enter Event ID here:"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="39200" class="javax.swing.JTextField" binding="enterBroadcastTextField">

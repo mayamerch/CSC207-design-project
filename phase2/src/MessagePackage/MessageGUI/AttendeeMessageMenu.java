@@ -60,7 +60,7 @@ public class AttendeeMessageMenu extends JFrame {
         checkBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CheckBroadcasts attendeeCheckBroadcasts = new CheckBroadcasts();
+                CheckBroadcasts attendeeCheckBroadcasts = new CheckBroadcasts(presenter);
                 attendeeCheckBroadcasts.setContentPane(attendeeCheckBroadcasts.getMainPanel());
                 attendeeCheckBroadcasts.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 attendeeCheckBroadcasts.pack();

@@ -1,5 +1,9 @@
 package MessagePackage.MessageGUI;
 
+import GUI.Presenter;
+import MessagePackage.BroadcastController;
+import MessagePackage.ChatroomController;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,17 +20,28 @@ public class CheckBroadcasts extends JFrame{
         return mainPanel;
     }
 
-    public CheckBroadcasts(){
+    public CheckBroadcasts(Presenter presenter){
         //TODO: pass user object here
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
 
+        BroadcastController broadcastController = presenter.getBroadcastController();
+        int userID = presenter.getUserController().getCurrentUserId();
+
         showAllBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: get all Broadcasts and show in messageArea
+                messageArea.append(presenter.getBroadcastController().myBroadcasts(userID));
+            }
+        });
+
+        showAllBroadcasts.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                messageArea.setText(broadcastController.myBroadcasts(userID));
             }
         });
 
@@ -45,8 +60,8 @@ public class CheckBroadcasts extends JFrame{
         showBroadcastForID.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = enterID.getText();
-                //TODO: use this idea to display selected broadcasts
+                int eventId = Integer.parseInt(enterID.getText());
+                messageArea.append(presenter.getBroadcastController().returnBroadcastforEventID(eventId));
             }
         });
 

@@ -13,11 +13,15 @@ public class SpeakerMessageMenu extends JFrame {
     private JButton broadcastOneEvent;
     private JButton broadcastAllEvents;
     private JLabel SpeakerMenu;
-    private JPanel jPanel;
+    private JPanel mainPanel;
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 
     public SpeakerMessageMenu(Presenter presenter){
         super();
-        this.setContentPane(jPanel);
+        this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
@@ -48,7 +52,7 @@ public class SpeakerMessageMenu extends JFrame {
         checkBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CheckBroadcasts attendeeCheckBroadcasts = new CheckBroadcasts();
+                CheckBroadcasts attendeeCheckBroadcasts = new CheckBroadcasts(presenter);
                 attendeeCheckBroadcasts.setContentPane(attendeeCheckBroadcasts.getMainPanel());
                 attendeeCheckBroadcasts.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 attendeeCheckBroadcasts.pack();

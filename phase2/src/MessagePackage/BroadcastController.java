@@ -165,7 +165,6 @@ public class BroadcastController {
         System.out.println("Your broadcast has been sent.");
     }
 
-
     /**
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
@@ -182,6 +181,19 @@ public class BroadcastController {
                 sendBroadcastToEvent(speaker.getUserID(), eventID, message);
             }
         }
+    }
+
+    /**
+     * Sends a Broadcast for multiple talks of a speaker
+     * @param eventID the ID of the event whose Broadcasts you are looking for
+     */
+    public String returnBroadcastforEventID(int eventID) {
+        for(Broadcast b: broadcasts){
+            if(b.getEventID() == eventID){
+                return b.format();
+            }
+        }
+        return "No Broadcasts for Event " + eventID;
     }
 
     /**
