@@ -103,14 +103,13 @@ public class ChatroomController {
      * @param senderUserID the userID of the person creating the Chatroom
      */
     public Chatroom createNewChatRoom(ArrayList<Integer> userlist, int senderUserID) {
+        Chatroom create = new Chatroom(userlist);
         if (canCreateNewChatRoom(userlist, senderUserID)) {
-            Chatroom created = new Chatroom(userlist);
-            chats.add(created);
-            return created;
-        } else {
-            throw new Error("This Chatroom cannot be created");
+            chats.add(create);
         }
+        return create;
     }
+
 
 
     /**
@@ -121,9 +120,6 @@ public class ChatroomController {
      */
     public boolean sendChat(ArrayList<Integer> userlist, int senderUserID, String message) {
         Chatroom c = createNewChatRoom(userlist, senderUserID);
-        //if(c.getUserList().size() == 0 || c.getUserList() == null){
-        //    return false;
-        //}
 
         for(int user: userlist){
             User sender = userManager.getUserByID(senderUserID);

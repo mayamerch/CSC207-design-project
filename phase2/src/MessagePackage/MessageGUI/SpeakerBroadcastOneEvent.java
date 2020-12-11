@@ -12,7 +12,6 @@ public class SpeakerBroadcastOneEvent extends JFrame{
     private JTextField enterEventID;
     private JPanel mainPanel;
     private JTextField enterBroadcastTextField;
-    private JTextArea broadcastMessage;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -31,25 +30,8 @@ public class SpeakerBroadcastOneEvent extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 int eventID = Integer.parseInt(enterEventID.getText());
                 String broadcastMessage = messageArea.getText();
-                //TODO: send broadcast to event with eventID
-                presenter.getBroadcastController().sendBroadcastToEvent(userID, eventID, broadcastMessage);
-                messageArea.append("Broadcast sent.");
+                messageArea.setText(presenter.getBroadcastController().sendBroadcastToEvent(userID, eventID, broadcastMessage));
             }
         });
-
-        //TODO: can we get rid of this?
-        /*viewEventsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewEventsForm viewEventsForm = new ViewEventsForm();
-                viewEventsForm.setContentPane(viewEventsForm.getMainPanel());
-                viewEventsForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                viewEventsForm.pack();
-                viewEventsForm.setVisible(true);
-                setVisible(true);
-            }
-        });*/
-
     }
-
 }

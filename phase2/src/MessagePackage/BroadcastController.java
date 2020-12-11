@@ -93,29 +93,34 @@ public class BroadcastController {
      * @param eventID the ID of the event at which all the attendees are receiving the broadcast
      * @param message the message being broadcasted to the Event
      */
-    public void sendBroadcastToEvent(int senderUserID, int eventID, String message){
-        if(userManager.getUserByID(senderUserID).getType() == UserType.ATTENDEE){
-            throw new Error("Attendees cannot send broadcasts");
-        }
-
-        ArrayList<Integer> broadcasters = new ArrayList<Integer>();
-        broadcasters.add(senderUserID);
-        Broadcast b = createNewBroadcast(senderUserID, eventID);
-
-        if(!eventManager.getEventList().contains(eventManager.getEvent(eventID))){
-            throw new Error("This event does not exist.");
-        }
-
-        for(Broadcast broadcast: broadcasts){
-            if(broadcast.equals(b)){
-                broadcast.sendMessage(message, senderUserID);
-                System.out.println("Your broadcast has been sent.");
-                return;
+    public String sendBroadcastToEvent(int senderUserID, int eventID, String message){
+        try {
+            if(!eventManager.getEventList().contains(eventManager.getEvent(eventID))){
+                return "This Event doesn't exist yet.";
             }
+
+            if(userManager.getUserByID(senderUserID).getType() == UserType.ATTENDEE){
+                return "Attendees cannot send Broadcasts";
+            }
+
+            ArrayList<Integer> broadcasters = new ArrayList<Integer>();
+            broadcasters.add(senderUserID);
+            Broadcast b = createNewBroadcast(senderUserID, eventID);
+
+            for(Broadcast broadcast: broadcasts){
+                if(broadcast.equals(b)){
+                    broadcast.sendMessage(message, senderUserID);
+                    return "Broadcast sent to Event " + eventID;
+                }
+            }
+            b.sendMessage(message, senderUserID);
+            broadcasts.add(b);
+            return "Broadcast sent to Event " + eventID;
+
         }
-        b.sendMessage(message, senderUserID);
-        broadcasts.add(b);
-        System.out.println("Your broadcast has been sent.");
+        catch(ArrayIndexOutOfBoundsException exception){
+            return "This Event doesn't exist yet.";
+        }
     }
 
 
@@ -177,18 +182,19 @@ public class BroadcastController {
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
      */
-    public void sendBroadcastInAllSpeakerEvents(Speaker speaker, String message) {
-        if((speaker.getType() == UserType.SPEAKER)){
-            throw new Error("Only Speakers can Broadcast to all their Events.");
+    public String sendBroadcastInAllSpeakerEvents(Speaker speaker, String message) {
+        if((speaker.getType() != UserType.SPEAKER)){
+            return "Only Speakers can do this!";
         }
         else if(speaker.getTalksList().size() == 0){
-            System.out.println("You are not speaking at any events!");
+            return "You are not speaking at any events!";
         }
         else {
             for(int eventID: speaker.getTalksList()){
                 sendBroadcastToEvent(speaker.getUserID(), eventID, message);
             }
         }
+        return "Broadcast sent to all your events.";
     }
 
     /**
