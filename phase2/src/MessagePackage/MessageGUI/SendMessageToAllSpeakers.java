@@ -28,8 +28,7 @@ public class SendMessageToAllSpeakers extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String message = messageArea.getText();
-                presenter.sendBroadcastToSpeakers(userID, message);
-                messageArea.setText("Broadcast sent to all Speakers!");
+                messageArea.setText(presenter.sendBroadcastToSpeakers(userID, message));
             }
         });
 

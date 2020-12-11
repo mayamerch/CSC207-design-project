@@ -242,20 +242,17 @@ public class Presenter {
         }
     }
 
-    public void sendBroadcasts(int userID){
-        System.out.println(broadcastController.myBroadcasts(userID));
-    }
-
-
-    public void sendBroadcastToSpeakers(int userID, String message) {
-        broadcastController.sendBroadcastToSpeakers(userID, message);
+    public String sendBroadcastToSpeakers(int userID, String message) {
+        String s = broadcastController.sendBroadcastToSpeakers(userID, message);
         broadcastController.saveBroadcasts();
+        return s;
 
     }
 
-    public void sendBroadcastToAttendees(int userID, String message) {
-        broadcastController.sendBroadcastToAttendees(userID, message);
+    public String sendBroadcastToAttendees(int userID, String message) {
+        String s = broadcastController.sendBroadcastToAttendees(userID, message);
         broadcastController.saveBroadcasts();
+        return s;
 
     }
 

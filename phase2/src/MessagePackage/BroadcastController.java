@@ -133,26 +133,28 @@ public class BroadcastController {
      * @param organizerUserID the ID of the user who is sending the broadcast
      * @param message the message being broadcasted to all Attendees
      */
-    public void sendBroadcastToAttendees(int organizerUserID, String message){
+    public String sendBroadcastToAttendees(int organizerUserID, String message){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         if(!(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER)){
-            throw new Error("Only Organizers can Broadcast to Attendees");
+            return "Only Organizers can Broadcast to Attendees.";
         }
         else{
             broadcasters.add(organizerUserID);
+        }
+        if(eventManager.getAllAttendees().size() == 0){
+            return "There are no Attendees!";
         }
 
         Broadcast b = new Broadcast(broadcasters, eventManager.getAllAttendees(), userManager);
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){
                 broadcast.sendMessage(message, organizerUserID);
-                System.out.println("Your broadcast has been sent.");
-                return;
+                return "Your broadcast has been sent!";
             }
         }
         b.sendMessage(message, organizerUserID);
         broadcasts.add(b);
-        System.out.println("Your broadcast has been sent.");
+        return "Your broadcast has been sent!";
     }
 
     /**
@@ -160,26 +162,29 @@ public class BroadcastController {
      * @param organizerUserID the ID of the user who is sending the broadcast
      * @param message the message being broadcasted to all Speakers
      */
-    public void sendBroadcastToSpeakers(int organizerUserID, String message){
+    public String sendBroadcastToSpeakers(int organizerUserID, String message){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         if(!(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER)){
-            throw new Error("Only Organizers can Broadcast to Speakers");
+            return "Only Organizers can Broadcast to Speakers";
         }
         else{
             broadcasters.add(organizerUserID);
+        }
+
+        if(eventManager.getAllSpeakers().size() == 0){
+            return "There are no Speakers!";
         }
 
         Broadcast b = new Broadcast(broadcasters, eventManager.getAllSpeakers(), userManager);
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){
                 broadcast.sendMessage(message, organizerUserID);
-                System.out.println("Your broadcast has been sent.");
-                return;
+                return "Your broadcast has been sent!";
             }
         }
         b.sendMessage(message, organizerUserID);
         broadcasts.add(b);
-        System.out.println("Your broadcast has been sent.");
+        return "Your broadcast has been sent!";
     }
 
     /**

@@ -68,7 +68,7 @@ public class AttendeeMessageMenu extends JFrame {
                 attendeeCheckBroadcasts.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 attendeeCheckBroadcasts.pack();
                 attendeeCheckBroadcasts.setVisible(true);
-                setVisible(false); // the attendee menu
+                setVisible(false);
 
             }
         });

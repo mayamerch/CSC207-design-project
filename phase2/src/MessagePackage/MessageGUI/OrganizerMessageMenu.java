@@ -27,7 +27,6 @@ public class OrganizerMessageMenu extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
-        //TODO: make organizer object from presenter and pass on
         int userID = presenter.getUserController().getCurrentUserId();
 
         checkMessages.addActionListener(new ActionListener() {
