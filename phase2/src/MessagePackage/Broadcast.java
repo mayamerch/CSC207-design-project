@@ -15,7 +15,7 @@ public class Broadcast implements Conversation, Serializable {
     private ArrayList<Integer> broadcasters;
     private int eventID;
     private EventManager eventManager;
-    private ArrayList<Message> messages;
+    private ArrayList<Message> messages = new ArrayList<>();
     private UserManager userManager;
     private int senderID;
     private ArrayList<Integer> recipients;
@@ -87,9 +87,9 @@ public class Broadcast implements Conversation, Serializable {
                 this.messages.add(new Message(messageStr, senderUserID));
             }
         }
-        /*else{
+        else{
             this.messages.add(new Message(messageStr, senderUserID));
-        }*/
+        }
     }
 
     /**
@@ -147,4 +147,5 @@ public class Broadcast implements Conversation, Serializable {
         }
         return eventManager.getEvent(eventID).getEventName() + ":\n" + s.toString();
     }
+
 }

@@ -5,11 +5,9 @@ import EventPackage.EventOuterLayer.EventProgramPresenter;
 import MessagePackage.BroadcastController;
 import MessagePackage.ChatroomController;
 import MessagePackage.ConversationPresenter;
-import UserPackage.UserController;
+import UserPackage.*;
 import EventPackage.EventOuterLayer.EventController;
-import UserPackage.UserManager;
-import UserPackage.UserPresenter;
-import UserPackage.UserType;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -251,4 +249,27 @@ public class Presenter {
     }
 
 
+    public void sendBroadcastToSpeakers(int userID, String message) {
+        broadcastController.sendBroadcastToSpeakers(userID, message);
+        broadcastController.saveBroadcasts();
+
+    }
+
+    public void sendBroadcastToAttendees(int userID, String message) {
+        broadcastController.sendBroadcastToAttendees(userID, message);
+        broadcastController.saveBroadcasts();
+
+    }
+
+    public String sendBroadcastInAllSpeakerEvents(Speaker speaker, String broadcastMessage) {
+        String s = broadcastController.sendBroadcastInAllSpeakerEvents(speaker, broadcastMessage);
+        broadcastController.saveBroadcasts();
+        return s;
+    }
+
+    public String sendBroadcastToEvent(int userID, int eventID, String broadcastMessage) {
+        String s = broadcastController.sendBroadcastToEvent(userID, eventID, broadcastMessage);
+        broadcastController.saveBroadcasts();
+        return s;
+    }
 }

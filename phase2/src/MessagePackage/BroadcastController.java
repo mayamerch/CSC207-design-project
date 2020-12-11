@@ -25,8 +25,8 @@ public class BroadcastController {
         this.gateway = new BroadcastGateway(eventManager);
         try {
             this.broadcasts = gateway.makeBroadcasts();
-        } catch (FileNotFoundException f) {
-            this.broadcasts = new ArrayList<Broadcast>();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
@@ -37,10 +37,13 @@ public class BroadcastController {
 
     /**
      * Save broadcasts to BroadcastDataFile. Should be run before program exits.
-     * @throws IOException if writing to file was unsuccessful
      */
-    public void saveBroadcasts() throws IOException {
-        this.gateway.writeBroadcastsToFile(this.broadcasts);
+    public void saveBroadcasts() {
+        try {
+            this.gateway.writeBroadcastsToFile(this.broadcasts);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
