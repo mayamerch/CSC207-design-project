@@ -1,5 +1,7 @@
 package MessagePackage.MessageGUI;
 
+import GUI.Presenter;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,18 +17,21 @@ public class SpeakerBroadcastOneEvent extends JFrame{
         return mainPanel;
     }
 
-    public SpeakerBroadcastOneEvent(){
+    public SpeakerBroadcastOneEvent(Presenter presenter){
         super();
         this.setContentPane(getMainPanel());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
 
+        int userID = presenter.getUserController().getCurrentUserId();
+
         sendBroadcastButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String eventID = enterEventID.getText();
+                int eventID = Integer.parseInt(enterEventID.getText());
                 String broadcastMessage = messageArea.getText();
                 //TODO: send broadcast to event with eventID
+                presenter.getBroadcastController().sendBroadcastToEvent(userID, eventID, broadcastMessage);
             }
         });
 

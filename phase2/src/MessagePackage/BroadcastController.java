@@ -118,6 +118,7 @@ public class BroadcastController {
         System.out.println("Your broadcast has been sent.");
     }
 
+
     /**
      * Sends a message in an existing Broadcast to all Attendees, or creates a new one if it doesn't exist
      * @param organizerUserID the ID of the user who is sending the broadcast
@@ -170,7 +171,10 @@ public class BroadcastController {
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
      */
     public void sendBroadcastInAllSpeakerEvents(Speaker speaker, String message) {
-        if(speaker.getTalksList().size() == 0){
+        if((speaker.getType() == UserType.SPEAKER)){
+            throw new Error("Only Speakers can Broadcast to all their Events.");
+        }
+        else if(speaker.getTalksList().size() == 0){
             System.out.println("You are not speaking at any events!");
         }
         else {
