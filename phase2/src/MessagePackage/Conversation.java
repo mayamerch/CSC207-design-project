@@ -13,7 +13,6 @@ public interface Conversation {
 
     /**
      * @return an ArrayList of unread Messages in this conversation
-     * TODO: these are only new messages right?
      */
     ArrayList<Message> readMessages();
 

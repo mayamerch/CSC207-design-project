@@ -49,7 +49,7 @@ public class TestMessagePackage {
         bc.sendBroadcastToEvent(3, 1, "testing the presenter");
         int currID = 1;
 
-        ConversationPresenter conversationPresenter = new ConversationPresenter();
+        //ConversationPresenter conversationPresenter = new ConversationPresenter();
         //conversationPresenter.run(currID, cc, bc);
         cc.saveChats();
         bc.saveBroadcasts();

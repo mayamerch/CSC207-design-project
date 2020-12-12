@@ -3,7 +3,7 @@ package MessagePackage;
 import java.io.Serializable;
 
 public class Message implements Serializable { // storing all messages
-    private String content;  // TODO: NEED TO ENSURE CONTENT DOES NOT INCLUDE THE FOLLOWING: ~ , \t, \n, \n\n
+    private String content;
     private Integer userId;
 
     /**
