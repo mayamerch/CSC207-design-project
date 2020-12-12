@@ -1,5 +1,8 @@
 package MessagePackage;
 
+import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.MultiSpeakerEvent;
+import EventPackage.EventEntities.SpeakerEvent;
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.User;
 import UserPackage.UserManager;
@@ -7,6 +10,7 @@ import UserPackage.UserType;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatroomController {
@@ -23,55 +27,38 @@ public class ChatroomController {
         this.eventManager = eventManager;
         this.userManager = userManager;
         this.gateway = new ChatroomGateway();
-        //this.chats = gateway.readChatsObject();
-        try {
-            this.chats = gateway.makeChats();
-        } catch (FileNotFoundException f) {
-            this.chats = new ArrayList<Chatroom>();
-        }
+        this.chats = gateway.getChatrooms();
 
     }
 
-    /**
-     * @return this User Manager
-     */
     public UserManager getUserManager() {
         return userManager;
     }
 
-    /**
-     * @return this Event Manager
-     */
     public EventManager getEventManager() {
         return eventManager;
     }
 
-    /**
-     * @return an ArrayList of all chats
-     */
     public ArrayList<Chatroom> getChats() {
         return chats;
     }
 
     /**
      * saves chats to ChatroomDataFile. Should be executed before program exits.
+     *
      * @throws IOException if writing to file was unsuccessful
      */
     public void saveChats(){
-        //this.gateway.writeChatsToFile(this.chats);
-        try {
-            this.gateway.writeChatsToFile(this.chats);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.gateway.saveChatsObject(this.chats);
     }
 
     /**
      * Returns true if a Chatroom does not already exist
-     * @param userlist a list of all users within the chat
+     *
+     * @param userlist     a list of all users within the chat
      * @param senderUserID the userID of the person creating the Chatroom
      */
-    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID) {
+    public boolean canCreateNewChatRoom(ArrayList<Integer> userlist, int senderUserID) { //ArrayList<Integer> userlist
         User sender = userManager.getUserByID(senderUserID);
         Chatroom c = new Chatroom(senderUserID, userlist);
         if (chats.contains(c)) {
@@ -86,11 +73,20 @@ public class ChatroomController {
             User recipient = userManager.getUserByID(user);
 
             if (sender.getType() == UserType.ORGANIZER) {
-                return true;
+                return true; // organizers can message everyone
             }
 
-            else if (!recipient.getFriendsList().contains(senderUserID)) {
-                return false;
+            /*
+            else if(sender.getType() == UserType.SPEAKER){
+                for(Event e: eventManager.speakingAt(senderUserID)){
+                    if(e.getEventAttendees().contains(user)){
+                        return true; // speakers can message people at their events
+                    }
+                }
+            }*/
+
+            else if (!recipient.getFriendsList().contains(senderUserID)) { // if someone is not a friend of the sender
+                return false; // can't send message to someone who isn't your friend
             }
         }
         return true;
@@ -98,7 +94,8 @@ public class ChatroomController {
 
     /**
      * Creates and returns a new Chatroom, if possible. Returns a null Chatroom if not.
-     * @param userlist a list of all users within the chat
+     *
+     * @param userlist     a list of all users within the chat
      * @param senderUserID the userID of the person creating the Chatroom
      */
     public Chatroom createNewChatRoom(ArrayList<Integer> userlist, int senderUserID) throws ArrayIndexOutOfBoundsException {
@@ -111,12 +108,12 @@ public class ChatroomController {
     }
 
 
+
     /**
      * Sends a message in an existing Chat, or creates a new one if it doesn't exist
      * @param userlist of everyone you are sending the message to
      * @param senderUserID the ID of the user who is sending the broadcast
      * @param message content of the message you are sending
-     * @return the output String message indicating success or not
      */
     public String sendChat(ArrayList<Integer> userlist, int senderUserID, String message) {
         try{
@@ -148,6 +145,7 @@ public class ChatroomController {
 
     /**
      * Returns all chats for a given userID
+     *
      * @param userID identifies user given this userID and returns the Chatrooms they can read
      */
     public ArrayList<Chatroom> returnChatsforUserID(int userID) {
@@ -160,10 +158,6 @@ public class ChatroomController {
         return myChats;
     }
 
-    /**
-     * Returns all chats for a given userID
-     * @param userID identifies user given this userID and returns the Chats they can read
-     */
     public String myChats(int userID) {
         StringBuilder s = new StringBuilder("");
         if (returnChatsforUserID(userID).size() == 0) {
@@ -176,11 +170,6 @@ public class ChatroomController {
         return s.toString();
     }
 
-    /**
-     * Returns all broadcasts from a given userID
-     * @param myID the recipient's userID
-     * @param senderID the User's ID whose messages you are looking for
-     */
     public String getChatsFromUser(int myID, int senderID){
         StringBuilder s = new StringBuilder("");
         if (returnChatsforUserID(myID).size() == 0) {
@@ -198,9 +187,7 @@ public class ChatroomController {
         return s.toString();
     }
 
-    /**
-     * @return string to be parsed by Gateway classes
-     */
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder("");
