@@ -6,9 +6,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Presenter for the Text UI
+// *******************************************************
+// Presenter for the Text UI (can be ignored for Phase 2)
+// *******************************************************
 
-public class ConversationPresenter { // User.java to get friends
+
+
+
+
+public class ConversationPresenter {
 
     public void printChats(ChatroomController cc, int userID){
         System.out.println(cc.myChats(userID));

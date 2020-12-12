@@ -8,14 +8,11 @@ import java.util.Scanner;
 
 public class BroadcastGateway {
     private File broadcastDataFile;
-    private EventManager em;
+    private EventManager eventManager;
     private boolean serialize = true; //if set to true, file is set to ser file in constructor, feel free to delete if we only serialize
 
-    public BroadcastGateway(EventManager em) {
-        this.em = em;
-
-        //if serialize is a placeholder, we can delete it if we know that serializing works well
-        //if we delete it, we'll delete all the non serializing methods
+    public BroadcastGateway(EventManager eventManager) {
+        this.eventManager = eventManager;
         if (serialize)
             this.broadcastDataFile = new File("src/MessagePackage/BroadcastDataFile.ser");
         else
@@ -148,8 +145,6 @@ public class BroadcastGateway {
         ArrayList<Message> messages = stringToMessages(stuff[1]);
         int eventID = Integer.parseInt(stuff[2]);
 
-        return new Broadcast(broadcasters, messages, eventID, this.em);
+        return new Broadcast(broadcasters, messages, eventID, this.eventManager);
     }
-
-
 }

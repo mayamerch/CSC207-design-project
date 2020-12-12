@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /*
-This is a test file for the Message Package!
+
+************************************************************
+Tester for the Message Package (can be ignored for Phase 2)
+************************************************************
+
 
 Things that are created:
 -a ChatroomController

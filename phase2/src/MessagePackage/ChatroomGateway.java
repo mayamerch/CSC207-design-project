@@ -16,8 +16,6 @@ public class ChatroomGateway {
      * create ChatroomGateway which saves data from ChatroomController into ChatroomDataFile
      */
     public ChatroomGateway() {
-        //if serialize is a placeholder, we can delete it if we know that serializing works well
-        //if we delete it, we'll delete all the non serializing methods
         if (serialize)
             this.chatroomDataFile = new File("src/MessagePackage/ChatroomDataFile.ser");
         else

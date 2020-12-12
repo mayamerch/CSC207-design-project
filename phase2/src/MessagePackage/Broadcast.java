@@ -93,7 +93,6 @@ public class Broadcast implements Conversation, Serializable {
     }
 
     /**
-     *
      * @return the ArrayList of Messages in this broadcast
      */
     @Override
@@ -101,21 +100,33 @@ public class Broadcast implements Conversation, Serializable {
         return this.messages;
     }
 
+    /**
+     * @return the ArrayList of userIDs who are attending the Event that is being Broadcasted to
+     */
     @Override
     public ArrayList<Integer> getAllReaderIDs() {
         return eventManager.getEvent(this.eventID).getEventAttendees(); /// e.getEventAttendees();
     }
 
+    /**
+     * @return the ArrayList of userIDs who are able to send a Broadcast (Organizers, Speakers to their Events)
+     */
     @Override
     public ArrayList<Integer> getAllSenderIDs() {
         return broadcasters;
     }
 
+    /**
+     * @return whether or not a user can see this Broadcast
+     */
     @Override
     public boolean canRead(Integer userID){
         return this.getAllReaderIDs().contains(userID);
     }
 
+    /**
+     * @return whether or not a user can send this Broadcast
+     */
     @Override
     public boolean canSend(Integer userID){
         return this.getAllSenderIDs().contains(userID);

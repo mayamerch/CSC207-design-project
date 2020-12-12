@@ -38,6 +38,13 @@ public class BroadcastController {
     }
 
     /**
+     * @return an ArrayList of all broadcasts created
+     */
+    public ArrayList<Broadcast> getBroadcasts() {
+        return broadcasts;
+    }
+
+    /**
      * Save broadcasts to BroadcastDataFile. Should be run before program exits.
      */
     public void saveBroadcasts() {
@@ -46,13 +53,6 @@ public class BroadcastController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * @return an ArrayList of all broadcasts created
-     */
-    public ArrayList<Broadcast> getBroadcasts() {
-        return broadcasts;
     }
 
     /**
@@ -97,6 +97,7 @@ public class BroadcastController {
      * @param senderUserID the ID of the user who is sending the broadcast
      * @param eventID the ID of the event at which all the attendees are receiving the broadcast
      * @param message the message being broadcasted to the Event
+     * @return the output String message indicating success or not
      */
     public String sendBroadcastToEvent(int senderUserID, int eventID, String message){
         try {
@@ -128,11 +129,11 @@ public class BroadcastController {
         }
     }
 
-
     /**
      * Sends a message in an existing Broadcast to all Attendees, or creates a new one if it doesn't exist
      * @param organizerUserID the ID of the user who is sending the broadcast
      * @param message the message being broadcasted to all Attendees
+     * @return the output String message indicating success or not
      */
     public String sendBroadcastToAttendees(int organizerUserID, String message){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
@@ -166,6 +167,7 @@ public class BroadcastController {
      * Sends a message in an existing Broadcast to all Speakers, or creates a new one if it doesn't exist
      * @param organizerUserID the ID of the user who is sending the broadcast
      * @param message the message being broadcasted to all Speakers
+     * @return the output String message indicating success or not
      */
     public String sendBroadcastToSpeakers(int organizerUserID, String message){
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
@@ -199,6 +201,7 @@ public class BroadcastController {
     /**
      * Sends a Broadcast for multiple talks of a speaker
      * @param speaker the broadcast is being sent to all talks this speaker is speaking at
+     * @return the output String message indicating success or not
      */
     public String sendBroadcastInAllSpeakerEvents(Speaker speaker, String message) {
         if((speaker.getType() != UserType.SPEAKER)){
@@ -218,6 +221,7 @@ public class BroadcastController {
     /**
      * Sends a Broadcast for multiple talks of a speaker
      * @param eventID the ID of the event whose Broadcasts you are looking for
+     * @return the output String message indicating success or not
      */
     public String returnBroadcastforEventID(int eventID) {
         if(broadcasts.size() == 0){
