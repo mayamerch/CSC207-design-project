@@ -158,10 +158,10 @@ public class Presenter {
         List<Integer> friendList = userController.getFriendsList();
         return userPresenter.userIDListToString(friendList);
     }
-    public List<String> displayNotFriendsOrRequests(){
-        List<Integer> excludeList = userController.getNotFriendsNotRequests();
-        return userPresenter.userIDListToString(excludeList);
-    }
+//    public List<String> displayNotFriendsOrRequests(){
+//        List<Integer> excludeList = userController.getNotFriendsNotRequests();
+//        return userPresenter.userIDListToString(excludeList);
+//    }
     /**
      * Checks if the User is logged in with a valid account
      * @return true or false if the User is logged in with a valid account.

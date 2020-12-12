@@ -215,39 +215,39 @@ public class UserTest {
         boolean accountCreated2 = userController1.createUser("user3", "user3", UserType.SPEAKER);
         assertFalse("Creates Speaker as Attendee", accountCreated2);
     }
-    @Test(timeout = 50)
-    public void testExcludeUsersFriends(){
-        UserManager userManager = new UserManager();
-        userManager.createAccount("user1", "user1", UserType.ATTENDEE);
-        for (int i=2; i< 30; i++){
-            userManager.createAccount("user" + i, "user"+i, UserType.ATTENDEE);
-            // send friend requests to user1
-            userManager.sendFriendRequest(i, 1);
-        }
-        userManager.createAccount("user30", "user30", UserType.ORGANIZER);
-        userManager.createAccount("user31", "user31", UserType.SPEAKER);
-        userManager.createAccount("user32", "user32", UserType.ATTENDEE);
-        userManager.createAccount("user33", "user33", UserType.ATTENDEE);
-        userManager.createAccount("user34", "user34", UserType.ATTENDEE);
-        userManager.sendFriendRequest(1, 30);
-        userManager.acceptFriendRequest(30, 1);
-        userManager.sendFriendRequest(1, 31);
-        userManager.acceptFriendRequest(31, 1);
-        // Add 31 and 30 as friends
-        UserController userController = new UserController(userManager);
-        userController.userLogin("user1", "user1");
-        List<Integer> excludeList = userController.getNotFriendsNotRequests();
-        int size1 = excludeList.size();
-        assertEquals("Does not remove properly", 3, size1);
-        // The user controller accesses this user manager so we can modify this directly
-        userManager.sendFriendRequest(1, 32);
-        userManager.acceptFriendRequest(32, 1);
-        List<Integer> excludeList2 = userController.getNotFriendsNotRequests();
-        int size2 = excludeList2.size();
-        assertEquals("Does not update and remove properly", 2, size2);
-        int size3 = userManager.getUserMap().size();
-        assertEquals("Removes Users from Hashmap", 34, size3);
-    }
+//    @Test(timeout = 50)
+//    public void testExcludeUsersFriends(){
+//        UserManager userManager = new UserManager();
+//        userManager.createAccount("user1", "user1", UserType.ATTENDEE);
+//        for (int i=2; i< 30; i++){
+//            userManager.createAccount("user" + i, "user"+i, UserType.ATTENDEE);
+//            // send friend requests to user1
+//            userManager.sendFriendRequest(i, 1);
+//        }
+//        userManager.createAccount("user30", "user30", UserType.ORGANIZER);
+//        userManager.createAccount("user31", "user31", UserType.SPEAKER);
+//        userManager.createAccount("user32", "user32", UserType.ATTENDEE);
+//        userManager.createAccount("user33", "user33", UserType.ATTENDEE);
+//        userManager.createAccount("user34", "user34", UserType.ATTENDEE);
+//        userManager.sendFriendRequest(1, 30);
+//        userManager.acceptFriendRequest(30, 1);
+//        userManager.sendFriendRequest(1, 31);
+//        userManager.acceptFriendRequest(31, 1);
+//        // Add 31 and 30 as friends
+//        UserController userController = new UserController(userManager);
+//        userController.userLogin("user1", "user1");
+//        List<Integer> excludeList = userController.getNotFriendsNotRequests();
+//        int size1 = excludeList.size();
+//        assertEquals("Does not remove properly", 3, size1);
+//        // The user controller accesses this user manager so we can modify this directly
+//        userManager.sendFriendRequest(1, 32);
+//        userManager.acceptFriendRequest(32, 1);
+//        List<Integer> excludeList2 = userController.getNotFriendsNotRequests();
+//        int size2 = excludeList2.size();
+//        assertEquals("Does not update and remove properly", 2, size2);
+//        int size3 = userManager.getUserMap().size();
+//        assertEquals("Removes Users from Hashmap", 34, size3);
+//    }
     // ====================== Presenter Tests =====================
     @Test(timeout = 200)
     public void testPresenterSendAndAcceptFriendRequest(){

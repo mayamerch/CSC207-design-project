@@ -13,3 +13,9 @@ For the gateways, If you are running into a file not found exception upon login
 or logging out, you may need to insert "phase2/" before "src" or remove "phase2",
 from the file path, depending on whether you have "group_0039" or "phase2" open.
 
+For VIP users, We interpreted the instructions as adding a VIP attribute that is either
+true or false for Users of type Speaker, Organiser or Attendee. The UserType itself is
+also an attribute of User.
+
+The UserMap is designed to be saved automatically only when logging out in the GUI
+
