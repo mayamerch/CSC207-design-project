@@ -33,7 +33,8 @@ public class CheckBroadcasts extends JFrame{
         showAllBroadcasts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageArea.setText(presenter.getBroadcastController().myBroadcasts(userID));
+                messageArea.setText(presenter.displayBroadcasts(userID));
+                //messageArea.setText(presenter.getBroadcastController().myBroadcasts(userID));
             }
         });
 
@@ -41,7 +42,8 @@ public class CheckBroadcasts extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int eventId = Integer.parseInt(enterID.getText());
-                messageArea.setText(presenter.getBroadcastController().returnBroadcastforEventID(eventId));
+                messageArea.setText(presenter.displayBroadcastforEventID(eventId));
+                //messageArea.setText(presenter.getBroadcastController().returnBroadcastforEventID(eventId));
             }
         });
 

@@ -16,6 +16,7 @@ public class BroadcastController {
     private EventManager eventManager;
     private UserManager userManager;
     private BroadcastGateway gateway;
+    private String broadcastType;
 
     /**
      * Creates an instance of BroadcastController that contains all the recorded conversations (empty at first)
@@ -59,7 +60,7 @@ public class BroadcastController {
         else{
             broadcasters.add(senderUserID);
         }
-        Broadcast b = new Broadcast(broadcasters, eventID, eventManager, userManager);
+        Broadcast b = new Broadcast(broadcasters, eventID, eventManager, userManager, "New");
         return !broadcasts.contains(b); // return whether it exists or not
     }
 
@@ -73,7 +74,7 @@ public class BroadcastController {
         broadcasters.add(senderUserID);
 
         if(canCreateNewBroadCast(senderUserID, eventID)){
-            Broadcast b = new Broadcast(broadcasters, eventID, eventManager, userManager);
+            Broadcast b = new Broadcast(broadcasters, eventID, eventManager, userManager, "New");
             broadcasts.add(b);
             return b;
         }
@@ -90,6 +91,7 @@ public class BroadcastController {
      * @return the output String message indicating success or not
      */
     public String sendBroadcastToEvent(int senderUserID, int eventID, String message){
+        this.broadcastType = "ToEvent";
         try {
             if(!eventManager.getEventList().contains(eventManager.getEvent(eventID))){
                 return "This Event doesn't exist yet.";
@@ -102,9 +104,11 @@ public class BroadcastController {
             ArrayList<Integer> broadcasters = new ArrayList<Integer>();
             broadcasters.add(senderUserID);
             Broadcast b = createNewBroadcast(senderUserID, eventID);
+            b.setType("ToEvent");
 
             for(Broadcast broadcast: broadcasts){
                 if(broadcast.equals(b)){
+                    broadcast.setType("ToEvent");
                     broadcast.sendMessage(message, senderUserID);
                     return "Broadcast sent to Event " + eventID;
                 }
@@ -126,6 +130,7 @@ public class BroadcastController {
      * @return the output String message indicating success or not
      */
     public String sendBroadcastToAttendees(int organizerUserID, String message){
+        this.broadcastType = "ToAttendees";
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         if(!(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER)){
             return "Only Organizers can Broadcast to Attendees.";
@@ -142,8 +147,10 @@ public class BroadcastController {
         }
 
         Broadcast b = new Broadcast(broadcasters, attendees, userManager);
+        b.setType("ToAttendees");
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){
+                broadcast.setType("ToAttendees");
                 broadcast.sendMessage(message, organizerUserID);
                 return "Your broadcast has been sent!";
             }
@@ -160,6 +167,7 @@ public class BroadcastController {
      * @return the output String message indicating success or not
      */
     public String sendBroadcastToSpeakers(int organizerUserID, String message){
+        this.broadcastType = "ToSpeakers";
         ArrayList<Integer> broadcasters = new ArrayList<Integer>();
         if(!(userManager.getUserByID(organizerUserID).getType() == UserType.ORGANIZER)){
             return "Only Organizers can Broadcast to Speakers";
@@ -177,8 +185,10 @@ public class BroadcastController {
         }
 
         Broadcast b = new Broadcast(broadcasters, speakers, userManager);
+        b.setType("ToSpeakers");
         for(Broadcast broadcast: broadcasts){
             if(broadcast.equals(b)){
+                broadcast.setType("ToSpeakers");
                 broadcast.sendMessage(message, organizerUserID);
                 return "Your broadcast has been sent!";
             }
@@ -194,6 +204,7 @@ public class BroadcastController {
      * @return the output String message indicating success or not
      */
     public String sendBroadcastInAllSpeakerEvents(Speaker speaker, String message) {
+        this.broadcastType = "AllSpeakerEvents";
         if((speaker.getType() != UserType.SPEAKER)){
             return "Only Speakers can do this!";
         }
@@ -234,9 +245,9 @@ public class BroadcastController {
         if(broadcasts.size() == 0){
             return myBroadcasts;
         }
-        for(Broadcast c: broadcasts){
-            if (c.canRead(userID)){
-                myBroadcasts.add(c);
+        for(Broadcast b: broadcasts){
+            if (b.canRead(userID)){
+                myBroadcasts.add(b);
             }
         }
         return myBroadcasts;

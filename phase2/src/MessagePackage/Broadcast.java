@@ -17,8 +17,8 @@ public class Broadcast implements Conversation, Serializable {
     private EventManager eventManager;
     private ArrayList<Message> messages = new ArrayList<>();
     private UserManager userManager;
-    private int senderID;
     private ArrayList<Integer> recipients;
+    private String type;
 
     /**
      * Create a broadcast by someone in ArrayList broadcasters, identified by userID
@@ -26,12 +26,13 @@ public class Broadcast implements Conversation, Serializable {
      * @param eventID the ID of the event of which the attendees are being broadcasted to
      * @param eventManager an eventManager to manage the event that is being broadcasted to
      */
-    public Broadcast(ArrayList<Integer> broadcasters, int eventID, EventManager eventManager, UserManager userManager){
+    public Broadcast(ArrayList<Integer> broadcasters, int eventID, EventManager eventManager, UserManager userManager, String type){
         this.broadcasters = broadcasters;
-        this.messages = new ArrayList<Message>();
+        this.messages = new ArrayList<>();
         this.eventID = eventID;
         this.eventManager = eventManager;
         this.userManager = userManager;
+        this.type = type;
 
         for(User organizer: userManager.getOrganizerList()){
             if(!broadcasters.contains(organizer.getUserID())){
@@ -43,6 +44,10 @@ public class Broadcast implements Conversation, Serializable {
                 this.broadcasters.add(speaker.getUserID());
             }
         }
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -105,7 +110,24 @@ public class Broadcast implements Conversation, Serializable {
      */
     @Override
     public ArrayList<Integer> getAllReaderIDs() {
-        return eventManager.getEvent(this.eventID).getEventAttendees(); /// e.getEventAttendees();
+        if (this.type.equals("ToEvent")) {
+            return eventManager.getEvent(this.eventID).getEventAttendees();
+        }
+        else if(this.type.equals("ToAttendees")){
+            ArrayList<Integer> attendeesIDs = new ArrayList<Integer>();
+            for(User u: userManager.getAttendeeList()){
+                attendeesIDs.add(u.getUserID());
+            }
+            return attendeesIDs;
+        }
+        else if(this.type.equals("ToSpeakers")){
+            ArrayList<Integer> speakerIDs = new ArrayList<Integer>();
+            for(User u: userManager.getSpeakerList()){
+                speakerIDs.add(u.getUserID());
+            }
+            return speakerIDs;
+        }
+        return eventManager.getAllParticipants();
     }
 
     /**
@@ -156,7 +178,7 @@ public class Broadcast implements Conversation, Serializable {
             s.append(m.format());
             s.append("\n");
         }
-        return eventManager.getEvent(eventID).getEventName() + ":\n" + s.toString();
+        return s.toString(); //eventManager.getEvent(eventID).getEventName() + ":\n" + s.toString();
     }
 
 }

@@ -17,7 +17,7 @@ public class ChatroomGateway {
      * create ChatroomGateway which saves data from ChatroomController into ChatroomDataFile
      */
     public ChatroomGateway() {
-        this.chatroomDataFile = new File("src/MessagePackage/ChatroomDataFile.ser");
+        this.chatroomDataFile = new File("phase2/src/MessagePackage/ChatroomDataFile.ser");
         try  {
             if(chatroomDataFile.createNewFile())
                 chatrooms = new ArrayList<Chatroom>();

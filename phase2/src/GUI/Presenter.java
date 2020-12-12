@@ -223,6 +223,14 @@ public class Presenter {
         return chatroomController.myChats(userID);
     }
 
+    public String displayBroadcasts(int userID){
+        return broadcastController.myBroadcasts(userID);
+    }
+
+    public String displayBroadcastforEventID(int eventID){
+        return broadcastController.returnBroadcastforEventID(eventID);
+    }
+
     public String sendMessages(ArrayList<Integer> recipients, int userID, String message){
         String s = chatroomController.sendChat(recipients, userID, message);
         chatroomController.saveChats();

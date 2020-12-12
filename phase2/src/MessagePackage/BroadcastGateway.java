@@ -11,7 +11,7 @@ public class BroadcastGateway {
     private ArrayList<Broadcast> broadcasts;
 
     public BroadcastGateway() {
-        this.broadcastDataFile = new File("src/MessagePackage/BroadcastDataFile.ser");
+        this.broadcastDataFile = new File("phase2/src/MessagePackage/BroadcastDataFile.ser");
         try  {
             if (broadcastDataFile.createNewFile())
                 broadcasts = new ArrayList<Broadcast>();
