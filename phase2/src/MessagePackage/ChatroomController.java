@@ -27,11 +27,7 @@ public class ChatroomController {
         this.eventManager = eventManager;
         this.userManager = userManager;
         this.gateway = new ChatroomGateway();
-        try {
-            this.chats = gateway.makeChats();
-        } catch (FileNotFoundException f) {
-            this.chats = new ArrayList<Chatroom>();
-        }
+        this.chats = gateway.getChatrooms();
 
     }
 
@@ -53,12 +49,7 @@ public class ChatroomController {
      * @throws IOException if writing to file was unsuccessful
      */
     public void saveChats(){
-        //this.gateway.writeChatsToFile(this.chats);
-        try {
-            this.gateway.writeChatsToFile(this.chats);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.gateway.saveChatsObject(this.chats);
     }
 
     /**

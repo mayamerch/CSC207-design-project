@@ -1,6 +1,8 @@
 package UserPackage;
 
-public class UserFactory {
+import java.io.Serializable;
+
+public class UserFactory implements Serializable {
 
     /**
      * @param newUsername the username of the user to be created, String

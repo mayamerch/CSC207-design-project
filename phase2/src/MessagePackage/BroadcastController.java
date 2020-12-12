@@ -23,14 +23,8 @@ public class BroadcastController {
     public BroadcastController(EventManager eventManager, UserManager userManager) {
         this.eventManager = eventManager;
         this.userManager = userManager;
-        this.gateway = new BroadcastGateway(eventManager);
-        this.broadcasts = new ArrayList<>();
-        try {
-            this.broadcasts = gateway.makeBroadcasts();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        this.gateway = new BroadcastGateway();
+        this.broadcasts = gateway.getBroadcasts();
     }
 
     public UserManager getUserManager() {
@@ -41,11 +35,7 @@ public class BroadcastController {
      * Save broadcasts to BroadcastDataFile. Should be run before program exits.
      */
     public void saveBroadcasts() {
-        try {
-            this.gateway.writeBroadcastsToFile(this.broadcasts);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.gateway.saveBroadcastsObject(this.broadcasts);
     }
 
     /**
