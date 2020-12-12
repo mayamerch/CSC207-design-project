@@ -8,8 +8,6 @@ public class Chatroom implements Conversation, Serializable {
     private ArrayList<Integer> userList;
     private ArrayList<Message> messages;
     private int senderID;
-    //enum status {ACCEPTED, PENDING, REJECTED}
-    //private status myStatus;
 
     /**
      * Creates a new chatroom between two or more users in userList
@@ -53,21 +51,33 @@ public class Chatroom implements Conversation, Serializable {
         return this.messages;
     }
 
+    /**
+     * @return the ArrayList of userIDs who are being sent a message
+     */
     @Override
     public ArrayList<Integer> getAllReaderIDs(){
         return this.userList;
     }
 
+    /**
+     * @return the ArrayList of userIDs who are sending the message
+     */
     @Override
     public ArrayList<Integer> getAllSenderIDs(){
         return this.userList;
     }
 
+    /**
+     * @return the ArrayList of userIDs who can read this message
+     */
     @Override
     public boolean canRead(Integer userID){
         return this.getAllReaderIDs().contains(userID);
     }
 
+    /**
+     * @return the ArrayList of userIDs who can send a message
+     */
     @Override
     public boolean canSend(Integer userID){
         return this.getAllSenderIDs().contains(userID);

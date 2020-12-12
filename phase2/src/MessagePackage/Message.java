@@ -62,6 +62,4 @@ public class Message implements Serializable { // storing all messages
     public String format(){
         return "From userID " + this.userId + ": " + this.content;
     }
-
-
 }
