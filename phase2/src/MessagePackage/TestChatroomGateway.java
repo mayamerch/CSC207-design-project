@@ -10,7 +10,6 @@ import java.util.ArrayList;
 // Gateway Tester (can be ignored for Phase 2)
 // ********************************************
 
-
 public class TestChatroomGateway {
 
     public static void main(String[] args) throws IOException {
