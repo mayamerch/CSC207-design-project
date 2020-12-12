@@ -496,12 +496,12 @@ public class EventPresenter {
             else
                 capacity = Integer.parseInt(EventCapacity);
 
-            if (EventDate.equals("-"))
+            if (EventDate.equals(""))
                 day = dateFormat.format(event.getEventDate());
             else
                 day = EventDate;
 
-            if (EventDate.equals("-"))
+            if (EventTime.equals(""))
                 time = timeFormat.format(event.getEventDate());
             else
                 time = EventTime;
@@ -574,12 +574,12 @@ public class EventPresenter {
             else
                 capacity = Integer.parseInt(EventCapacity);
 
-            if (EventDate.equals("-"))
+            if (EventDate.equals(""))
                 day = dateFormat.format(event.getEventDate());
             else
                 day = EventDate;
 
-            if (EventDate.equals("-"))
+            if (EventTime.equals(""))
                 time = timeFormat.format(event.getEventDate());
             else
                 time = EventTime;
@@ -660,11 +660,12 @@ public class EventPresenter {
             else
                 capacity = Integer.parseInt(EventCapacity);
 
-            if (EventDate.equals("-"))
+            if (EventDate.equals(""))
                 day = dateFormat.format(event.getEventDate());
             else
                 day = EventDate;
-            if (EventDate.equals("-"))
+
+            if (EventTime.equals(""))
                 time = timeFormat.format(event.getEventDate());
             else
                 time = EventTime;
