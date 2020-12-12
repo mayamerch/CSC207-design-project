@@ -37,14 +37,6 @@ public class AttendeeMessageMenu extends JFrame {
                 checkUserMessages.pack();
                 checkUserMessages.setVisible(true);
                 setVisible(false);
-
-                //TODO: get rid of this?
-                /*MessageWindow messageWindow = new MessageWindow(presenter);
-                messageWindow.setContentPane(messageWindow.getMainPanel());
-                messageWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                messageWindow.pack();
-                messageWindow.setVisible(true);
-                setVisible(false); // the attendee menu*/
             }
         });
 
