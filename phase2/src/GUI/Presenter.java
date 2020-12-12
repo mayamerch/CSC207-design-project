@@ -4,7 +4,6 @@ import EventPackage.EventOuterLayer.EventPresenter;
 import EventPackage.EventOuterLayer.EventProgramPresenter;
 import MessagePackage.BroadcastController;
 import MessagePackage.ChatroomController;
-import MessagePackage.ConversationPresenter;
 import UserPackage.*;
 import EventPackage.EventOuterLayer.EventController;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
@@ -25,7 +24,6 @@ public class Presenter {
     private EventProgramPresenter programPresenter;
     private BroadcastController broadcastController;
     private ChatroomController chatroomController;
-    private ConversationPresenter conversationPresenter;
 
     /**
      * Constructs a Presenter object which contains the other Controllers
@@ -58,10 +56,6 @@ public class Presenter {
 
     public BroadcastController getBroadcastController() {
         return this.broadcastController;
-    }
-
-    public ConversationPresenter getConversationPresenter() {
-        return conversationPresenter;
     }
 
     /**
@@ -109,7 +103,6 @@ public class Presenter {
                 eventController.getEventManager(),userController.getCurrentUserId(),userController.getUserType());
         this.broadcastController = new BroadcastController(eventController.getEventManager(), userController.getUserManager());
         this.chatroomController = new ChatroomController(eventController.getEventManager(), userController.getUserManager());
-        this.conversationPresenter = new ConversationPresenter();
     }
     /**
      * Logs the User out of the program

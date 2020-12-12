@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//presenter.getusercontroller.getuserID
+// Presenter for the Text UI
 
 public class ConversationPresenter { // User.java to get friends
 
