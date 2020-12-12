@@ -1,6 +1,8 @@
 package EventPackage.EventGUI.UserMenus;
 
 import EventPackage.EventGUI.*;
+import EventPackage.EventGUI.EventAttending.AttendEventView;
+import EventPackage.EventGUI.EventAttending.CancelAttendView;
 import EventPackage.EventOuterLayer.EventPresenter;
 import EventPackage.EventOuterLayer.EventProgramPresenter;
 

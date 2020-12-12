@@ -1,4 +1,4 @@
-package EventPackage.EventGUI;
+package EventPackage.EventGUI.EventAttending;
 
 import EventPackage.EventOuterLayer.EventController;
 import EventPackage.EventOuterLayer.EventMessagePresenter;

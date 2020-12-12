@@ -1,8 +1,6 @@
-package EventPackage.EventGUI;
+package EventPackage.EventGUI.EventAttending;
 
-import EventPackage.EventGUI.Reschedule.EditMultiSpeaker;
-import EventPackage.EventGUI.Reschedule.EditParty;
-import EventPackage.EventGUI.Reschedule.EditSingleSpeaker;
+import EventPackage.EventOuterLayer.EventController;
 import EventPackage.EventOuterLayer.EventMessagePresenter;
 import EventPackage.EventOuterLayer.EventPresenter;
 
@@ -10,19 +8,18 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CancelEventView extends JFrame {
+public class AttendEventView extends JFrame{
     private JPanel mainPanel;
-    private JLabel title;
-    private JLabel choose;
-    private JLabel id;
-    private JTextField eventId;
-    private JButton next;
-    private JScrollPane scrollPane;
     private JTable eventInfo;
+    private JLabel chooseEvent;
+    private JTextField eventId;
+    private JButton okButton;
+    private JLabel title;
+    private JScrollPane scrollPane;
     private EventPresenter eventPresenter;
-    private String[][] eventsInfo;
     private final String[] header = {"Event Id", "Event Name", "Event Type", "Event Room",
-            "Event Date", "Event Time", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event"};
+            "Event Date", "Event Time", "Event Duration", "Event Capacity", "Available Spaces", "VIP Event", "Event Speaker Ids"};
+    private String[][] eventsInfo;
 
     /**
      * returns the Main JPanel of this JFrame
@@ -32,32 +29,34 @@ public class CancelEventView extends JFrame {
         return mainPanel;
     }
 
-
     /**
-     * Create a GUI responsible for choosing an event to cancel.
-     * @param eventPresenter1 The EventPresenter used in this view
+     * GUI responsible for giving an Attendee the ability to attend events
+     * @param eventPresenter1 EventPresenter to be used in this view
      */
-    public CancelEventView(EventPresenter eventPresenter1) {
+    public AttendEventView(EventPresenter eventPresenter1) {
         eventPresenter = eventPresenter1;
 
-
-        next.addActionListener(new ActionListener() {
+        okButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
              * @param e Button is pressed
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean status = eventPresenter.cancelEvent(eventId.getText());
+                String choice = eventId.getText();
+                boolean status = eventPresenter.signUp(choice);
+
                 EventMessagePresenter eventMessagePresenter = new EventMessagePresenter();
-                eventMessagePresenter.CancelEventMessage(status);
+                eventMessagePresenter.AttendEventMessage(status);
             }
         });
     }
 
     private void createUIComponents() {
-        eventsInfo = eventPresenter.getAllEvents();
+        eventsInfo = eventPresenter.getAvailEvents();
         eventInfo = new JTable(eventsInfo, header);
         scrollPane = new JScrollPane(eventInfo);
+        title = new JLabel();
+        title.setText("Available Events to Attend");
     }
 }
