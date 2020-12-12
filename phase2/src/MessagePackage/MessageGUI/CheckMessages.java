@@ -40,7 +40,6 @@ public class CheckMessages extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int senderID = Integer.parseInt(enterID.getText());
-                //String chatsFromUser = chatroomController.getChatsFromUser(userID, senderID);
                 messageArea.setText(presenter.displayMessagesFromUser(userID, senderID));
             }
         });

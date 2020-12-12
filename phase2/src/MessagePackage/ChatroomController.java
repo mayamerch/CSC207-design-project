@@ -172,17 +172,24 @@ public class ChatroomController {
 
     public String getChatsFromUser(int myID, int senderID){
         StringBuilder s = new StringBuilder("");
+        int count = 0;
+        for(Chatroom chatroom: returnChatsforUserID(myID)){
+            if(chatroom.getSenderID() == senderID){
+                count = count + 1;
+            }
+        }
+        if(count == 0){
+            return "You have no messages from User " + senderID + "!";
+        }
         if (returnChatsforUserID(myID).size() == 0) {
             return "You have no messages from User " + senderID + "!";
         }
+
         for(Chatroom chatroom: returnChatsforUserID(myID)){
             if(chatroom.getSenderID() == senderID){
                 s.append(chatroom.format());
                 s.append("\n------\n");
             }
-        }
-        if (s.equals("")) {
-            return "You have no messages from User " + senderID + "!";
         }
         return s.toString();
     }
