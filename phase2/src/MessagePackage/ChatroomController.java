@@ -52,8 +52,13 @@ public class ChatroomController {
      *
      * @throws IOException if writing to file was unsuccessful
      */
-    public void saveChats() throws IOException {
-        this.gateway.writeChatsToFile(this.chats);
+    public void saveChats(){
+        //this.gateway.writeChatsToFile(this.chats);
+        try {
+            this.gateway.writeChatsToFile(this.chats);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -119,7 +124,7 @@ public class ChatroomController {
      * @param senderUserID the ID of the user who is sending the broadcast
      * @param message content of the message you are sending
      */
-    public boolean sendChat(ArrayList<Integer> userlist, int senderUserID, String message) {
+    public String sendChat(ArrayList<Integer> userlist, int senderUserID, String message) {
         try{
             Chatroom c = createNewChatRoom(userlist, senderUserID);
 
@@ -127,23 +132,23 @@ public class ChatroomController {
                 User sender = userManager.getUserByID(senderUserID);
                 User receiver = userManager.getUserByID(user);
                 if(!receiver.getFriendsList().contains(senderUserID)){
-                    return false; // can't send a chat to someone who's not your friend
+                    return "You are not friends with User " + user + ". Failed to send."; // can't send a chat to someone who's not your friend
                 }
             }
 
             for (Chatroom chatroom : chats) {
                 if (chatroom.equals(c)) {
                     chatroom.sendMessage(message, senderUserID);
-                    return true;
+                    return "Message sent!";
                 }
             }
 
             c.sendMessage(message, senderUserID);
             chats.add(c);
-            return true;
+            return "Message sent!";
         }
         catch(NullPointerException n){
-            return false;
+            return "This Chatroom could not be created. Failed to send.";
         }
     }
 

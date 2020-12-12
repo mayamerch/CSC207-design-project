@@ -226,21 +226,24 @@ public class Presenter {
      * Takes in an UserID and prints all messages for that User
      * @param userID the ID of the user trying to view their messages
      */
-    public void displayMessages(int userID){
-        System.out.println(chatroomController.myChats(userID));
+    public String displayMessages(int userID){
+        return chatroomController.myChats(userID);
     }
 
-    public boolean sendMessages(ArrayList<Integer> recipients, int userID, String message){
-        return chatroomController.sendChat(recipients, userID, message);
+    public String sendMessages(ArrayList<Integer> recipients, int userID, String message){
+        String s = chatroomController.sendChat(recipients, userID, message);
+        chatroomController.saveChats();
+        return s;
     }
 
-    public void saveChats() {
+    /*public void saveChats() {
         try {
             this.chatroomController.saveChats();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+     */
 
     public String sendBroadcastToSpeakers(int userID, String message) {
         String s = broadcastController.sendBroadcastToSpeakers(userID, message);
@@ -265,6 +268,12 @@ public class Presenter {
     public String sendBroadcastToEvent(int userID, int eventID, String broadcastMessage) {
         String s = broadcastController.sendBroadcastToEvent(userID, eventID, broadcastMessage);
         broadcastController.saveBroadcasts();
+        return s;
+    }
+
+    public String displayMessagesFromUser(int myID, int senderID){
+        String s = chatroomController.getChatsFromUser(myID, senderID);
+        chatroomController.saveChats();
         return s;
     }
 }

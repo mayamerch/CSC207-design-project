@@ -32,8 +32,7 @@ public class CheckMessages extends JFrame{
         showAllMessages.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String myChats = chatroomController.myChats(userID);
-                messageArea.setText(myChats);
+                messageArea.setText(presenter.displayMessages(userID));
             }
         });
 
@@ -41,8 +40,8 @@ public class CheckMessages extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int senderID = Integer.parseInt(enterID.getText());
-                String chatsFromUser = chatroomController.getChatsFromUser(userID, senderID);
-                messageArea.setText(chatsFromUser);
+                //String chatsFromUser = chatroomController.getChatsFromUser(userID, senderID);
+                messageArea.setText(presenter.displayMessagesFromUser(userID, senderID));
             }
         });
 
