@@ -30,4 +30,8 @@ To login as an Attendee: (user4, user4)
 You can also create a new user as the Organizer.
 
 Error: To change VIP Status of Users Through the GUI, this.presenter = presenter should
-be added to the VIPMenuView constructor (new line at around line 26)
+be added to the VIPMenuView constructor (new line at around line 26). Then, on line 42 and 32,
+change String userInput = usernameIDLabel.getText(); to String userInput = textField1.getText();
+
+Note that if you create an attendee without logging in, to save the new account you have to log in as a user
+and then log out through the GUI to save it next time you run the program.
