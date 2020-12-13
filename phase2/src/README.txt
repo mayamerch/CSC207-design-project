@@ -29,9 +29,15 @@ To login as a Speaker: (user2,user2)
 To login as an Attendee: (user4, user4)
 You can also create a new user as the Organizer.
 
+Note that if you create an attendee without logging in, to save the new account you have to log in as a user
+and then log out through the GUI to save it next time you run the program.
+
 Error: To change VIP Status of Users Through the GUI, this.presenter = presenter should
 be added to the VIPMenuView constructor (new line at around line 26). Then, on line 42 and 32,
 change String userInput = usernameIDLabel.getText(); to String userInput = textField1.getText();
 
-Note that if you create an attendee without logging in, to save the new account you have to log in as a user
-and then log out through the GUI to save it next time you run the program.
+Error: In Lines 527, 610 in EventPackage.EventOuterLayer.EventPresenter, the variable 'EventName' in these line should be changed to 'name'.
+Fix without changing code: When editing an event using the gui, the Event Name must be reentered, otherwise it becomes empty
+
+Error: The MessagePackage.BroadcastController sendBroadcastInAllSpeakerEvents is not working properly due to an issue with saving the speaker's data;
+       the method "Speaker.getTalksList()" is not being used properly in order to save the events after they are created.
