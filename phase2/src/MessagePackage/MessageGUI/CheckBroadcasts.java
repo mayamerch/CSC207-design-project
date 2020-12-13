@@ -43,7 +43,6 @@ public class CheckBroadcasts extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 int eventId = Integer.parseInt(enterID.getText());
                 messageArea.setText(presenter.displayBroadcastforEventID(eventId));
-                //messageArea.setText(presenter.getBroadcastController().returnBroadcastforEventID(eventId));
             }
         });
 

@@ -1,6 +1,8 @@
 package MessagePackage;
 
 import EventPackage.EventEntities.Event;
+import EventPackage.EventEntities.MultiSpeakerEvent;
+import EventPackage.EventEntities.SingleSpeakerEvent;
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.Speaker;
 import UserPackage.User;
@@ -9,6 +11,7 @@ import UserPackage.UserType;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BroadcastController {
@@ -205,18 +208,27 @@ public class BroadcastController {
      */
     public String sendBroadcastInAllSpeakerEvents(Speaker speaker, String message) {
         this.broadcastType = "AllSpeakerEvents";
-        if((speaker.getType() != UserType.SPEAKER)){
-            return "Only Speakers can do this!";
+        ArrayList<Event> myEvents = new ArrayList<Event>();
+
+        for(SingleSpeakerEvent event: eventManager.getSingleSpeakerList()){
+            if(event.getEventSpeaker() == speaker.getUserID()){
+                myEvents.add(event);
+            }
         }
-        else if(speaker.getTalksList().size() == 0){
+        for(MultiSpeakerEvent event: eventManager.getMultiSpeakerList()){
+            if(event.getEventSpeakers().contains(speaker)){
+                myEvents.add(event);
+            }
+        }
+        if(myEvents.size() == 0){
             return "You are not speaking at any events!";
         }
         else {
-            for(int eventID: speaker.getTalksList()){
-                sendBroadcastToEvent(speaker.getUserID(), eventID, message);
+            for(Event e: myEvents){
+                sendBroadcastToEvent(speaker.getUserID(), e.getEventId(), message);
             }
+            return "Broadcast sent to all your events.";
         }
-        return "Broadcast sent to all your events.";
     }
 
     /**

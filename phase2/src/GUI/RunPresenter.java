@@ -54,6 +54,7 @@ public class RunPresenter {
 
         LoginView loginView = new LoginView(presenter);
         loginView.setVisible(true);
+
         //AttendeeCheckMessages attendeeCheckMessages = new AttendeeCheckMessages();
         //attendeeCheckMessages.setVisible(true);
 
