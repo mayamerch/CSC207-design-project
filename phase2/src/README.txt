@@ -34,3 +34,6 @@ be added to the VIPMenuView constructor (new line at around line 26)
 
 Error: In Lines 527, 610 in EventPackage.EventOuterLayer.EventPresenter, the variable 'EventName' in these line should be changed to 'name'.
 Fix without changing code: When editing an event using the gui, the Event Name must be reentered, otherwise it becomes empty
+
+Error: The MessagePackage.BroadcastController sendBroadcastInAllSpeakerEvents is not working properly due to an issue with saving the speaker's data;
+       the method "Speaker.getTalksList()" is not being used properly in order to save the events after they are created.
