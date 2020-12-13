@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class UserGateway {
 
-    private File file = new File("phase2/src/userFile.ser");
+    private File file = new File("src/userFile.ser");
 
     /**
      * Takes A Linked List of user objects and saves them to a.ser file.
