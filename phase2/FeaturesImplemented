@@ -1,0 +1,4 @@
+1. All Mandatory Extensions (subtypes of events, event duration, cancel event, edit event, room and event capacity,
+organizer can create any type of account, VIP User)
+2. Optional Extensions (GUI, Export Event Program as HTML)
+3. Create Your Own Extension! (Add friends, friend request - can only message your friends unless you are an Organizer)
