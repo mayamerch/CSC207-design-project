@@ -31,3 +31,6 @@ You can also create a new user as the Organizer.
 
 Error: To change VIP Status of Users Through the GUI, this.presenter = presenter should
 be added to the VIPMenuView constructor (new line at around line 26)
+
+Error: In Lines 527, 610 in EventPackage.EventOuterLayer.EventPresenter, the variable 'EventName' in these line should be changed to 'name'.
+Fix without changing code: When editing an event using the gui, the Event Name must be reentered, otherwise it becomes empty
