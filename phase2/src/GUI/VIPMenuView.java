@@ -23,12 +23,13 @@ public class VIPMenuView extends JFrame {
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(vipPanel);
+        this.presenter = presenter;
         this.pack();
 
         makeVIPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userInput = usernameIDLabel.getText();
+                String userInput = textField1.getText();
                 if (makeVIP(userInput)){
                     statusLabel.setText("User has been made VIP");
                 }
@@ -38,7 +39,7 @@ public class VIPMenuView extends JFrame {
         removeVIPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userInput = usernameIDLabel.getText();
+                String userInput = textField1.getText();
                 if (removeVIP(userInput)){
                     statusLabel.setText("User has had VIP status removed");
                 }
