@@ -12,4 +12,5 @@ Other design choices:
        Used in the Event package and User package
 4. Polymorphism for Event (Abstract parent class) so use case (EventManager) can work on all types of events
 5. Polymorphism for User (Abstract parent class)
-6.
+6. Abstraction: the use of the Conversation interface in the Message Package so that the Broadcast and Chatroom shared
+                functionality is shared with the user, but the implementation is not.
