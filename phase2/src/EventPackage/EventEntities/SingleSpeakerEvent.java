@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SingleSpeakerEvent extends Event implements Serializable, Comparable<Event>, SpeakerEvent{
+public class SingleSpeakerEvent extends Event implements Serializable, Comparable<Event> {
 
     private int eventSpeaker;
 

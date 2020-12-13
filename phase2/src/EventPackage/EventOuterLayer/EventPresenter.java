@@ -524,7 +524,7 @@ public class EventPresenter {
             return -2;
         }
 
-        return eventController.editParty(eventId, EventName, capacity, date, room, duration, vip);
+        return eventController.editParty(eventId, name, capacity, date, room, duration, vip);
 
     }
 
@@ -607,7 +607,7 @@ public class EventPresenter {
             return -2;
         }
 
-        return eventController.editSingleSpeaker(eventId, EventName, capacity, date, room, duration, vip, speaker);
+        return eventController.editSingleSpeaker(eventId, name, capacity, date, room, duration, vip, speaker);
 
     }
 

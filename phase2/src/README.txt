@@ -28,6 +28,7 @@ To login as an Organizer: (user1, user1)
 To login as a Speaker: (user2,user2)
 To login as an Attendee: (user4, user4)
 You can also create a new user as the Organizer.
+(Note there are currently 30 sample user in userFile.ser that were created during our testing)
 
 Note that if you create an attendee without logging in, to save the new account you have to log in as a user
 and then log out through the GUI to save it next time you run the program.
@@ -37,4 +38,9 @@ be added to the VIPMenuView constructor (new line at around line 26). Then, on l
 change String userInput = usernameIDLabel.getText(); to String userInput = textField1.getText(); on December 13.
 
 Error: In Lines 527, 610 in EventPackage.EventOuterLayer.EventPresenter, the variable 'EventName' in these line should be changed to 'name'.
-Fix without changing code: When editing an event using the gui, the Event Name must be reentered, otherwise it becomes empty
+Fixed this on 13-12-2020
+
+Small Change on 13-12-2020: We had a useless interface name SpeakerEvents in EventPackage.Entities.
+Deleted this interface and any of its mentions in other classes
+
+Small Change on 13-12-2020: Removed old Boot class from phase 1

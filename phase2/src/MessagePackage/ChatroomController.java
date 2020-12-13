@@ -2,7 +2,6 @@ package MessagePackage;
 
 import EventPackage.EventEntities.Event;
 import EventPackage.EventEntities.MultiSpeakerEvent;
-import EventPackage.EventEntities.SpeakerEvent;
 import EventPackage.EventUseCases.EventManager;
 import UserPackage.User;
 import UserPackage.UserManager;
