@@ -1,12 +1,15 @@
 Some Design Patterns implemented:
-1. Serializable: Used to save events to a file for persistent data storage.
-    Used in the Event package and User package
-2. Comparable: (In event package not sure if it is used)
-3. Factory: Used to create the appropriate type of User in the User package
+1. Factory: Used to create the appropriate type of User in the User package
+2. Strategy: Comparable was implemented for Events to sort the events in a date-time order for the EventProgramExport (events.html)
+
 
 Other design choices:
 1. An implementation for the UserManager, which uses a Map object to store the aggregate list of users and creates
    LinkedLists for users of specific types> (TODO: Maybe justify usage of Map?)
 2. Makes use of the MVP model, with a central Presenter-handling all interactions with each of the package controllers,
    and passes that information on to the GUI.
-3.
+3. Serializable: Used to save events to a file for persistent data storage.
+       Used in the Event package and User package
+4. Polymorphism for Event (Abstract parent class) so use case (EventManager) can work on all types of events
+5. Polymorphism for User (Abstract parent class)
+6.
