@@ -17,5 +17,11 @@ For VIP users, We interpreted the instructions as adding a VIP attribute that is
 true or false for Users of type Speaker, Organiser or Attendee. The UserType itself is
 also an attribute of User.
 
-The UserMap is designed to be saved automatically only when logging out in the GUI
+The UserMap is designed to be saved automatically only when logging out in the GUI.
 
+To use the program, run RunPresenter2 (included in GUI package)
+Login information for testing: (username,password)
+To login as an Organizer: (user1, user1)
+To login as a Speaker: (user2,user2)
+To login as an Attendee: (user4, user4)
+You can also create a new user as the Organizer.

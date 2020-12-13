@@ -5,7 +5,7 @@ Some Design Patterns implemented:
 
 Other design choices:
 1. An implementation for the UserManager, which uses a Map object to store the aggregate list of users and creates
-   LinkedLists for users of specific types> (TODO: Maybe justify usage of Map?)
+   LinkedLists for users of specific types>
 2. Makes use of the MVP model, with a central Presenter-handling all interactions with each of the package controllers,
    and passes that information on to the GUI.
 3. Serializable: Used to save events to a file for persistent data storage.
