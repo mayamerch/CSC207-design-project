@@ -30,4 +30,4 @@ To login as an Attendee: (user4, user4)
 You can also create a new user as the Organizer.
 
 Error: To change VIP Status of Users Through the GUI, this.presenter = presenter should
-be added to the VIPMenuView constructor (line 26)
+be added to the VIPMenuView constructor (new line at around line 26)
