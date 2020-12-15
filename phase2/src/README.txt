@@ -34,6 +34,7 @@ Note that if you create an attendee without logging in, to save the new account 
 and then log out through the GUI to save it next time you run the program.
 
 Features Implemented and Design Patterns are found in text under the phase 2 folder.
+UML Diagrams are in UML Diagrams folder under phase 2
 
 Error: To change VIP Status of Users Through the GUI, made fixes: added this.presenter = presenter should
 be added to the VIPMenuView constructor (new line at around line 26). Then, on line 42 and 32, changed
