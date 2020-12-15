@@ -30,6 +30,8 @@ To login as an Attendee: (user4, user4)
 You can also create a new user as the Organizer.
 (Note there are currently 30 sample user in userFile.ser that were created during our testing)
 
+To save all changes made to users (creating accounts, changing VIPS, etc.) you need to log out. Closing the program
+without saving doesn't save changes to users. (Events and messages still save)
 Note that if you create an attendee without logging in, to save the new account you have to log in as a user
 and then log out through the GUI to save it next time you run the program.
 
