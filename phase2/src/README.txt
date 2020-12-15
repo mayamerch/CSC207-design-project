@@ -10,7 +10,7 @@ of UserFile.ser, and RunPresenter2 uses the no argument constructor for Presente
 
 For UserTest, you might find that the program won't run due to a missing import.
 To resolve this, hover over [ import static org.junit.Assert.*; ] and press import
-class path.
+class path. I also pushed a new test on December 14.
 
 For the gateways, If you are running into a file not found exception upon login
 or logging out, you may need to insert "phase2/" before "src" or remove "phase2",

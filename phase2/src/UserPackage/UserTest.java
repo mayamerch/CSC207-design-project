@@ -314,4 +314,19 @@ public class UserTest {
         int size4 = user1.getFriendsList().size();
         assertEquals("repeat friends added", 6, size4);
     }
+
+    @Test(timeout = 150)
+    public void testChangeVIP(){
+        UserManager userManager = new UserManager();
+        userManager.createAccount("user1", "user1", UserType.ORGANIZER);
+        userManager.createAccount("user7", "user7", UserType.ORGANIZER);
+        Presenter presenter = new Presenter(userManager);
+        presenter.userLogin("user1","user1");
+        boolean bool = presenter.changeVIP("1", true);
+        boolean bool2 = presenter.changeVIP("user7", true);
+        assertTrue("VIP not changed properly", bool);
+        boolean bool3 = presenter.changeVIP("1", true);
+        assertTrue("VIP not changed properly", bool2);
+        assertFalse("VIP not reported properly", bool3);
+    }
 }
