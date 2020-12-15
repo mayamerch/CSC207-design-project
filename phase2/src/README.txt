@@ -33,6 +33,8 @@ You can also create a new user as the Organizer.
 Note that if you create an attendee without logging in, to save the new account you have to log in as a user
 and then log out through the GUI to save it next time you run the program.
 
+Features Implemented and Design Patterns are found in text under the phase 2 folder.
+
 Error: To change VIP Status of Users Through the GUI, made fixes: added this.presenter = presenter should
 be added to the VIPMenuView constructor (new line at around line 26). Then, on line 42 and 32, changed
 change String userInput = usernameIDLabel.getText(); to String userInput = textField1.getText(); on December 13.
