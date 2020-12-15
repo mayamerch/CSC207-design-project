@@ -44,3 +44,5 @@ Small Change on 13-12-2020: We had a useless interface name SpeakerEvents in Eve
 Deleted this interface and any of its mentions in other classes
 
 Small Change on 13-12-2020: Removed old Boot class from phase 1
+
+Small Change on 13-12-2020: Fixed saving error for Speaker Events
