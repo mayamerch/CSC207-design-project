@@ -1,5 +1,5 @@
 Some Design Patterns implemented:
-1. Factory: Used to create the appropriate type of User in the User package
+1. Factory: Used to create the appropriate type of User in the User package. The Factory is called UserFactory
 2. Strategy: Comparable was implemented for Events to sort the events in a date-time order for the EventProgramExport (events.html)
 
 
@@ -9,8 +9,9 @@ Other design choices:
 2. Makes use of the MVP model, with a central Presenter-handling all interactions with each of the package controllers,
    and passes that information on to the GUI.
 3. Serializable: Used to save data about all our entities and use cases to a file for persistent data storage.
-4. Polymorphism for Event (Abstract parent class) so use case (EventManager) can work on all types of events
-5. Polymorphism for User (Abstract parent class)
+4. Polymorphism for Event (Abstract parent class) so use case (EventManager) can work on all types of events.
+    The classes that are inheriting from event are Party, SingleSpeaker, and MultiSpeaker.
+5. Polymorphism for User (Abstract parent class). The classes inheriting User are Attendee, Speaker, and Organizer.
 6. Abstraction: the use of the Conversation interface in the Message Package so that the Broadcast and Chatroom shared
                 functionality is shared with the user, but the implementation is not.7.
-7. All events were saved under the same manager to keep ID counting consistent.
+7. All events were saved under the same manager to keep ID counting consistent. This is in EventManager
