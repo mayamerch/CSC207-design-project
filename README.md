@@ -1,8 +1,7 @@
 # design-project
 
 My term project for CSC207: Software Design at the University of Toronto, Fall 2020. Completed in collaboration with six other UofT undergraduate students.
-My primary forcuz was the message package (phase2/MessagePackage), including functionality of sending/receiving a message, 
-and the specificity of the different types of messages. I also worked on the message GUI, including design and functionality. 
+My primary forcuz was the message package (phase2/MessagePackage), including functionality of sending/receiving a message, and the specificity of the different types of messages. I also worked on the message GUI, including design and functionality. 
 
 To use the program, run RunPresenter2 (included in GUI package in phase2)
 Login information for testing: (username,password)
@@ -11,6 +10,8 @@ To login as a Speaker: (user2,user2)
 To login as an Attendee: (user4, user4)
 You can also create a new user as the Organizer.
 (Note there are currently 30 sample user in userFile.ser that were created during our testing)
+
+
 
 
 Notes:
