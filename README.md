@@ -1,9 +1,9 @@
 # design-project
 
 My term project for CSC207: Software Design at the University of Toronto, Fall 2020. Completed in collaboration with six other UofT undergraduate students.
-My primary forcuz was the message package (phase2/MessagePackage), including functionality of sending/receiving a message, and the specificity of the different types of messages. I also worked on the message GUI, including design and functionality. 
+My primary forcuz was the message package (phase2/src/MessagePackage), including functionality of sending/receiving a message, and the specificity of the different types of messages. I also worked on the message GUI, including design and functionality. 
 
-To use the program, run RunPresenter2 (included in GUI package in phase2)
+To use the program, run RunPresenter2 (included in GUI package - phase2/src/GUI)
 Login information for testing: (username,password)
 To login as an Organizer: (user1, user1)
 To login as a Speaker: (user2,user2)
@@ -18,7 +18,7 @@ Notes:
 You may ignore the phase1 folder and code, as it was optimized into phase2. 
 
 For UserTest, you might find that the program won't run due to a missing import.
-To resolve this, hover over [ import static org.junit.Assert.*; ] and press import
+To resolve this, hover over [import static org.junit.Assert.*;] and press import
 class path. I also pushed a new test on December 14.
 
 For the gateways, if you are running into a file not found exception upon login
