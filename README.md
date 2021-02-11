@@ -1,7 +1,7 @@
 # design-project
 
 My term project for CSC207: Software Design at the University of Toronto, Fall 2020. Completed in collaboration with six other UofT undergraduate students.
-My primary forcuz was the message package (phase2/src/MessagePackage), including functionality of sending/receiving a message, and the specificity of the different types of messages. I also worked on the message GUI, including design and functionality. 
+My primary focus was the message package (phase2/src/MessagePackage), including functionality of sending/receiving a message, and the specificity of the different types of messages. I also worked on the message GUI, including design and functionality. 
 
 To use the program, run RunPresenter2 (included in GUI package - phase2/src/GUI)
 Login information for testing: (username,password)
